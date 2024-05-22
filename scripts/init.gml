@@ -5,7 +5,103 @@ rainfontbig = font_get("_rfontbig");
 
 //=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//
 
-//                           ATTACK/WINDOW INDEXES                            //
+// RTY -> Rarity
+RTY_COMMON = 0;
+RTY_UNCOMMON = 1;
+RTY_RARE = 2;
+
+//ITP -> Item Type
+ITP_LEGENDARY = -1;
+ITP_DAMAGE = 0;
+ITP_KNOCKBACK = 1;
+ITP_HEALING = 2;
+ITP_SPEED = 3;
+ITP_CRITICAL = 4;
+ITP_ATTACK_SPEED = 5;
+ITP_BARRIER = 6;
+num_itp_indices = 7; // update as needed! excludes legendary.
+
+// IG -> Item grid
+IG_NAME = 0;
+IG_RARITY = 1;
+IG_TYPE = 2;
+IG_NUM_HELD = 3;
+IG_SPRITE = 4;
+
+//=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
+
+// Item Grid
+// Format: see IG indices above
+item_grid = [
+    ["Crowbar",         RTY_COMMON,     ITP_DAMAGE,     0, sprite_get("null")],
+    ["Warbanner",       RTY_COMMON,     ITP_DAMAGE,     0, sprite_get("null")],
+    ["Kjaro's Band",    RTY_UNCOMMON,   ITP_DAMAGE,     0, sprite_get("null")],
+    ["Runald's Band",   RTY_UNCOMMON,   ITP_KNOCKBACK,  0, sprite_get("null")],
+    ["Photon Jetpack",  RTY_RARE,       ITP_SPEED,      0, sprite_get("null")],
+    ["57 Leaf Clover",  RTY_RARE,       ITP_LEGENDARY,  0, sprite_get("null")]
+]
+
+// Randomizer index stores
+rnd_index_store = array_create(3); // 3*num_itp_indices store of lists
+rnd_legend_index_store = array_create(3); // store of 3 lists
+for (var rty = 0; rty < 3; rty++) {
+    rnd_index_store[rty] = array_create(num_itp_indices);
+    for (var itp = 0; itp < num_itp_indices; itp++) {
+        rnd_index_store[@ rty][@ itp] = [];
+    }
+    
+    rnd_legend_index_store[rty] = [];
+}
+
+// Randomizer properties
+legendaries_remaining = array_create(3, 0); // to be initialized
+rares_remaining = 3;
+
+// Type values: absolute probability that a category will be rolled within a given rarity.
+// Only common is set here; uncommon and rare are generated dynamically based on the
+// number of items in each category and their weights.
+// Legendary items are handled differently and thus not included here.
+type_values = [
+    // In order of ITP indices (see above)
+    [6, 6, 3, 6, 5, 5, 3],  // commons
+    array_create(7, 0),     // uncommons
+    array_create(7, 0),     // rares
+]
+
+// Type weights: the probability weights for any single item of a given rarity and type.
+// The type_value of a given type/rarity will be reduced by this value upon pulling it.
+// Common items are handled differently and are set to zero.
+type_weights = [
+    // In order of ITP indices (see above)
+    array_create(7, 0),     // commons
+    [6, 6, 3, 6, 5, 5, 3],  // uncommons
+    [6, 6, 3, 6, 5, 5, 3],  // rares
+]
+
+// Populate randomizer info
+for (var iid = 0; iid < array_length(item_grid); iid++) {
+    var rty = item_grid[iid][IG_RARITY];
+    var itp = item_grid[iid][IG_TYPE];
+    if (itp == ITP_LEGENDARY) {
+        array_push(rnd_legend_index_store[rty], iid);
+        legendaries_remaining[rty]++;
+    }
+    else {
+        for (var n = 0; n < (rty == RTY_UNCOMMON ? 3 : 1); n++) { // add 3 instances to the pool for uncommons
+            array_push(rnd_index_store[rty][itp], iid);
+            if (rty != RTY_COMMON) {
+                type_values[@ rty][@ itp] = type_values[rty][itp] + type_weights[rty][itp];
+            }
+        }
+        
+    }
+}
+
+// Inventory store
+inventory_list = ds_list_create();
+
+
+//                      TEMPLATE ATTACK/WINDOW INDEXES                        //
 
 /*
 - free attack data indexes technically start at 24 up to 99, went with 30 to
@@ -77,9 +173,7 @@ through enemies, otherwise it might just despawn on hit
 */
 
 
-//=-(                    ~~//** CUSTOM VARIABLES **//~~                    )-=//
-//                              PUT YOURS HERE                                //
-blocktimer = 0;
+//=-(                    ~~//** TEMPLATE VARIABLES **//~~                    )-=//
 
 
 //                               PRE-SET STUFF                                //
