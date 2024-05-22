@@ -6,12 +6,13 @@ rainfontbig = font_get("_rfontbig");
 //=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//
 
 // RTY -> Rarity
+RTY_DUMMY = -1; // for if an item needs to be dummied out
 RTY_COMMON = 0;
 RTY_UNCOMMON = 1;
 RTY_RARE = 2;
 
 //ITP -> Item Type
-ITP_LEGENDARY = -1;
+ITP_LEGENDARY = -1; // special type
 ITP_DAMAGE = 0;
 ITP_KNOCKBACK = 1;
 ITP_HEALING = 2;
@@ -32,6 +33,7 @@ IG_SPRITE = 4;
 
 // Item Grid
 // Format: see IG indices above
+// Items can safely be reordered for now. *This will not be the case once item functionality is implemented!!*
 item_grid = [
     ["Crowbar",         RTY_COMMON,     ITP_DAMAGE,     0, sprite_get("null")],
     ["Warbanner",       RTY_COMMON,     ITP_DAMAGE,     0, sprite_get("null")],
@@ -86,7 +88,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
         array_push(rnd_legend_index_store[rty], iid);
         legendaries_remaining[rty]++;
     }
-    else {
+    else /*if (rty != RTY_DUMMY)*/ {
         for (var n = 0; n < (rty == RTY_UNCOMMON ? 3 : 1); n++) { // add 3 instances to the pool for uncommons
             array_push(rnd_index_store[rty][itp], iid);
             if (rty != RTY_COMMON) {
@@ -98,7 +100,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = ds_list_create();
+inventory_list = [];
 
 
 //                      TEMPLATE ATTACK/WINDOW INDEXES                        //
