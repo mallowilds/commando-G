@@ -2,8 +2,8 @@
 
 Item system ~ groundwork
 - Item HUD display (toss in some beta icons)
-- Item granting routine (no visuals for now)
-    * func generate_item(common_weight, uncommon_weight, rare_weight)
+- Item granting routine (no visuals for now) <done>
+    * func generate_item(common_weight, uncommon_weight, rare_weight)  <done>
         calls func apply_item(item_id) (might farm out to a user_event?)
         return item_id
     * func show_item_info()

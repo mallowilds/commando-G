@@ -1,15 +1,9 @@
 //a
 
-print_debug("Obtained " + item_grid[generate_item(40, 40, 200)][IG_NAME]);
 
-print_debug("----")
-for (var i = 0; i < array_length(inventory_list); i++) {
-	var iid = inventory_list[i]
-	var item_name = item_grid[iid][IG_NAME];
-	var item_rarity = rarity_names[item_grid[iid][IG_RARITY]];
-	var item_type = (item_grid[iid][IG_TYPE] == -1 ? legendary_type_name : item_type_names[item_grid[iid][IG_TYPE]]);
-	print_debug(item_name + " x" + string(item_grid[iid][IG_NUM_HELD]) + " | " + item_rarity + " | " + item_type);
-}
+
+var iid = generate_item(40, 40, 200)
+print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
 
 
 // reset idle_air_looping if the character isn't in air idle anymore
@@ -62,13 +56,26 @@ if (rares_remaining <= 0) rarity_weights[2] = 0;
 var rarity = random_weighted_roll(item_seed, rarity_weights);
 item_seed = (item_seed + 1) % 200;
 
-print_debug("Rarity: " + rarity_names[rarity]);
-
 // Attempt to generate a legendary item
 var rnd_legendary = random_func_2(item_seed, 1, false);
 item_seed = (item_seed + 1) % 200;
 if (rnd_legendary <= legendary_odds && legendaries_remaining[rarity] > 0) {
-	// generate a legendary
+	var num_items = array_length(rnd_legend_index_store[rarity]);
+	var access_index = random_func_2(num_items, 1, false);
+	item_seed = (item_seed + 1) % 200;
+	var item_id = rnd_legend_index_store[rarity][access_index];
+	
+	// Update item/probability properties to account for new item
+	array_push(inventory_list, item_id); // only 1 of each legendary item
+	item_grid[@ item_id][@ IG_NUM_HELD] = 1;
+	legendaries_remaining[rarity]--;
+	
+	// Remove legendary from item pool
+	for (var i = access_index; i < num_items-1; i++) {
+		rnd_legend_index_store[@ rarity][@ i] = rnd_legend_index_store[rarity][i+1];
+	}
+	rnd_legend_index_store[@ rarity] = array_slice(rnd_legend_index_store[rarity], 0, num_items-1);
+	
 	return -1; // replace with item id
 }
 
@@ -85,12 +92,15 @@ if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
 item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
 type_values[@ rarity][@ item_type] -= type_weights[rarity][item_type]; // update weights
 if (rarity = RTY_RARE) rares_remaining--;
+if (rarity = RTY_UNCOMMON) uncommons_remaining--;
 // remove item instance from rnd_index_store
-var new_indices = [];
-for (var i = 0; i < num_items; i++) {
-	if (i != access_index) array_push(new_indices, rnd_index_store[rarity][item_type][i]);
+if (rarity != RTY_COMMON) {
+	for (var i = access_index; i < num_items-1; i++) {
+		rnd_index_store[@ rarity][@ item_type][@ i] = rnd_index_store[rarity][item_type][i+1];
+	}
+	rnd_index_store[@ rarity][@ item_type] = array_slice(rnd_index_store[rarity][item_type], 0, num_items-1);
 }
-rnd_index_store[@ rarity][@ item_type] = new_indices;
+
 
 apply_item(item_id);
 

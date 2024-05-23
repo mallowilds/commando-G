@@ -49,6 +49,7 @@ item_grid = [
     ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, sprite_get("null")], // 
     ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, sprite_get("null")], // 
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, sprite_get("null")], // 
+    ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    0, sprite_get("null")], // 
     ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, sprite_get("null")], // 
     ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, sprite_get("null")], // 
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, sprite_get("null")], // 

@@ -25,5 +25,21 @@ draw_set_font( asset_get("fName") );
 draw_set_halign( fa_center );
 draw_text_color( temp_x + 180, temp_y - 264, "All of your attacks explode!", c_black, c_black, c_black, c_black, 1 );
 draw_text_color( temp_x + 182, temp_y - 264, "All of your attacks explode!", c_white, c_white, c_white, c_white, 1 );
+*/
 
+if ("inventory_list" not in self) exit;
 
+var vertical_spacing = 14;
+
+hud_x = temp_x - 8
+hud_y = temp_y - (vertical_spacing * array_length(inventory_list));
+
+for (var i = 0; i < array_length(inventory_list); i++) {
+	var iid = inventory_list[i]
+	var item_name = item_grid[iid][IG_NAME];
+	var item_rarity = rarity_names[item_grid[iid][IG_RARITY]];
+	var item_type = (item_grid[iid][IG_TYPE] == -1 ? legendary_type_name : item_type_names[item_grid[iid][IG_TYPE]]);
+	draw_debug_text(hud_x, hud_y, item_name + " x" + string(item_grid[iid][IG_NUM_HELD]) + " | " + item_rarity + " | " + item_type);
+	
+	hud_y += vertical_spacing;
+}
