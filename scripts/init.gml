@@ -445,8 +445,8 @@ techroll_recovery_frames        = 2;
 
 
 air_dodge_startup_frames        = 1;
-air_dodge_active_frames         = 2;
-air_dodge_recovery_frames       = 3;
+air_dodge_active_frames         = 1;
+air_dodge_recovery_frames       = 2;
 
 roll_forward_startup_frames     = 1;
 roll_forward_active_frames      = 3;
