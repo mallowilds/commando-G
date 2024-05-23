@@ -57,7 +57,10 @@ for (var rty = 0; rty < 3; rty++) {
 
 // Randomizer properties
 legendaries_remaining = array_create(3, 0); // to be initialized
-rares_remaining = 3;
+legendary_odds = 0.01 // global
+rares_remaining = 3; // manual limit, assumes that at least 3 rares exist
+uncommons_remaining = 0; // to be initialized
+item_seed = player * 5; // max 200, this should hold within the rivals engine
 
 // Type values: absolute probability that a category will be rolled within a given rarity.
 // Only common is set here; uncommon and rare are generated dynamically based on the
@@ -95,7 +98,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
                 type_values[@ rty][@ itp] = type_values[rty][itp] + type_weights[rty][itp];
             }
         }
-        
+        if (rty == RTY_UNCOMMON) uncommons_remaining += 3;
     }
 }
 

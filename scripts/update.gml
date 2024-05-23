@@ -1,5 +1,6 @@
 //a
 
+print_debug(generate_item(40, 40, 20));
 
 
 // reset idle_air_looping if the character isn't in air idle anymore
@@ -22,6 +23,69 @@ if (attack_air_limit_ver) {
 // init_shader(); //unused for now
 // composite vfx update
 update_comp_hit_fx();
+
+
+#define random_weighted_roll(seed, weight_array)
+// Picks one index from a given array of weights.
+// Each index's odds of being picked is (weight at index) / (total of weights in array)
+// Uses random_func_2, so 0 <= seed <= 200.
+var array_len = array_length(weight_array);
+var total_weight = 0;
+for (var i = 0; i < array_len; i++) {
+	total_weight += weight_array[i];
+}
+// on each loop, check if rand_int is less than the sum of all previous weights
+var rand_int = random_func_2(seed, total_weight, true);
+for (var i = 0; i < array_len; i++) {
+	if (rand_int < weight_array[i]) return i;
+	rand_int -= weight_array[i];
+}
+
+
+#define generate_item(common_weight, uncommon_weight, rare_weight)
+// Set rarity
+var rarity_weights = [common_weight, uncommon_weight, rare_weight]
+if (uncommons_remaining <= 0) uncommon_weight = 0;
+if (rares_remaining <= 0) rare_weight = 0;
+var rarity = random_weighted_roll(item_seed, rarity_weights);
+item_seed = (item_seed + 1) % 200;
+
+// Attempt to generate a legendary item
+var rnd_legendary = random_func_2(item_seed, 1, false);
+item_seed = (item_seed + 1) % 200;
+if (rnd_legendary <= legendary_odds && legendaries_remaining[rarity] > 0) {
+	// generate a legendary
+	return -1; // replace with item id
+}
+
+// Generate a standard item
+var item_type = random_weighted_roll(item_seed, type_values[rarity]);
+item_seed = (item_seed + 1) % 200;
+var num_items = array_length(rnd_index_store[rarity][item_type]);
+var access_index = random_func_2(num_items, 1, false);
+item_seed = (item_seed + 1) % 200;
+var item_id = rnd_index_store[rarity][item_type][access_index];
+
+// Update item/probability properties to account for new item
+item_grid[@ item_id][@ IG_NUM_HELD] += 1;
+type_values[@ rarity][@ item_type] -= type_weights[rarity][item_type]; // update weights
+if (rarity = RTY_RARE) rares_remaining--;
+// remove item instance from rnd_index_store
+var new_indices = [];
+for (var i = 0; i < num_items; i++) {
+	if (i != access_index) array_push(new_indices, rnd_index_store[rarity][item_type][i]);
+}
+rnd_index_store[@ rarity][@ item_type] = new_indices;
+
+apply_item(item_id);
+
+return item_id;
+
+
+#define apply_item(item_id)
+// todo
+return -1;
+
 
 #define update_comp_hit_fx
 //function updates comp_vfx_array

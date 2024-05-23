@@ -1,10 +1,10 @@
 /* TODO LIST (ordered~)
 
-Item system
+Item system ~ groundwork
 - Item HUD display (toss in some beta icons)
 - Item granting routine (no visuals for now)
     * func generate_item(common_weight, uncommon_weight, rare_weight)
-        calls func apply_item(item_id)
+        calls func apply_item(item_id) (might farm out to a user_event?)
         return item_id
     * func show_item_info()
         relies on below article
@@ -24,4 +24,8 @@ Item system
       up repeatedly once overridden
 - Lock tentative final item grid order
     * After this point, items can only safely be dummied out or added/moved to an empty/dummy slot
-- Proceed with item functionality
+    
+Item system ~ functionality
+- Stat modifiers
+- Crit flag management
+- Attack speed management
