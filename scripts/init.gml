@@ -11,6 +11,8 @@ RTY_COMMON = 0;
 RTY_UNCOMMON = 1;
 RTY_RARE = 2;
 
+rarity_names = ["Common", "Uncommon", "Rare"];
+
 //ITP -> Item Type
 ITP_LEGENDARY = -1; // special type
 ITP_DAMAGE = 0;
@@ -21,6 +23,9 @@ ITP_CRITICAL = 4;
 ITP_ATTACK_SPEED = 5;
 ITP_BARRIER = 6;
 num_itp_indices = 7; // update as needed! excludes legendary.
+
+item_type_names = ["Damage", "Knockback", "Healing", "Speed", "Critical", "Attack Speed", "Barrier"];
+legendary_type_name = "Legendary";
 
 // IG -> Item grid
 IG_NAME = 0;
@@ -35,12 +40,21 @@ IG_SPRITE = 4;
 // Format: see IG indices above
 // Items can safely be reordered for now. *This will not be the case once item functionality is implemented!!*
 item_grid = [
-    ["Crowbar",         RTY_COMMON,     ITP_DAMAGE,     0, sprite_get("null")],
-    ["Warbanner",       RTY_COMMON,     ITP_DAMAGE,     0, sprite_get("null")],
-    ["Kjaro's Band",    RTY_UNCOMMON,   ITP_DAMAGE,     0, sprite_get("null")],
-    ["Runald's Band",   RTY_UNCOMMON,   ITP_KNOCKBACK,  0, sprite_get("null")],
-    ["Photon Jetpack",  RTY_RARE,       ITP_SPEED,      0, sprite_get("null")],
-    ["57 Leaf Clover",  RTY_RARE,       ITP_LEGENDARY,  0, sprite_get("null")]
+    ["Crowbar",                 RTY_COMMON,     ITP_DAMAGE,       0, sprite_get("null")], // 0
+    ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, sprite_get("null")], // 1
+    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, sprite_get("null")], // 
+    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, sprite_get("null")], // 
+    ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, sprite_get("null")], // 
+    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, sprite_get("null")], // 
+    ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, sprite_get("null")], // 
+    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, sprite_get("null")], // 
+    ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, sprite_get("null")], // 
+    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, sprite_get("null")], // 
+    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, sprite_get("null")], // 
+    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, sprite_get("null")], // 
+    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, sprite_get("null")], // 
+    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, sprite_get("null")], // 
+    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, sprite_get("null")]
 ]
 
 // Randomizer index stores

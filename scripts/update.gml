@@ -1,6 +1,15 @@
 //a
 
-print_debug(generate_item(40, 40, 20));
+print_debug("Obtained " + item_grid[generate_item(40, 40, 200)][IG_NAME]);
+
+print_debug("----")
+for (var i = 0; i < array_length(inventory_list); i++) {
+	var iid = inventory_list[i]
+	var item_name = item_grid[iid][IG_NAME];
+	var item_rarity = rarity_names[item_grid[iid][IG_RARITY]];
+	var item_type = (item_grid[iid][IG_TYPE] == -1 ? legendary_type_name : item_type_names[item_grid[iid][IG_TYPE]]);
+	print_debug(item_name + " x" + string(item_grid[iid][IG_NUM_HELD]) + " | " + item_rarity + " | " + item_type);
+}
 
 
 // reset idle_air_looping if the character isn't in air idle anymore
@@ -37,7 +46,10 @@ for (var i = 0; i < array_len; i++) {
 // on each loop, check if rand_int is less than the sum of all previous weights
 var rand_int = random_func_2(seed, total_weight, true);
 for (var i = 0; i < array_len; i++) {
-	if (rand_int < weight_array[i]) return i;
+	if (rand_int < weight_array[i]) {
+		// print_debug("In: " + string(weight_array) + ", Out: " + string(i));
+		return i;
+	}
 	rand_int -= weight_array[i];
 }
 
@@ -45,10 +57,12 @@ for (var i = 0; i < array_len; i++) {
 #define generate_item(common_weight, uncommon_weight, rare_weight)
 // Set rarity
 var rarity_weights = [common_weight, uncommon_weight, rare_weight]
-if (uncommons_remaining <= 0) uncommon_weight = 0;
-if (rares_remaining <= 0) rare_weight = 0;
+if (uncommons_remaining <= 0) rarity_weights[1] = 0;
+if (rares_remaining <= 0) rarity_weights[2] = 0;
 var rarity = random_weighted_roll(item_seed, rarity_weights);
 item_seed = (item_seed + 1) % 200;
+
+print_debug("Rarity: " + rarity_names[rarity]);
 
 // Attempt to generate a legendary item
 var rnd_legendary = random_func_2(item_seed, 1, false);
@@ -67,7 +81,8 @@ item_seed = (item_seed + 1) % 200;
 var item_id = rnd_index_store[rarity][item_type][access_index];
 
 // Update item/probability properties to account for new item
-item_grid[@ item_id][@ IG_NUM_HELD] += 1;
+if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
+item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
 type_values[@ rarity][@ item_type] -= type_weights[rarity][item_type]; // update weights
 if (rarity = RTY_RARE) rares_remaining--;
 // remove item instance from rnd_index_store
