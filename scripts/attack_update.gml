@@ -20,6 +20,8 @@ switch(attack) {
         if window == 1 && window_timer == window_length - 1 {
             sound_play(s_dag_swing)
         }
+        //mods bring out the
+        down_down = true
         break;
     case AT_UTILT:
         //a
