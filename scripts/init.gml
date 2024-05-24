@@ -6,6 +6,7 @@ rainfontbig = font_get("_rfontbig");
 //=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//
 
 // RTY -> Rarity
+RTY_VOID = -2; // for items that cannot drop under normal circumstances
 RTY_DUMMY = -1; // for if an item needs to be dummied out
 RTY_COMMON = 0;
 RTY_UNCOMMON = 1;
@@ -92,8 +93,9 @@ item_grid = [
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
-    ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    0, noone, "Gain an extra life."], // 44 | Unimplemented
-    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 45 | Unimplemented
+    ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    1, noone, "Gain an extra life."], // 44 | Unimplemented
+    ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | Unimplemented
+    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
 ]
 
 // Randomizer index stores
@@ -140,11 +142,11 @@ type_weights = [
 for (var iid = 0; iid < array_length(item_grid); iid++) {
     var rty = item_grid[iid][IG_RARITY];
     var itp = item_grid[iid][IG_TYPE];
-    if (itp == ITP_LEGENDARY) {
+    if (itp == ITP_LEGENDARY && rty > RTY_DUMMY) {
         array_push(rnd_legend_index_store[rty], iid);
         legendaries_remaining[rty]++;
     }
-    else if (rty != RTY_DUMMY) {
+    else if (rty > RTY_DUMMY) {
         for (var n = 0; n < (rty == RTY_UNCOMMON ? 3 : 1); n++) { // add 3 instances to the pool for uncommons
             array_push(rnd_index_store[rty][itp], iid);
             if (rty != RTY_COMMON) {
@@ -156,7 +158,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [];
+inventory_list = [44];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -216,11 +218,16 @@ free_timer = 0; // H3AD-5T, used for fast falling
 
 fireboots_distance = 0;
 fireboots_prev_x = x;
-fireboots_threshold = 28;
+fireboots_threshold = 26;
+
+dios_revive_timer = 0;
+dios_revive_wait = 50;
+dios_invince_time = 60;
 
 //          Sound Effects (gonna use init this time, wanna see if it makes it easier)                //
-s_dag_swing = sound_get("cm_dagger_swing")
-s_cbar = sound_get("cm_crowbar")
+s_dag_swing = sound_get("cm_dagger_swing");
+s_cbar = sound_get("cm_crowbar");
+s_dios = sound_get("cm_item_dios");
 
 //
 
