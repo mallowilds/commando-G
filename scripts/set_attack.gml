@@ -1,5 +1,14 @@
 //a
 
+if (attack == AT_TAUNT) {
+    if (up_down) attack = utaunt_index;
+    else if (down_down) attack = dtaunt_index;
+    else attack = ntaunt_index;
+}
+
+if (attack == AT_USTRONG) attack = ustrong_index;
+
+
 //reset number of windows in case of a grab
 reset_attack_value(attack,AG_NUM_WINDOWS);
 

@@ -1,9 +1,11 @@
 //a
 
 
-
-var iid = generate_item(40, 40, 200)
-print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
+// temp
+if (state == PS_PARRY && state_timer == 0) {
+	var iid = generate_item(100, 0, 00)
+	print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
+}
 
 
 // reset idle_air_looping if the character isn't in air idle anymore
@@ -60,6 +62,7 @@ item_seed = (item_seed + 1) % 200;
 var rnd_legendary = random_func_2(item_seed, 1, false);
 item_seed = (item_seed + 1) % 200;
 if (rnd_legendary <= legendary_odds && legendaries_remaining[rarity] > 0) {
+	
 	var num_items = array_length(rnd_legend_index_store[rarity]);
 	var access_index = random_func_2(num_items, 1, false);
 	item_seed = (item_seed + 1) % 200;
@@ -76,40 +79,39 @@ if (rnd_legendary <= legendary_odds && legendaries_remaining[rarity] > 0) {
 	}
 	rnd_legend_index_store[@ rarity] = array_slice(rnd_legend_index_store[rarity], 0, num_items-1);
 	
-	return -1; // replace with item id
 }
 
-// Generate a standard item
-var item_type = random_weighted_roll(item_seed, type_values[rarity]);
-item_seed = (item_seed + 1) % 200;
-var num_items = array_length(rnd_index_store[rarity][item_type]);
-var access_index = random_func_2(num_items, 1, false);
-item_seed = (item_seed + 1) % 200;
-var item_id = rnd_index_store[rarity][item_type][access_index];
-
-// Update item/probability properties to account for new item
-if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
-item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
-type_values[@ rarity][@ item_type] -= type_weights[rarity][item_type]; // update weights
-if (rarity = RTY_RARE) rares_remaining--;
-if (rarity = RTY_UNCOMMON) uncommons_remaining--;
-// remove item instance from rnd_index_store
-if (rarity != RTY_COMMON) {
-	for (var i = access_index; i < num_items-1; i++) {
-		rnd_index_store[@ rarity][@ item_type][@ i] = rnd_index_store[rarity][item_type][i+1];
+else {
+	
+	// Generate a standard item
+	var item_type = random_weighted_roll(item_seed, type_values[rarity]);
+	item_seed = (item_seed + 1) % 200;
+	var num_items = array_length(rnd_index_store[rarity][item_type]);
+	var access_index = random_func_2(item_seed, num_items, false);
+	item_seed = (item_seed + 1) % 200;
+	var item_id = rnd_index_store[rarity][item_type][access_index];
+	
+	// Update item/probability properties to account for new item
+	if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
+	item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
+	type_values[@ rarity][@ item_type] -= type_weights[rarity][item_type]; // update weights
+	if (rarity = RTY_RARE) rares_remaining--;
+	if (rarity = RTY_UNCOMMON) uncommons_remaining--;
+	// remove item instance from rnd_index_store
+	if (rarity != RTY_COMMON) {
+		for (var i = access_index; i < num_items-1; i++) {
+			rnd_index_store[@ rarity][@ item_type][@ i] = rnd_index_store[rarity][item_type][i+1];
+		}
+		rnd_index_store[@ rarity][@ item_type] = array_slice(rnd_index_store[rarity][item_type], 0, num_items-1);
 	}
-	rnd_index_store[@ rarity][@ item_type] = array_slice(rnd_index_store[rarity][item_type], 0, num_items-1);
+	
 }
 
-
-apply_item(item_id);
+// Apply item
+new_item_id = item_id;
+user_event(0);
 
 return item_id;
-
-
-#define apply_item(item_id)
-// todo
-return -1;
 
 
 #define update_comp_hit_fx

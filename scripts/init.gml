@@ -22,9 +22,11 @@ ITP_SPEED = 3;
 ITP_CRITICAL = 4;
 ITP_ATTACK_SPEED = 5;
 ITP_BARRIER = 6;
-num_itp_indices = 7; // update as needed! excludes legendary.
+ITP_EXPLOSIVE = 7;
+num_itp_indices = 8; // update as needed! excludes legendary.
+                     // be sure to also add a new entry to the weight and name arrays.
 
-item_type_names = ["Damage", "Knockback", "Healing", "Speed", "Critical", "Attack Speed", "Barrier"];
+item_type_names = ["Damage", "Knockback", "Healing", "Speed", "Critical", "Attack Speed", "Barrier", "Explosive"];
 legendary_type_name = "Legendary";
 
 // IG -> Item grid
@@ -32,7 +34,7 @@ IG_NAME = 0;
 IG_RARITY = 1;
 IG_TYPE = 2;
 IG_NUM_HELD = 3;
-IG_SPRITE = 4;
+IG_DESC = 4;
 
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 
@@ -40,22 +42,41 @@ IG_SPRITE = 4;
 // Format: see IG indices above
 // Items can safely be reordered for now. *This will not be the case once item functionality is implemented!!*
 item_grid = [
-    ["Crowbar",                 RTY_COMMON,     ITP_DAMAGE,       0, sprite_get("null")], // 0
-    ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, sprite_get("null")], // 1
-    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, sprite_get("null")], // 
-    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, sprite_get("null")], // 
-    ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, sprite_get("null")], // 
-    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, sprite_get("null")], // 
-    ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, sprite_get("null")], // 
-    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, sprite_get("null")], // 
-    ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, sprite_get("null")], // 
-    ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    0, sprite_get("null")], // 
-    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, sprite_get("null")], // 
-    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, sprite_get("null")], // 
-    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, sprite_get("null")], // 
-    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, sprite_get("null")], // 
-    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, sprite_get("null")], // 
-    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, sprite_get("null")]
+    ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, "Deal more damage & knockback to healthy enemies."], // 
+    ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, "Taunt to place down a powerful buffing Warbanner."], // 
+    ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       0, "Hurt enemies by fast-falling."], // 
+    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, "Strongs deal more Knockback."], // 
+    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, "Crouch to heal over time."], // 
+    ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, "Move faster."], // 
+    ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        0, "Dash faster."], // 
+    ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        0, "Move faster after reaching 100%."], // 
+    ["Hermit Scarf",            RTY_COMMON,     ITP_SPEED,        0, "Parry, rolls, and airdodges have more invulnerability."], // 
+    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, "Gain 10% barrier on kill."], // 
+    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, "Critical Strikes deal more damage."], // 
+    ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, "Critical Strikes bleed opponents, dealing damage over time."], // 
+    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, "Critical Strikes briefly stun opponents."], // 
+    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, "Increased attack speed."], // 
+    ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, "Slightly increased movement & attack speed."], // 
+    ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, "Explosive attacks attach a little more firepower."], // 
+    ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, "Explosive attacks set enemies on fire."], // 
+    ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    0, "I'm coming home soon. Stay strong."], // 
+    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, ""], // 
+    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, ""], // 
+    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, ""], // 
+    ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, ""], // 
+    ["Guardian Heart",          RTY_UNCOMMON,   ITP_HEALING,      0, ""], // 
+    ["Locked Jewel",            RTY_UNCOMMON,   ITP_HEALING,      0, ""], // 
+    ["Monster Tooth",           RTY_UNCOMMON,   ITP_HEALING,      0, ""], // 
+    ["Ignition Tank",           RTY_UNCOMMON,   ITP_CRITICAL,     0, ""], // 
+    ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, ""], // 
+    ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, ""], // 
+    ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, ""], // 
+    ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        0, ""], // 
+    ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    0, ""], // 
+    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, ""], // 
+    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, ""], // 
+    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, ""], // 
+    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, ""], //
 ]
 
 // Randomizer index stores
@@ -83,9 +104,9 @@ item_seed = player * 5; // max 200, this should hold within the rivals engine
 // Legendary items are handled differently and thus not included here.
 type_values = [
     // In order of ITP indices (see above)
-    [6, 6, 3, 6, 5, 5, 3],  // commons
-    array_create(7, 0),     // uncommons
-    array_create(7, 0),     // rares
+    [6, 6, 3, 6, 5, 5, 3, 5],  // commons
+    array_create(num_itp_indices, 0),     // uncommons
+    array_create(num_itp_indices, 0),     // rares
 ]
 
 // Type weights: the probability weights for any single item of a given rarity and type.
@@ -93,9 +114,9 @@ type_values = [
 // Common items are handled differently and are set to zero.
 type_weights = [
     // In order of ITP indices (see above)
-    array_create(7, 0),     // commons
-    [6, 6, 3, 6, 5, 5, 3],  // uncommons
-    [6, 6, 3, 6, 5, 5, 3],  // rares
+    array_create(num_itp_indices, 0),     // commons
+    [6, 6, 3, 6, 5, 5, 3, 5],  // uncommons
+    [6, 6, 3, 6, 5, 5, 3, 5],  // rares
 ]
 
 // Populate randomizer info
@@ -119,6 +140,23 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 
 // Inventory store
 inventory_list = [];
+
+// For use by item init (user_event0)
+new_item_id = noone;
+
+
+// Item variables
+// Keyword trackers
+critical_active = 0     // enables checks for crit items
+explosive_active = 0    // enables checks for explosive items
+attack_speed_count = 1  // inits to 1, goes up with attack speed items
+move_speed_count = 0    // inits to 0, goes up with items like Paul's Goat Hoof
+
+// Attack overwrites (see set_attack.gml)
+ntaunt_index = AT_TAUNT // taunts altered by Ukelele/Warbanner
+utaunt_index = AT_TAUNT
+dtaunt_index = AT_TAUNT
+ustrong_index = AT_USTRONG // altered by Ukelele
 
 
 //                      TEMPLATE ATTACK/WINDOW INDEXES                        //
