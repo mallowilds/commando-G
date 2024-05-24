@@ -65,6 +65,9 @@ switch(state) {
         if prev_state = PS_AIR_DODGE {
             image_index =  image_number-1
         }
+        if prev_state = PS_DOUBLE_JUMP {
+            image_index =  image_number-1
+        }
         // Animation for when dropping from a platform
         if (idle_air_platfalls && !idle_air_looping) {
             if (state_timer == 1 && prev_state == PS_CROUCH && ground_type == 2) {

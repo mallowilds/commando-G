@@ -208,6 +208,11 @@ bungus_tick_time = 30; // Heal 1% every n/(bungus count) frames
 
 free_timer = 0; // H3AD-5T, used for fast falling
 
+//          Sound Effects (gonna use init this time, wanna see if it makes it easier)                //
+s_dag_swing = sound_get("cm_dagger_swing")
+//
+
+
 // 
 
 //                      TEMPLATE ATTACK/WINDOW INDEXES                        //
