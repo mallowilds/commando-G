@@ -206,6 +206,8 @@ bungus_timer = 0;
 bungus_wait_time = 90;
 bungus_tick_time = 30; // Heal 1% every n/(bungus count) frames
 
+free_timer = 0; // H3AD-5T, used for fast falling
+
 // 
 
 //                      TEMPLATE ATTACK/WINDOW INDEXES                        //

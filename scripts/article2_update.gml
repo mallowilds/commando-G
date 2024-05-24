@@ -1,6 +1,7 @@
 
 // article2_update - runs every frame the article exists
 // Message boxes.
+// NOTE: Due to unstable text function behavior within articles, drawing is handled in pre_draw.gml
 
 /*STATE LIST
 

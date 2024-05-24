@@ -2,8 +2,8 @@
 
 
 // temp
-if false || (state == PS_PARRY && state_timer == 0) {
-	var iid = generate_item(40, 40, 100)
+if (get_gameplay_time() % 10 == 11) || (state == PS_PARRY && state_timer == 0) {
+	var iid = generate_item(50, 30, 20)
 	var popup = instance_create(x-60, y-90, "obj_article2");
 	popup.item_id = iid;
 	//print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
@@ -102,6 +102,15 @@ if (item_grid[22][IG_NUM_HELD] != 0) {
 		heart_barrier_timer = 0;
 	}
 	heart_barrier_timer++;
+}
+
+// H3AD-5T V2
+if (item_grid[38][IG_NUM_HELD] != 0) { 
+	free_timer++;
+	if (!free) free_timer = 0;
+	else if (free_timer >= 8 && can_fast_fall && vsp < 0 && down_hard_pressed) {
+		vsp = 0; // forces fast fall next frame
+	}
 }
 
 //#endregion

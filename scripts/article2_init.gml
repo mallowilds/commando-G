@@ -2,6 +2,7 @@
 // article2_init - runs once, when the article is created
 // Message boxes.
 // Reliant on creator to pass in certain fields, which are marked below.
+// NOTE: Due to unstable text function behavior within articles, drawing is handled in pre_draw.gml
 
 //Sprite and direction
 sprite_index = sprite_get("null");
