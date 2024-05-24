@@ -17,7 +17,9 @@ switch(attack) {
         //a
         break;
     case AT_DTILT:
-        //a
+        if window == 1 && window_timer == window_length - 1 {
+            sound_play(s_dag_swing)
+        }
         break;
     case AT_UTILT:
         //a

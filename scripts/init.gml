@@ -212,6 +212,11 @@ fireboots_distance = 0;
 fireboots_prev_x = x;
 fireboots_threshold = 28;
 
+//          Sound Effects (gonna use init this time, wanna see if it makes it easier)                //
+s_dag_swing = sound_get("cm_dagger_swing")
+//
+
+
 // 
 
 //                      TEMPLATE ATTACK/WINDOW INDEXES                        //
