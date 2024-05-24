@@ -2,10 +2,12 @@
 
 
 // temp
-if (state == PS_PARRY && state_timer == 0) {
-	var iid = generate_item(100, 0, 00)
+if false || (state == PS_PARRY && state_timer == 0) {
+	var iid = generate_item(40, 40, 100)
 	print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
 }
+
+
 
 
 // reset idle_air_looping if the character isn't in air idle anymore
@@ -23,6 +25,14 @@ if (attack_air_limit_ver) {
 		attack_air_limit_ver = false;
 	}
 }
+
+//#region Reset fractional damage on enemy death
+with object_index {
+    if (!clone && (state == PS_DEAD || state == PS_RESPAWN)) {
+        u_mult_damage_buffer = 0;
+    }
+}
+//#endregion
 
 // character recoloring / applying shade values
 // init_shader(); //unused for now
@@ -68,11 +78,7 @@ if (rnd_legendary <= legendary_odds && legendaries_remaining[rarity] > 0) {
 	item_seed = (item_seed + 1) % 200;
 	var item_id = rnd_legend_index_store[rarity][access_index];
 	
-	// Update item/probability properties to account for new item
-	array_push(inventory_list, item_id); // only 1 of each legendary item
-	item_grid[@ item_id][@ IG_NUM_HELD] = 1;
 	legendaries_remaining[rarity]--;
-	
 	// Remove legendary from item pool
 	for (var i = access_index; i < num_items-1; i++) {
 		rnd_legend_index_store[@ rarity][@ i] = rnd_legend_index_store[rarity][i+1];
@@ -91,11 +97,8 @@ else {
 	item_seed = (item_seed + 1) % 200;
 	var item_id = rnd_index_store[rarity][item_type][access_index];
 	
-	// Update item/probability properties to account for new item
-	if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
-	item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
+	// Update probability properties to account for new item
 	type_values[@ rarity][@ item_type] -= type_weights[rarity][item_type]; // update weights
-	if (rarity = RTY_RARE) rares_remaining--;
 	if (rarity = RTY_UNCOMMON) uncommons_remaining--;
 	// remove item instance from rnd_index_store
 	if (rarity != RTY_COMMON) {
@@ -107,9 +110,17 @@ else {
 	
 }
 
-// Apply item
-new_item_id = item_id;
-user_event(0);
+// Apply item (or roll for a new one if a conflict occured)
+var incompat_index = item_grid[item_id][IG_INCOMPATIBLE]
+if (incompat_index == noone || item_grid[incompat_index][IG_NUM_HELD] == 0) {
+	if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
+	item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
+	new_item_id = item_id;
+	if (rarity = RTY_RARE) rares_remaining--;
+	user_event(0);
+}
+else item_id = generate_item(common_weight, uncommon_weight, rare_weight);
+
 
 return item_id;
 
