@@ -147,54 +147,34 @@ if (item_grid[38][IG_NUM_HELD] != 0) {
 }
 
 // Dio's Best Friend
-if (item_grid[44][IG_NUM_HELD] > 0) {
-	var dying = (x + hsp < get_stage_data(SD_LEFT_BLASTZONE_X));
-	dying = dying || (x + hsp > get_stage_data(SD_RIGHT_BLASTZONE_X));
-	dying = dying || (y + vsp > get_stage_data(SD_BOTTOM_BLASTZONE_Y));
-	dying = dying || (y + vsp < get_stage_data(SD_TOP_BLASTZONE_Y) && state_cat == SC_HITSTUN);
-	if (dying && dios_revive_timer == 0) {
-		sound_play(s_dios);
-		dios_revive_timer = dios_revive_wait;
-		set_state(PS_HITSTUN);
+
+if (dios_revive_timer > 0) {
+	dios_revive_timer--;
+	set_state(PS_HITSTUN);
+	hitstop = 3;
+	
+	if (dios_revive_timer == 0) {
+		set_state(PS_IDLE_AIR);
+		take_damage(player, player, dios_stored_damage);
 		initial_invince = 1;
-		invince_time = dios_revive_wait + 4;
-		hitstop = 3;
-		hitstop_full = 3;
-		hitpause = true;
+		invince_time = dios_invince_time;
+		visible = true;
 		
-		hsp = 0;
-		vsp = 0;
-		old_hsp = 0;
-		old_vsp = 0;
-	}
-	if (dios_revive_timer > 0) {
-		dios_revive_timer--;
-		hitstop = 3;
+		item_grid[@ 44][@ IG_NUM_HELD]--;
+		item_grid[@ 45][@ IG_NUM_HELD]++; // spent dios
+		if (item_grid[45][IG_NUM_HELD] == 1) array_push(inventory_list, 45);
+		var popup = instance_create(x-60, y-90, "obj_article2");
+		popup.item_id = 45;
 		
-		if (dios_revive_timer == 0) {
-			set_state(PS_IDLE_AIR);
-			x = get_stage_data(SD_X_POS) + floor(get_stage_data(SD_WIDTH)/2);
-			y = get_stage_data(SD_Y_POS) - 60;
-			take_damage(player, player, -20);
-			initial_invince = 1;
-			invince_time = dios_invince_time;
-			
-			item_grid[@ 44][@ IG_NUM_HELD]--;
-			item_grid[@ 45][@ IG_NUM_HELD]++; // spent dios
-			if (item_grid[45][IG_NUM_HELD] == 1) array_push(inventory_list, 45);
-			var popup = instance_create(x-60, y-90, "obj_article2");
-			popup.item_id = 45;
-			
-			if (item_grid[44][IG_NUM_HELD] == 0) {
-				var i = 0;
-				var num_items = array_length(inventory_list)
-				while (inventory_list[i] != 44) i++;
-				while (i < num_items-1) {
-					inventory_list[i] = inventory_list[i+1];
-					i++;
-				}
-				inventory_list = array_slice(inventory_list, 0, num_items-1);
+		if (item_grid[44][IG_NUM_HELD] == 0) {
+			var i = 0;
+			var num_items = array_length(inventory_list)
+			while (inventory_list[i] != 44) i++;
+			while (i < num_items-1) {
+				inventory_list[i] = inventory_list[i+1];
+				i++;
 			}
+			inventory_list = array_slice(inventory_list, 0, num_items-1);
 		}
 	}
 }

@@ -93,8 +93,8 @@ item_grid = [
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
-    ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    1, noone, "Gain an extra life."], // 44 | Unimplemented
-    ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | Unimplemented
+    ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    1, noone, "Gain an extra life."], // 44 | update.gml, death.gml
+    ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
 ]
 
@@ -223,6 +223,7 @@ fireboots_threshold = 26;
 dios_revive_timer = 0;
 dios_revive_wait = 50;
 dios_invince_time = 60;
+dios_stored_damage = 0;
 
 //          Sound Effects (gonna use init this time, wanna see if it makes it easier)                //
 s_dag_swing = sound_get("cm_dagger_swing");
