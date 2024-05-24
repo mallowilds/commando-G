@@ -5,7 +5,7 @@ Item category management reqs:
 Probability flags
 Common/uncommon/rare [fixed]
 Damage/knockback/healing/speed/barrier [rare/legendary: weights adjust based on remaining items]
-Legendary/Non-legendary [
+Legendary/Non-legendary 
 
 Effect flags
 Critical
@@ -43,8 +43,6 @@ type_weights[rarity, type] (the value of any single item within a type's value.)
                            (used for decrementing uncommon/rare type values.)
                            (for ease of implementation, commons have a weight of 0.)
 * To avoid issues with floats, all values/weights are stored as integers.
-
-__ TODO \/ __
 
 Stat flags
 has_critical (enables checks for crit effects)

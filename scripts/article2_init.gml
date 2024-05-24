@@ -1,0 +1,29 @@
+
+// article2_init - runs once, when the article is created
+// Message boxes.
+// Reliant on creator to pass in certain fields, which are marked below.
+
+//Sprite and direction
+sprite_index = sprite_get("null");
+image_index = 0;
+spr_dir = player_id.spr_dir;
+uses_shader = false;
+mask_index = sprite_get("null");
+
+//State
+state = 0;
+state_timer = 0;
+item_id = noone;
+hitstop = 0;
+//hsp = 0;
+//vsp = 0;
+
+//Terrain behavior
+can_be_grounded = false;
+ignores_walls = false;
+free = true;
+hit_wall = false;
+
+// Visual
+draw_alpha = 1;
+draw_flash = 0;

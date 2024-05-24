@@ -2,6 +2,36 @@
 
 
 
+//#region Damage multipliers
+
+// Crowbar handing
+var crowbar_mult_add = (get_player_damage(hit_player_obj.player) - my_hitboxID.damage > 50 ? 0 : 0.5 * item_grid[0][IG_NUM_HELD]);
+
+// Base amp
+var mult_damage_add = my_hitboxID.damage * (multiplier + crowbar_mult_add);
+take_damage(hit_player_obj.player, player, floor(mult_damage_add));
+
+// Buffer non-integer damage, apply buffer as needed
+if (!hit_player_obj.clone) {
+	hit_player_obj.u_mult_damage_buffer += mult_damage_add - floor(mult_damage_add);
+	if (hit_player_obj.u_mult_damage_buffer >= 1) {
+	    take_damage(hit_player_obj.player, player, floor(hit_player_obj.u_mult_damage_buffer));
+	    hit_player_obj.u_mult_damage_buffer -= floor(hit_player_obj.u_mult_damage_buffer);
+	}
+}
+
+//#endregion
+
+//#region Kill tracking
+
+if (!hit_player_obj.clone && recently_hit[hit_player_obj.player-1] == noone) {
+	recently_hit[hit_player_obj.player-1] = hit_player_obj;
+	num_recently_hit++;
+}
+
+//#endregion
+
+
 
 // hitbox lerp code
 if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_LERP) == true) {

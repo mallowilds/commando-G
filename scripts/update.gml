@@ -2,10 +2,14 @@
 
 
 // temp
-if (state == PS_PARRY && state_timer == 0) {
-	var iid = generate_item(100, 0, 00)
-	print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
+if false || (state == PS_PARRY && state_timer == 0) {
+	var iid = generate_item(40, 40, 100)
+	var popup = instance_create(x-60, y-90, "obj_article2");
+	popup.item_id = iid;
+	//print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
 }
+
+
 
 
 // reset idle_air_looping if the character isn't in air idle anymore
@@ -24,11 +28,139 @@ if (attack_air_limit_ver) {
 	}
 }
 
+//#region dodge_duration_add management
+
+switch state {
+	case PS_PARRY_START:
+		dodge_duration_timer = 0;
+		break;
+	
+	case PS_AIR_DODGE:
+		if (state_timer == 0) dodge_duration_timer = 0;
+	
+	case PS_PARRY:
+	case PS_ROLL_BACKWARD:
+	case PS_ROLL_FORWARD:
+		if (state_timer == 6 && dodge_duration_timer < dodge_duration_add) {
+			dodge_duration_timer++;
+			state_timer--;
+			window_timer--;
+		}
+		break;
+		
+}
+
+
+//#endregion
+
+//#region Kill detection
+
+if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
+	if (recently_hit[i] != noone) {
+		if (!instance_exists(recently_hit[i]) || recently_hit[i].state == PS_DEAD || recently_hit[i].state == PS_RESPAWN) {
+			// Trigger on-kill effects
+			brooch_barrier += 5 * item_grid[9][IG_NUM_HELD]; // Topaz Brooch
+			recently_hit[i] = noone;
+		}
+		else if (recently_hit[i].state_cat != SC_HITSTUN) {
+			recently_hit[i] = noone;
+		}
+	}
+}
+
+//#endregion
+
+//#region Item timers/states
+
+// Bustling Fungus
+if (item_grid[4][IG_NUM_HELD] != 0) {
+	if (state == PS_CROUCH){ 
+		if (!bungus_active && bungus_timer > bungus_wait_time) {
+			bungus_active = 1;
+			bungus_timer = 0;
+		}
+		if (bungus_active && bungus_timer > floor(bungus_tick_time/item_grid[4][IG_NUM_HELD])) {
+			bungus_timer = 0;
+			do_healing(1);
+		}
+		bungus_timer++;
+	}
+	else {
+		bungus_active = 0;
+		bungus_timer = 0;
+	}
+}
+
+// Guardian Heart
+if (item_grid[22][IG_NUM_HELD] != 0) {
+	if (heart_barrier_endangered && heart_barrier_timer > heart_barrier_endangered_time) {
+		heart_barrier_endangered = 0;
+		heart_barrier_timer = 0;
+	}
+	if (!heart_barrier_endangered && heart_barrier_timer > heart_barrier_tick_time && heart_barrier < heart_barrier_max) {
+		heart_barrier++;
+		heart_barrier_timer = 0;
+	}
+	heart_barrier_timer++;
+}
+
+//#endregion
+
+//#region Damage management
+
+if (old_damage != get_player_damage(player)) {
+	
+	// Barrier handling
+	damage_taken = get_player_damage(player) - old_damage;
+	if (damage_taken > 0) {
+		jewel_barrier = do_barrier(damage_taken, jewel_barrier);
+		heart_barrier = do_barrier(damage_taken, heart_barrier);
+		aegis_barrier = do_barrier(damage_taken, aegis_barrier);
+		brooch_barrier = do_barrier(damage_taken, brooch_barrier);
+	}
+	
+	// Arcane Blades stat update
+	if ((old_damage >= 100) != (get_player_damage(player) >= 100)) {
+		new_item_id = 7;
+		user_event(0);
+	}
+	
+	old_damage = get_player_damage(player);
+}
+
+//#endregion
+
+//#region Reset fractional damage on enemy death
+with object_index {
+    if (!clone && (state == PS_DEAD || state == PS_RESPAWN)) {
+        u_mult_damage_buffer = 0;
+    }
+}
+//#endregion
+
 // character recoloring / applying shade values
 // init_shader(); //unused for now
 // composite vfx update
 update_comp_hit_fx();
 
+
+
+#define do_healing(amount)
+// Helper function to ensure that Aegis is always accounted for.
+take_damage(player, player, -amount);
+aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD] * amount;
+
+#define do_barrier(damage_taken, barrier_val)
+// Applies a barrier to absorb damage taken. (Assumes damage_taken > 0)
+// Returns the new value for the barrier.
+if (damage_taken > barrier_val) {
+	take_damage(player, player, -floor(barrier_val));
+	barrier_val = barrier_val - floor(barrier_val);
+} else {
+	take_damage(player, player, -barrier_val);
+	barrier_val -= damage_taken;
+}
+return barrier_val;
 
 #define random_weighted_roll(seed, weight_array)
 // Picks one index from a given array of weights.
@@ -68,11 +200,7 @@ if (rnd_legendary <= legendary_odds && legendaries_remaining[rarity] > 0) {
 	item_seed = (item_seed + 1) % 200;
 	var item_id = rnd_legend_index_store[rarity][access_index];
 	
-	// Update item/probability properties to account for new item
-	array_push(inventory_list, item_id); // only 1 of each legendary item
-	item_grid[@ item_id][@ IG_NUM_HELD] = 1;
 	legendaries_remaining[rarity]--;
-	
 	// Remove legendary from item pool
 	for (var i = access_index; i < num_items-1; i++) {
 		rnd_legend_index_store[@ rarity][@ i] = rnd_legend_index_store[rarity][i+1];
@@ -91,11 +219,8 @@ else {
 	item_seed = (item_seed + 1) % 200;
 	var item_id = rnd_index_store[rarity][item_type][access_index];
 	
-	// Update item/probability properties to account for new item
-	if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
-	item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
+	// Update probability properties to account for new item
 	type_values[@ rarity][@ item_type] -= type_weights[rarity][item_type]; // update weights
-	if (rarity = RTY_RARE) rares_remaining--;
 	if (rarity = RTY_UNCOMMON) uncommons_remaining--;
 	// remove item instance from rnd_index_store
 	if (rarity != RTY_COMMON) {
@@ -107,9 +232,17 @@ else {
 	
 }
 
-// Apply item
-new_item_id = item_id;
-user_event(0);
+// Apply item (or roll for a new one if a conflict occured)
+var incompat_index = item_grid[item_id][IG_INCOMPATIBLE]
+if (incompat_index == noone || item_grid[incompat_index][IG_NUM_HELD] == 0) {
+	if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
+	item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
+	new_item_id = item_id;
+	if (rarity = RTY_RARE) rares_remaining--;
+	user_event(0);
+}
+else item_id = generate_item(common_weight, uncommon_weight, rare_weight);
+
 
 return item_id;
 

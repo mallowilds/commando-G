@@ -34,49 +34,63 @@ IG_NAME = 0;
 IG_RARITY = 1;
 IG_TYPE = 2;
 IG_NUM_HELD = 3;
-IG_DESC = 4;
+IG_INCOMPATIBLE = 4; // denotes an index for another item that, if held, prevents this item from being held.
+IG_DESC = 5;
 
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 
 // Item Grid
 // Format: see IG indices above
-// Items can safely be reordered for now. *This will not be the case once item functionality is implemented!!*
+// Do not reorder items without updating scripts that depend on them! If you need to remove an item, use RTY_DUMMY to disable it.
 item_grid = [
-    ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, "Deal more damage & knockback to healthy enemies."], // 
-    ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, "Taunt to place down a powerful buffing Warbanner."], // 
-    ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       0, "Hurt enemies by fast-falling."], // 
-    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, "Strongs deal more Knockback."], // 
-    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, "Crouch to heal over time."], // 
-    ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, "Move faster."], // 
-    ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        0, "Dash faster."], // 
-    ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        0, "Move faster after reaching 100%."], // 
-    ["Hermit Scarf",            RTY_COMMON,     ITP_SPEED,        0, "Parry, rolls, and airdodges have more invulnerability."], // 
-    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, "Gain 10% barrier on kill."], // 
-    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, "Critical Strikes deal more damage."], // 
-    ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, "Critical Strikes bleed opponents, dealing damage over time."], // 
-    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, "Critical Strikes briefly stun opponents."], // 
-    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, "Increased attack speed."], // 
-    ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, "Slightly increased movement & attack speed."], // 
-    ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, "Explosive attacks attach a little more firepower."], // 
-    ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, "Explosive attacks set enemies on fire."], // 
-    ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    0, "I'm coming home soon. Stay strong."], // 
-    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, ""], // 
-    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, ""], // 
-    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, ""], // 
-    ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, ""], // 
-    ["Guardian Heart",          RTY_UNCOMMON,   ITP_HEALING,      0, ""], // 
-    ["Locked Jewel",            RTY_UNCOMMON,   ITP_HEALING,      0, ""], // 
-    ["Monster Tooth",           RTY_UNCOMMON,   ITP_HEALING,      0, ""], // 
-    ["Ignition Tank",           RTY_UNCOMMON,   ITP_CRITICAL,     0, ""], // 
-    ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, ""], // 
-    ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, ""], // 
-    ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, ""], // 
-    ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        0, ""], // 
-    ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    0, ""], // 
-    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, ""], // 
-    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, ""], // 
-    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, ""], // 
-    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, ""], //
+    ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Deal more damage & knockback to healthy enemies."], // 0 | hit_player.gml (kb mod unimplemented)
+    ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, noone, "Taunt to place down a powerful buffing Warbanner."], // 1 | Unimplemented
+    ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       0, noone, "Hurt enemies by fast-falling."], // 2 | Unimplemented
+    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Strongs deal more Knockback."], // 3 | Unimplemented
+    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, noone, "Crouch to heal over time."], // 4 | update.gml
+    ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster."], // 5 | user_event0.gml
+    ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        0, noone, "Dash faster."], // 6 | user_event0.gml
+    ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster after reaching 100%."], // 7 | user_event0.gml, update.gml
+    ["Hermit Scarf",            RTY_COMMON,     ITP_SPEED,        0, noone, "Parry, rolls, and airdodges have more invulnerability."], // 8 | user_event0.gml
+    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, noone, "Gain 5% barrier on kill."], // 9 | update.gml
+    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes deal more damage."], // 10 | Unimplemented
+    ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | Unimplemented
+    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | Unimplemented
+    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
+    ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
+    ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Explosive attacks attach a little more firepower."], // 15 | Unimplemented
+    ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Explosive attacks set enemies on fire."], // 16 | Unimplemented
+    ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    0, noone, "I'm coming home soon. Stay strong."], // 17 | user_event0.gml
+    
+    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, noone, "Strongs blast enemies with runic fire, dealing more damage."], // 18 | Unimplemented
+    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs blast enemies with runic ice, dealing more knockback."], // 19 | Unimplemented
+    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "And his music was electric.."], // 20 | Unimplemented
+    ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
+    ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield that recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
+    ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain barrier and temporary movespeed after opening chests."], // 23 | Unimplemented, init done
+    ["Monster Tooth",           RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | Unimplemented
+    ["Ignition Tank",           RTY_UNCOMMON,   ITP_CRITICAL,     0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Unimplemented
+    ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | Unimplemented
+    ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, noone, "Explosive attacks stun enemies briefly."], // 27 | Unimplemented
+    ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs unleash a missile on contact."], // 28 | Unimplemented
+    ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Jump higher and fall slightly slower."], // 29 | user_event0.gml
+    ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    0, noone, "Smite them. Smite them all."], // 30 | Unimplemented
+    
+    ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Upgrade your Neutral Special."], // 31 | Unimplemented
+    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Fight fire with fire."], // 32 | Unimplemented
+    ["AtG Missile Mk. 2",       RTY_RARE,       ITP_KNOCKBACK,    0, noone, "Hooah."], // 33 | Unimplemented
+    ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | Unimplemented
+    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | Unimplemented
+    ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       0, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | Unimplemented
+    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, 38,    "No hands!"], // 37 | Unimplemented
+    ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        0, 37,    "Jump much higher, and fastfall faster."], // 38 | user_event0.gml
+    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, noone, "Upgrades your side special."], // 39 | Unimplemented
+    ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     0, 41,    "Critical hits deal massive damage and knockback."], // 40 | Unimplemented
+    ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
+    ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml
+    ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
+    ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    0, noone, "Gain an extra life."], // 44 | Unimplemented
+    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 45 | Unimplemented
 ]
 
 // Randomizer index stores
@@ -127,7 +141,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
         array_push(rnd_legend_index_store[rty], iid);
         legendaries_remaining[rty]++;
     }
-    else /*if (rty != RTY_DUMMY)*/ {
+    else if (rty != RTY_DUMMY) {
         for (var n = 0; n < (rty == RTY_UNCOMMON ? 3 : 1); n++) { // add 3 instances to the pool for uncommons
             array_push(rnd_index_store[rty][itp], iid);
             if (rty != RTY_COMMON) {
@@ -147,10 +161,11 @@ new_item_id = noone;
 
 // Item variables
 // Keyword trackers
-critical_active = 0     // enables checks for crit items
-explosive_active = 0    // enables checks for explosive items
-attack_speed_count = 1  // inits to 1, goes up with attack speed items
-move_speed_count = 0    // inits to 0, goes up with items like Paul's Goat Hoof
+critical_active = 0;     // enables checks for crit items
+explosive_active = 0;    // enables checks for explosive items
+attack_speed = 1;        // inits to 1, goes up with attack speed items
+move_speed = 0;          // inits to 0, goes up with items like Paul's Goat Hoof
+dodge_duration_add = 0;  // inits to 0, adds n frames to shield actions
 
 // Attack overwrites (see set_attack.gml)
 ntaunt_index = AT_TAUNT // taunts altered by Ukelele/Warbanner
@@ -158,6 +173,40 @@ utaunt_index = AT_TAUNT
 dtaunt_index = AT_TAUNT
 ustrong_index = AT_USTRONG // altered by Ukelele
 
+// Multipliers and fractional damage (see also: other_init.gml)
+u_mult_damage_buffer = 0;
+multiplier = 0;
+multiplier_base = 0;
+
+// Dodge duration overrides
+dodge_duration_timer = 0;
+
+// Percent tracking / barriers
+old_damage = 0;
+brooch_barrier = 0;      // Topaz Brooch
+heart_barrier = 0;       // Guardian Heart
+heart_barrier_endangered = 1;
+heart_barrier_timer = 0;
+heart_barrier_endangered_time = 300;
+heart_barrier_tick_time = 60;
+heart_barrier_max = 0;   // see user_event0
+jewel_barrier = 0;       // Locked Jewel
+jewel_barrier_timer = 0;
+jewel_movespeed_duration = 240;
+aegis_barrier = 0;       // Aegis
+aegis_ratio = 0.5;
+
+// Kill tracking
+recently_hit = array_create(20, noone)
+num_recently_hit = 0;
+
+// Misc item-specific vars
+bungus_active = 0;
+bungus_timer = 0; 
+bungus_wait_time = 90;
+bungus_tick_time = 30; // Heal 1% every n/(bungus count) frames
+
+// 
 
 //                      TEMPLATE ATTACK/WINDOW INDEXES                        //
 
@@ -423,6 +472,8 @@ crouch_anim_speed               = 0.03;
 walk_anim_speed                 = 0.125;
 dash_anim_speed                 = 0.2;
 pratfall_anim_speed             = 0.25;
+walk_anim_speed_base            = walk_anim_speed;
+dash_anim_speed_base            = dash_anim_speed;
 
 //                      --grounded movement stats--                           //
 walk_speed                      = 2.4;
@@ -437,17 +488,27 @@ dash_stop_time                  = 8;
 dash_stop_percent               = 0.35;
 ground_friction                 = 0.5;
 moonwalk_accel                  = 1.4;
+walk_speed_base                 = walk_speed;
+walk_accel_base                 = walk_accel;
+initial_dash_speed_base         = initial_dash_speed;
+dash_speed_base                 = dash_speed;
+
 
 //                       --aerial movement stats--                            //
-jump_start_time                 = 5;
+jump_start_time                 = 5; // minus one
 jump_speed                      = 11;
 short_hop_speed                 = 6;
 djump_speed                     = 10;
+jump_speed_base                 = jump_speed;
+short_hop_speed_base            = short_hop_speed;
+djump_speed_base                = djump_speed;
 
 leave_ground_max                = 7;
 max_jump_hsp                    = 6;
 air_max_speed                   = 5;
 jump_change                     = 3;
+max_jump_hsp_base               = max_jump_hsp;
+air_max_speed_base              = air_max_speed;
 
 air_accel                       = 0.3;
 prat_fall_accel                 = 0.85;
@@ -455,16 +516,21 @@ air_friction                    = 0.04;
 
 max_djumps                      = 1;
 double_jump_time                = 28;
+max_djumps_base                 = max_djumps
 
 walljump_hsp                    = 7;
 walljump_vsp                    = 8;
 walljump_time                   = 15;
-wall_frames                     = 2
+wall_frames                     = 2;
+walljump_vsp_base               = walljump_vsp;
 
 max_fall                        = 10;
 fast_fall                       = 14;
 gravity_speed                   = 0.5;
 hitstun_grav                    = 0.5;
+max_fall_base                   = max_fall;
+fast_fall_base                  = fast_fall;
+gravity_speed_base              = gravity_speed;
 
 //                    --character knockback adjustment--                      //
 /* 
@@ -472,6 +538,7 @@ hitstun_grav                    = 0.5;
 - lower num = 'heavier' character 
 */
 knockback_adj                   = 1.0;
+knockback_adj_base              = knockback_adj;
 
 //                           --landing stats--                                //
 land_time                       = 4; 
