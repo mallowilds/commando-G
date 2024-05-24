@@ -70,6 +70,25 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 
 //#region Item timers/states
 
+// Bustling Fungus
+if (item_grid[4][IG_NUM_HELD] != 0) {
+	if (state == PS_CROUCH){ 
+		if (!bungus_active && bungus_timer > bungus_wait_time) {
+			bungus_active = 1;
+			bungus_timer = 0;
+		}
+		if (bungus_active && bungus_timer > floor(bungus_tick_time/item_grid[4][IG_NUM_HELD])) {
+			bungus_timer = 0;
+			do_healing(1);
+		}
+		bungus_timer++;
+	}
+	else {
+		bungus_active = 0;
+		bungus_timer = 0;
+	}
+}
+
 // Guardian Heart
 if (item_grid[22][IG_NUM_HELD] != 0) {
 	if (heart_barrier_endangered && heart_barrier_timer > heart_barrier_endangered_time) {
@@ -124,13 +143,17 @@ update_comp_hit_fx();
 
 
 
+#define do_healing(amount)
+// Helper function to ensure that Aegis is always accounted for.
+take_damage(player, player, -amount);
+aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD] * amount;
 
 #define do_barrier(damage_taken, barrier_val)
 // Applies a barrier to absorb damage taken. (Assumes damage_taken > 0)
 // Returns the new value for the barrier.
 if (damage_taken > barrier_val) {
-	take_damage(player, player, -barrier_val);
-	barrier_val = 0;
+	take_damage(player, player, -floor(barrier_val));
+	barrier_val = barrier_val - floor(barrier_val);
 } else {
 	take_damage(player, player, -barrier_val);
 	barrier_val -= damage_taken;
