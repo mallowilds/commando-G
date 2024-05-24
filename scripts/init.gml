@@ -175,8 +175,8 @@ ustrong_index = AT_USTRONG // altered by Ukelele
 
 // Multipliers and fractional damage (see also: other_init.gml)
 u_mult_damage_buffer = 0;
-multiplier = 1;
-multiplier_base = 1;
+multiplier = 0;
+multiplier_base = 0;
 
 //                      TEMPLATE ATTACK/WINDOW INDEXES                        //
 
@@ -459,6 +459,7 @@ dash_stop_percent               = 0.35;
 ground_friction                 = 0.5;
 moonwalk_accel                  = 1.4;
 walk_speed_base                 = walk_speed;
+walk_accel_base                 = walk_accel;
 initial_dash_speed_base         = initial_dash_speed;
 dash_speed_base                 = dash_speed;
 

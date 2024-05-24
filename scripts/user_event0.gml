@@ -1,7 +1,7 @@
 // ITEM INIT
 // Called whenever an item is added to Commando's inventory or needs to perform a stat update.
 
-// TODO: flatten to fixed IDs later (?)
+
 switch new_item_id {
     
     case 5: // Paul's Goat Hoof
@@ -23,7 +23,7 @@ switch new_item_id {
         break;
     
     case 21: // Hopoo Feather
-        knockback_adj = max_djumps_base + item_grid[21][IG_NUM_HELD];
+        max_djumps = max_djumps_base + item_grid[21][IG_NUM_HELD];
         break;
         
     case 29: // Rusty Jetpack
@@ -56,6 +56,7 @@ switch new_item_id {
     dash_anim_speed = dash_anim_speed_base + (0.01 * move_speed) + (0.015 * item_grid[6][IG_NUM_HELD]); // energy drink
     
     walk_speed = walk_speed_base + (1 * move_speed);
+    walk_accel = walk_accel_base + (0.08 * move_speed);
     dash_speed = dash_speed_base + (0.8 * move_speed) + (1 * item_grid[6][IG_NUM_HELD]); // energy drink
     initial_dash_speed = initial_dash_speed_base + (1 * move_speed) + (1.5 * item_grid[6][IG_NUM_HELD]); // energy drink
     

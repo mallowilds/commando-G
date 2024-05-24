@@ -4,8 +4,8 @@
 
 //#region Damage multipliers
 
-// Crowbar handing [todo, kinda]
-var crowbar_mult_add = (get_player_damage(hit_player) > 50 ? 0 : 0.5 * item_grid[0][IG_NUM_HELD]);
+// Crowbar handing
+var crowbar_mult_add = (get_player_damage(hit_player_obj.player) - my_hitboxID.damage > 50 ? 0 : 0.5 * item_grid[0][IG_NUM_HELD]);
 
 // Base amp
 var mult_damage_add = my_hitboxID.damage * (multiplier + crowbar_mult_add);

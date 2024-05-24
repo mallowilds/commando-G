@@ -4,7 +4,7 @@
 // temp
 if false || (state == PS_PARRY && state_timer == 0) {
 	var iid = generate_item(40, 40, 100)
-	print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
+	//print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
 }
 
 
