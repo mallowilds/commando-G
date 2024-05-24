@@ -11,7 +11,6 @@ if (get_gameplay_time() % 10 == 11) || (state == PS_PARRY && state_timer == 0) {
 
 
 
-
 // reset idle_air_looping if the character isn't in air idle anymore
 if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
 	idle_air_looping = false;
@@ -102,6 +101,18 @@ if (item_grid[22][IG_NUM_HELD] != 0) {
 		heart_barrier_timer = 0;
 	}
 	heart_barrier_timer++;
+}
+
+// Fireman's Boots
+if (item_grid[32][IG_NUM_HELD] != 0) {
+	fireboots_distance += abs (x - fireboots_prev_x);
+	fireboots_prev_x = x;
+	if (free) fireboots_distance = fireboots_threshold;
+	if (!free && fireboots_distance >= fireboots_threshold) {
+		var burnbox = instance_create(x, y, "obj_article3")
+		burnbox.state = 00;
+		fireboots_distance = 0;
+	}
 }
 
 // H3AD-5T V2

@@ -53,6 +53,10 @@ sprite_change_offset("plat"                 , load_x, load_y);
 
 //                  --other sprite offsets (no small_sprites)--               //
 // includes projectiles, vfx, articles
+
+sprite_change_offset("item_firetile_mask"     , 14, 38);
+
+
 sprite_change_offset("nspecial_proj"            , 68, 68);
 
 sprite_change_offset("fx_small_circle1"         , 174, 168);

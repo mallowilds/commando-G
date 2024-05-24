@@ -69,7 +69,4 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , false);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, false);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_IS_TRANSCENDENT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , false);
-set_hitbox_value(atk, hbox_num, HG_PROJECTILE_MULTIHIT      , true);
-set_hitbox_value(atk, hbox_num, HG_PROJECTILE_MULTIHIT_RATE , 10);
-set_hitbox_value(atk, hbox_num, HG_PROJECTILE_MAX_HITS      , 10);
 hbox_num++;

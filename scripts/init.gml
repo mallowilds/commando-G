@@ -64,7 +64,7 @@ item_grid = [
     
     ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, noone, "Strongs blast enemies with runic fire, dealing more damage."], // 18 | Unimplemented
     ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs blast enemies with runic ice, dealing more knockback."], // 19 | Unimplemented
-    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "And his music was electric.."], // 20 | Unimplemented
+    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "And his music was electric."], // 20 | Unimplemented
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
     ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield that recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
     ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain barrier and temporary movespeed after opening chests."], // 23 | Unimplemented, init done
@@ -77,7 +77,7 @@ item_grid = [
     ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    0, noone, "Smite them. Smite them all."], // 30 | Unimplemented
     
     ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Upgrade your Neutral Special."], // 31 | Unimplemented
-    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Fight fire with fire."], // 32 | Unimplemented
+    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Fight fire with fire."], // 32 | update.gml, article3, AT_EXTRA_1
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_KNOCKBACK,    0, noone, "Hooah."], // 33 | Unimplemented
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | Unimplemented
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | Unimplemented
@@ -207,6 +207,10 @@ bungus_wait_time = 90;
 bungus_tick_time = 30; // Heal 1% every n/(bungus count) frames
 
 free_timer = 0; // H3AD-5T, used for fast falling
+
+fireboots_distance = 0;
+fireboots_prev_x = x;
+fireboots_threshold = 28;
 
 // 
 
