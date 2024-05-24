@@ -37,13 +37,16 @@ IG_NUM_HELD = 3;
 IG_INCOMPATIBLE = 4; // denotes an index for another item that, if held, prevents this item from being held.
 IG_DESC = 5;
 
+// HG -> Hitbox Grid
+HG_IS_CRITICAL = 80;
+
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 
 // Item Grid
 // Format: see IG indices above
 // Do not reorder items without updating scripts that depend on them! If you need to remove an item, use RTY_DUMMY to disable it.
 item_grid = [
-    ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Deal more damage & knockback to healthy enemies."], // 0 | hit_player.gml (kb mod unimplemented)
+    ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Deal more damage & knockback to healthy enemies."], // 0 | hit_player.gml
     ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, noone, "Taunt to place down a powerful buffing Warbanner."], // 1 | Unimplemented
     ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       0, noone, "Hurt enemies by fast-falling."], // 2 | Unimplemented
     ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Strongs deal more Knockback."], // 3 | Unimplemented
@@ -53,9 +56,9 @@ item_grid = [
     ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster after reaching 100%."], // 7 | user_event0.gml, update.gml
     ["Hermit Scarf",            RTY_COMMON,     ITP_SPEED,        0, noone, "Parry, rolls, and airdodges have more invulnerability."], // 8 | user_event0.gml
     ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, noone, "Gain 5% barrier on kill."], // 9 | update.gml
-    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes deal more damage."], // 10 | Unimplemented
+    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     1, noone, "Critical Strikes deal more damage."], // 10 | update.gml ~ melee hitbox update
     ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | Unimplemented
-    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | Unimplemented
+    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     1, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done)
     ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
     ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Explosive attacks attach a little more firepower."], // 15 | Unimplemented

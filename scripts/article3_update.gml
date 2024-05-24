@@ -35,9 +35,10 @@ switch state {
             sprite_index = asset_get("fire_grnd1_leave");
             image_index = 0;
         }
-        with oPlayer {
-            if (player != other.player && !burned && place_meeting(x, y, other)) {
-                other.do_hitbox = true;
+        var fire = self;
+        with oPlayer if (player != other.player && !burned) {
+            with hurtboxID if (place_meeting(x, y, fire)) {
+                fire.do_hitbox = true;
             }
         }
         if (do_hitbox) {

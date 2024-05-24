@@ -1,11 +1,24 @@
 //                           --hit stuff--                                    //
 
 
+//#region Crit handling
+if (critical_active && my_hitboxID.cmd_is_critical == 1) {
+	// Play crit sound
+	
+}
+//#endregion
+
+
+//#region Crowbar handing
+var crowbar_mult_add = 0;
+if (get_player_damage(hit_player_obj.player) - my_hitboxID.damage <= 50 && item_grid[0][IG_NUM_HELD] > 0) {
+	crowbar_mult_add = 0.5 * item_grid[0][IG_NUM_HELD];
+	hit_player_obj.orig_knock += 10 * my_hitboxID.kb_scale * 0.12 * hit_player_obj.knockback_adj * item_grid[0][IG_NUM_HELD]; 
+	sound_play(sound_get("cm_crowbar"), 0, noone, 1, 0.95 + 0.1*random_func(player, 1, false));
+}
+//#endregion
 
 //#region Damage multipliers
-
-// Crowbar handing
-var crowbar_mult_add = (get_player_damage(hit_player_obj.player) - my_hitboxID.damage > 50 ? 0 : 0.5 * item_grid[0][IG_NUM_HELD]);
 
 // Base amp
 var mult_damage_add = my_hitboxID.damage * (multiplier + crowbar_mult_add);

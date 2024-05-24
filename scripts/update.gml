@@ -27,6 +27,20 @@ if (attack_air_limit_ver) {
 	}
 }
 
+
+//#region hitbox_update (for the sake of melee hitboxes)
+with pHitBox if (player_id == other) {
+	// Critical strike setup
+	if (hitbox_timer == 0) {
+		with (other) other.cmd_is_critical = get_hitbox_value(other.attack, other.hbox_num, HG_IS_CRITICAL);
+		if (cmd_is_critical == 1) {
+			damage += 3 * player_id.item_grid[10][player_id.IG_NUM_HELD]; // Lens Maker's Glasses
+			if (player_id.item_grid[12][player_id.IG_NUM_HELD] > 0 && effect == 0) effect = 11; // Taser
+		}
+	}
+}
+//#endregion
+
 //#region dodge_duration_add management
 
 switch state {
@@ -48,7 +62,6 @@ switch state {
 		break;
 		
 }
-
 
 //#endregion
 
