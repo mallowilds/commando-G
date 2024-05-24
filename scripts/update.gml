@@ -4,6 +4,8 @@
 // temp
 if false || (state == PS_PARRY && state_timer == 0) {
 	var iid = generate_item(40, 40, 100)
+	var popup = instance_create(x-60, y-90, "obj_article2");
+	popup.item_id = iid;
 	//print_debug("Obtained " + item_grid[iid][IG_NAME] + " (ID " + string(iid) + ")");
 }
 

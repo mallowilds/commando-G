@@ -12,20 +12,8 @@ if "should_debug" in self {
         draw_debug_text(temp_x + 70, temp_y - 15, "Image Index: "   +string(image_index));
     }
 }
-
-// draw_hud.gml
-// draws the text "Hello" aligned to the left using "medFont" above the player's hud
-draw_sprite(sprite_get("item_bgpanel"), 0, temp_x, temp_y - 320)
-draw_sprite_ext(sprite_get("item_brilliant"), 0, temp_x + 12, temp_y - 318, 1, 1, 0, c_black, 0.5)
-draw_sprite(sprite_get("item_brilliant"), 0, temp_x + 10, temp_y - 322)
-draw_set_font( font_get("_rfont") );
-draw_set_halign( fa_center );
-draw_text_transformed( temp_x + 180, temp_y - 300, "Brilliant Behemoth", 1, 1, 0 );
-draw_set_font( asset_get("fName") );
-draw_set_halign( fa_center );
-draw_text_color( temp_x + 180, temp_y - 264, "All of your attacks explode!", c_black, c_black, c_black, c_black, 1 );
-draw_text_color( temp_x + 182, temp_y - 264, "All of your attacks explode!", c_white, c_white, c_white, c_white, 1 );
 */
+
 
 if ("inventory_list" not in self) exit;
 
@@ -33,7 +21,7 @@ var x_spacing = clamp(72 - 6 * array_length(inventory_list), 26, 44);
 var y_spacing = 22;
 
 hud_x = temp_x - 10;
-hud_y = temp_y - 44 - (y_spacing * floor((array_length(inventory_list)-1)/8));
+hud_y = temp_y - 48 - (y_spacing * floor((array_length(inventory_list)-1)/8));
 
 for (var i = 0; i < array_length(inventory_list); i++) {
 	var iid = inventory_list[i]
