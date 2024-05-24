@@ -4,7 +4,13 @@
 //#region Crit handling
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	// Play crit sound
-	
+	print_debug("crit!")
+	do_healing(floor(my_hitboxID.damage * 0.25 * item_grid[24][IG_NUM_HELD])); // Monster Tooth
+	if (item_grid[26][IG_NUM_HELD] > 0) {
+		instincts_timer = instincts_duration;
+		new_item_id = 26;
+		user_event(0); // refresh stats
+	}
 }
 //#endregion
 
@@ -183,6 +189,12 @@ switch(my_hitboxID.attack) {
         break;
     
 }
+
+
+#define do_healing(amount)
+// Helper function to ensure that Aegis is always accounted for.
+take_damage(player, player, -amount);
+aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD] * amount;
 
 #define get_effect_offset_x
 

@@ -56,9 +56,9 @@ item_grid = [
     ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster after reaching 100%."], // 7 | user_event0.gml, update.gml
     ["Hermit Scarf",            RTY_COMMON,     ITP_SPEED,        0, noone, "Parry, rolls, and airdodges have more invulnerability."], // 8 | user_event0.gml
     ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, noone, "Gain 5% barrier on kill."], // 9 | update.gml
-    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     1, noone, "Critical Strikes deal more damage."], // 10 | update.gml ~ melee hitbox update
+    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes deal more damage."], // 10 | update.gml ~ melee hitbox update, user_event0.gml
     ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | Unimplemented
-    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     1, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done)
+    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done), user_event0.gml
     ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
     ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Explosive attacks attach a little more firepower."], // 15 | Unimplemented
@@ -71,9 +71,9 @@ item_grid = [
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
     ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield that recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
     ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain barrier and temporary movespeed after opening chests."], // 23 | Unimplemented, init done
-    ["Monster Tooth",           RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | Unimplemented
+    ["Monster Tooth",           RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | hit_player.gml, user_event0.gml
     ["Ignition Tank",           RTY_UNCOMMON,   ITP_CRITICAL,     0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Unimplemented
-    ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | Unimplemented
+    ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | update.gml, hit_player.gml, user_event0.gml
     ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, noone, "Explosive attacks stun enemies briefly."], // 27 | Unimplemented
     ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs unleash a missile on contact."], // 28 | Unimplemented
     ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Jump higher and fall slightly slower."], // 29 | user_event0.gml
@@ -208,6 +208,9 @@ bungus_active = 0;
 bungus_timer = 0; 
 bungus_wait_time = 90;
 bungus_tick_time = 30; // Heal 1% every n/(bungus count) frames
+
+instincts_timer = 0; // Predatory Instincts
+instincts_duration = 240;
 
 free_timer = 0; // H3AD-5T, used for fast falling
 

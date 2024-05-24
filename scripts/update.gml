@@ -116,6 +116,15 @@ if (item_grid[22][IG_NUM_HELD] != 0) {
 	heart_barrier_timer++;
 }
 
+// Predatory Instincts
+if (instincts_timer > 0) {
+	instincts_timer--;
+	if (instincts_timer == 0) {
+		new_item_id = 26;
+		user_event(0); // refresh stats
+	}
+}
+
 // Fireman's Boots
 if (item_grid[32][IG_NUM_HELD] != 0) {
 	fireboots_distance += abs (x - fireboots_prev_x);
@@ -175,7 +184,6 @@ with object_index {
 // init_shader(); //unused for now
 // composite vfx update
 update_comp_hit_fx();
-
 
 
 #define do_healing(amount)

@@ -9,7 +9,13 @@ switch new_item_id {
     case 7: // Arcane Blades
         update_horizontal_movement();
         break;
-        
+    
+    case 10: // Lens Maker's Glasses
+    case 11: // Rusty Knife
+    case 12: // Taser
+        critical_active = 1;
+        break;
+    
     case 8: // Hermit Scarf
         dodge_duration_add = 2 * item_grid[8][IG_NUM_HELD];
         break;
@@ -35,6 +41,15 @@ switch new_item_id {
         heart_barrier_max = 2 + 2 * item_grid[22][IG_NUM_HELD];
         break;
         
+    case 24: // Monster Tooth
+        critical_active = 1;
+        break;
+        
+    case 26: // Predatory Instincts
+        critical_active = 1;
+        update_attack_speed();
+        break;
+    
     case 29: // Rusty Jetpack
         update_vertical_movement();
         break;
@@ -50,7 +65,8 @@ switch new_item_id {
     
     attack_speed = 1
                  + (2 * item_grid[13][IG_NUM_HELD]) // Soldier's Syringe
-                 + (1 * item_grid[14][IG_NUM_HELD]); // Mocha
+                 + (item_grid[14][IG_NUM_HELD]) // Mocha
+                 + ((instincts_timer > 0) ? (2 + item_grid[26][IG_NUM_HELD]) : 0); // Predatory Instincts
     
     return;
     
