@@ -26,6 +26,89 @@ if (attack_air_limit_ver) {
 	}
 }
 
+//#region dodge_duration_add management
+
+switch state {
+	case PS_PARRY_START:
+		dodge_duration_timer = 0;
+		break;
+	
+	case PS_AIR_DODGE:
+		if (state_timer == 0) dodge_duration_timer = 0;
+	
+	case PS_PARRY:
+	case PS_ROLL_BACKWARD:
+	case PS_ROLL_FORWARD:
+		if (state_timer == 6 && dodge_duration_timer < dodge_duration_add) {
+			dodge_duration_timer++;
+			state_timer--;
+			window_timer--;
+		}
+		break;
+		
+}
+
+
+//#endregion
+
+//#region Kill detection
+
+if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
+	if (recently_hit[i] != noone) {
+		if (!instance_exists(recently_hit[i]) || recently_hit[i].state == PS_DEAD || recently_hit[i].state == PS_RESPAWN) {
+			// Trigger on-kill effects
+			brooch_barrier += 5 * item_grid[9][IG_NUM_HELD]; // Topaz Brooch
+			recently_hit[i] = noone;
+		}
+		else if (recently_hit[i].state_cat != SC_HITSTUN) {
+			recently_hit[i] = noone;
+		}
+	}
+}
+
+//#endregion
+
+//#region Item timers/states
+
+// Guardian Heart
+if (item_grid[22][IG_NUM_HELD] != 0) {
+	if (heart_barrier_endangered && heart_barrier_timer > heart_barrier_endangered_time) {
+		heart_barrier_endangered = 0;
+		heart_barrier_timer = 0;
+	}
+	if (!heart_barrier_endangered && heart_barrier_timer > heart_barrier_tick_time && heart_barrier < heart_barrier_max) {
+		heart_barrier++;
+		heart_barrier_timer = 0;
+	}
+	heart_barrier_timer++;
+}
+
+//#endregion
+
+//#region Damage management
+
+if (old_damage != get_player_damage(player)) {
+	
+	// Barrier handling
+	damage_taken = get_player_damage(player) - old_damage;
+	if (damage_taken > 0) {
+		jewel_barrier = do_barrier(damage_taken, jewel_barrier);
+		heart_barrier = do_barrier(damage_taken, heart_barrier);
+		aegis_barrier = do_barrier(damage_taken, aegis_barrier);
+		brooch_barrier = do_barrier(damage_taken, brooch_barrier);
+	}
+	
+	// Arcane Blades stat update
+	if ((old_damage >= 100) != (get_player_damage(player) >= 100)) {
+		new_item_id = 7;
+		user_event(0);
+	}
+	
+	old_damage = get_player_damage(player);
+}
+
+//#endregion
+
 //#region Reset fractional damage on enemy death
 with object_index {
     if (!clone && (state == PS_DEAD || state == PS_RESPAWN)) {
@@ -39,6 +122,20 @@ with object_index {
 // composite vfx update
 update_comp_hit_fx();
 
+
+
+
+#define do_barrier(damage_taken, barrier_val)
+// Applies a barrier to absorb damage taken. (Assumes damage_taken > 0)
+// Returns the new value for the barrier.
+if (damage_taken > barrier_val) {
+	take_damage(player, player, -barrier_val);
+	barrier_val = 0;
+} else {
+	take_damage(player, player, -barrier_val);
+	barrier_val -= damage_taken;
+}
+return barrier_val;
 
 #define random_weighted_roll(seed, weight_array)
 // Picks one index from a given array of weights.

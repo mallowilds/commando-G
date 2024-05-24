@@ -43,16 +43,16 @@ IG_DESC = 5;
 // Format: see IG indices above
 // Do not reorder items without updating scripts that depend on them! If you need to remove an item, use RTY_DUMMY to disable it.
 item_grid = [
-    ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Deal more damage & knockback to healthy enemies."], // 0 | hit_player.gml
+    ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Deal more damage & knockback to healthy enemies."], // 0 | hit_player.gml (kb mod unimplemented)
     ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, noone, "Taunt to place down a powerful buffing Warbanner."], // 1 | Unimplemented
     ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       0, noone, "Hurt enemies by fast-falling."], // 2 | Unimplemented
     ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Strongs deal more Knockback."], // 3 | Unimplemented
     ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, noone, "Crouch to heal over time."], // 4 | Unimplemented
     ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster."], // 5 | user_event0.gml
     ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        0, noone, "Dash faster."], // 6 | user_event0.gml
-    ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster after reaching 100%."], // 7 | Unimplemented
-    ["Hermit Scarf",            RTY_COMMON,     ITP_SPEED,        0, noone, "Parry, rolls, and airdodges have more invulnerability."], // 8 | Unimplemented
-    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, noone, "Gain 10% barrier on kill."], // 9 | Unimplemented
+    ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster after reaching 100%."], // 7 | user_event0.gml, update.gml
+    ["Hermit Scarf",            RTY_COMMON,     ITP_SPEED,        0, noone, "Parry, rolls, and airdodges have more invulnerability."], // 8 | user_event0.gml
+    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, noone, "Gain 5% barrier on kill."], // 9 | update.gml
     ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes deal more damage."], // 10 | Unimplemented
     ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | Unimplemented
     ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | Unimplemented
@@ -66,8 +66,8 @@ item_grid = [
     ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs blast enemies with runic ice, dealing more knockback."], // 19 | Unimplemented
     ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "And his music was electric.."], // 20 | Unimplemented
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
-    ["Guardian Heart",          RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Gain a 4% shield that recharges outside of danger."], // 22 | Unimplemented
-    ["Locked Jewel",            RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Gain barrier and temporary movespeed after opening chests."], // 23 | Unimplemented
+    ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield that recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
+    ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain barrier and temporary movespeed after opening chests."], // 23 | Unimplemented, init done
     ["Monster Tooth",           RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | Unimplemented
     ["Ignition Tank",           RTY_UNCOMMON,   ITP_CRITICAL,     0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Unimplemented
     ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | Unimplemented
@@ -87,7 +87,7 @@ item_grid = [
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, noone, "Upgrades your side special."], // 39 | Unimplemented
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     0, 41,    "Critical hits deal massive damage and knockback."], // 40 | Unimplemented
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
-    ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | Unimplemented
+    ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | Unimplemented, init done
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
     ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    0, noone, "Gain an extra life."], // 44 | Unimplemented
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 45 | Unimplemented
@@ -161,11 +161,11 @@ new_item_id = noone;
 
 // Item variables
 // Keyword trackers
-critical_active = 0;    // enables checks for crit items
-explosive_active = 0;   // enables checks for explosive items
-attack_speed = 1;       // inits to 1, goes up with attack speed items
-move_speed = 0;         // inits to 0, goes up with items like Paul's Goat Hoof
-dodge_duration_add = 0; // inits to 0, adds n frames to air dodges and rolls
+critical_active = 0;     // enables checks for crit items
+explosive_active = 0;    // enables checks for explosive items
+attack_speed = 1;        // inits to 1, goes up with attack speed items
+move_speed = 0;          // inits to 0, goes up with items like Paul's Goat Hoof
+dodge_duration_add = 0;  // inits to 0, adds n frames to shield actions
 
 // Attack overwrites (see set_attack.gml)
 ntaunt_index = AT_TAUNT // taunts altered by Ukelele/Warbanner
@@ -177,6 +177,29 @@ ustrong_index = AT_USTRONG // altered by Ukelele
 u_mult_damage_buffer = 0;
 multiplier = 0;
 multiplier_base = 0;
+
+// Dodge duration overrides
+dodge_duration_timer = 0;
+
+// Percent tracking / barriers
+old_damage = 0;
+brooch_barrier = 0;      // Topaz Brooch
+heart_barrier = 0;       // Guardian Heart
+heart_barrier_endangered = 1;
+heart_barrier_timer = 0;
+heart_barrier_endangered_time = 300;
+heart_barrier_tick_time = 60;
+heart_barrier_max = 0;   // see user_event0
+jewel_barrier = 0;       // Locked Jewel
+jewel_barrier_timer = 0;
+jewel_movespeed_duration = 240;
+aegis_barrier = 0;       // Aegis
+
+// Kill tracking
+recently_hit = array_create(20, noone)
+num_recently_hit = 0;
+
+// 
 
 //                      TEMPLATE ATTACK/WINDOW INDEXES                        //
 

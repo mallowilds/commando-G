@@ -43,3 +43,9 @@ for (var i = 0; i < array_length(inventory_list); i++) {
 	
 	hud_y += vertical_spacing;
 }
+
+
+
+// Barrier (temp)
+var barrier = brooch_barrier + heart_barrier + jewel_barrier + aegis_barrier;
+if (barrier > 0) draw_debug_text(temp_x+32, temp_y+24, string(barrier));

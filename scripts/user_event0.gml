@@ -6,7 +6,12 @@ switch new_item_id {
     
     case 5: // Paul's Goat Hoof
     case 6: // Energy Drink
+    case 7: // Arcane Blades
         update_horizontal_movement();
+        break;
+        
+    case 8: // Hermit Scarf
+        dodge_duration_add = 2 * item_grid[8][IG_NUM_HELD];
         break;
     
     case 13: // Soldier's Syringe
@@ -25,6 +30,10 @@ switch new_item_id {
     case 21: // Hopoo Feather
         max_djumps = max_djumps_base + item_grid[21][IG_NUM_HELD];
         break;
+    
+    case 22: // Guardian Heart
+        heart_barrier_max = 2 + 2 * item_grid[22][IG_NUM_HELD];
+        break;
         
     case 29: // Rusty Jetpack
         update_vertical_movement();
@@ -39,7 +48,6 @@ switch new_item_id {
 
 #define update_attack_speed
     
-    // Soldier's Syringe, Mocha
     attack_speed = 1
                  + (2 * item_grid[13][IG_NUM_HELD]) // Soldier's Syringe
                  + (1 * item_grid[14][IG_NUM_HELD]); // Mocha
@@ -48,8 +56,8 @@ switch new_item_id {
     
 #define update_horizontal_movement
     
-    // Paul's Goat Hoof, Mocha
     move_speed = (1 * item_grid[5][IG_NUM_HELD]) // Paul's Goat Hoof
+               + (get_player_damage(player) >= 100 ? 1.5 * item_grid[7][IG_NUM_HELD] : 0) // Arcane Blades
                + (0.5 * item_grid[14][IG_NUM_HELD]); // Mocha
     
     walk_anim_speed = walk_anim_speed_base + (0.01 * move_speed);

@@ -22,6 +22,16 @@ if (!hit_player_obj.clone) {
 
 //#endregion
 
+//#region Kill tracking
+
+if (!hit_player_obj.clone && recently_hit[hit_player_obj.player-1] == noone) {
+	recently_hit[hit_player_obj.player-1] = hit_player_obj;
+	num_recently_hit++;
+}
+
+//#endregion
+
+
 
 // hitbox lerp code
 if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_LERP) == true) {
