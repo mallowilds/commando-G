@@ -31,6 +31,8 @@ window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
+set_window_value(atk, window_num                        , AG_WINDOW_HSPEED, -2);
+
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
@@ -40,7 +42,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 26);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 5);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 4);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 6);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
 window_num++;
 
