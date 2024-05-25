@@ -139,15 +139,20 @@ if (item_grid[32][IG_NUM_HELD] != 0) {
 
 // H3AD-5T V2
 if (item_grid[38][IG_NUM_HELD] != 0) { 
-	free_timer++;
-	if (!free) free_timer = 0;
-	else if (free_timer >= 8 && can_fast_fall && vsp < 0 && down_hard_pressed) {
-		vsp = 0; // forces fast fall next frame
+	h3ad_lockout_timer++;
+	if (!free) h3ad_lockout_timer = 0;
+	if ((state == PS_DOUBLE_JUMP || state == PS_WALL_JUMP) && state_timer == 0) h3ad_lockout_timer = 0;
+	else if (h3ad_lockout_timer >= 8 && can_fast_fall && vsp < 0 && down_hard_pressed) {
+		vsp = 0;
+		do_a_fast_fall = true;
+	}
+	if (h3ad_was_fast_falling != fast_falling) {
+		if (fast_falling) sound_play(asset_get("sfx_land_heavy"));
+		h3ad_was_fast_falling = fast_falling;
 	}
 }
 
 // Dio's Best Friend
-
 if (dios_revive_timer > 0) {
 	dios_revive_timer--;
 	set_state(PS_HITSTUN);
@@ -179,6 +184,26 @@ if (dios_revive_timer > 0) {
 			inventory_list = array_slice(inventory_list, 0, num_items-1);
 		}
 	}
+}
+
+// Wax Quail
+if (item_grid[48][IG_NUM_HELD] > 0) {
+	if (state == PS_DASH) quail_do_boost = true;
+	else if (state != PS_JUMPSQUAT && state != PS_FIRST_JUMP && state != PS_AIR_DODGE && state != PS_WAVELAND) quail_do_boost = false;
+	
+	if (quail_do_boost) {
+		if (state == PS_FIRST_JUMP && state_timer == 0) {
+			hsp += spr_dir * (1 + item_grid[48][IG_NUM_HELD]);
+		}
+		if (state == PS_WAVELAND && state_timer == 0) {
+			var waveland_dir = round(hsp/abs(hsp))
+			if (waveland_dir == spr_dir) {
+				hsp += spr_dir * (2 + 3*item_grid[48][IG_NUM_HELD]);
+			}
+		}
+	}
+
+	
 }
 
 //#endregion

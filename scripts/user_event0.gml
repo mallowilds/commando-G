@@ -29,6 +29,11 @@ switch new_item_id {
         update_horizontal_movement();
         break;
     
+    case 16: // Gasoline
+    case 18: // Kjaro's Band
+        enable_ignition_tank();
+        break;
+    
     case 17: // Tough Times
         knockback_adj = knockback_adj_base - (0.1 * item_grid[17][IG_NUM_HELD]);
         break;
@@ -41,7 +46,7 @@ switch new_item_id {
         heart_barrier_max = 2 + 2 * item_grid[22][IG_NUM_HELD];
         break;
         
-    case 24: // Monster Tooth
+    case 24: // Harvester's Scythe
         critical_active = 1;
         break;
         
@@ -52,6 +57,10 @@ switch new_item_id {
     
     case 29: // Rusty Jetpack
         update_vertical_movement();
+        break;
+        
+    case 32: // Fireman's Boots
+        enable_ignition_tank();
         break;
     
     case 38: // H3AD-5T V2
@@ -102,3 +111,12 @@ switch new_item_id {
     gravity_speed = gravity_speed_base - (0.05 * (item_grid[29][IG_NUM_HELD] > 0)); // Rusty Jetpack
     
     return;
+    
+#define enable_ignition_tank
+    if (item_grid[25][IG_RARITY] == RTY_VOID) {
+        item_grid[@ 25][@ IG_RARITY] = RTY_UNCOMMON;
+        var itp = item_grid[25][IG_TYPE]
+        for (var i = 0; i < 3; i++) array_push(rnd_index_store[RTY_UNCOMMON][itp], 25);
+        type_values[@ RTY_UNCOMMON][@ itp] = type_values[RTY_UNCOMMON][itp] + 3*type_weights[RTY_UNCOMMON][itp];
+        uncommons_remaining += 3;
+    }
