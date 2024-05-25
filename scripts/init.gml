@@ -41,6 +41,13 @@ IG_DESC = 5;
 // HG -> Hitbox Grid
 HG_IS_CRITICAL = 80;
 
+
+//=-(                    ~~//** NON-ITEM MANAGEMENT **//~~                  )-=//
+
+// Lightweight particles
+lfx_list = ds_list_create();
+
+
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 
 // Item Grid
@@ -51,7 +58,7 @@ item_grid = [
     ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, noone, "Taunt to place down a powerful buffing Warbanner."], // 1 | Unimplemented
     ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       0, noone, "Hurt enemies by fast-falling."], // 2 | Unimplemented
     ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Strongs deal more Knockback."], // 3 | Unimplemented
-    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, noone, "Crouch to heal over time."], // 4 | update.gml
+    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      1, noone, "Crouch to heal over time."], // 4 | update.gml, post_draw.gml
     ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster."], // 5 | user_event0.gml
     ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        0, noone, "Dash faster."], // 6 | user_event0.gml
     ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster after reaching 100%."], // 7 | user_event0.gml, update.gml
@@ -162,7 +169,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [44, 47];
+inventory_list = [44, 4, 47];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -214,6 +221,9 @@ bungus_active = 0;
 bungus_timer = 0; 
 bungus_wait_time = 90;
 bungus_tick_time = 30; // Heal 1% every n/(bungus count) frames
+bungus_vis_timer = 999;
+bungus_vis_x = x;
+bungus_vis_y = y;
 
 instincts_timer = 0; // Predatory Instincts
 instincts_duration = 240;

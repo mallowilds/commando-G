@@ -28,6 +28,21 @@ if (attack_air_limit_ver) {
 }
 
 
+//#region Lightweight particle management
+// See also: pre_draw.gml, post_draw.gml
+for (var i = 0; i < ds_list_size(lfx_list); i++) {
+    var lfx = ds_list_find_value(lfx_list, i);
+    lfx.lfx_lifetime++;
+    lfx.lfx_x += lfx.lfx_hsp;
+    lfx.lfx_y += lfx.lfx_vsp;
+    if (lfx.lfx_lifetime >= lfx.lfx_max_lifetime) {
+        ds_list_remove(lfx_list, lfx);
+        i--;
+    }
+}
+//#endregion
+
+
 //#region hitbox_update (for the sake of melee hitboxes)
 with pHitBox if (player_id == other) {
 	// Critical strike setup
@@ -90,17 +105,25 @@ if (item_grid[4][IG_NUM_HELD] != 0) {
 		if (!bungus_active && bungus_timer > bungus_wait_time) {
 			bungus_active = 1;
 			bungus_timer = 0;
+			bungus_vis_timer = 0;
+			bungus_vis_x = x;
+			bungus_vis_y = y;
 		}
 		if (bungus_active && bungus_timer > floor(bungus_tick_time/item_grid[4][IG_NUM_HELD])) {
 			bungus_timer = 0;
 			do_healing(1);
+			spawn_lfx(sprite_get("vfx_item_u_heal"), x-45+random_func_2(player*1, 30, false), y-50+random_func_2(player*2, 40, false), 39+random_func_2(player*3, 7, true), 1, 1, 0, -1);
+			spawn_lfx(sprite_get("vfx_item_u_heal"), x-15+random_func_2(player*4, 30, false), y-50+random_func_2(player*5, 40, false), 39+random_func_2(player*6, 7, true), 1, 1, 0, -1);
+			spawn_lfx(sprite_get("vfx_item_u_heal"), x+15+random_func_2(player*7, 30, false), y-50+random_func_2(player*8, 40, false), 39+random_func_2(player*9, 7, true), 1, 1, 0, -1);
 		}
 		bungus_timer++;
 	}
 	else {
+		if (bungus_active) bungus_vis_timer = 0;
 		bungus_active = 0;
 		bungus_timer = 0;
 	}
+	bungus_vis_timer++;
 }
 
 // Guardian Heart
@@ -344,8 +367,22 @@ if (incompat_index == noone || item_grid[incompat_index][IG_NUM_HELD] == 0) {
 }
 else item_id = generate_item(common_weight, uncommon_weight, rare_weight);
 
-
 return item_id;
+
+
+#define spawn_lfx(in_sprite, _x, _y, in_lifetime, in_spr_dir, in_foreground, in_hsp, in_vsp)
+var new_lfx = {
+    lfx_x : _x,
+    lfx_y : _y,
+    lfx_sprite_index : in_sprite,
+    lfx_max_lifetime : in_lifetime,
+    lfx_lifetime : 0,
+    lfx_spr_dir : in_spr_dir,
+    lfx_foreground : in_foreground,
+    lfx_hsp : in_hsp,
+    lfx_vsp : in_vsp,
+};
+ds_list_add(lfx_list, new_lfx);
 
 
 #define update_comp_hit_fx

@@ -80,6 +80,7 @@ switch state {
         state_timer = 0;
         orb_target = noone;
         orb_consumed = false;
+        orb_healed = [];
         break;
         
     case 11:
@@ -139,10 +140,23 @@ switch state {
                 take_damage(player, other.player, -1);
                 if ("aegis_barrier" in self && "item_grid" in self) aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD];
                 other.orb_consumed = true;
+                array_push(other.orb_healed, self);
             }
         }
         
         if (orb_consumed) {
+            
+            for (i = 0; i < array_length(orb_healed); i++) {
+                var seed = (get_player_damage(orb_healed[i].player) * orb_healed[i].player * 233) % 100;
+                var _x = orb_healed[i].x;
+                var _y = orb_healed[i].y;
+                var _h = orb_healed[i].char_height;
+                var _hvar = (_h < 10) ? 0 : _h-10;
+                spawn_lfx(sprite_get("vfx_item_u_heal"), _x-45+random_func_2(seed+1, 30, false), _y-_h+random_func_2(seed+2, _hvar, false), 39+random_func_2(seed+3, 7, true), 1, 1, 0, -1);
+			    spawn_lfx(sprite_get("vfx_item_u_heal"), _x-15+random_func_2(seed+4, 30, false), _y-_h+random_func_2(seed+5, _hvar, false), 39+random_func_2(seed+5, 7, true), 1, 1, 0, -1);
+			    spawn_lfx(sprite_get("vfx_item_u_heal"), _x+15+random_func_2(seed+7, 30, false), _y-_h+random_func_2(seed+8, _hvar, false), 39+random_func_2(seed+9, 7, true), 1, 1, 0, -1);
+            }
+            
             sound_play(asset_get("mfx_timertick_holy"));
             instance_destroy();
             exit;
@@ -168,3 +182,16 @@ switch state {
 // Make time progress
 state_timer++;
 
+#define spawn_lfx(in_sprite, _x, _y, in_lifetime, in_spr_dir, in_foreground, in_hsp, in_vsp)
+var new_lfx = {
+    lfx_x : _x,
+    lfx_y : _y,
+    lfx_sprite_index : in_sprite,
+    lfx_max_lifetime : in_lifetime,
+    lfx_lifetime : 0,
+    lfx_spr_dir : in_spr_dir,
+    lfx_foreground : in_foreground,
+    lfx_hsp : in_hsp,
+    lfx_vsp : in_vsp,
+};
+ds_list_add(player_id.lfx_list, new_lfx);
