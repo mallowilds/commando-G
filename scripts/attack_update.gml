@@ -63,6 +63,12 @@ switch(attack) {
     case AT_USPECIAL:
         //a
         break;
+    case AT_FSTRONG: 
+        if window == 2 && window_timer == window_length-1 {
+            sound_stop(s_reload)
+            sound_play(s_shotty, 0, noone, 3, .95)
+        }
+        break;
     
 }
 

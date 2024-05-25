@@ -229,7 +229,8 @@ dios_stored_damage = 0;
 s_dag_swing = sound_get("cm_dagger_swing");
 s_cbar = sound_get("cm_crowbar");
 s_dios = sound_get("cm_item_dios");
-
+s_shotty = sound_get("cm_shotgun_blast");
+s_reload = sound_get("cm_shotgun_load");
 //
 
 
