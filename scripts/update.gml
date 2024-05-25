@@ -155,6 +155,8 @@ if (dios_revive_timer > 0) {
 	
 	if (dios_revive_timer == 0) {
 		set_state(PS_IDLE_AIR);
+		var respawn_damage = get_player_damage(player)
+		if (respawn_damage != 0) take_damage(player, player, -respawn_damage)
 		take_damage(player, player, dios_stored_damage);
 		initial_invince = 1;
 		invince_time = dios_invince_time;
