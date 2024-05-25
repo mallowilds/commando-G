@@ -91,13 +91,13 @@ item_grid = [
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, noone, "Upgrades your side special."], // 39 | Unimplemented
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     0, 41,    "Critical hits deal massive damage and knockback."], // 40 | Unimplemented
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
-    ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml
+    ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml, hit_player.gml, article3 (monster tooth)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
     ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    1, noone, "Gain an extra life."], // 44 | update.gml, death.gml
     ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
     
-    ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      0, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | Unimplemented
+    ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      6, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | hit_player.gml, article3
     ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Jumping while dashing boosts you forward."], // 48 | update.gml
     
 ]
@@ -162,7 +162,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [44];
+inventory_list = [44, 47];
 
 // For use by item init (user_event0)
 new_item_id = noone;

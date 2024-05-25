@@ -50,6 +50,20 @@ if (!hit_player_obj.clone && recently_hit[hit_player_obj.player-1] == noone) {
 
 //#endregion
 
+//#region Monster Tooth
+if (item_grid[47][IG_NUM_HELD] > 0 && hit_player_obj.orig_knock >= 12) {
+	var orb_angle = point_direction(0, 0, hit_player_obj.hsp*-1, abs(hit_player_obj.vsp)*-1);
+	for (var i = 0; i < item_grid[47][IG_NUM_HELD]; i++) {
+		var orb = instance_create(hit_player_obj.x, hit_player_obj.y, "obj_article3");
+		orb.state = 10;
+		orb.hsp = lengthdir_x(10 + random_func_2((player*i + 7*i)%200, 4, false), orb_angle);
+		orb.vsp = lengthdir_y(10 + random_func_2((player*i + 5*i)%200, 4, false), orb_angle);
+	}
+}
+
+
+//#endregion
+
 
 
 // hitbox lerp code
