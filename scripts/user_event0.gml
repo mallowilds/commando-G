@@ -63,6 +63,10 @@ switch new_item_id {
         enable_ignition_tank();
         break;
     
+    case 37: // Photon Jetpack
+        pjetpack_fuel_max = 30 + 30*item_grid[37][IG_NUM_HELD];
+        break;
+    
     case 38: // H3AD-5T V2
         update_vertical_movement();
         break;

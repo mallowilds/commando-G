@@ -169,7 +169,7 @@ if (instincts_timer > 0) {
 }
 
 // Fireman's Boots
-if (item_grid[32][IG_NUM_HELD] != 0) {
+if (item_grid[32][IG_NUM_HELD] > 0) {
 	fireboots_distance += abs (x - fireboots_prev_x);
 	fireboots_prev_x = x;
 	if (free) fireboots_distance = fireboots_threshold;
@@ -180,8 +180,33 @@ if (item_grid[32][IG_NUM_HELD] != 0) {
 	}
 }
 
+// Photon Jetpack
+if (item_grid[37][IG_NUM_HELD] > 0) { 
+	if (!free) {
+		pjetpack_fuel = pjetpack_fuel_max;
+		pjetpack_available = false;
+	}
+	else if ((state == PS_FIRST_JUMP || state == PS_DOUBLE_JUMP || state == PS_WALL_JUMP) && state_timer == 0) {
+		pjetpack_available = false;
+	}
+	else if (free && vsp >= -1) {
+		pjetpack_available = true;
+	}
+
+	if (jump_down && pjetpack_available && pjetpack_fuel > 0) {
+		pjetpack_fuel--;
+		vsp = clamp(vsp-gravity_speed-pjetpack_accel, pjetpack_vsp_max, vsp);
+	}
+	
+	if (free) {
+		pjetpack_hud_alpha = clamp(pjetpack_hud_alpha+0.1, pjetpack_hud_alpha, 1);
+	} else {
+		pjetpack_hud_alpha = clamp(pjetpack_hud_alpha-0.1, 0, pjetpack_hud_alpha);
+	}
+}
+
 // H3AD-5T V2
-if (item_grid[38][IG_NUM_HELD] != 0) { 
+if (item_grid[38][IG_NUM_HELD] > 0) { 
 	h3ad_lockout_timer++;
 	if (!free) h3ad_lockout_timer = 0;
 	if ((state == PS_DOUBLE_JUMP || state == PS_WALL_JUMP) && state_timer == 0) h3ad_lockout_timer = 0;

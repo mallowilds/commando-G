@@ -93,7 +93,7 @@ item_grid = [
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | Unimplemented
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | Unimplemented
     ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       0, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | Unimplemented
-    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, 38,    "No hands!"], // 37 | Unimplemented
+    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        1, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        0, 37,    "Jump much higher, and fastfall faster."], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, noone, "Upgrades your side special."], // 39 | Unimplemented
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     0, 41,    "Critical hits deal massive damage and knockback."], // 40 | Unimplemented
@@ -169,7 +169,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [44];
+inventory_list = [44, 38];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -234,6 +234,13 @@ h3ad_was_fast_falling = false;
 fireboots_distance = 0;
 fireboots_prev_x = x;
 fireboots_threshold = 26;
+
+pjetpack_fuel = 0;
+pjetpack_fuel_max = 60;
+pjetpack_available = 0;
+pjetpack_accel = 0.3;
+pjetpack_vsp_max = -5;
+pjetpack_hud_alpha = 0;
 
 dios_revive_timer = 0;
 dios_revive_wait = 50;

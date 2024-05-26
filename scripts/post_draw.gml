@@ -23,3 +23,12 @@ else if (bungus_vis_timer < 3) {
 }
 
 //#endregion
+
+
+//#region Photon Jetpack fuel
+
+if (pjetpack_hud_alpha > 0) {
+    draw_sprite_ext(asset_get("mech_steambar_spr"), 31*(pjetpack_fuel/pjetpack_fuel_max), x-32, y-char_height-hud_offset-30, 2, 2, 0, c_white, pjetpack_hud_alpha);
+}
+
+//#endregion
