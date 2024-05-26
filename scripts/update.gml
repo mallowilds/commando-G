@@ -105,7 +105,6 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 					var orb = instance_create(recently_hit[i].x, recently_hit[i].y-4, "obj_article3");
 					orb.state = 10;
 					var orb_angle = temp_angle - 5 + random_func_2((player*j + 3*j)%200, 10, false);
-					print_debug(orb_angle)
 					orb.hsp = lengthdir_x(7 + random_func_2((player*i + 7*j)%200, 5, false), orb_angle);
 					orb.vsp = lengthdir_y(7 + random_func_2((player*j + 5*j)%200, 5, false), orb_angle);
 				}

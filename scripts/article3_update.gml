@@ -92,7 +92,7 @@ switch state {
         }
         
         var min_distance = -1;
-        if (state_timer > 12) with (oPlayer) {
+        if (state_timer > 8) with (oPlayer) {
             var distance = point_distance(x, y, other.x, other.y);
             if (state_cat != SC_HITSTUN && distance < 20 && (min_distance == -1 || distance < min_distance)) {
                 min_distance = distance;
