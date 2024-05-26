@@ -1,4 +1,4 @@
-/*// debug text, add more if need be
+// debug text, add more if need be
 if "should_debug" in self {
     if (should_debug) {
         draw_debug_text(temp_x - 70, temp_y - 90, "Previous State: "+get_state_name(prev_state));
@@ -12,7 +12,7 @@ if "should_debug" in self {
         draw_debug_text(temp_x + 70, temp_y - 15, "Image Index: "   +string(image_index));
     }
 }
-*/
+
 
 
 if ("inventory_list" not in self) exit;

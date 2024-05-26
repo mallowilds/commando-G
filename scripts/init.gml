@@ -1,5 +1,5 @@
 //                                  debug                                     //
-should_debug                    = 0;
+should_debug                    = 1;
 rainfont = font_get("_rfont");
 rainfontbig = font_get("_rfontbig");
 
