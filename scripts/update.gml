@@ -196,10 +196,21 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 	if (jump_down && pjetpack_available && pjetpack_fuel > 0) {
 		pjetpack_fuel--;
 		vsp = clamp(vsp-gravity_speed-pjetpack_accel, pjetpack_vsp_max, vsp);
+		if (get_gameplay_time() % 6 == 0) {
+			spawn_lfx(asset_get("mech_dstrong_steam"), x, y-10, 10, 1, 0, 0, 0)
+		}
+		if (pjetpack_sound == noone) {
+			pjetpack_sound = sound_play(asset_get("sfx_ell_hover"), true, noone, 0.4, 1.4);
+		}
+	}
+	else if (pjetpack_sound != noone) {
+		sound_stop(pjetpack_sound);
+		pjetpack_sound = noone;
 	}
 	
 	if (free) {
 		pjetpack_hud_alpha = clamp(pjetpack_hud_alpha+0.1, pjetpack_hud_alpha, 1);
+		pjetpack_vis_fuel = pjetpack_fuel
 	} else {
 		pjetpack_hud_alpha = clamp(pjetpack_hud_alpha-0.1, 0, pjetpack_hud_alpha);
 	}

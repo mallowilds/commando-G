@@ -241,6 +241,8 @@ pjetpack_available = 0;
 pjetpack_accel = 0.3;
 pjetpack_vsp_max = -5;
 pjetpack_hud_alpha = 0;
+pjetpack_vis_fuel = 0;
+pjetpack_sound = noone;
 
 dios_revive_timer = 0;
 dios_revive_wait = 50;
