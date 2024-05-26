@@ -169,7 +169,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [44, 38];
+inventory_list = [44, 37];
 
 // For use by item init (user_event0)
 new_item_id = noone;
