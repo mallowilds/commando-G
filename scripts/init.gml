@@ -58,7 +58,7 @@ item_grid = [
     ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, noone, "Taunt to place down a powerful buffing Warbanner."], // 1 | Unimplemented
     ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       0, noone, "Hurt enemies by fast-falling."], // 2 | Unimplemented
     ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Strongs deal more Knockback."], // 3 | Unimplemented
-    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      1, noone, "Crouch to heal over time."], // 4 | update.gml, post_draw.gml
+    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, noone, "Crouch to heal over time."], // 4 | update.gml, post_draw.gml
     ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster."], // 5 | user_event0.gml
     ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        0, noone, "Dash faster."], // 6 | user_event0.gml
     ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster after reaching 100%."], // 7 | user_event0.gml, update.gml
@@ -104,7 +104,7 @@ item_grid = [
     ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
     
-    ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      6, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | hit_player.gml, article3
+    ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      3, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | hit_player.gml, article3
     ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Jumping while dashing boosts you forward."], // 48 | update.gml
     
 ]
@@ -169,7 +169,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [44, 4, 47];
+inventory_list = [44, 47];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -239,6 +239,8 @@ dios_revive_timer = 0;
 dios_revive_wait = 50;
 dios_invince_time = 60;
 dios_stored_damage = 0;
+
+tooth_awaiting_spawn = array_create(20, -1);
 
 quail_do_boost = 0;
 

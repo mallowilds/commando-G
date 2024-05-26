@@ -92,7 +92,7 @@ switch state {
         }
         
         var min_distance = -1;
-        if (state_timer > 6) with (oPlayer) {
+        if (state_timer > 12) with (oPlayer) {
             var distance = point_distance(x, y, other.x, other.y);
             if (state_cat != SC_HITSTUN && distance < 20 && (min_distance == -1 || distance < min_distance)) {
                 min_distance = distance;
@@ -108,6 +108,12 @@ switch state {
         if (hsp > 0) hsp = clamp(hsp - 0.6, 0, hsp);
         else if (hsp < 0) hsp = clamp(hsp + 0.6, hsp, 0);
         vsp = (state_timer > 6 ? sin(state_timer*pi/30) : -6 + state_timer);
+        
+        if (state_timer > 300) {
+            spawn_lfx(sprite_get("vfx_item_tooth_despawn"), x, y, 8, 1, 1, 0, 0);
+            instance_destroy();
+            exit;
+        }
         
         var min_distance = -1;
         with (oPlayer) {
@@ -137,8 +143,8 @@ switch state {
         
         with oPlayer {
             if (place_meeting(x, y, other)) {
-                take_damage(player, other.player, -1);
-                if ("aegis_barrier" in self && "item_grid" in self) aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD];
+                take_damage(player, other.player, -2);
+                if ("aegis_barrier" in self && "item_grid" in self) aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD] * 2;
                 other.orb_consumed = true;
                 array_push(other.orb_healed, self);
             }
@@ -158,6 +164,7 @@ switch state {
             }
             
             sound_play(asset_get("mfx_timertick_holy"));
+            spawn_lfx(sprite_get("vfx_item_tooth_despawn"), x, y, 8, 1, 1, 0, 0);
             instance_destroy();
             exit;
         }

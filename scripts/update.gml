@@ -80,18 +80,39 @@ switch state {
 
 //#endregion
 
-//#region Kill detection
+//#region Hit/kill detection
 
 if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 	if (recently_hit[i] != noone) {
+		
+		// On kill and/or object ceases to exist
 		if (!instance_exists(recently_hit[i]) || recently_hit[i].state == PS_DEAD || recently_hit[i].state == PS_RESPAWN) {
-			// Trigger on-kill effects
 			brooch_barrier += 5 * item_grid[9][IG_NUM_HELD]; // Topaz Brooch
 			recently_hit[i] = noone;
 		}
+		
+		// Opponent has left hitstun
 		else if (recently_hit[i].state_cat != SC_HITSTUN) {
 			recently_hit[i] = noone;
 		}
+		
+		// Opponent is leaving hitpause
+		else if (recently_hit[i].hitstop < 2) {
+			// Monster Tooth
+			if (tooth_awaiting_spawn[i] != -1) {
+				var temp_angle = tooth_awaiting_spawn[i];
+				for (var j = 0; j < item_grid[47][IG_NUM_HELD]; j++) {
+					var orb = instance_create(recently_hit[i].x, recently_hit[i].y-4, "obj_article3");
+					orb.state = 10;
+					var orb_angle = temp_angle - 5 + random_func_2((player*j + 3*j)%200, 10, false);
+					print_debug(orb_angle)
+					orb.hsp = lengthdir_x(7 + random_func_2((player*i + 7*j)%200, 5, false), orb_angle);
+					orb.vsp = lengthdir_y(7 + random_func_2((player*j + 5*j)%200, 5, false), orb_angle);
+				}
+				tooth_awaiting_spawn[i] = -1;
+			}
+		}
+		
 	}
 }
 
