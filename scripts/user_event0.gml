@@ -64,11 +64,15 @@ switch new_item_id {
         break;
     
     case 37: // Photon Jetpack
-        pjetpack_fuel_max = 30 + 30*item_grid[37][IG_NUM_HELD];
+        pjetpack_fuel_max = 45 + 30*item_grid[37][IG_NUM_HELD];
         break;
     
     case 38: // H3AD-5T V2
         update_vertical_movement();
+        break;
+        
+    case 50: // Energy Cell
+        update_attack_speed();
         break;
     
 }
@@ -79,7 +83,8 @@ switch new_item_id {
     attack_speed = 1
                  + (2 * item_grid[13][IG_NUM_HELD]) // Soldier's Syringe
                  + (item_grid[14][IG_NUM_HELD]) // Mocha
-                 + ((instincts_timer > 0) ? (2 + item_grid[26][IG_NUM_HELD]) : 0); // Predatory Instincts
+                 + ((instincts_timer > 0) ? (2 + item_grid[26][IG_NUM_HELD]) : 0) // Predatory Instincts
+                 + ((item_grid[50][IG_NUM_HELD] > 0) ? floor(get_player_damage(player) / (40-5*item_grid[50][IG_NUM_HELD])) : 0); // Energy Cell
     
     return;
     

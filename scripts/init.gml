@@ -106,6 +106,8 @@ item_grid = [
     
     ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      0, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | hit_player.gml, article3
     ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Jumping while dashing boosts you forward."], // 48 | update.gml
+    ["Filial Imprinting",       RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Hatch a strange creature who drops buffs every 10 seconds."], // 49 | Unimplemented
+    ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Gain attack speed the more you're damaged."], // 50 | user_event0.gml, update.gml
     
 ]
 
@@ -236,10 +238,9 @@ fireboots_prev_x = x;
 fireboots_threshold = 26;
 
 pjetpack_fuel = 0;
-pjetpack_fuel_max = 60;
+pjetpack_fuel_max = 75;
 pjetpack_available = 0;
 pjetpack_accel = 0.3;
-pjetpack_vsp_max = -5;
 pjetpack_hud_alpha = 0;
 pjetpack_vis_fuel = 0;
 pjetpack_sound = noone;

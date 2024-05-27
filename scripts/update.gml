@@ -195,7 +195,7 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 
 	if (jump_down && pjetpack_available && pjetpack_fuel > 0) {
 		pjetpack_fuel--;
-		vsp = clamp(vsp-gravity_speed-pjetpack_accel, pjetpack_vsp_max, vsp);
+		vsp = clamp(vsp-gravity_speed-pjetpack_accel, -5, 3);
 		if (get_gameplay_time() % 6 == 0) {
 			spawn_lfx(asset_get("mech_dstrong_steam"), x, y-10, 10, 1, 0, 0, 0)
 		}
@@ -262,6 +262,7 @@ if (dios_revive_timer > 0) {
 			}
 			inventory_list = array_slice(inventory_list, 0, num_items-1);
 		}
+		
 	}
 }
 
@@ -285,9 +286,21 @@ if (item_grid[48][IG_NUM_HELD] > 0) {
 	
 }
 
+// Energy Cell
+// * Trying to avoid calling a user_event script every frame, since hit_player
+//   wouldn't be enough for this (doesn't account for healing/DoT effects).
+//   While this has a possible accuracy trade-off in theory, my hope is that
+//   it shouldn't be noticable in practice given the amount of time that
+//   attack-speed moves take to execute (and the typical length of hitstun).
+if (item_grid[50][IG_NUM_HELD] > 0 && get_gameplay_time() % 10 == 0) {
+    new_item_id = 50;
+    user_event(0);
+}
+
+
 //#endregion
 
-//#region Damage management
+//#region Damage management (Barriers/state changes)
 
 if (old_damage != get_player_damage(player)) {
 	

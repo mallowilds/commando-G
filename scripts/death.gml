@@ -2,6 +2,12 @@
 
 
 
+// Barriers
+jewel_barrier = 0;
+heart_barrier = 0;
+aegis_barrier = 0;
+brooch_barrier = 0;
+
 // Dio's Best Friend
 if (item_grid[44][IG_NUM_HELD] > 0) {
     

@@ -9,17 +9,6 @@ if blocktimer > 0 {
     draw_sprite_ext(sprite_get("blocked"), 0, x - 60, y - 115 + (blocktimer/25), 1, 1, 0, c_white, blocktimer/100)
 }*/
 
-
-//#region Lightweight particle drawing
-for (var i = 0; i < ds_list_size(lfx_list); i++) {
-    var lfx = ds_list_find_value(lfx_list, i);
-    if (!lfx.lfx_foreground) {
-    	var lfx_image_index = lfx.lfx_lifetime * (sprite_get_number(lfx.lfx_sprite_index) / lfx.lfx_max_lifetime);
-    	draw_sprite_ext(lfx.lfx_sprite_index, lfx_image_index, lfx.lfx_x, lfx.lfx_y, lfx.lfx_spr_dir, 1, 0, c_white, 1 );
-    }
-}
-//#endregion
-
 //#region obj_article2 pre_draw
 // (because text draw functions are unstable in article code)
 with (obj_article2) if (other == player_id) {
@@ -56,3 +45,14 @@ with (obj_article2) if (other == player_id) {
     
 }
 //#endregion
+
+//#region Lightweight particle drawing
+for (var i = 0; i < ds_list_size(lfx_list); i++) {
+    var lfx = ds_list_find_value(lfx_list, i);
+    if (!lfx.lfx_foreground) {
+    	var lfx_image_index = lfx.lfx_lifetime * (sprite_get_number(lfx.lfx_sprite_index) / lfx.lfx_max_lifetime);
+    	draw_sprite_ext(lfx.lfx_sprite_index, lfx_image_index, lfx.lfx_x, lfx.lfx_y, lfx.lfx_spr_dir, 1, 0, c_white, 1 );
+    }
+}
+//#endregion
+
