@@ -5,9 +5,9 @@
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	// Play crit sound
 	print_debug("crit!")
-	do_healing(floor(0.166666666 + my_hitboxID.damage * 0.166666667 * item_grid[24][IG_NUM_HELD])); // Harvester's Scythe
+	do_healing(floor(my_hitboxID.damage * (SCYTHE_HEAL_BASE + SCYTHE_HEAL_SCALE*item_grid[24][IG_NUM_HELD]))); // Harvester's Scythe
 	if (item_grid[26][IG_NUM_HELD] > 0) {
-		instincts_timer = instincts_duration;
+		instincts_timer = INSTINCTS_DURATION;
 		new_item_id = 26;
 		user_event(0); // refresh stats
 	}
@@ -18,7 +18,7 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 //#region Crowbar handing
 var crowbar_mult_add = 0;
 if (get_player_damage(hit_player_obj.player) - my_hitboxID.damage <= 50 && item_grid[0][IG_NUM_HELD] > 0) {
-	crowbar_mult_add = 0.5 * item_grid[0][IG_NUM_HELD];
+	crowbar_mult_add = CROWBAR_MULT_BASE + CROWBAR_MULT_SCALE*item_grid[0][IG_NUM_HELD];
 	hit_player_obj.orig_knock += 10 * my_hitboxID.kb_scale * 0.12 * hit_player_obj.knockback_adj * item_grid[0][IG_NUM_HELD]; 
 	sound_play(s_cbar, 0, noone, 1, 0.95 + 0.1*random_func(player, 1, false));
 }

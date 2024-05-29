@@ -50,7 +50,7 @@ with pHitBox if (player_id == other) {
 		with (other) other.cmd_is_critical = get_hitbox_value(other.attack, other.hbox_num, HG_IS_CRITICAL);
 		if (cmd_is_critical == 1) {
 			damage += 3 * player_id.item_grid[10][player_id.IG_NUM_HELD]; // Lens Maker's Glasses
-			if (player_id.item_grid[12][player_id.IG_NUM_HELD] > 0 && effect == 0) effect = 11; // Taser
+			if (player_id.item_grid[12][player_id.IG_NUM_HELD] > 0 && effect == 0) effect = 11; // Taser (temp)
 		}
 	}
 }
@@ -87,7 +87,7 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 		
 		// On kill and/or object ceases to exist
 		if (!instance_exists(recently_hit[i]) || recently_hit[i].state == PS_DEAD || recently_hit[i].state == PS_RESPAWN) {
-			brooch_barrier += 5 * item_grid[9][IG_NUM_HELD]; // Topaz Brooch
+			brooch_barrier += BROOCH_BARRIER_SCALE * item_grid[9][IG_NUM_HELD]; // Topaz Brooch
 			recently_hit[i] = noone;
 		}
 		
@@ -122,14 +122,14 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 // Bustling Fungus
 if (item_grid[4][IG_NUM_HELD] != 0) {
 	if (state == PS_CROUCH){ 
-		if (!bungus_active && bungus_timer > bungus_wait_time) {
+		if (!bungus_active && bungus_timer > BUNGUS_WAIT_TIME) {
 			bungus_active = 1;
 			bungus_timer = 0;
 			bungus_vis_timer = 0;
 			bungus_vis_x = x;
 			bungus_vis_y = y;
 		}
-		if (bungus_active && bungus_timer > floor(bungus_tick_time/item_grid[4][IG_NUM_HELD])) {
+		if (bungus_active && bungus_timer > floor(BUNGUS_TICK_TIME/item_grid[4][IG_NUM_HELD])) {
 			bungus_timer = 0;
 			do_healing(1);
 			spawn_lfx(sprite_get("vfx_item_u_heal"), x-45+random_func_2(player*1, 30, false), y-50+random_func_2(player*2, 40, false), 39+random_func_2(player*3, 7, true), 1, 1, 0, -1);
@@ -148,11 +148,11 @@ if (item_grid[4][IG_NUM_HELD] != 0) {
 
 // Guardian Heart
 if (item_grid[22][IG_NUM_HELD] != 0) {
-	if (heart_barrier_endangered && heart_barrier_timer > heart_barrier_endangered_time) {
+	if (heart_barrier_endangered && heart_barrier_timer > HEART_ENDANGERED_TIME) {
 		heart_barrier_endangered = 0;
 		heart_barrier_timer = 0;
 	}
-	if (!heart_barrier_endangered && heart_barrier_timer > heart_barrier_tick_time && heart_barrier < heart_barrier_max) {
+	if (!heart_barrier_endangered && heart_barrier_timer > HEART_TICK_TIME && heart_barrier < heart_barrier_max) {
 		heart_barrier++;
 		heart_barrier_timer = 0;
 	}
@@ -172,8 +172,8 @@ if (instincts_timer > 0) {
 if (item_grid[32][IG_NUM_HELD] > 0) {
 	fireboots_distance += abs (x - fireboots_prev_x);
 	fireboots_prev_x = x;
-	if (free) fireboots_distance = fireboots_threshold;
-	if (!free && fireboots_distance >= fireboots_threshold) {
+	if (free) fireboots_distance = FIREBOOTS_THRESHOLD;
+	if (!free && fireboots_distance >= FIREBOOTS_THRESHOLD) {
 		var burnbox = instance_create(x, y, "obj_article3")
 		burnbox.state = 00;
 		fireboots_distance = 0;
@@ -189,13 +189,13 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 	else if ((state == PS_FIRST_JUMP || state == PS_DOUBLE_JUMP || state == PS_WALL_JUMP) && state_timer == 0) {
 		pjetpack_available = false;
 	}
-	else if (free && vsp >= -1) {
+	else if (free && vsp >= PJETPACK_THRESHOLD) {
 		pjetpack_available = true;
 	}
 
 	if (jump_down && pjetpack_available && pjetpack_fuel > 0) {
 		pjetpack_fuel--;
-		vsp = clamp(vsp-gravity_speed-pjetpack_accel, -5, 3);
+		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
 		if (get_gameplay_time() % 6 == 0) {
 			spawn_lfx(asset_get("mech_dstrong_steam"), x, y-10, 10, 1, 0, 0, 0)
 		}
@@ -221,7 +221,7 @@ if (item_grid[38][IG_NUM_HELD] > 0) {
 	h3ad_lockout_timer++;
 	if (!free) h3ad_lockout_timer = 0;
 	if ((state == PS_DOUBLE_JUMP || state == PS_WALL_JUMP) && state_timer == 0) h3ad_lockout_timer = 0;
-	else if (h3ad_lockout_timer >= 8 && can_fast_fall && vsp < 0 && down_hard_pressed) {
+	else if (h3ad_lockout_timer >= HEADSET_LOCKOUT_TIME && can_fast_fall && vsp < 0 && down_hard_pressed) {
 		vsp = 0;
 		do_a_fast_fall = true;
 	}
@@ -243,7 +243,7 @@ if (dios_revive_timer > 0) {
 		if (respawn_damage != 0) take_damage(player, player, -respawn_damage)
 		take_damage(player, player, dios_stored_damage);
 		initial_invince = 1;
-		invince_time = dios_invince_time;
+		invince_time = DIOS_INVINCE_TIME;
 		visible = true;
 		
 		item_grid[@ 44][@ IG_NUM_HELD]--;
@@ -267,34 +267,23 @@ if (dios_revive_timer > 0) {
 }
 
 // Wax Quail
-if (item_grid[48][IG_NUM_HELD] > 0) {
+if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 	if (state == PS_DASH) quail_do_boost = true;
 	else if (state != PS_JUMPSQUAT && state != PS_FIRST_JUMP && state != PS_AIR_DODGE && state != PS_WAVELAND) quail_do_boost = false;
 	
 	if (quail_do_boost) {
 		if (state == PS_FIRST_JUMP && state_timer == 0) {
-			hsp += spr_dir * (1 + item_grid[48][IG_NUM_HELD]);
+			hsp += spr_dir * (QUAIL_JUMP_BASE + QUAIL_JUMP_SCALE*item_grid[ITEM_QUAIL][IG_NUM_HELD]);
 		}
 		if (state == PS_WAVELAND && state_timer == 0) {
 			var waveland_dir = round(hsp/abs(hsp))
 			if (waveland_dir == spr_dir) {
-				hsp += spr_dir * (2 + 3*item_grid[48][IG_NUM_HELD]);
+				hsp += spr_dir * (QUAIL_WAVE_BASE + QUAIL_WAVE_SCALE*item_grid[ITEM_QUAIL][IG_NUM_HELD]);
 			}
 		}
 	}
 
 	
-}
-
-// Energy Cell
-// * Trying to avoid calling a user_event script every frame, since hit_player
-//   wouldn't be enough for this (doesn't account for healing/DoT effects).
-//   While this has a possible accuracy trade-off in theory, my hope is that
-//   it shouldn't be noticable in practice given the amount of time that
-//   attack-speed moves take to execute (and the typical length of hitstun).
-if (item_grid[50][IG_NUM_HELD] > 0 && get_gameplay_time() % 10 == 0) {
-    new_item_id = 50;
-    user_event(0);
 }
 
 
@@ -314,12 +303,19 @@ if (old_damage != get_player_damage(player)) {
 	}
 	
 	// Arcane Blades stat update
-	if ((old_damage >= 100) != (get_player_damage(player) >= 100)) {
-		new_item_id = 7;
+	if ((item_grid[ITEM_BLADES][IG_NUM_HELD] > 0) && ((old_damage >= 100) != (get_player_damage(player) >= 100))) {
+		new_item_id = ITEM_BLADES;
 		user_event(0);
 	}
 	
+	// Energy Cell
+	if (item_grid[ITEM_CELL][IG_NUM_HELD] > 0) {
+		new_item_id = ITEM_CELL;
+	    user_event(0);
+	}
+	
 	old_damage = get_player_damage(player);
+	
 }
 
 //#endregion
@@ -386,7 +382,7 @@ item_seed = (item_seed + 1) % 200;
 // Attempt to generate a legendary item
 var rnd_legendary = random_func_2(item_seed, 1, false);
 item_seed = (item_seed + 1) % 200;
-if (rnd_legendary <= legendary_odds && legendaries_remaining[rarity] > 0) {
+if (rnd_legendary <= LEGENDARY_ODDS && legendaries_remaining[rarity] > 0) {
 	
 	var num_items = array_length(rnd_legend_index_store[rarity]);
 	var access_index = random_func_2(num_items, 1, false);

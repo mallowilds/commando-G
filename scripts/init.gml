@@ -3,43 +3,14 @@ should_debug                    = 0;
 rainfont = font_get("_rfont");
 rainfontbig = font_get("_rfontbig");
 
-//=-(                     ~~//** CUSTOM INDEXES **//~~                     )-=//
+//=-(                        ~~//** CONSTANTS **//~~                       )-=//
+user_event(2); // Lots of primitive constants are defined in here. These should be baked into the code before release (using the planned tool)
 
-// RTY -> Rarity
-RTY_VOID = -2; // for items that cannot drop under normal circumstances
-RTY_DUMMY = -1; // for if an item needs to be dummied out
-RTY_COMMON = 0;
-RTY_UNCOMMON = 1;
-RTY_RARE = 2;
-
+// Non-primitive constants are below. (mostly text strings)
 rarity_names = ["Common", "Uncommon", "Rare"];
-
-//ITP -> Item Type
-ITP_LEGENDARY = -1; // special type
-ITP_DAMAGE = 0;
-ITP_KNOCKBACK = 1;
-ITP_HEALING = 2;
-ITP_SPEED = 3;
-ITP_CRITICAL = 4;
-ITP_ATTACK_SPEED = 5;
-ITP_BARRIER = 6;
-ITP_EXPLOSIVE = 7;
-num_itp_indices = 8; // update as needed! excludes legendary.
-                     // be sure to also add a new entry to the weight and name arrays.
-
 item_type_names = ["Damage", "Knockback", "Healing", "Speed", "Critical", "Attack Speed", "Barrier", "Explosive"];
 legendary_type_name = "Legendary";
 
-// IG -> Item grid
-IG_NAME = 0;
-IG_RARITY = 1;
-IG_TYPE = 2;
-IG_NUM_HELD = 3;
-IG_INCOMPATIBLE = 4; // denotes an index for another item that, if held, prevents this item from being held.
-IG_DESC = 5;
-
-// HG -> Hitbox Grid
-HG_IS_CRITICAL = 80;
 
 
 //=-(                    ~~//** NON-ITEM MANAGEMENT **//~~                  )-=//
@@ -51,8 +22,8 @@ lfx_list = ds_list_create();
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 
 // Item Grid
-// Format: see IG indices above
-// Do not reorder items without updating scripts that depend on them! If you need to remove an item, use RTY_DUMMY to disable it.
+// Format: see IG indices above.
+// Do not reorder items without updating their indices (user_event2.gml)! If you need to remove an item, use RTY_DUMMY to disable it.
 item_grid = [
     ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Deal more damage & knockback to healthy enemies."], // 0 | hit_player.gml
     ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, noone, "Taunt to place down a powerful buffing Warbanner."], // 1 | Unimplemented
@@ -125,7 +96,6 @@ for (var rty = 0; rty < 3; rty++) {
 
 // Randomizer properties
 legendaries_remaining = array_create(3, 0); // to be initialized
-legendary_odds = 0.01 // global
 rares_remaining = 3; // manual limit, assumes that at least 3 rares exist
 uncommons_remaining = 0; // to be initialized
 item_seed = player * 5; // max 200, this should hold within the rivals engine
@@ -136,7 +106,7 @@ item_seed = player * 5; // max 200, this should hold within the rivals engine
 // Legendary items are handled differently and thus not included here.
 type_values = [
     // In order of ITP indices (see above)
-    [6, 6, 3, 6, 5, 5, 3, 5],  // commons
+    INIT_COMMON_VALUES,  // commons
     array_create(num_itp_indices, 0),     // uncommons
     array_create(num_itp_indices, 0),     // rares
 ]
@@ -147,8 +117,8 @@ type_values = [
 type_weights = [
     // In order of ITP indices (see above)
     array_create(num_itp_indices, 0),     // commons
-    [6, 6, 3, 6, 5, 5, 3, 5],  // uncommons
-    [6, 6, 3, 6, 5, 5, 3, 5],  // rares
+    INIT_UNCOMMON_WEIGHTS,  // uncommons
+    INIT_RARE_WEIGHTS,  // rares
 ]
 
 // Populate randomizer info
@@ -205,14 +175,12 @@ brooch_barrier = 0;      // Topaz Brooch
 heart_barrier = 0;       // Guardian Heart
 heart_barrier_endangered = 1;
 heart_barrier_timer = 0;
-heart_barrier_endangered_time = 300;
-heart_barrier_tick_time = 60;
 heart_barrier_max = 0;   // see user_event0
 jewel_barrier = 0;       // Locked Jewel
 jewel_barrier_timer = 0;
 jewel_movespeed_duration = 240;
 aegis_barrier = 0;       // Aegis
-aegis_ratio = 0.5;
+aegis_ratio = AEGIS_RATIO_BASE;
 
 // Kill tracking
 recently_hit = array_create(20, noone)
@@ -220,34 +188,27 @@ num_recently_hit = 0;
 
 // Misc item-specific vars
 bungus_active = 0;
-bungus_timer = 0; 
-bungus_wait_time = 90;
-bungus_tick_time = 30; // Heal 1% every n/(bungus count) frames
+bungus_timer = 0;
 bungus_vis_timer = 999;
 bungus_vis_x = x;
 bungus_vis_y = y;
 
 instincts_timer = 0; // Predatory Instincts
-instincts_duration = 240;
 
 h3ad_lockout_timer = 0; // H3AD-5T, used for fast falling
 h3ad_was_fast_falling = false;
 
 fireboots_distance = 0;
 fireboots_prev_x = x;
-fireboots_threshold = 26;
 
 pjetpack_fuel = 0;
 pjetpack_fuel_max = 75;
 pjetpack_available = 0;
-pjetpack_accel = 0.3;
 pjetpack_hud_alpha = 0;
 pjetpack_vis_fuel = 0;
 pjetpack_sound = noone;
 
 dios_revive_timer = 0;
-dios_revive_wait = 50;
-dios_invince_time = 60;
 dios_stored_damage = 0;
 
 tooth_awaiting_spawn = array_create(20, -1);

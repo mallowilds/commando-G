@@ -12,10 +12,10 @@ brooch_barrier = 0;
 if (item_grid[44][IG_NUM_HELD] > 0) {
     
 	sound_play(s_dios);
-	dios_revive_timer = dios_revive_wait;
+	dios_revive_timer = DIOS_REVIVE_WAIT;
 	set_state(PS_HITSTUN);
 	initial_invince = 1;
-	invince_time = dios_revive_wait + 4;
+	invince_time = DIOS_REVIVE_WAIT + 4;
 	hitstop = 3;
 	hitstop_full = 3;
 	hitpause = true;
