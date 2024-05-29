@@ -47,6 +47,45 @@ switch(attack) {
         break;
     
     case AT_NSPECIAL:
+        /* hi shear
+        the way it should work:
+        Normally, it just shoots a single beam, which acts as a large disjointed hitbox (projectile). It should be segmented into 2 hitboxes, with the further one having reduced power.
+            Attack Speed: Every stack of attack speed adds a multihit to it, using the 'multihit hold' window. The hits should be extremely fast and dont need to be segmented into 2 hitboxes, since they should just be weak and very low hitpause.
+            Ancient Scepter: The beam will get larger, and the final hit will have more knockback, along with not having KB falloff. It will also have 3 or so frames reduced startup (if needed? just think it'd be cool)
+            Laser Turbine: When you fill up the meter for Laser Turbine to activate, No matter your attack speed, it will be replaced with a single, large laser, that doesnt have falloff.
+
+            SFX:
+            Didnt wanna mess with the SFX in attack update since i figure you're gonna have to change a bunch anyway. 
+                Whiff, window 1: swipe_medium1, if there is a multihit, s_gunf. If theres no multihit, go straight to s_gunf.
+                Whiff, multihit windows: Use s_gunf with sfx_blow_weak hitsounds for each multihit window - Before the last hit, s_gunf should play.
+        */
+
+        if window != 1 && window != 5{ hud_offset = 30 }
+        switch window {
+            case 1: //startup HSP lerp - feel free to change if theres a more natural way to halt HSP before the first acive frame.
+                hsp = lerp(hsp, 0, .1)
+                vsp = lerp(vsp, 0, .1)
+                break;
+            case 2: //multihit windows
+            case 3:
+            case 4:
+                hsp = 0;
+                vsp = 0;
+                can_fast_fall = 0
+                can_move = 0
+                if window_timer == 1 { spawn_base_dust(x, y, "dash", spr_dir)}
+                break;
+            case 5: //final window stuff
+                if window_timer == 1 { spawn_base_dust(x, y, "dash_start", spr_dir)} //fyi, these might need to be changed to be spawned before the hitbox, idk how itll work with hitpause. if it looks fine it doesnt matter though
+                can_fast_fall = 0
+                can_move = 0
+                if window_timer < 8 {
+                    hsp = 0
+                    vsp = 0
+                    hud_offset = 30
+                }
+                break;
+        }
         //a
         break;
     case AT_FSPECIAL:

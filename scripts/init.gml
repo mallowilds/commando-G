@@ -261,6 +261,12 @@ s_cbar = sound_get("cm_crowbar");
 s_dios = sound_get("cm_item_dios");
 s_shotty = sound_get("cm_shotgun_blast");
 s_reload = sound_get("cm_shotgun_load");
+
+s_gunf = sound_get("cm_shootfast") //fast, multihit
+s_gunl = sound_get("cm_shootlight_1"); //light
+s_gunm = sound_get("cm_shootlight2"); //med
+s_gunh = sound_get("cm_shootmedwav"); //heavy //idk why it got named that lol
+
 //
 
 
