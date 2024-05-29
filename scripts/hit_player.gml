@@ -5,7 +5,7 @@
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	// Play crit sound
 	print_debug("crit!")
-	do_healing(floor(my_hitboxID.damage * 0.25 * item_grid[24][IG_NUM_HELD])); // Harvester's Scythe
+	do_healing(floor(0.166666666 + my_hitboxID.damage * 0.166666667 * item_grid[24][IG_NUM_HELD])); // Harvester's Scythe
 	if (item_grid[26][IG_NUM_HELD] > 0) {
 		instincts_timer = instincts_duration;
 		new_item_id = 26;
