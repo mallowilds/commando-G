@@ -28,7 +28,7 @@ item_grid = [
     ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Deal more damage & knockback to healthy enemies."], // 0 | hit_player.gml
     ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, noone, "Taunt to place down a powerful buffing Warbanner."], // 1 | Unimplemented
     ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       0, noone, "Hurt enemies by fast-falling."], // 2 | Unimplemented
-    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Strongs deal more Knockback."], // 3 | Unimplemented
+    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Strongs deal more damage and slightly more knockback."], // 3 | Unimplemented
     ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, noone, "Crouch to heal over time."], // 4 | update.gml, post_draw.gml
     ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster."], // 5 | user_event0.gml
     ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        0, noone, "Dash faster."], // 6 | user_event0.gml
@@ -40,44 +40,44 @@ item_grid = [
     ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done), user_event0.gml
     ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
-    ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Explosive attacks attach a little more firepower."], // 15 | Unimplemented
-    ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Explosive attacks set enemies on fire."], // 16 | Unimplemented, user_event0.gml
+    ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks attach a little more firepower."], // 15 | Unimplemented
+    ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks set enemies on fire."], // 16 | Unimplemented, user_event0.gml
     ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    0, noone, "I'm coming home soon. Stay strong."], // 17 | user_event0.gml
     
-    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, noone, "Strongs blast enemies with runic fire, dealing more damage."], // 18 | Unimplemented, user_event0.gml
-    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs blast enemies with runic ice, dealing more knockback."], // 19 | Unimplemented
-    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "And his music was electric."], // 20 | Unimplemented
+    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, noone, "Strongs blast enemies with runic fire, lighting them ablaze."], // 18 | Unimplemented, user_event0.gml
+    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs blast enemies with runic ice, freezing to the bone."], // 19 | Unimplemented
+    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "..And his music was electric."], // 20 | Unimplemented
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
-    ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield that recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
-    ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain barrier and temporary movespeed after opening chests."], // 23 | Unimplemented, init done
+    ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield. Recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
+    ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a burst of shield and speed after opening chests."], // 23 | Unimplemented, init done
     ["Harvester's Scythe",      RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | hit_player.gml, user_event0.gml
     ["Ignition Tank",           RTY_VOID,       ITP_CRITICAL,     0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Unimplemented. Becomes uncommon in a user_event0 script
     ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | update.gml, hit_player.gml, user_event0.gml
-    ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, noone, "Explosive attacks stun enemies briefly."], // 27 | Unimplemented
-    ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs unleash a missile on contact."], // 28 | Unimplemented
-    ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Jump higher and fall slightly slower."], // 29 | user_event0.gml
+    ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, noone, "Blast attacks stun enemies briefly."], // 27 | Unimplemented
+    ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs fire a missile."], // 28 | Unimplemented
+    ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Increase jump height and reduce gravity."], // 29 | user_event0.gml
     ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    0, noone, "Smite them. Smite them all."], // 30 | Unimplemented
     
     ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Upgrade your Neutral Special."], // 31 | Unimplemented
-    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Fight fire with fire."], // 32 | update.gml, article3, AT_EXTRA_1, user_event0.gml
+    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Fight fire with fire.."], // 32 | update.gml, article3, AT_EXTRA_1, user_event0.gml
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_KNOCKBACK,    0, noone, "Hooah."], // 33 | Unimplemented
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | Unimplemented
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | Unimplemented
     ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       0, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | Unimplemented
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        1, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
-    ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        0, 37,    "Jump much higher, and fastfall faster."], // 38 | user_event0.gml
+    ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        0, 37,    "Jump much higher, and fall much faster."], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, noone, "Upgrades your side special."], // 39 | Unimplemented
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     0, 41,    "Critical hits deal massive damage and knockback."], // 40 | Unimplemented
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml, hit_player.gml, article3 (monster tooth)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
-    ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    1, noone, "Gain an extra life."], // 44 | update.gml, death.gml
+    ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    1, noone, "Cheat death."], // 44 | update.gml, death.gml
     ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
     
     ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      0, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | hit_player.gml, article3
     ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Jumping while dashing boosts you forward."], // 48 | update.gml
-    ["Filial Imprinting",       RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Hatch a strange creature who drops buffs every 10 seconds."], // 49 | Unimplemented
+    ["Filial Imprinting",       RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Hatch a strange creature who drops buffs every 15 seconds."], // 49 | Unimplemented
     ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Gain attack speed the more you're damaged."], // 50 | user_event0.gml, update.gml
     
 ]
