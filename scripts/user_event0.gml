@@ -106,7 +106,7 @@ switch new_item_id {
     dash_speed = dash_speed_base + (MSPEED_DASH_SPEED_SCALE * move_speed) + (EDRINK_DASH_SPEED_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD]); // energy drink
     initial_dash_speed = initial_dash_speed_base + (MSPEED_IDASH_SPEED_SCALE * move_speed) + (EDRINK_IDASH_SPEED_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD]); // energy drink
     
-    max_jump_hsp = max_jump_hsp_base + (MSPEED_MAX_JUMP_HSP * move_speed);
+    max_jump_hsp = max_jump_hsp_base + (MSPEED_MAX_JUMP_HSP_SCALE * move_speed);
     air_max_speed = air_max_speed_base + (MSPEED_AIR_MAX_HSP_SCALE * move_speed);
     
     return;

@@ -19,7 +19,12 @@ with (obj_article2) if (other == player_id) {
             
             draw_set_alpha(draw_alpha);
             
-            draw_sprite(sprite_get("item_bgpanel"), 0, x, y - 20)
+            if (string_length(player_id.item_grid[item_id][player_id.IG_DESC]) < player_id.TEXTBOX_BIG_THRESHOLD) {
+                draw_sprite(sprite_get("item_bgpanel"), 0, x, y - 20)
+            } else {
+                draw_sprite(sprite_get("item_bgpanel_big"), 0, x - 52, y - 20)
+            }
+            
             draw_sprite_ext(sprite_get("item"), item_id, x + 12, y - 18, 2, 2, 0, c_black, 0.5 * draw_alpha)
             draw_sprite_ext(sprite_get("item"), item_id, x + 10, y - 22, 2, 2, 0, c_white, draw_alpha)
             

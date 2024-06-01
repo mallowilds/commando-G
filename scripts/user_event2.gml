@@ -99,6 +99,7 @@ ST_STUN_ELECTRIC = 2;
 ST_STUN_EXPLOSIVE = 3;
 ST_LOPPER = 4;
 ST_SHATTERED = 5;
+ST_STATIC = 6;
 // tbd
 
 //#endregion
@@ -126,6 +127,9 @@ MSPEED_AIR_MAX_HSP_SCALE = 0.5;
 
 MAX_JUMP_MOD = 5; // for jump_speed
 
+// Aesthetic Properties
+TEXTBOX_BIG_THRESHOLD = 50;
+
 //#endregion
 
 //#region Item Properties
@@ -136,7 +140,7 @@ CROWBAR_MULT_SCALE = 0.5;
 
 // Bustling Fungus
 BUNGUS_WAIT_TIME = 90;
-BUNGUS_TICK_TIME = 30; // Heal 1% every n/(bungus count) frames, gets divided by the number of bunguses
+BUNGUS_TICK_TIME = 30; // Heal 1% every n/(bungus count) frames
 
 // Paul's Goat Hoof
 HOOF_SPEED_SCALE = 1;
