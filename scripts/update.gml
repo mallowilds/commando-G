@@ -147,7 +147,11 @@ if (item_grid[4][IG_NUM_HELD] != 0) {
 }
 
 // Guardian Heart
-if (item_grid[22][IG_NUM_HELD] != 0) {
+if (item_grid[ITEM_HEART][IG_NUM_HELD] != 0) {
+	// debug. remove later
+	new_item_id = ITEM_HEART
+	user_event(0);
+	
 	if (heart_barrier_endangered && heart_barrier_timer > HEART_ENDANGERED_TIME) {
 		heart_barrier_endangered = 0;
 		heart_barrier_timer = 0;
@@ -316,6 +320,14 @@ if (old_damage != get_player_damage(player)) {
 	
 	old_damage = get_player_damage(player);
 	
+}
+
+var barrier = floor(brooch_barrier + heart_barrier + jewel_barrier + aegis_barrier);
+
+if (barrier > 0) {
+	if (hud_barrier_fade_alpha < 0.8) hud_barrier_fade_alpha += 0.1;
+} else {
+	if (hud_barrier_fade_alpha > 0) hud_barrier_fade_alpha -= 0.1;
 }
 
 //#endregion

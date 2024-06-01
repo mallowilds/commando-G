@@ -48,7 +48,7 @@ item_grid = [
     ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs blast enemies with runic ice, freezing to the bone."], // 19 | Unimplemented
     ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "..And his music was electric."], // 20 | Unimplemented
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
-    ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield. Recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
+    ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      1, noone, "Gain a 4% shield. Recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
     ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a burst of shield and speed after opening chests."], // 23 | Unimplemented, init done
     ["Harvester's Scythe",      RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | hit_player.gml, user_event0.gml
     ["Ignition Tank",           RTY_VOID,       ITP_CRITICAL,     0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Unimplemented. Becomes uncommon in a user_event0 script
@@ -64,14 +64,14 @@ item_grid = [
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | Unimplemented
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | Unimplemented
     ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       0, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | Unimplemented
-    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        1, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
+    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        0, 37,    "Jump much higher, and fall much faster."], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, noone, "Upgrades your side special."], // 39 | Unimplemented
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     0, 41,    "Critical hits deal massive damage and knockback."], // 40 | Unimplemented
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml, hit_player.gml, article3 (monster tooth)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
-    ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    1, noone, "Cheat death."], // 44 | update.gml, death.gml
+    ["Dio's Best Friend",       RTY_RARE,       ITP_LEGENDARY,    0, noone, "Cheat death."], // 44 | update.gml, death.gml
     ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
     
@@ -141,7 +141,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [44, 37];
+inventory_list = [ITEM_HEART];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -181,6 +181,7 @@ jewel_barrier_timer = 0;
 jewel_movespeed_duration = 240;
 aegis_barrier = 0;       // Aegis
 aegis_ratio = AEGIS_RATIO_BASE;
+hud_barrier_fade_alpha = 0;
 
 // Kill tracking
 recently_hit = array_create(20, noone)

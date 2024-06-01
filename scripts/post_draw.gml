@@ -32,3 +32,24 @@ if (pjetpack_hud_alpha > 0) {
 }
 
 //#endregion
+
+//#region Barrier indicator
+
+var barrier = floor(brooch_barrier + heart_barrier + jewel_barrier + aegis_barrier);
+
+if (barrier > 0 && get_local_setting(SET_HUD_SIZE) != 0) {
+    var in_col = make_color_rgb(255, 202, 94);
+    var out_col = make_color_rgb(113, 88, 38);
+    var bar_x_offset = (get_local_setting(SET_HUD_SIZE) == 1 ? 8 : 6) + (get_local_setting(SET_HUD_SIZE) == 1 ? 4 : 6) * (string_length(string(get_player_damage(player))));
+    var bar_y_offset = (get_local_setting(SET_HUD_NAMES) ? 64 : 46) + (get_local_setting(SET_HUD_SIZE) == 1 ? 0 : 4);
+    
+    draw_set_font(asset_get("fName"));
+    for (var i = -2; i < 3; i += 2) {
+        for (var j = -2; j < 3; j += 2) {
+            draw_text_color(x+bar_x_offset+i, y-char_height-hud_offset-bar_y_offset+j, string(barrier) + "%", out_col, out_col, out_col, out_col, 1);
+        }
+    }
+    draw_text_color(x+bar_x_offset, y-char_height-hud_offset-bar_y_offset, string(barrier) + "%", in_col, in_col, in_col, in_col, 1);
+}
+
+//#endregion
