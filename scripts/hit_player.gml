@@ -133,10 +133,6 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_PROJECTILE_MUL
 
 //                          --hit gamefeel--                                  //
 
-// this used to have vfx but it was a mess and I solved some of the initial
-// problems on pohaku
-
-// I'll redo it later with the improvements n new vfx
 switch(my_hitboxID.attack) {
     case AT_JAB:
         //a
@@ -171,7 +167,8 @@ switch(my_hitboxID.attack) {
         break;
         
     case AT_FSTRONG:
-    	//a
+    	var dir_fx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_blast);
+    	dir_fx.draw_angle = 45 * spr_dir;
     	break;
     case AT_USTRONG:
     	//a
