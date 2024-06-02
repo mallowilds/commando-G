@@ -51,21 +51,44 @@ switch(state) { // use this one for doing actual article behavior
         else if (player_id.item_grid[player_id.ITEM_CODES][player_id.IG_NUM_HELD] >= 1 && state_timer >= 300) { 
             set_state(30);
             // not yet implemented, so~
-            instance_destroy();
-            exit;
+            should_die = true;
         }
         break;
     case 03: // Jammed (parried state)
         if (state_timer >= 300) { // Finish after 5s
-            instance_destroy();
-            exit;
+            should_die = true;
         }
         break;
     //#endregion
     
     
     //#region Small chest
-    
+    case 10: // Init
+        target_y = y;
+        y = get_stage_data(SD_TOP_BLASTZONE_Y);
+        vsp = 20;
+        set_state(11);
+        // Spawn hitbox
+        break;
+    case 11: // Fall
+        if (y + vsp > target_y) {
+            mask_index = sprite_get("dspec_smallchest"); // todo: make an actual mask
+            ignores_walls = false;
+            can_be_grounded = true;
+        }
+        if (!free) {
+            set_state(12);
+        }
+        break;
+    case 12: // Idle
+        if (free) vsp = clamp(vsp+0.5, vsp, 8);
+        break;
+    case 13: // Opening
+        if (state_timer >= 120) set_state(14);
+        break;
+    case 14: // Despawning
+        should_die = true;
+        break;
     //#endregion
     
     
@@ -88,7 +111,13 @@ switch(state) { // use this one for doing actual article behavior
         }
         break;
     case 22: // Idle
-        if (free) vsp = clamp(vsp+0.5, vsp,  8);
+        if (free) vsp = clamp(vsp+0.5, vsp, 8);
+        break;
+    case 23: // Opening
+        if (state_timer >= 120) set_state(24);
+        break;
+    case 24: // Despawning
+        should_die = true;
         break;
     //#endregion
     
@@ -96,7 +125,7 @@ switch(state) { // use this one for doing actual article behavior
 
 switch(state) { // use this one for changing sprites and animating
     case 00: // Request arrow (awaiting shipment)
-        sprite_index = sprite_get("dspecial_arrows");
+        sprite_index = sprite_get("null");
         image_index = 0;
         break;
     case 01: // Request arrow (small)
@@ -107,7 +136,28 @@ switch(state) { // use this one for changing sprites and animating
         sprite_index = sprite_get("dspecial_arrows");
         image_index = 1;
         break;
-        
+    
+    // Small chest
+    case 10: // Init
+        sprite_index = sprite_get("null");
+        break;
+    case 11: // Fall
+        sprite_index = sprite_get("dspec_smallchest");
+        image_index = 0;
+        break;
+    case 12: // Idle
+        sprite_index = sprite_get("dspec_smallchest");
+        image_index = 0;
+        break;
+    case 13: // Opening
+        sprite_index = sprite_get("dspec_smallchest");
+        image_index = 1;
+        break;
+    case 14: // Despawning
+        sprite_index = sprite_get("dspec_smallchest");
+        image_index = 1;
+        break;
+      
     // Large chest
     case 20: // Init
         sprite_index = sprite_get("null");
@@ -120,11 +170,20 @@ switch(state) { // use this one for changing sprites and animating
         sprite_index = sprite_get("dspec_largechest");
         image_index = 0;
         break;
+    case 23: // Opening
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 1;
+        break;
+    case 24: // Despawning
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 1;
+        break;
     
 }
 // don't forget that articles aren't affected by small_sprites
 
 if (should_die || y > get_stage_data(SD_BOTTOM_BLASTZONE_Y)) { //despawn and exit script
+    player_id.chest_obj = noone;
     instance_destroy();
     exit;
 }

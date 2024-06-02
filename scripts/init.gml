@@ -18,6 +18,8 @@ legendary_type_name = "Legendary";
 // Lightweight particles
 lfx_list = ds_list_create();
 
+// DSpec
+chest_obj = noone;
 
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 

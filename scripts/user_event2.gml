@@ -110,8 +110,16 @@ ST_STATIC = 6;
 LEGENDARY_ODDS = 0.01 // global
 INIT_COMMON_VALUES = [6, 6, 3, 6, 5, 5, 3, 5]; // Note: unlike the below weights, these are independent of the numbers of items
 INIT_UNCOMMON_WEIGHTS = [6, 6, 3, 6, 5, 5, 3, 5];
-INIT_RARE_WEIGHTS = [6, 6, 3, 6, 5, 5, 3, 5];
-// these init values are only for use by init.gml!
+INIT_RARE_WEIGHTS = [6, 6, 3, 6, 5, 5, 3, 5]; // these init values are only for use by init.gml!
+
+SCHEST_C_WEIGHT = 80;
+SCHEST_U_WEIGHT = 15;
+SCHEST_R_WEIGHT = 5;
+
+LCHEST_C_WEIGHT = 0;
+LCHEST_U_WEIGHT = 80;
+LCHEST_R_WEIGHT = 20;
+
 
 // Move Speed stacking properties
 MSPEED_WALK_ANIM_SCALE = 0.01;

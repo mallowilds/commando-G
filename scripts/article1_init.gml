@@ -2,7 +2,7 @@
 // Chests
 
 // sprite and mask indexes; + default article variables
-sprite_index = sprite_get("dspecial_arrows");
+sprite_index = sprite_get("null");
 mask_index = asset_get("null");
 can_be_grounded = false;
 ignores_walls = true;
