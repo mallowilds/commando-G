@@ -482,7 +482,7 @@ fx_array_flashlight             = [
 
 fx_crit                     = hit_fx_create(sprite_get("vfx_crit"), 24);
 fx_blast                    = hit_fx_create(sprite_get("vfx_blast"), 17);
-fx_item_res                 = hit_fx_create(sprite_get("vfx_item_res"), 220);
+fx_item_res                 = hit_fx_create(sprite_get("vfx_item_res"), 160);
 
 //=-(                      ~~//** BASE STATS **//~~                        )-=//
 
