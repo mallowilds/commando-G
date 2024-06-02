@@ -27,7 +27,6 @@
  * 
  */
 
-
 state_timer += 1;
 
 switch(state) { // use this one for doing actual article behavior
@@ -64,12 +63,33 @@ switch(state) { // use this one for doing actual article behavior
         break;
     //#endregion
     
+    
     //#region Small chest
     
     //#endregion
     
-    //#region Large chest
     
+    //#region Large chest
+    case 20: // Init
+        target_y = y;
+        y = get_stage_data(SD_TOP_BLASTZONE_Y);
+        vsp = 20;
+        set_state(21);
+        // Spawn hitbox
+        break;
+    case 21: // Fall
+        if (y + vsp > target_y) {
+            mask_index = sprite_get("dspec_largechest"); // todo: make an actual mask
+            ignores_walls = false;
+            can_be_grounded = true;
+        }
+        if (!free) {
+            set_state(22);
+        }
+        break;
+    case 22: // Idle
+        if (free) vsp = clamp(vsp+0.5, vsp,  8);
+        break;
     //#endregion
     
 }
@@ -87,10 +107,24 @@ switch(state) { // use this one for changing sprites and animating
         sprite_index = sprite_get("dspecial_arrows");
         image_index = 1;
         break;
+        
+    // Large chest
+    case 20: // Init
+        sprite_index = sprite_get("null");
+        break;
+    case 21: // Fall
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 0;
+        break;
+    case 22: // Idle
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 0;
+        break;
+    
 }
 // don't forget that articles aren't affected by small_sprites
 
-if (should_die) { //despawn and exit script
+if (should_die || y > get_stage_data(SD_BOTTOM_BLASTZONE_Y)) { //despawn and exit script
     instance_destroy();
     exit;
 }

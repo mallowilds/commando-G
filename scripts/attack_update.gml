@@ -92,11 +92,14 @@ switch(attack) {
         //a
         break;
     case AT_DSPECIAL:
-        can_fast_fall = false 
-        can_move = false    
-        if window != 3 {
+        can_fast_fall = false;
+        can_move = false;
+        if (window != 3) {
             hsp = lerp(hsp, 0, .1)
             if vsp > 0 vsp = lerp(vsp, 0, .3)
+        }
+        else if (window_timer == 1) {
+        	instance_create(x, y-20, "obj_article1");
         }
         break;        
     case AT_USPECIAL:

@@ -56,6 +56,10 @@ sprite_change_offset("plat"                 , load_x, load_y);
 //                  --other sprite offsets (no small_sprites)--               //
 // includes projectiles, vfx, articles
 
+sprite_change_offset("dspec_smallchest"         , 140, 224);
+sprite_change_offset("dspec_largechest"         , 140, 224);
+sprite_change_offset("dspecial_arrows"          , 60, 62);
+
 sprite_change_offset("item_firetile_mask"       , 14, 38);
 sprite_change_offset("item_tooth_orb"           , 14, 28);
 
