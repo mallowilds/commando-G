@@ -51,14 +51,12 @@ switch(state) { // use this one for doing actual article behavior
         else if (player_id.item_grid[player_id.ITEM_CODES][player_id.IG_NUM_HELD] >= 1 && state_timer >= 300) { 
             set_state(30);
             // not yet implemented, so~
-            instance_destroy();
-            exit;
+            should_die = true;
         }
         break;
     case 03: // Jammed (parried state)
         if (state_timer >= 300) { // Finish after 5s
-            instance_destroy();
-            exit;
+            should_die = true;
         }
         break;
     //#endregion
@@ -88,7 +86,13 @@ switch(state) { // use this one for doing actual article behavior
         }
         break;
     case 22: // Idle
-        if (free) vsp = clamp(vsp+0.5, vsp,  8);
+        if (free) vsp = clamp(vsp+0.5, vsp, 8);
+        break;
+    case 23: // Opening
+        if (state_timer >= 120) set_state(24);
+        break;
+    case 24: // Despawning
+        should_die = true;
         break;
     //#endregion
     
@@ -120,11 +124,20 @@ switch(state) { // use this one for changing sprites and animating
         sprite_index = sprite_get("dspec_largechest");
         image_index = 0;
         break;
+    case 23: // Opening
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 1;
+        break;
+    case 24: // Despawning
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 1;
+        break;
     
 }
 // don't forget that articles aren't affected by small_sprites
 
 if (should_die || y > get_stage_data(SD_BOTTOM_BLASTZONE_Y)) { //despawn and exit script
+    player_id.chest_obj = noone;
     instance_destroy();
     exit;
 }

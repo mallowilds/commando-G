@@ -8,6 +8,10 @@ if (attack == AT_TAUNT) {
 
 if (attack == AT_USTRONG) attack = ustrong_index;
 
+if (attack == AT_DSPECIAL) {
+    if (!instance_exists(chest_obj)) chest_obj = noone;
+    else attack = AT_DSPECIAL_2;
+}
 
 //reset number of windows in case of a grab
 reset_attack_value(attack,AG_NUM_WINDOWS);
