@@ -239,6 +239,11 @@ if (dios_revive_timer > 0) {
 	set_state(PS_HITSTUN);
 	hitstop = 3;
 	
+	if (dios_revive_timer == DIOS_REVIVE_WAIT-1) {
+		var res_fx = spawn_hit_fx(x, y, fx_item_res); // uses VFX object due to visible == false disabling drawing
+		res_fx.spr_dir = 1;
+	}
+	
 	if (dios_revive_timer == 0) {
 		set_state(PS_IDLE_AIR);
 		var respawn_damage = get_player_damage(player)

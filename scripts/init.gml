@@ -69,9 +69,9 @@ item_grid = [
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, noone, "Upgrades your side special."], // 39 | Unimplemented
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     0, 41,    "Critical hits deal massive damage and knockback."], // 40 | Unimplemented
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
-    ["Aegis",                   RTY_RARE,       ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml, hit_player.gml, article3 (monster tooth)
+    ["Aegis",                   RTY_RARE,       ITP_BARRIER,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml, hit_player.gml, article3 (monster tooth)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
-    ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      0, noone, "Cheat death."], // 44 | update.gml, death.gml
+    ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      9, noone, "Cheat death."], // 44 | update.gml, death.gml
     ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
     
@@ -141,7 +141,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [];
+inventory_list = [ITEM_DIOS];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -482,6 +482,7 @@ fx_array_flashlight             = [
 
 fx_crit                     = hit_fx_create(sprite_get("vfx_crit"), 24);
 fx_blast                    = hit_fx_create(sprite_get("vfx_blast"), 17);
+fx_item_res                 = hit_fx_create(sprite_get("vfx_item_res"), 220);
 
 //=-(                      ~~//** BASE STATS **//~~                        )-=//
 

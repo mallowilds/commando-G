@@ -65,8 +65,9 @@ sprite_change_offset("item_tooth_orb"           , 14, 28);
 
 sprite_change_offset("vfx_item_fung"            , 44, 22);
 sprite_change_offset("vfx_item_tooth_despawn"   , 16, 28);
+sprite_change_offset("vfx_item_res"             , 254, 200);
 sprite_change_offset("vfx_crit"                 , 135, 150);
-sprite_change_offset("vfx_blast"                 , 135, 150);
+sprite_change_offset("vfx_blast"                , 135, 150);
 
 sprite_change_offset("nspecial_proj"            , 68, 68);
 
