@@ -148,9 +148,6 @@ if (item_grid[4][IG_NUM_HELD] != 0) {
 
 // Guardian Heart
 if (item_grid[ITEM_HEART][IG_NUM_HELD] != 0) {
-	// debug. remove later
-	new_item_id = ITEM_HEART
-	user_event(0);
 	
 	if (heart_barrier_endangered && heart_barrier_timer > HEART_ENDANGERED_TIME) {
 		heart_barrier_endangered = 0;
@@ -161,6 +158,7 @@ if (item_grid[ITEM_HEART][IG_NUM_HELD] != 0) {
 		heart_barrier_timer = 0;
 	}
 	heart_barrier_timer++;
+	
 }
 
 // Predatory Instincts
@@ -298,7 +296,7 @@ if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 if (old_damage != get_player_damage(player)) {
 	
 	// Barrier handling
-	damage_taken = get_player_damage(player) - old_damage;
+	var damage_taken = get_player_damage(player) - old_damage;
 	if (damage_taken > 0) {
 		jewel_barrier = do_barrier(damage_taken, jewel_barrier);
 		heart_barrier = do_barrier(damage_taken, heart_barrier);

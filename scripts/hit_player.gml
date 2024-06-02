@@ -167,7 +167,7 @@ switch(my_hitboxID.attack) {
         break;
         
     case AT_FSTRONG:
-    	var dir_fx = spawn_hit_fx(get_effect_offset_x() + 10, get_effect_offset_y() - 30, fx_blast); //idk where the effect_offset_x thing is set lol it didnt seem to be working on fstrong.gml
+    	var dir_fx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_blast);
     	dir_fx.draw_angle = 10 * spr_dir;
     	break;
     case AT_USTRONG:
