@@ -209,7 +209,7 @@ pjetpack_hud_alpha = 0;
 pjetpack_vis_fuel = 0;
 pjetpack_sound = noone;
 
-dios_revive_timer = 0;
+dios_revive_timer = -999;
 dios_stored_damage = 0;
 
 tooth_awaiting_spawn = array_create(20, -1);

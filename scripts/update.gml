@@ -235,6 +235,7 @@ if (item_grid[38][IG_NUM_HELD] > 0) {
 
 // Dio's Best Friend
 if (dios_revive_timer > 0) {
+	
 	dios_revive_timer--;
 	set_state(PS_HITSTUN);
 	hitstop = 3;
@@ -256,8 +257,6 @@ if (dios_revive_timer > 0) {
 		item_grid[@ 44][@ IG_NUM_HELD]--;
 		item_grid[@ 45][@ IG_NUM_HELD]++; // spent dios
 		if (item_grid[45][IG_NUM_HELD] == 1) array_push(inventory_list, 45);
-		var popup = instance_create(x-60, y-90, "obj_article2");
-		popup.item_id = 45;
 		
 		if (item_grid[44][IG_NUM_HELD] == 0) {
 			var i = 0;
@@ -270,6 +269,15 @@ if (dios_revive_timer > 0) {
 			inventory_list = array_slice(inventory_list, 0, num_items-1);
 		}
 		
+	}
+	
+}
+
+else if (dios_revive_timer > -30) {
+	dios_revive_timer--;
+	if (dios_revive_timer == -30) {
+		var popup = instance_create(x-172, y-90, "obj_article2");
+		popup.item_id = 45;
 	}
 }
 
@@ -289,8 +297,6 @@ if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 			}
 		}
 	}
-
-	
 }
 
 
