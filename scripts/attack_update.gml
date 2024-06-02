@@ -92,13 +92,13 @@ switch(attack) {
         //a
         break;
     case AT_DSPECIAL:
-        //spawns test article
-        /*
-        if (window == 1 && window_timer == 1) {
-        	article_id = instance_create(x + 30 * spr_dir, y, "obj_article1");
+        can_fast_fall = false 
+        can_move = false    
+        if window != 3 {
+            hsp = lerp(hsp, 0, .1)
+            if vsp > 0 vsp = lerp(vsp, 0, .3)
         }
-        */
-        break;
+        break;        
     case AT_USPECIAL:
         //a
         break;

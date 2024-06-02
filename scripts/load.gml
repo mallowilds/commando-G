@@ -47,6 +47,8 @@ sprite_change_offset("nspecial"             , load_x, load_y);
 sprite_change_offset("fspecial"             , load_x, load_y);
 sprite_change_offset("uspecial"             , load_x, load_y);
 sprite_change_offset("dspecial"             , load_x, load_y);
+sprite_change_offset("dspecial_call"             , load_x, load_y);
+
 sprite_change_offset("taunt"                , load_x, load_y);
 
 sprite_change_offset("plat"                 , load_x, load_y);
