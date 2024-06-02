@@ -63,7 +63,32 @@ switch(state) { // use this one for doing actual article behavior
     
     
     //#region Small chest
-    
+    case 10: // Init
+        target_y = y;
+        y = get_stage_data(SD_TOP_BLASTZONE_Y);
+        vsp = 20;
+        set_state(11);
+        // Spawn hitbox
+        break;
+    case 11: // Fall
+        if (y + vsp > target_y) {
+            mask_index = sprite_get("dspec_smallchest"); // todo: make an actual mask
+            ignores_walls = false;
+            can_be_grounded = true;
+        }
+        if (!free) {
+            set_state(12);
+        }
+        break;
+    case 12: // Idle
+        if (free) vsp = clamp(vsp+0.5, vsp, 8);
+        break;
+    case 13: // Opening
+        if (state_timer >= 120) set_state(14);
+        break;
+    case 14: // Despawning
+        should_die = true;
+        break;
     //#endregion
     
     
@@ -100,7 +125,7 @@ switch(state) { // use this one for doing actual article behavior
 
 switch(state) { // use this one for changing sprites and animating
     case 00: // Request arrow (awaiting shipment)
-        sprite_index = sprite_get("dspecial_arrows");
+        sprite_index = sprite_get("null");
         image_index = 0;
         break;
     case 01: // Request arrow (small)
@@ -111,7 +136,28 @@ switch(state) { // use this one for changing sprites and animating
         sprite_index = sprite_get("dspecial_arrows");
         image_index = 1;
         break;
-        
+    
+    // Small chest
+    case 10: // Init
+        sprite_index = sprite_get("null");
+        break;
+    case 11: // Fall
+        sprite_index = sprite_get("dspec_smallchest");
+        image_index = 0;
+        break;
+    case 12: // Idle
+        sprite_index = sprite_get("dspec_smallchest");
+        image_index = 0;
+        break;
+    case 13: // Opening
+        sprite_index = sprite_get("dspec_smallchest");
+        image_index = 1;
+        break;
+    case 14: // Despawning
+        sprite_index = sprite_get("dspec_smallchest");
+        image_index = 1;
+        break;
+      
     // Large chest
     case 20: // Init
         sprite_index = sprite_get("null");

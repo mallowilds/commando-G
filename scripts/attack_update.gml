@@ -99,18 +99,37 @@ switch(attack) {
             if vsp > 0 vsp = lerp(vsp, 0, .3)
         }
         else if (window_timer == 1) {
-        	chest_obj = instance_create(x, y-20, "obj_article1");
+        	if (instance_exists(chest_obj)) {
+        		if (chest_obj.state == 01) {
+        			chest_obj.state = 10;
+        			chest_obj.state_timer = 0;
+        		}
+        		else if (chest_obj.state == 02) {
+        			chest_obj.state = 20;
+        			chest_obj.state_timer = 0;
+        		}
+        	}
+        	else chest_obj = instance_create(x, y-20, "obj_article1");
         }
         break;
     case AT_DSPECIAL_2:
     	if (window == 3 && window_timer == 1) {
     		if (place_meeting(x, y, chest_obj)) {
-    			if (chest_obj.state == 22) { // Large chest
+    			if (chest_obj.state == 12) { // Large chest
+    				chest_obj.state = 13;
+    				chest_obj.state_timer = 0;
+    				var iid = generate_item(SCHEST_C_WEIGHT, SCHEST_U_WEIGHT, SCHEST_R_WEIGHT);
+					var popup = instance_create(x-172, y-90, "obj_article2");
+					popup.item_id = iid;
+					move_cooldown[AT_DSPECIAL] = 600;
+    			}
+    			else if (chest_obj.state == 22) { // Large chest
     				chest_obj.state = 23;
     				chest_obj.state_timer = 0;
     				var iid = generate_item(LCHEST_C_WEIGHT, LCHEST_U_WEIGHT, LCHEST_R_WEIGHT);
-					var popup = instance_create(x-60, y-90, "obj_article2");
+					var popup = instance_create(x-172, y-90, "obj_article2");
 					popup.item_id = iid;
+					move_cooldown[AT_DSPECIAL] = 900;
     			}
     		}
     	}

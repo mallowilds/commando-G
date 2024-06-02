@@ -10,7 +10,7 @@ if (attack == AT_USTRONG) attack = ustrong_index;
 
 if (attack == AT_DSPECIAL) {
     if (!instance_exists(chest_obj)) chest_obj = noone;
-    else attack = AT_DSPECIAL_2;
+    else if (chest_obj.state != clamp(chest_obj.state, 1, 2)) attack = AT_DSPECIAL_2;
 }
 
 //reset number of windows in case of a grab
