@@ -232,6 +232,11 @@ s_gunm = sound_get("cm_shootlight2"); //med
 s_gunh = sound_get("cm_shootmedwav"); //heavy //idk why it got named that lol
 s_tap = sound_get("cm_dspec_taptaptap")
 
+s_knifel = sound_get("sfx_knifehit_s")
+s_knifem = sound_get("sfx_knifehit_m")
+s_crit = sound_get("cm_crit")
+s_critheal = sound_get("cm_crit_heal")
+
 //
 
 
