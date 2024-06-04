@@ -230,6 +230,7 @@ s_gunf = sound_get("cm_shootfast") //fast, multihit
 s_gunl = sound_get("cm_shootlight_1"); //light
 s_gunm = sound_get("cm_shootlight2"); //med
 s_gunh = sound_get("cm_shootmedwav"); //heavy //idk why it got named that lol
+s_tap = sound_get("cm_dspec_taptaptap")
 
 //
 
