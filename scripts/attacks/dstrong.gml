@@ -97,6 +97,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 4);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
 
 hbox_num++; //GunshotL
+print(hbox_num)
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2); 
@@ -119,6 +120,7 @@ set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blo
 
 
 hbox_num++; //GunshotR
+print(hbox_num)
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2); 
@@ -140,6 +142,7 @@ set_hitbox_value(atk, hbox_num, HG_EXTRA_HITPAUSE           , 3);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
 
 hbox_num++; //GunshotL2
+print(hbox_num)
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 3); 
@@ -162,6 +165,7 @@ set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blo
 
 
 hbox_num++; //GunshotR2
+print(hbox_num)
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 3); 
@@ -185,6 +189,7 @@ set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blo
 
 
 hbox_num++; //GunshotFinalL
+print(hbox_num)
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 4); 
@@ -208,7 +213,7 @@ set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blo
 
 
 hbox_num++; //GunshotFinalR
-
+print(hbox_num)
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 4); 
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 6);
@@ -218,7 +223,7 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 68);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -35);
 set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 108);
 set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 74);
-set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 3);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 2);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 2);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);

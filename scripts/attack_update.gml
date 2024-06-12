@@ -232,6 +232,15 @@ switch(attack) {
     case AT_TAUNT:
 		//a
     	break;
+    case AT_DSTRONG: {
+        if window == 2 && window_timer == 5 {
+            spawn_base_dust(x, y, "land", spr_dir)
+        }
+        if (window == 3 || window == 4 || window == 5) && window_timer == 5 {
+            spawn_base_dust(x + 30 * spr_dir, y, "dash", -spr_dir)
+            spawn_base_dust(x - 30 * spr_dir, y, "dash", spr_dir)
+        }
+    }
     
 }
 
