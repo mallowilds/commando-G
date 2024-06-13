@@ -27,7 +27,13 @@ switch(attack) {
         //a
         break;
     case AT_DATTACK:
-        //a
+        if window == 1 && window_timer == window_length -3 {
+            sound_play(s_roll)
+        }
+        if window == 3 && window_timer == 10 {
+            sound_play(asset_get("sfx_land"))
+            spawn_base_dust(x, y, "land", spr_dir)
+        }
         break;
         
     case AT_NAIR:

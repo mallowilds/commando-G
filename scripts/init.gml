@@ -237,6 +237,8 @@ s_knifem = sound_get("sfx_knifehit_m")
 s_crit = sound_get("cm_crit")
 s_critheal = sound_get("cm_crit_heal")
 
+s_roll = sound_get("cm_roll")
+
 //
 
 
