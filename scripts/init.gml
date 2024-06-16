@@ -238,7 +238,7 @@ s_crit = sound_get("cm_crit")
 s_critheal = sound_get("cm_crit_heal")
 
 s_roll = sound_get("cm_roll")
-
+s_coin = sound_get("cm_shine")
 //
 
 
@@ -373,7 +373,7 @@ idle_air_looping                = false;// checks if the loop is happening
 jump_frames                     = 5;    // how many animation frames the jump 
                                         // has, the loop starts there
 idle_air_loop_speed             = 0.25;  // animation speed of the loop
-idle_air_platfalls              = true; // if the character has an animation for
+idle_air_platfalls              = false; // if the character has an animation for
                                         // dropping from platforms
 idle_air_platfalling            = false;// checks if platfall is happening
 idle_air_platfall_speed         = 0.25; // platfall animation speed

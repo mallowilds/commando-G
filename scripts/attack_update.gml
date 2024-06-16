@@ -34,7 +34,7 @@ switch(attack) {
             sound_play(asset_get("sfx_land"))
             spawn_base_dust(x, y, "land", spr_dir)
         }
-        if window == 3 && window_timer > 10 && has_hit {
+        if window == 3 && window_timer > 6 && has_hit {
             can_jump = true
         }
         break;
