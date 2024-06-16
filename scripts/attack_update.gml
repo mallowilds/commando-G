@@ -97,8 +97,17 @@ switch(attack) {
         }
         //a
         break;
-    case AT_FSPECIAL:
-        //a
+    case AT_FSPECIAL: //Fspecial ground
+        if free  {
+            if vsp > 5 vsp = 5 
+            if hsp > (7*spr_dir) hsp = (7*spr_dir)
+        }
+        if window != 1 {
+            can_jump = true
+            can_attack = true
+            can_strong = true
+        }
+        move_cooldown [AT_FSPECIAL] = 50
         break;
     case AT_DSPECIAL:
         can_fast_fall = false;
