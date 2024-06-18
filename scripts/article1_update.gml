@@ -66,7 +66,7 @@ switch(state) { // use this one for doing actual article behavior
     case 10: // Init
         target_y = y;
         y = get_stage_data(SD_TOP_BLASTZONE_Y);
-        vsp = 20;
+        vsp = 25;
         set_state(11);
         // Spawn hitbox
         break;
@@ -78,16 +78,19 @@ switch(state) { // use this one for doing actual article behavior
         }
         if (!free) {
             set_state(12);
+            var land_vfx = spawn_hit_fx(x, y, player_id.fx_small_chest_land);
+            land_vfx.depth = depth-1;
         }
         break;
     case 12: // Idle
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
         break;
     case 13: // Opening
-        if (state_timer >= 120) set_state(14);
+        if (state_timer == 1) sound_play(sound_get("cm_smallchest"));
+        if (state_timer >= 35) set_state(14);
         break;
     case 14: // Despawning
-        should_die = true;
+        if (state_timer >= 60) should_die = true;
         break;
     //#endregion
     
@@ -96,7 +99,7 @@ switch(state) { // use this one for doing actual article behavior
     case 20: // Init
         target_y = y;
         y = get_stage_data(SD_TOP_BLASTZONE_Y);
-        vsp = 20;
+        vsp = 25;
         set_state(21);
         // Spawn hitbox
         break;
@@ -108,20 +111,24 @@ switch(state) { // use this one for doing actual article behavior
         }
         if (!free) {
             set_state(22);
+            var land_vfx = spawn_hit_fx(x, y, player_id.fx_large_chest_land);
+            land_vfx.depth = depth-1;
         }
         break;
     case 22: // Idle
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
         break;
     case 23: // Opening
-        if (state_timer >= 120) set_state(24);
+        if (state_timer == 1) sound_play(sound_get("cm_largechest"));
+        if (state_timer >= 60) set_state(24);
         break;
     case 24: // Despawning
-        should_die = true;
+        if (state_timer >= 60) should_die = true;
         break;
     //#endregion
     
 }
+print_debug(state);
 
 switch(state) { // use this one for changing sprites and animating
     case 00: // Request arrow (awaiting shipment)
@@ -129,11 +136,11 @@ switch(state) { // use this one for changing sprites and animating
         image_index = 0;
         break;
     case 01: // Request arrow (small)
-        sprite_index = sprite_get("dspecial_arrows");
+        sprite_index = sprite_get("null");
         image_index = 0;
         break;
     case 02: // Request arrow (large)
-        sprite_index = sprite_get("dspecial_arrows");
+        sprite_index = sprite_get("null");
         image_index = 1;
         break;
     
@@ -147,15 +154,15 @@ switch(state) { // use this one for changing sprites and animating
         break;
     case 12: // Idle
         sprite_index = sprite_get("dspec_smallchest");
-        image_index = 0;
+        image_index = 1 + ((state_timer < 6) ? state_timer / 3 : 2);
         break;
     case 13: // Opening
         sprite_index = sprite_get("dspec_smallchest");
-        image_index = 1;
+        image_index = 5 + (state_timer / 5);
         break;
     case 14: // Despawning
         sprite_index = sprite_get("dspec_smallchest");
-        image_index = 1;
+        image_index = 11;
         break;
       
     // Large chest
@@ -168,15 +175,15 @@ switch(state) { // use this one for changing sprites and animating
         break;
     case 22: // Idle
         sprite_index = sprite_get("dspec_largechest");
-        image_index = 0;
+        image_index = 1 + ((state_timer < 6) ? state_timer / 3 : 2);
         break;
     case 23: // Opening
         sprite_index = sprite_get("dspec_largechest");
-        image_index = 1;
+        image_index = 5 + (state_timer / 5);
         break;
     case 24: // Despawning
         sprite_index = sprite_get("dspec_largechest");
-        image_index = 1;
+        image_index = 16;
         break;
     
 }

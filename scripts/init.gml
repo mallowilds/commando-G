@@ -495,6 +495,9 @@ fx_crit                     = hit_fx_create(sprite_get("vfx_crit"), 24);
 fx_blast                    = hit_fx_create(sprite_get("vfx_blast"), 17);
 fx_item_res                 = hit_fx_create(sprite_get("vfx_item_res"), 160);
 
+fx_small_chest_land         = hit_fx_create(sprite_get("dspec_smallchest_landvfx"), 16);
+fx_large_chest_land         = hit_fx_create(sprite_get("dspec_largechest_landvfx"), 16);
+
 //=-(                      ~~//** BASE STATS **//~~                        )-=//
 
 //                              --hurtboxes--                                 //
