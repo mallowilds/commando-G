@@ -248,7 +248,10 @@ switch(attack) {
         break;
     
     case AT_TAUNT:
-		//a
+		if (window == 1 && window_timer == 1) {
+			new_item_id = noone;
+			user_event(0); // debug stat refresh
+		}
     	break;
     case AT_DSTRONG: {
         if window == 2 && window_timer == 5 {

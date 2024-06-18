@@ -79,6 +79,13 @@ switch new_item_id {
         update_attack_speed();
         break;
     
+    case noone: // Debug
+        update_attack_speed();
+        update_horizontal_movement();
+        update_vertical_movement();
+        //critical_active = 1;
+        break;
+    
 }
 
 
