@@ -138,7 +138,7 @@ switch(state) { // use this one for doing actual article behavior
             player_id.rare_weight = player_id.LCHEST_R_WEIGHT;
             user_event(1);
         }
-        if (state_timer >= 60) set_state(24);
+        if (state_timer >= 54) set_state(24);
         break;
     case 24: // Despawning
         if (state_timer >= 60) should_die = true;
@@ -196,7 +196,7 @@ switch(state) { // use this one for changing sprites and animating
         break;
     case 23: // Opening
         sprite_index = sprite_get("dspec_largechest");
-        image_index = 5 + (state_timer / 5);
+        image_index = 5 + (state_timer / 4.5);
         break;
     case 24: // Despawning
         sprite_index = sprite_get("dspec_largechest");

@@ -118,7 +118,8 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 
 // Bustling Fungus
 if (item_grid[4][IG_NUM_HELD] != 0) {
-	if (state == PS_CROUCH){ 
+	var attack_crouching = (state == PS_ATTACK_GROUND) && (attack == AT_DTILT || attack == AT_DSPECIAL);
+	if (state == PS_CROUCH || attack_crouching) { 
 		if (!bungus_active && bungus_timer > BUNGUS_WAIT_TIME) {
 			bungus_active = 1;
 			bungus_timer = 0;
