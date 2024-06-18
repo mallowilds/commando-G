@@ -84,8 +84,11 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 12: // Idle
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
+        if (point_distance(x, y, player_id.x, player_id.y) < 40) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
+        else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
         break;
     case 13: // Opening
+        if (outline_alpha > 0) outline_alpha -= 0.2;
         if (state_timer == 1) sound_play(sound_get("cm_smallchest"));
         if (state_timer == 20) {
             player_id.common_weight = player_id.SCHEST_C_WEIGHT;
@@ -123,8 +126,11 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 22: // Idle
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
+        if (point_distance(x, y, player_id.x, player_id.y) < 40) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
+        else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
         break;
     case 23: // Opening
+        if (outline_alpha > 0) outline_alpha -= 0.2;
         if (state_timer == 1) sound_play(sound_get("cm_largechest"));
         if (state_timer == 20) {
             player_id.common_weight = player_id.LCHEST_C_WEIGHT;
