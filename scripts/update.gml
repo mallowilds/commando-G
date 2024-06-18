@@ -283,21 +283,19 @@ else if (dios_revive_timer > -30) {
 
 // Wax Quail
 if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
-	var attack_dashing = (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR) && (attack == AT_DATTACK || attack == AT_FSPECIAL);
+	var attack_dashing = (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR) && ((attack == AT_DATTACK && has_hit) || attack == AT_FSPECIAL);
 	if (state == PS_DASH || attack_dashing) quail_do_boost = true;
 	else if (state != PS_JUMPSQUAT && state != PS_FIRST_JUMP && state != PS_AIR_DODGE && state != PS_WAVELAND) quail_do_boost = false;
 	
 	if (quail_do_boost) {
 		if (state == PS_FIRST_JUMP && state_timer == 0) {
 			hsp = spr_dir * (max_jump_hsp + QUAIL_JUMP_BASE + QUAIL_JUMP_SCALE*item_grid[ITEM_QUAIL][IG_NUM_HELD]);
-			print_debug("boost!");
 		}
 		if (state == PS_WAVELAND && state_timer == 0) {
 			var waveland_dir = round(hsp/abs(hsp))
 			if (waveland_dir == spr_dir) {
 				hsp += spr_dir * (QUAIL_WAVE_BASE + QUAIL_WAVE_SCALE*item_grid[ITEM_QUAIL][IG_NUM_HELD]);
 			}
-			print_debug("boost!");
 		}
 	}
 }
