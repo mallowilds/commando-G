@@ -87,6 +87,12 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 13: // Opening
         if (state_timer == 1) sound_play(sound_get("cm_smallchest"));
+        if (state_timer == 20) {
+            player_id.common_weight = player_id.SCHEST_C_WEIGHT;
+            player_id.uncommon_weight = player_id.SCHEST_U_WEIGHT;
+            player_id.rare_weight = player_id.SCHEST_R_WEIGHT;
+            user_event(1);
+        }
         if (state_timer >= 35) set_state(14);
         break;
     case 14: // Despawning
@@ -120,6 +126,12 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 23: // Opening
         if (state_timer == 1) sound_play(sound_get("cm_largechest"));
+        if (state_timer == 20) {
+            player_id.common_weight = player_id.LCHEST_C_WEIGHT;
+            player_id.uncommon_weight = player_id.LCHEST_U_WEIGHT;
+            player_id.rare_weight = player_id.LCHEST_R_WEIGHT;
+            user_event(1);
+        }
         if (state_timer >= 60) set_state(24);
         break;
     case 24: // Despawning
@@ -128,7 +140,6 @@ switch(state) { // use this one for doing actual article behavior
     //#endregion
     
 }
-print_debug(state);
 
 switch(state) { // use this one for changing sprites and animating
     case 00: // Request arrow (awaiting shipment)

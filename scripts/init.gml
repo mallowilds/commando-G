@@ -102,6 +102,11 @@ rares_remaining = 3; // manual limit, assumes that at least 3 rares exist
 uncommons_remaining = 0; // to be initialized
 item_seed = player * 5; // max 200, this should hold within the rivals engine
 
+common_weight = SCHEST_C_WEIGHT; // set variably before running user_event(1)
+uncommon_weight = SCHEST_U_WEIGHT;
+rare_weight = SCHEST_R_WEIGHT;
+
+
 // Type values: absolute probability that a category will be rolled within a given rarity.
 // Only common is set here; uncommon and rare are generated dynamically based on the
 // number of items in each category and their weights.
