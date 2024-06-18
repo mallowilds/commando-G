@@ -27,6 +27,16 @@
  * 
  */
 
+if (hitstop > 0) {
+    if (instance_exists(hbox)) {
+        hbox.hitbox_timer--;
+        hbox.vsp = 0;
+    }
+    if (instance_exists(land_vfx)) land_vfx.step_timer--;
+    print_debug(hitstop);
+    exit;
+}
+
 state_timer += 1;
 
 switch(state) { // use this one for doing actual article behavior
@@ -68,7 +78,9 @@ switch(state) { // use this one for doing actual article behavior
         y = get_stage_data(SD_TOP_BLASTZONE_Y);
         vsp = 25;
         set_state(11);
-        // Spawn hitbox
+        hbox = create_hitbox(AT_DSPECIAL, 1, x, y-54);
+        hbox.vsp = vsp;
+        hbox.owner_chest = self;
         break;
     case 11: // Fall
         if (y + vsp > target_y) {
@@ -78,13 +90,21 @@ switch(state) { // use this one for doing actual article behavior
         }
         if (!free) {
             set_state(12);
-            var land_vfx = spawn_hit_fx(x, y, player_id.fx_small_chest_land);
+            land_vfx = spawn_hit_fx(x, y, player_id.fx_small_chest_land);
             land_vfx.depth = depth-1;
+            hbox.destroyed = true;
+            hbox = noone;
+            var land_hbox = create_hitbox(AT_DSPECIAL, 2, x, y-16);
+            land_hbox.owner_chest = self;
+        }
+        else {
+            hbox.hitbox_timer--;
+            hbox.vsp = vsp;
         }
         break;
     case 12: // Idle
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
-        if (point_distance(x, y, player_id.x, player_id.y) < 40) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
+        if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_SCHEST_RADIUS) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
         else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
         break;
     case 13: // Opening
@@ -110,7 +130,9 @@ switch(state) { // use this one for doing actual article behavior
         y = get_stage_data(SD_TOP_BLASTZONE_Y);
         vsp = 25;
         set_state(21);
-        // Spawn hitbox
+        hbox = create_hitbox(AT_DSPECIAL, 3, x, y-50);
+        hbox.vsp = vsp;
+        hbox.owner_chest = self;
         break;
     case 21: // Fall
         if (y + vsp > target_y) {
@@ -120,13 +142,21 @@ switch(state) { // use this one for doing actual article behavior
         }
         if (!free) {
             set_state(22);
-            var land_vfx = spawn_hit_fx(x, y, player_id.fx_large_chest_land);
+            land_vfx = spawn_hit_fx(x, y, player_id.fx_large_chest_land);
             land_vfx.depth = depth-1;
+            hbox.destroyed = true;
+            hbox = noone;
+            var land_hbox = create_hitbox(AT_DSPECIAL, 4, x, y-16);
+            land_hbox.owner_chest = self;
+        }
+        else {
+            hbox.hitbox_timer--;
+            hbox.vsp = vsp;
         }
         break;
     case 22: // Idle
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
-        if (point_distance(x, y, player_id.x, player_id.y) < 40) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
+        if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_LCHEST_RADIUS) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
         else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
         break;
     case 23: // Opening

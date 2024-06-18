@@ -18,3 +18,5 @@ should_die = false; //if the article should be despawned
 // article variables
 target_y = y;
 outline_alpha = 0;
+hbox = noone;
+land_vfx = noone;

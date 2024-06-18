@@ -46,5 +46,3 @@ if (hitbox_multihits) {
         hitpause = proj_old_hitpause;
     }
 }
-
-

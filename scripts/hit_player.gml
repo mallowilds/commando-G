@@ -17,6 +17,8 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 //#endregion
 
 
+//#region Damage multipliers
+
 //#region Crowbar handing
 var crowbar_mult_add = 0;
 if (get_player_damage(hit_player_obj.player) - my_hitboxID.damage <= 50 && item_grid[0][IG_NUM_HELD] > 0) {
@@ -25,8 +27,6 @@ if (get_player_damage(hit_player_obj.player) - my_hitboxID.damage <= 50 && item_
 	sound_play(s_cbar, 0, noone, 1, 0.95 + 0.1*random_func(player, 1, false));
 }
 //#endregion
-
-//#region Damage multipliers
 
 // Base amp
 var mult_damage_add = my_hitboxID.damage * (multiplier + crowbar_mult_add);
@@ -42,6 +42,13 @@ if (!hit_player_obj.clone) {
 }
 
 //#endregion
+
+
+//#region DSpec chest hitpause
+if (my_hitboxID.attack == AT_DSPECIAL && my_hitboxID.orig_player == player && "owner_chest" in my_hitboxID) {
+	my_hitboxID.owner_chest.hitstop = floor(hit_player_obj.hitstop);
+}
+
 
 //#region Kill tracking
 

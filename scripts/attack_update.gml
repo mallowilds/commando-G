@@ -132,7 +132,7 @@ switch(attack) {
         break;
     case AT_DSPECIAL_2:
     	if (window == 3 && window_timer == 1) {
-    		if (place_meeting(x, y, chest_obj)) {
+    		if (point_distance(x, y, chest_obj.x, chest_obj.y) < ((chest_obj.state < 20) ? DSPEC_SCHEST_RADIUS : DSPEC_LCHEST_RADIUS)) {
     			if (chest_obj.state == 12) { // Large chest
     				chest_obj.state = 13;
     				chest_obj.state_timer = 0;

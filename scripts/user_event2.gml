@@ -145,6 +145,9 @@ TEXTBOX_BIG_THRESHOLD = 50; // in char length
 DATTACK_SPEED_SCALE = 0.75;
 DATTACK_EDRINK_SCALE = 1.5;
 
+DSPEC_SCHEST_RADIUS = 40;
+DSPEC_LCHEST_RADIUS = 40;
+
 //#endregion
 
 //#region Item Properties
