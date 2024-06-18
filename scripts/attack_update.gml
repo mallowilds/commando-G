@@ -215,7 +215,9 @@ switch(attack) {
         //a
         break;
     case AT_DATTACK:
-        //a
+        if (window == 1 && window_timer == 1) {
+        	hsp += spr_dir * (move_speed * DATTACK_SPEED_SCALE + item_grid[ITEM_EDRINK][IG_NUM_HELD] * DATTACK_EDRINK_SCALE);
+        }
         break;
         
     case AT_NAIR:

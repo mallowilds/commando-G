@@ -73,12 +73,12 @@ item_grid = [
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml, hit_player.gml, article3 (monster tooth)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
-    ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      9, noone, "Cheat death."], // 44 | update.gml, death.gml
+    ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      0, noone, "Cheat death."], // 44 | update.gml, death.gml
     ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
     
     ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      0, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | hit_player.gml, article3
-    ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Jumping while dashing boosts you forward."], // 48 | update.gml
+    ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        1, noone, "Jumping while dashing boosts you forward."], // 48 | update.gml
     ["Filial Imprinting",       RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Hatch a strange creature who drops buffs every 15 seconds."], // 49 | Unimplemented
     ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Gain attack speed the more you're damaged."], // 50 | user_event0.gml, update.gml
     
@@ -143,7 +143,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [ITEM_DIOS];
+inventory_list = [ITEM_QUAIL];
 
 // For use by item init (user_event0)
 new_item_id = noone;

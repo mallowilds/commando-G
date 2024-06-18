@@ -136,7 +136,14 @@ MSPEED_AIR_MAX_HSP_SCALE = 0.5;
 MAX_JUMP_MOD = 5; // for jump_speed
 
 // Aesthetic Properties
-TEXTBOX_BIG_THRESHOLD = 50;
+TEXTBOX_BIG_THRESHOLD = 50; // in char length
+
+//#endregion
+
+//#region Attack Properties
+
+DATTACK_SPEED_SCALE = 0.75;
+DATTACK_EDRINK_SCALE = 1.5;
 
 //#endregion
 
