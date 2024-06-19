@@ -17,6 +17,13 @@ MONSTER TOOTH ~ ORB
 - 12: Idle
 - 13: Approaching target
 
+GRANTED ITEM (flying towards player)
+precondition: rarity = (0, 1, 2)
+- 20: Initialization
+- 21: Rising
+- 22: Homing
+- 23: Despawn
+
 */
 
 
@@ -173,7 +180,71 @@ switch state {
     
     //#endregion
     
+    //#region Granted Item
+    case 20:
+    	switch rarity {
+    		case 2:
+    			sprite_index = sprite_get("vfx_item_orb_r");
+    			break;
+    		case 1:
+    			sprite_index = sprite_get("vfx_item_orb_u");
+    			break;
+    		default:
+    			sprite_index = sprite_get("vfx_item_orb_c");
+    			break;
+    	}
+        
+        mask_index = sprite_get("null");
+        vsp = -10;
+        state = 21;
+        state_timer = 0;
+        break;
+       
+    // rise
+    case 21:
+        vsp += 0.4;
+        if (vsp >= -1) {
+        	vel = abs(vsp);
+        	dir = 90;
+        	state = 22;
+        	state_timer = 0;
+        }
+        break;
     
+    // home
+    case 22:
+    	var target_x = player_id.x;
+    	var target_y = player_id.y - floor(player_id.char_height/2);
+    	var target_dist = point_distance(x, y, target_x, target_y);
+    	var target_dir = point_direction(x, y, target_x, target_y);
+    	
+    	vel += 0.6;
+    	
+    	if (target_dist > max(vel, 30)) {
+	    	if (target_dir < dir) target_dir += 360;
+	    	if (target_dir - dir < 180) dir = clamp(dir + 8, 0, target_dir);
+	    	else dir = clamp(dir - 8, target_dir-360, target_dir); 
+	    	if (dir < 0) dir += 360;
+	    	if (dir > 360) dir -= 360;
+	    	
+	    	hsp = lengthdir_x(vel, dir);
+	    	vsp = lengthdir_y(vel, dir);
+    	} else {
+    		state = 23;
+    		state_timer = 0;
+    		sprite_index = sprite_get("null");
+    		player_id.grant_rarity = rarity;
+    		user_event(1);
+    	}
+    	
+    	break;
+    
+    // despawn
+    case 23:
+        instance_destroy();
+        exit;
+        
+    //#endregion
     
     
     //#region Failed initialization

@@ -3,7 +3,14 @@
 
 // temp
 if (get_gameplay_time() % 10 == 11) || (state == PS_PARRY && state_timer == 0) {
+	
+	var rarity_weights = [SCHEST_C_WEIGHT, SCHEST_U_WEIGHT, SCHEST_R_WEIGHT]
+    if (uncommons_remaining <= 0) rarity_weights[1] = 0;
+    if (rares_remaining <= 0) rarity_weights[2] = 0;
+    grant_rarity = random_weighted_roll(item_seed, rarity_weights);
+    item_seed = (item_seed + 1) % 200;
 	user_event(1);
+	
 }
 
 
@@ -483,3 +490,24 @@ newdust.dust_color = dust_color; //set the dust color
 if dir != 0 newdust.spr_dir = dir; //set the spr_dir
 newdust.draw_angle = dfa;
 return newdust;
+
+
+
+#define random_weighted_roll(seed, weight_array)
+// Picks one index from a given array of weights.
+// Each index's odds of being picked is (weight at index) / (total of weights in array)
+// Uses random_func_2, so 0 <= seed <= 200.
+var array_len = array_length(weight_array);
+var total_weight = 0;
+for (var i = 0; i < array_len; i++) {
+	total_weight += weight_array[i];
+}
+// on each loop, check if rand_int is less than the sum of all previous weights
+var rand_int = random_func_2(seed, total_weight, true);
+for (var i = 0; i < array_len; i++) {
+	if (rand_int < weight_array[i]) {
+		// print_debug("In: " + string(weight_array) + ", Out: " + string(i));
+		return i;
+	}
+	rand_int -= weight_array[i];
+}

@@ -1,11 +1,11 @@
 
 if (object_index == oPlayer || object_index == oTestPlayer) {
-    var iid = generate_item();
+    var iid = generate_item(grant_rarity);
     var popup = instance_create(x-172, y-110, "obj_article2");
     popup.item_id = iid;
 }
 else if (player_id.object_index == oPlayer || player_id.object_index == oTestPlayer) with player_id {
-    var iid = generate_item();
+    var iid = generate_item(grant_rarity);
     var popup = instance_create(x-172, y-110, "obj_article2");
     popup.item_id = iid;
 }
@@ -34,13 +34,13 @@ for (var i = 0; i < array_len; i++) {
 }
 
 
-#define generate_item()
-// Set rarity
-var rarity_weights = [common_weight, uncommon_weight, rare_weight]
-if (uncommons_remaining <= 0) rarity_weights[1] = 0;
-if (rares_remaining <= 0) rarity_weights[2] = 0;
-var rarity = random_weighted_roll(item_seed, rarity_weights);
-item_seed = (item_seed + 1) % 200;
+#define generate_item(rarity)
+
+var rarity = grant_rarity;
+if (rarity < 0 || rarity > 2) {
+	print_debug("user_event1 error: bad rarity value");
+	exit;
+}
 
 // Attempt to generate a legendary item
 var rnd_legendary = random_func_2(item_seed, 1, false);
@@ -93,6 +93,6 @@ if (incompat_index == noone || item_grid[incompat_index][IG_NUM_HELD] == 0) {
 	if (rarity = RTY_RARE) rares_remaining--;
 	user_event(0);
 }
-else item_id = generate_item(common_weight, uncommon_weight, rare_weight);
+else item_id = generate_item(rarity);
 
 return item_id;

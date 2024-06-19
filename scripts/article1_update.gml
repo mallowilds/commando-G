@@ -33,7 +33,6 @@ if (hitstop > 0) {
         hbox.vsp = 0;
     }
     if (instance_exists(land_vfx)) land_vfx.step_timer--;
-    print_debug(hitstop);
     exit;
 }
 
@@ -111,10 +110,15 @@ switch(state) { // use this one for doing actual article behavior
         if (outline_alpha > 0) outline_alpha -= 0.2;
         if (state_timer == 1) sound_play(sound_get("cm_smallchest"));
         if (state_timer == 20) {
-            player_id.common_weight = player_id.SCHEST_C_WEIGHT;
-            player_id.uncommon_weight = player_id.SCHEST_U_WEIGHT;
-            player_id.rare_weight = player_id.SCHEST_R_WEIGHT;
-            user_event(1);
+            var rarity_weights = [player_id.SCHEST_C_WEIGHT, player_id.SCHEST_U_WEIGHT, player_id.SCHEST_R_WEIGHT]
+            if (player_id.uncommons_remaining <= 0) rarity_weights[1] = 0;
+            if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
+            var rarity = random_weighted_roll(player_id.item_seed, rarity_weights);
+            player_id.item_seed = (player_id.item_seed + 1) % 200;
+            
+            var item = instance_create(x, y-10, "obj_article3");
+            item.state = 20;
+            item.rarity = rarity;
         }
         if (state_timer >= 35) set_state(14);
         break;
@@ -163,10 +167,15 @@ switch(state) { // use this one for doing actual article behavior
         if (outline_alpha > 0) outline_alpha -= 0.2;
         if (state_timer == 1) sound_play(sound_get("cm_largechest"));
         if (state_timer == 20) {
-            player_id.common_weight = player_id.LCHEST_C_WEIGHT;
-            player_id.uncommon_weight = player_id.LCHEST_U_WEIGHT;
-            player_id.rare_weight = player_id.LCHEST_R_WEIGHT;
-            user_event(1);
+            var rarity_weights = [player_id.LCHEST_C_WEIGHT, player_id.LCHEST_U_WEIGHT, player_id.LCHEST_R_WEIGHT]
+            if (player_id.uncommons_remaining <= 0) rarity_weights[1] = 0;
+            if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
+            var rarity = random_weighted_roll(player_id.item_seed, rarity_weights);
+            player_id.item_seed = (player_id.item_seed + 1) % 200;
+            
+            var item = instance_create(x, y-10, "obj_article3");
+            item.state = 20;
+            item.rarity = rarity;
         }
         if (state_timer >= 54) set_state(24);
         break;
@@ -247,3 +256,23 @@ if (should_die || y > get_stage_data(SD_BOTTOM_BLASTZONE_Y)) { //despawn and exi
 var _state = argument0;
 state = _state;
 state_timer = 0;
+
+
+#define random_weighted_roll(seed, weight_array)
+// Picks one index from a given array of weights.
+// Each index's odds of being picked is (weight at index) / (total of weights in array)
+// Uses random_func_2, so 0 <= seed <= 200.
+var array_len = array_length(weight_array);
+var total_weight = 0;
+for (var i = 0; i < array_len; i++) {
+	total_weight += weight_array[i];
+}
+// on each loop, check if rand_int is less than the sum of all previous weights
+var rand_int = random_func_2(seed, total_weight, true);
+for (var i = 0; i < array_len; i++) {
+	if (rand_int < weight_array[i]) {
+		// print_debug("In: " + string(weight_array) + ", Out: " + string(i));
+		return i;
+	}
+	rand_int -= weight_array[i];
+}

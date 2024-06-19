@@ -64,6 +64,9 @@ sprite_change_offset("dspecial_arrows"          , 60,   0);
 sprite_change_offset("item_firetile_mask"       , 14, 38);
 sprite_change_offset("item_tooth_orb"           , 14, 28);
 
+sprite_change_offset("vfx_item_orb_c"           , 24, 24);
+sprite_change_offset("vfx_item_orb_u"           , 24, 24);
+sprite_change_offset("vfx_item_orb_r"           , 24, 24);
 sprite_change_offset("vfx_item_fung"            , 44, 22);
 sprite_change_offset("vfx_item_tooth_despawn"   , 16, 28);
 sprite_change_offset("vfx_item_res"             , 254, 200);
