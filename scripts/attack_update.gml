@@ -136,15 +136,16 @@ switch(attack) {
     			if (chest_obj.state == 12) { // Large chest
     				chest_obj.state = 13;
     				chest_obj.state_timer = 0;
-					move_cooldown[AT_DSPECIAL] = 600;
+					dspec_cooldown_hits = DSPEC_SCHEST_CD_HITS;
     			}
     			else if (chest_obj.state == 22) { // Large chest
     				chest_obj.state = 23;
     				chest_obj.state_timer = 0;
-					move_cooldown[AT_DSPECIAL] = 900;
+					dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
     			}
     		}
     	}
+    	break;
     case AT_USPECIAL:
         //a
         break;

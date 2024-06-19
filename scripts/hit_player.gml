@@ -1,11 +1,17 @@
 //                           --hit stuff--                                    //
 
+//#region DSpec cooldown handling
+if (my_hitboxID.type == 2 || !first_hit) {
+	if (dspec_cooldown_hits == 1) sound_play(s_cd)
+	if (dspec_cooldown_hits > 0) dspec_cooldown_hits--;
+}
+//#endregion
 
 //#region Crit handling
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	// Play crit sound
-	print_debug("crit!")
-	sound_play(s_crit)
+	print_debug("crit!");
+	sound_play(s_crit);
 	//sound_play(s_critheal) //tie this to harvesters scythe when u get a chance 
 	do_healing(floor(my_hitboxID.damage * (SCYTHE_HEAL_BASE + SCYTHE_HEAL_SCALE*item_grid[24][IG_NUM_HELD]))); // Harvester's Scythe
 	if (item_grid[26][IG_NUM_HELD] > 0) {

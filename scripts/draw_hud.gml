@@ -50,8 +50,8 @@ if (barrier > 0 && get_local_setting(SET_HUD_SIZE) != 0) {
 	var bar_y_offset = 6;
     
     draw_set_font(asset_get("medFont"));
-    for (var i = -2; i < 3; i += 4) {
-        for (var j = -2; j < 3; j += 4) {
+    for (var i = -2; i < 3; i += 2) {
+        for (var j = -2; j < 3; j += 2) {
             draw_text_color(temp_x+bar_x_offset+i, temp_y+bar_y_offset+j, string(barrier) + "%", out_col, out_col, out_col, out_col, 1);
         }
     }
@@ -67,5 +67,18 @@ var on_screen_edge = (temp_x == 20) * 4;
 var chest_available = move_cooldown[AT_DSPECIAL] <= 0 && !instance_exists(chest_obj)
 draw_sprite_ext(sprite_get("dspec_hudcooldown_handle"), chest_available, temp_x-20+on_screen_edge, temp_y+6, 1, 1, 0, get_player_hud_color(player), 1);
 draw_sprite_ext(sprite_get("dspec_hudcooldown"), chest_available, temp_x-30+on_screen_edge, temp_y+12, 1, 1, 0, c_white, 1);
+
+if (dspec_cooldown_hits > 0) {
+	draw_set_font(asset_get("fName"));
+	var in_col = make_color_rgb(16, 16, 16);
+	var str = string(dspec_cooldown_hits);
+	for (var i = -2; i <= 2; i += 2) {
+		for (var j = -2; j <= 2; j += 2) {
+			draw_text_color(temp_x-14+i, temp_y+22+j, str, in_col, in_col, in_col, in_col, 1);
+		}
+	}
+	var in_col = make_color_rgb(217, 132, 53);
+	draw_text_color(temp_x-14, temp_y+22, str, in_col, in_col, in_col, in_col, 1);
+}
 
 //#endregion

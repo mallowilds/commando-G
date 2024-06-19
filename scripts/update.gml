@@ -36,6 +36,11 @@ if (attack_air_limit_ver) {
 }
 
 
+//#region DSpec cooldown management
+if (dspec_cooldown_hits	> 0) move_cooldown[AT_DSPECIAL] = 2;
+first_hit = has_hit;
+//#endregion
+
 //#region Lightweight particle management
 // See also: pre_draw.gml, post_draw.gml
 for (var i = 0; i < ds_list_size(lfx_list); i++) {

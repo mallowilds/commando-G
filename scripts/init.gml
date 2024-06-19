@@ -20,6 +20,8 @@ lfx_list = ds_list_create();
 
 // DSpec
 chest_obj = noone;
+dspec_cooldown_hits = DSPEC_INIT_CD_HITS; // Hits on the opponent remaining until DSpec goes off cooldown.
+first_hit = false; // Mirrors has_hit, but is accessible from hit_player to track the first hit applied.
 
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 
