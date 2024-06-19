@@ -1,7 +1,7 @@
 // ITEM INIT
 // Called whenever an item is added to Commando's inventory or needs to perform a stat update.
 
-
+// Switch statement uses hard-coded IDs since RCF constants aren't real constants on dev builds.
 switch new_item_id {
     
     case 5: // Paul's Goat Hoof

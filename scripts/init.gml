@@ -42,7 +42,7 @@ item_grid = [
     ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes deal more damage."], // 10 | update.gml ~ melee hitbox update, user_event0.gml
     ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | Unimplemented
     ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done), user_event0.gml
-    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
+    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 5, noone, "Increased attack speed."], // 13 | user_event0.gml
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
     ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks attach a little more firepower."], // 15 | Unimplemented
     ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks set enemies on fire."], // 16 | Unimplemented, user_event0.gml
@@ -148,7 +148,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [ITEM_QUAIL, ITEM_BUNGUS];
+inventory_list = [ITEM_QUAIL, ITEM_BUNGUS, ITEM_SYRINGE];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -649,3 +649,9 @@ air_dodge_sound                 = asset_get("sfx_quick_dodge");
 //                       --ranno bubble visual offset--                       //
 bubble_x                        = 0;
 bubble_y                        = 8;
+
+
+
+// DEBUG
+new_item_id = noone;
+user_event(0);

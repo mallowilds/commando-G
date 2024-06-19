@@ -155,6 +155,28 @@ switch(attack) {
             sound_play(s_shotty, 0, noone, 3, .95)
         }
         break;
+    case AT_DSTRONG:
+    	if (window == 1 && window_timer == 1) {
+    		num_loops = attack_speed - 1;
+    		loops_done = 0;
+    		loop_cancelled = false;
+    	}
+    	var strong_pressed = left_strong_pressed || right_strong_pressed || down_strong_pressed || up_strong_pressed || is_strong_pressed(DIR_ANY); // thank you dan
+    	if (window >= 2 && strong_pressed) loop_cancelled = true;
+    	if (window == 3 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) && 0 >= num_loops) {
+    		window = 4;
+    		window_timer = 999; // jump to window 5
+    	}
+    	if (window == 4 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH)) {
+    		num_loops--;
+    		if (num_loops > 0 && !loop_cancelled) {
+    			attack_end();
+	    		window = 3;
+	    		window_timer = 999; // jump to window 4
+    		}
+    	}
+    	print_debug(loop_cancelled);
+    	break;
     
 }
 
