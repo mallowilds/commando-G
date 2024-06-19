@@ -195,15 +195,17 @@ switch state {
     	}
         
         mask_index = sprite_get("null");
-        vsp = -10;
+        ignores_walls = 1;
+        can_be_grounded = 0;
+        vsp = -10 + (1.5*rarity);
         state = 21;
         state_timer = 0;
         break;
        
     // rise
     case 21:
-        vsp += 0.4;
-        if (vsp >= -1) {
+        vsp += 0.4 - (rarity/10);
+        if (vsp >= -1 + (rarity/2)) {
         	vel = abs(vsp);
         	dir = 90;
         	state = 22;
@@ -217,13 +219,14 @@ switch state {
     	var target_y = player_id.y - floor(player_id.char_height/2);
     	var target_dist = point_distance(x, y, target_x, target_y);
     	var target_dir = point_direction(x, y, target_x, target_y);
+    	var max_turn = max((100-target_dist)/3, 6+state_timer/2);
     	
     	vel += 0.6;
     	
-    	if (target_dist > max(vel, 30)) {
+    	if (target_dist > max(vel, 10)) {
 	    	if (target_dir < dir) target_dir += 360;
-	    	if (target_dir - dir < 180) dir = clamp(dir + 8, 0, target_dir);
-	    	else dir = clamp(dir - 8, target_dir-360, target_dir); 
+	    	if (target_dir - dir < 180) dir = clamp(dir + max_turn, 0, target_dir);
+	    	else dir = clamp(dir - max_turn, target_dir-360, target_dir); 
 	    	if (dir < 0) dir += 360;
 	    	if (dir > 360) dir -= 360;
 	    	

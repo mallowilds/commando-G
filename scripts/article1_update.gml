@@ -80,6 +80,7 @@ switch(state) { // use this one for doing actual article behavior
         hbox = create_hitbox(AT_DSPECIAL, 1, x, y-54);
         hbox.vsp = vsp;
         hbox.owner_chest = self;
+        sound_play(player_id.s_cfall);
         break;
     case 11: // Fall
         if (y + vsp > target_y) {
@@ -95,6 +96,7 @@ switch(state) { // use this one for doing actual article behavior
             hbox = noone;
             var land_hbox = create_hitbox(AT_DSPECIAL, 2, x, y-16);
             land_hbox.owner_chest = self;
+            sound_play(player_id.s_cland);
         }
         else {
             hbox.hitbox_timer--;
@@ -137,6 +139,7 @@ switch(state) { // use this one for doing actual article behavior
         hbox = create_hitbox(AT_DSPECIAL, 3, x, y-50);
         hbox.vsp = vsp;
         hbox.owner_chest = self;
+        sound_play(player_id.s_cfall);
         break;
     case 21: // Fall
         if (y + vsp > target_y) {
@@ -152,6 +155,7 @@ switch(state) { // use this one for doing actual article behavior
             hbox = noone;
             var land_hbox = create_hitbox(AT_DSPECIAL, 4, x, y-16);
             land_hbox.owner_chest = self;
+            sound_play(player_id.s_cland);
         }
         else {
             hbox.hitbox_timer--;
