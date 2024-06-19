@@ -46,7 +46,26 @@ switch(attack) {
         //a
         break;
     case AT_BAIR:
-        //a
+        if (window == 1 && window_timer == 1) {
+    		num_loops = attack_speed - 1;
+    		loops_done = 0;
+    		loop_cancelled = false;
+    	}
+    	var aerial_pressed = attack_pressed || is_attack_pressed(DIR_ANY) || left_strong_pressed || right_strong_pressed || down_strong_pressed || up_strong_pressed || is_strong_pressed(DIR_ANY); // thank you dan
+    	if (window >= 2 && aerial_pressed) loop_cancelled = true;
+    	if (window == 2 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) && 0 >= num_loops) {
+    		window = 3;
+    		window_timer = 999; // jump to window 4
+    	}
+    	if (window == 3 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH)) {
+    		num_loops--;
+    		if (num_loops > 0 && !loop_cancelled) {
+    			attack_end();
+	    		window = 2;
+	    		window_timer = 999; // jump to window 3
+    		}
+    		sound_play(get_window_value(attack, window, AG_WINDOW_SFX)); // differs based on if a loop occurred
+    	}
         break;
     case AT_DAIR:
         //a
@@ -177,6 +196,7 @@ switch(attack) {
 	    		window = 3;
 	    		window_timer = 999; // jump to window 4
     		}
+    		sound_play(get_window_value(attack, window, AG_WINDOW_SFX)); // differs based on if a loop occurred
     	}
     	break;
     

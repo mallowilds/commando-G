@@ -34,6 +34,7 @@ IG_DESC = 5;
 
 // HG -> Hitbox Grid
 HG_IS_CRITICAL = 80;
+HG_PROJECTILE_FAKE_HIT = 81; // disables certain on-hit behavior, such as dspecial cooldown updates
 
 // ITEM -> Item indices
 ITEM_CROWBAR        = 0;

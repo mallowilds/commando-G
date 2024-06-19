@@ -47,3 +47,4 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , false);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_IS_TRANSCENDENT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , true);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_FAKE_HIT      , true);

@@ -1,7 +1,7 @@
 //                           --hit stuff--                                    //
 
 //#region DSpec cooldown handling
-if (my_hitboxID.type == 2 || !first_hit) {
+if (!first_hit || (my_hitboxID.type == 2 && ("is_fake_hit" not in my_hitboxID || !my_hitboxID.is_fake_hit))) {
 	if (dspec_cooldown_hits == 1) sound_play(s_cd)
 	if (dspec_cooldown_hits > 0) dspec_cooldown_hits--;
 }

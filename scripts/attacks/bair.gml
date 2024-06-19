@@ -37,7 +37,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 6);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_medium2"));
-set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
+// set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true); // handled manually
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 

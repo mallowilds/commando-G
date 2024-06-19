@@ -11,6 +11,7 @@ with(player_id) {
         other.hitbox_multihit_rate = get_hitbox_value(other.attack,other.hbox_num, HG_PROJECTILE_MULTIHIT_RATE);
         other.hitbox_multihit_max = get_hitbox_value(other.attack,other.hbox_num, HG_PROJECTILE_MAX_HITS);
     }
+    other.is_fake_hit = get_hitbox_value(other.attack, other.hbox_num, HG_PROJECTILE_FAKE_HIT);
 }
 
 if (hitbox_multihits) {
