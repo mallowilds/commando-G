@@ -243,6 +243,13 @@ s_critheal = sound_get("cm_crit_heal")
 s_roll = sound_get("cm_roll")
 s_coin = sound_get("cm_shine")
 s_slide = sound_get("cm_slide")
+
+s_cd = sound_get("cm_cdend")
+s_cfall = sound_get("cm_chestfall")
+s_cland = sound_get("cm_chestland")
+s_itemw = sound_get("cm_item_white")
+s_itemg = sound_get("cm_item_green")
+s_itemr = sound_get("cm_item_red")
 //
 
 
