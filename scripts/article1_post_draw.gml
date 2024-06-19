@@ -1,12 +1,12 @@
 switch(state) { // use this one for changing sprites and animating
     case 00: // Request arrow (awaiting shipment)
-        draw_sprite_ext(sprite_get("dspecial_arrows"), (state_timer < 4) ? state_timer / 2 : 2, x, view_get_yview(), 1, 1, 0, get_player_hud_color(player), 1);
+        draw_sprite_ext(sprite_get("dspecial_arrows"), (state_timer < 4) ? state_timer / 2 : 2, x, view_get_yview()+10+(2*sin(state_timer/5/pi)), 1, 1, 0, get_player_hud_color(player), 1);
         break;
     case 01: // Request arrow (small)
-        draw_sprite_ext(sprite_get("dspecial_arrows"), (state_timer < 3) ? 3 + state_timer : 6, x, view_get_yview(), 1, 1, 0, get_player_hud_color(player), 1);
+        draw_sprite_ext(sprite_get("dspecial_arrows"), (state_timer < 3) ? 3 + state_timer : 6, x, view_get_yview()+10+(4*sin(state_timer/5/pi)), 1, 1, 0, get_player_hud_color(player), 1);
         break;
     case 02: // Request arrow (large)
-        draw_sprite_ext(sprite_get("dspecial_arrows"), (state_timer < 2) ? 7 : 8, x, view_get_yview(), 1, 1, 0, get_player_hud_color(player), 1);
+        draw_sprite_ext(sprite_get("dspecial_arrows"), (state_timer < 2) ? 7 : 8, x, view_get_yview()+10+(6*sin(state_timer/5/pi)), 1, 1, 0, get_player_hud_color(player), 1);
         break;
     
     // Small chest
