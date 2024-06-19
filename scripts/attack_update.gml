@@ -131,8 +131,8 @@ switch(attack) {
         }
         break;
     case AT_DSPECIAL_2:
-    	if (window == 3 && window_timer == 1) {
-    		if (point_distance(x, y, chest_obj.x, chest_obj.y) < ((chest_obj.state < 20) ? DSPEC_SCHEST_RADIUS : DSPEC_LCHEST_RADIUS)) {
+    	if (window == 1 && window_timer == 1) {
+    		if (point_distance(x, y, chest_obj.x, chest_obj.y) <= ((chest_obj.state < 20) ? DSPEC_SCHEST_RADIUS : DSPEC_LCHEST_RADIUS)) {
     			if (chest_obj.state == 12) { // Large chest
     				chest_obj.state = 13;
     				chest_obj.state_timer = 0;
@@ -144,6 +144,9 @@ switch(attack) {
 					dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
     			}
     		}
+    		var window_length = (chest_obj.state < 20) ? 8 : 28;
+    		set_window_value(attack, window, AG_WINDOW_LENGTH, window_length)
+    		set_window_value(attack, window, AG_WINDOW_SFX_FRAME, window_length-1);
     	}
     	break;
     case AT_USPECIAL:
@@ -175,7 +178,6 @@ switch(attack) {
 	    		window_timer = 999; // jump to window 4
     		}
     	}
-    	print_debug(loop_cancelled);
     	break;
     
 }

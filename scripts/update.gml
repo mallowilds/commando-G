@@ -140,8 +140,6 @@ if (item_grid[4][IG_NUM_HELD] != 0) {
 			bungus_active = 1;
 			bungus_timer = 0;
 			bungus_vis_timer = 0;
-			bungus_vis_x = x;
-			bungus_vis_y = y;
 		}
 		if (bungus_active && bungus_timer > floor(BUNGUS_TICK_TIME/item_grid[4][IG_NUM_HELD])) {
 			bungus_timer = 0;
@@ -151,6 +149,8 @@ if (item_grid[4][IG_NUM_HELD] != 0) {
 			spawn_lfx(sprite_get("vfx_item_u_heal"), x+15+random_func_2(player*7, 30, false), y-50+random_func_2(player*8, 40, false), 39+random_func_2(player*9, 7, true), 1, 1, 0, -1);
 		}
 		bungus_timer++;
+		bungus_vis_x = x;
+		bungus_vis_y = y;
 	}
 	else {
 		if (bungus_active) bungus_vis_timer = 0;

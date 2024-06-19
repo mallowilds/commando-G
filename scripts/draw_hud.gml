@@ -74,11 +74,11 @@ if (dspec_cooldown_hits > 0) {
 	var str = string(dspec_cooldown_hits);
 	for (var i = -2; i <= 2; i += 2) {
 		for (var j = -2; j <= 2; j += 2) {
-			draw_text_color(temp_x-14+i, temp_y+22+j, str, in_col, in_col, in_col, in_col, 1);
+			draw_text_color(temp_x-18+i+on_screen_edge, temp_y+22+j, str, in_col, in_col, in_col, in_col, 1);
 		}
 	}
 	var in_col = make_color_rgb(217, 132, 53);
-	draw_text_color(temp_x-14, temp_y+22, str, in_col, in_col, in_col, in_col, 1);
+	draw_text_color(temp_x-18+on_screen_edge, temp_y+22, str, in_col, in_col, in_col, in_col, 1);
 }
 
 //#endregion
