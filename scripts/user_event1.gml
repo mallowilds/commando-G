@@ -87,6 +87,18 @@ else {
 // Apply item (or roll for a new one if a conflict occured)
 var incompat_index = item_grid[item_id][IG_INCOMPATIBLE]
 if (incompat_index == noone || item_grid[incompat_index][IG_NUM_HELD] == 0) {
+	switch rarity{
+		case 0:
+			sound_play(s_itemw);
+			break;
+		case 1:
+			sound_play(s_itemg);
+			break;
+		case 2:
+			sound_play(s_itemr);
+			break;
+	}
+	
 	if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
 	item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
 	new_item_id = item_id;
