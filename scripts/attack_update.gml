@@ -50,7 +50,11 @@ switch(attack) {
     		num_loops = attack_speed - 1;
     		loops_done = 0;
     		loop_cancelled = false;
+    		set_attack_value(attack, AG_CATEGORY, 1);
+    		set_attack_value(attack, AG_NUM_WINDOWS, 5);
     	}
+    	
+    	// Loop handling
     	var aerial_pressed = attack_pressed || is_attack_pressed(DIR_ANY) || left_strong_pressed || right_strong_pressed || down_strong_pressed || up_strong_pressed || is_strong_pressed(DIR_ANY); // thank you dan
     	if (window >= 2 && aerial_pressed) loop_cancelled = true;
     	if (window == 2 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) && 0 >= num_loops) {
@@ -66,6 +70,20 @@ switch(attack) {
     		}
     		sound_play(get_window_value(attack, window, AG_WINDOW_SFX)); // differs based on if a loop occurred
     	}
+    	
+    	// Landing hitbox handling
+    	if (window == 2 && window_timer == 1) set_attack_value(attack, AG_CATEGORY, 2);
+        else if (window == 4 && window_timer == 1) set_attack_value(attack, AG_CATEGORY, 1);
+        
+        if (!free && window < 5 && get_attack_value(attack, AG_CATEGORY) == 2) {
+        	set_attack_value(attack, AG_NUM_WINDOWS, 7);
+        	destroy_hitboxes();
+        	window = 5;
+    		window_timer = 999; // jump to window 6
+    		sound_play(asset_get("sfx_swipe_medium2"));
+        }
+        
+        
         break;
     case AT_DAIR:
         //a
