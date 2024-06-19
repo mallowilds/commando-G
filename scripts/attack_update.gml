@@ -52,6 +52,18 @@ switch(attack) {
     		loop_cancelled = false;
     		set_attack_value(attack, AG_CATEGORY, 1);
     		set_attack_value(attack, AG_NUM_WINDOWS, 5);
+    		
+    		// yep.
+    		clear_button_buffer(PC_ATTACK_PRESSED);
+    		clear_button_buffer(PC_STRONG_PRESSED);
+    		clear_button_buffer(PC_LEFT_STRONG_PRESSED);
+    		clear_button_buffer(PC_RIGHT_STRONG_PRESSED);
+    		clear_button_buffer(PC_UP_STRONG_PRESSED);
+    		clear_button_buffer(PC_DOWN_STRONG_PRESSED);
+    		clear_button_buffer(PC_LEFT_STICK_PRESSED);
+    		clear_button_buffer(PC_RIGHT_STICK_PRESSED);
+    		clear_button_buffer(PC_UP_STICK_PRESSED);
+    		clear_button_buffer(PC_DOWN_STICK_PRESSED);
     	}
     	
     	// Loop handling
