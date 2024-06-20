@@ -65,6 +65,7 @@ switch new_item_id {
         
     case 32: // Fireman's Boots
         enable_ignition_tank();
+        fireboots_lockout = 0;
         break;
     
     case 37: // Photon Jetpack

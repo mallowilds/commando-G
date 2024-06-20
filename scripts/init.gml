@@ -209,6 +209,7 @@ h3ad_was_fast_falling = false;
 
 fireboots_distance = 0;
 fireboots_prev_x = x;
+fireboots_lockout = 0;
 
 pjetpack_fuel = 0;
 pjetpack_fuel_max = 75;

@@ -198,14 +198,17 @@ if (instincts_timer > 0) {
 
 // Fireman's Boots
 if (item_grid[32][IG_NUM_HELD] > 0) {
-	fireboots_distance += abs (x - fireboots_prev_x);
-	fireboots_prev_x = x;
-	if (free) fireboots_distance = FIREBOOTS_THRESHOLD;
-	if (!free && fireboots_distance >= FIREBOOTS_THRESHOLD) {
-		var burnbox = instance_create(x, y, "obj_article3")
-		burnbox.state = 00;
-		fireboots_distance = 0;
+	if (fireboots_lockout <= 0) {
+		fireboots_distance += abs (x - fireboots_prev_x);
+		fireboots_prev_x = x;
+		if (free) fireboots_distance = FIREBOOTS_THRESHOLD;
+		if (!free && fireboots_distance >= FIREBOOTS_THRESHOLD) {
+			var burnbox = instance_create(x, y, "obj_article3")
+			burnbox.state = 00;
+			fireboots_distance = 0;
+		}
 	}
+	else if (state != PS_HITSTUN && state != PS_HITSTUN_LAND && !was_parried) fireboots_lockout--;
 }
 
 // Photon Jetpack

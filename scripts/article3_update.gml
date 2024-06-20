@@ -48,17 +48,19 @@ switch state {
             sprite_index = asset_get("fire_grnd1_leave");
             image_index = 0;
         }
-        var fire = self;
-        with oPlayer if (player != other.player && !burned) {
-            with hurtboxID if (place_meeting(x, y, fire)) {
-                fire.do_hitbox = true;
+        with oPlayer {
+            if (player != other.player && !burned && place_meeting(x, y, other)) {
+            	print_debug(get_gameplay_time());
+                burned = true;
+                burnt_id = other;
+                burn_timer = 0;
+                burned_color = 0;
+                other.enemy_burnID = self;
+                other.other_burned = true;
+                init_shader();
             }
         }
-        if (do_hitbox) {
-            do_hitbox = false;
-            create_hitbox(AT_EXTRA_1, 1, x, y-17);
-        }
-        break
+        break;
         
     case 02:
         image_index += 0.3
@@ -68,10 +70,14 @@ switch state {
         }
         with oPlayer {
             if (player != other.player && !burned && place_meeting(x, y, other)) {
+            	print_debug(get_gameplay_time());
                 burned = true;
                 burnt_id = other;
                 burn_timer = 0;
-                burnt_pause = 0;
+                burned_color = 0;
+                other.enemy_burnID = self;
+                other.other_burned = true;
+                init_shader();
             }
         }
         break;

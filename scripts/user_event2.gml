@@ -222,6 +222,8 @@ RJETPACK_GRAV_SPEED_BASE = -0.05; // Just a flat modifier, no scaling here
 
 // Fireman's Boots
 FIREBOOTS_THRESHOLD = 26; // Number of pixels walked to generate a fire instance
+FIREBOOTS_PARRY_LOCKOUT = 180;
+FIREBOOTS_HIT_LOCKOUT = 20;
 
 // Photon Jetpack
 PJETPACK_FUEL_MAX_BASE = 30;
