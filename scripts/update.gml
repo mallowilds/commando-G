@@ -79,6 +79,28 @@ with oPlayer {
 		}
 	}
 	
+	// Electric stun (state 1 is active, state 2 is lockout. Status counter counts down to allow external stun time setting)
+	if (commando_status_owner[other.ST_STUN_ELECTRIC] == other.player && commando_status_state[other.ST_STUN_ELECTRIC] > 0) {
+		commando_status_counter[other.ST_STUN_ELECTRIC]--;
+		switch (commando_status_state[other.ST_STUN_ELECTRIC]) {
+			case 1:
+				if (commando_status_counter[other.ST_STUN_ELECTRIC] <= 0) {
+					commando_status_state[other.ST_STUN_ELECTRIC] = 2;
+					commando_status_counter[other.ST_STUN_ELECTRIC] = 0;
+				}
+				else hitstop++;;
+				break;
+			case 2:
+				if (!hitpause) {
+					commando_status_state[other.ST_STUN_ELECTRIC] = 0;
+					commando_status_counter[other.ST_STUN_ELECTRIC] = 0;
+					commando_status_owner[other.ST_STUN_ELECTRIC] = noone;
+					// spawn despawn/endlag vfx
+				}
+				break;
+		}
+	}
+	
 	// The Ol' Lopper effect (state 1 is awaiting, state 2 is hitpause)
 	if (commando_status_owner[other.ST_LOPPER] == other.player && commando_status_state[other.ST_LOPPER] > 0) {
 		if (!hitpause) commando_status_counter[other.ST_LOPPER]++;
@@ -99,8 +121,8 @@ with oPlayer {
 				}
 				break;
 		}
-		
 	}
+	
 }
 
 //#endregion
@@ -111,8 +133,7 @@ with pHitBox if (player_id == other) {
 	if (hitbox_timer == 0) {
 		with (other) other.cmd_is_critical = get_hitbox_value(other.attack, other.hbox_num, HG_IS_CRITICAL);
 		if (cmd_is_critical == 1) {
-			damage += 3 * player_id.item_grid[10][player_id.IG_NUM_HELD]; // Lens Maker's Glasses
-			if (player_id.item_grid[12][player_id.IG_NUM_HELD] > 0 && effect == 0) effect = 11; // Taser (temp)
+			damage += player_id.GLASSES_DAMAGE_BASE + player_id.GLASSES_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD]; // Lens Maker's Glasses
 		}
 	}
 }

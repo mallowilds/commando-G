@@ -41,7 +41,7 @@ item_grid = [
     ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, noone, "Gain 5% barrier on kill."], // 9 | update.gml
     ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes deal more damage."], // 10 | update.gml ~ melee hitbox update, user_event0.gml
     ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     3, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | Unimplemented
-    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done), user_event0.gml
+    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     3, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done), user_event0.gml
     ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
     ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks attach a little more firepower."], // 15 | Unimplemented
@@ -56,7 +56,7 @@ item_grid = [
     ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a burst of shield and speed after opening chests."], // 23 | Unimplemented, init done
     ["Harvester's Scythe",      RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | hit_player.gml, user_event0.gml
     ["Ignition Tank",           RTY_VOID,       ITP_CRITICAL,     0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Unimplemented. Becomes uncommon in a user_event0 script
-    ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | update.gml, hit_player.gml, user_event0.gml
+    ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 2, noone, "Critical Strikes increase attack speed."], // 26 | update.gml, hit_player.gml, user_event0.gml
     ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, noone, "Blast attacks stun enemies briefly."], // 27 | Unimplemented
     ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs fire a missile."], // 28 | Unimplemented
     ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Increase jump height and reduce gravity."], // 29 | user_event0.gml
@@ -80,7 +80,7 @@ item_grid = [
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
     
     ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      0, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | hit_player.gml, article3
-    ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        1, noone, "Jumping while dashing boosts you forward."], // 48 | update.gml
+    ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Jumping while dashing boosts you forward."], // 48 | update.gml
     ["Filial Imprinting",       RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Hatch a strange creature who drops buffs every 15 seconds."], // 49 | Unimplemented
     ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Gain attack speed the more you're damaged."], // 50 | user_event0.gml, update.gml
     
@@ -148,7 +148,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [ITEM_BLEEDDAGGER, ITEM_LOPPER];
+inventory_list = [ITEM_BLEEDDAGGER, ITEM_TASER, ITEM_INSTINCTS, ITEM_LOPPER];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -512,6 +512,8 @@ fx_array_flashlight             = [
 
 fx_crit                     = hit_fx_create(sprite_get("vfx_crit"), 24);
 fx_crit_blood               = hit_fx_create(sprite_get("vfx_crit_blood"), 24);
+fx_crit_shock               = hit_fx_create(sprite_get("vfx_crit_shock"), 24);
+fx_crit_shock_long          = hit_fx_create(sprite_get("vfx_crit_shock"), 50);
 fx_blast                    = hit_fx_create(sprite_get("vfx_blast"), 17);
 fx_item_res                 = hit_fx_create(sprite_get("vfx_item_res"), 160);
 

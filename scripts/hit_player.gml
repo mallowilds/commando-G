@@ -20,15 +20,23 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 		user_event(0); // refresh stats
 	}
 	
-	if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0 && hit_player_obj.burned) {
-		do_ignite_hbox = true;
-	}
-	
 	if (item_grid[ITEM_BLEEDDAGGER][IG_NUM_HELD] > 0) {
 		var bleed_damage = BLEEDDAGGER_DAMAGE_BASE + item_grid[ITEM_BLEEDDAGGER][IG_NUM_HELD] * BLEEDDAGGER_DAMAGE_SCALE;
 		hit_player_obj.commando_status_owner[ST_BLEED] = player;
 		if (hit_player_obj.commando_status_state[ST_BLEED] < bleed_damage) hit_player_obj.commando_status_state[ST_BLEED] = bleed_damage;
 		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_crit_blood);
+	}
+	
+	if (item_grid[ITEM_TASER][IG_NUM_HELD] > 0) {
+		var stun_type = (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] == 0 && hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] == 0) ? 1 : 2;
+		hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] = stun_type;
+		hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = TASER_STUN_BASE + item_grid[ITEM_TASER][IG_NUM_HELD] * TASER_STUN_SCALE;
+		hit_player_obj.commando_status_owner[ST_STUN_ELECTRIC] = player;
+		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), (stun_type == 1) ? fx_crit_shock_long : fx_crit_shock);
+	}
+	
+	if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0 && hit_player_obj.burned) {
+		do_ignite_hbox = true;
 	}
 	
 }

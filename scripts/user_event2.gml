@@ -152,10 +152,6 @@ DSPEC_LCHEST_CD_HITS = 8;
 
 //#endregion
 
-//#region Status Properties
-BLEED_TICK_TIME = 45;
-
-LOPSTATUS_AWAIT_TIME = 60;
 
 //#region Item Properties
 
@@ -186,9 +182,18 @@ SCARF_FRAMES_SCALE = 2;
 // Topaz Brooch
 BROOCH_BARRIER_SCALE = 5;
 
+// Lens Maker's Glasses
+GLASSES_DAMAGE_BASE = 1;
+GLASSES_DAMAGE_SCALE = 2;
+
 // Tri-Tip Dagger
 BLEEDDAGGER_DAMAGE_BASE = 2;
 BLEEDDAGGER_DAMAGE_SCALE = 3;
+BLEED_TICK_TIME = 45;
+
+// Taser
+TASER_STUN_BASE = 30;
+TASER_STUN_SCALE = 10;
 
 // Soldier's Syringe
 SYRINGE_ASPEED_SCALE = 2;
@@ -234,6 +239,7 @@ FIREBOOTS_HIT_LOCKOUT = 20;
 
 // The Ol' Lopper
 LOPPER_DAMAGE_THRESHOLD = 120;
+LOPSTATUS_AWAIT_TIME = 60;
 
 // Photon Jetpack
 PJETPACK_FUEL_MAX_BASE = 30;
