@@ -2,7 +2,6 @@
 
 --> Programming Tasks
     
-    Add DSpecial
     Add index arrays for crit hitboxes + system to enable/disable them
         Default hitboxes
         Consume hitboxes
@@ -25,7 +24,6 @@
         Filial Imprinting
     
     Needs DSpecial added
-        Locked Jewel
         Classified Access Codes
     
     Needs status effect system

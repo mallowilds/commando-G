@@ -175,6 +175,18 @@ if (item_grid[ITEM_HEART][IG_NUM_HELD] != 0) {
 	
 }
 
+// Locked Jewel
+if (jewel_barrier_timer > 0) {
+	
+	jewel_barrier_timer--;
+	if (jewel_barrier_timer == 0) {
+		jewel_barrier = 0;
+		new_item_id = ITEM_JEWEL;
+    	user_event(0); // refresh move speed
+	}
+	
+}
+
 // Predatory Instincts
 if (instincts_timer > 0) {
 	instincts_timer--;

@@ -42,7 +42,7 @@ item_grid = [
     ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes deal more damage."], // 10 | update.gml ~ melee hitbox update, user_event0.gml
     ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | Unimplemented
     ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done), user_event0.gml
-    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 5, noone, "Increased attack speed."], // 13 | user_event0.gml
+    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
     ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks attach a little more firepower."], // 15 | Unimplemented
     ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks set enemies on fire."], // 16 | Unimplemented, user_event0.gml
@@ -53,9 +53,9 @@ item_grid = [
     ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "..And his music was electric."], // 20 | Unimplemented
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
     ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield. Recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
-    ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a burst of shield and speed after opening chests."], // 23 | Unimplemented, init done
+    ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      1, noone, "Gain a burst of shield and speed after opening chests."], // 23 | Unimplemented, init done
     ["Harvester's Scythe",      RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | hit_player.gml, user_event0.gml
-    ["Ignition Tank",           RTY_VOID,       ITP_CRITICAL,     0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Unimplemented. Becomes uncommon in a user_event0 script
+    ["Ignition Tank",           RTY_VOID,       ITP_CRITICAL,     1, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Unimplemented. Becomes uncommon in a user_event0 script
     ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | update.gml, hit_player.gml, user_event0.gml
     ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, noone, "Blast attacks stun enemies briefly."], // 27 | Unimplemented
     ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs fire a missile."], // 28 | Unimplemented
@@ -63,7 +63,7 @@ item_grid = [
     ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    0, noone, "Smite them. Smite them all."], // 30 | Unimplemented
     
     ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Upgrade your Neutral Special."], // 31 | Unimplemented
-    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Fight fire with fire.."], // 32 | update.gml, article3, AT_EXTRA_1, user_event0.gml
+    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       1, noone, "Fight fire with fire.."], // 32 | update.gml, article3, AT_EXTRA_1, user_event0.gml
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_KNOCKBACK,    0, noone, "Hooah."], // 33 | Unimplemented
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | Unimplemented
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | Unimplemented
@@ -148,7 +148,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [ITEM_QUAIL, ITEM_BUNGUS, ITEM_SYRINGE];
+inventory_list = [ITEM_QUAIL, ITEM_BUNGUS, ITEM_JEWEL, ITEM_FIREBOOTS, ITEM_IGNITION];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -185,7 +185,6 @@ heart_barrier_timer = 0;
 heart_barrier_max = 0;   // see user_event0
 jewel_barrier = 0;       // Locked Jewel
 jewel_barrier_timer = 0;
-jewel_movespeed_duration = 240;
 aegis_barrier = 0;       // Aegis
 aegis_ratio = AEGIS_RATIO_BASE;
 hud_barrier_fade_alpha = 0;
@@ -202,6 +201,8 @@ bungus_vis_x = x;
 bungus_vis_y = y;
 
 instincts_timer = 0; // Predatory Instincts
+
+do_ignite_hbox = 0; // Ignition Tank
 
 h3ad_lockout_timer = 0; // H3AD-5T, used for fast falling
 h3ad_was_fast_falling = false;
@@ -652,6 +653,7 @@ bubble_y                        = 8;
 
 
 
-// DEBUG
+// DEBUG | TODO: remove before beta
 new_item_id = noone;
 user_event(0);
+critical_active = 1;

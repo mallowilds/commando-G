@@ -45,7 +45,11 @@ switch new_item_id {
     case 22: // Guardian Heart
         heart_barrier_max = HEART_BARRIER_BASE + HEART_BARRIER_SCALE*item_grid[22][IG_NUM_HELD];
         break;
-        
+    
+    case 23: // Locked Jewel
+        update_horizontal_movement();
+        break;
+    
     case 24: // Harvester's Scythe
         critical_active = 1;
         break;
@@ -103,7 +107,8 @@ switch new_item_id {
     
     move_speed = (HOOF_SPEED_SCALE * item_grid[ITEM_HOOF][IG_NUM_HELD]) // Paul's Goat Hoof
                + (get_player_damage(player) >= BLADES_THRESHOLD ? BLADES_SPEED_SCALE * item_grid[ITEM_BLADES][IG_NUM_HELD] : 0) // Arcane Blades
-               + (MOCHA_SPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD]); // Mocha
+               + (MOCHA_SPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD]) // Mocha
+               + ((jewel_barrier_timer > 0) ? JEWEL_SPEED_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD] : 0) // Locked Jewel
     
     walk_anim_speed = walk_anim_speed_base + (MSPEED_WALK_ANIM_SCALE * move_speed);
     dash_anim_speed = dash_anim_speed_base + (MSPEED_DASH_ANIM_SCALE * move_speed) + (EDRINK_DASH_ANIM_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD]); // energy drink

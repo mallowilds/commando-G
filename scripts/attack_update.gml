@@ -17,8 +17,12 @@ switch(attack) {
         //a
         break;
     case AT_DTILT:
-        if window == 1 && window_timer == window_length - 1 {
+        if (window == 1 && window_timer == window_length - 1) {
             sound_play(s_dag_swing)
+        }
+        if (do_ignite_hbox && !hitpause) {
+        	create_hitbox(AT_DTILT, 4, x, y); // melee hitbox, position doesn't matter
+        	do_ignite_hbox = false;
         }
         //mods bring out the
         down_down = true
@@ -191,6 +195,13 @@ switch(attack) {
     				chest_obj.state = 23;
     				chest_obj.state_timer = 0;
 					dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
+    			}
+    			
+    			if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
+    				jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
+    				jewel_barrier_timer = JEWEL_DURATION;
+    				new_item_id = ITEM_JEWEL;
+    				user_event(0);
     			}
     		}
     		var window_length = (chest_obj.state < 20) ? 8 : 28;

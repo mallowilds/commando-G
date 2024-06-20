@@ -8,6 +8,13 @@ heart_barrier = 0;
 aegis_barrier = 0;
 brooch_barrier = 0;
 
+// Heart Barrier
+heart_barrier_endangered = 1;
+heart_barrier_timer = 0;
+
+// Ignition Tank
+do_ignite_hbox = 0;
+
 // Dio's Best Friend
 if (item_grid[44][IG_NUM_HELD] > 0) {
     

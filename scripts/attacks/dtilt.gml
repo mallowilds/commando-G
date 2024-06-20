@@ -77,8 +77,6 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_crit);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , s_knifem);
 set_hitbox_value(atk, hbox_num, HG_IS_CRITICAL              , 1);
 
-/* idk how you want to do it, but i was messing around so here are the extra hitbox grids for the laser scope increased crit dmg/kb, and the burnconsume effect for ignition tank
-
 var hbox_num = 3; //Crit (Laser Scope)
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -104,13 +102,14 @@ set_hitbox_value(atk, hbox_num, HG_IS_CRITICAL              , 1);
 var hbox_num = 4; //Crit (Ignition Tank)
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-//set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 0); // spawned manually
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
-set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
+set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 96);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -2);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 30);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 16);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 50);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 30);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 6);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 9);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
@@ -122,4 +121,4 @@ set_hitbox_value(atk, hbox_num, HG_EXTRA_HITPAUSE           , 5);
 set_hitbox_value(atk, hbox_num, HG_EFFECT                   , 2); //burn consume
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , -1); 
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_burnconsume"));
-set_hitbox_value(atk, hbox_num, HG_IS_CRITICAL              , 1);
+//set_hitbox_value(atk, hbox_num, HG_IS_CRITICAL              , 1);
