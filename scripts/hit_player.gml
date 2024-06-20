@@ -34,6 +34,15 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 }
 //#endregion
 
+//#region Ol' Lopper
+if (get_player_damage(hit_player_obj.player) >= LOPPER_DAMAGE_THRESHOLD && item_grid[ITEM_LOPPER][IG_NUM_HELD] > 0) {
+	if (hit_player_obj.commando_status_owner[ST_LOPPER] == noone) {
+		hit_player_obj.commando_status_state[ST_LOPPER] = 1;
+		hit_player_obj.commando_status_owner[ST_LOPPER] = player;
+		hit_player_obj.commando_status_timer[ST_LOPPER] = 0;
+	}
+}
+//#endregion
 
 //#region Damage multipliers
 

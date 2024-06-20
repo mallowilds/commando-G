@@ -56,6 +56,55 @@ for (var i = 0; i < ds_list_size(lfx_list); i++) {
 //#endregion
 
 
+//#region Status management
+// Since this spawns hitboxes, it should be above the hitbox update block
+with oPlayer {
+	
+	if (state == PS_DEAD || state == PS_RESPAWN) {
+		for (var i = 0; i < 7; i++) {
+			commando_status_state[i] = 0;
+			commando_status_counter[i] = 0;
+			commando_status_owner[i] = noone;
+		}
+	}
+	
+	// Bleed (state indicates damage ticks remaining)
+	if (commando_status_owner[other.ST_BLEED] == other.player && commando_status_state[other.ST_BLEED] > 0) {
+		commando_status_counter[other.ST_BLEED]++;
+		if (commando_status_counter[other.ST_BLEED] >= other.BLEED_TICK_TIME) {
+			commando_status_state[other.ST_BLEED]--;
+			commando_status_counter[other.ST_BLEED] = 0;
+			take_damage(player, other.player, 1);
+			if (commando_status_state[other.ST_BLEED] <= 0) commando_status_owner[other.ST_BLEED] = noone;
+		}
+	}
+	
+	// The Ol' Lopper effect (state 1 is awaiting, state 2 is hitpause)
+	if (commando_status_owner[other.ST_LOPPER] == other.player && commando_status_state[other.ST_LOPPER] > 0) {
+		if (!hitpause) commando_status_counter[other.ST_LOPPER]++;
+		switch (commando_status_state[other.ST_LOPPER]) {
+			case 1:
+				if (commando_status_counter[other.ST_LOPPER] >= other.LOPSTATUS_AWAIT_TIME) {
+					commando_status_state[other.ST_LOPPER] = 2;
+					commando_status_counter[other.ST_LOPPER] = 0;
+					with (other) create_hitbox(AT_EXTRA_1, 2, other.x, other.y+floor(char_height/2));
+				}
+				break;
+			case 2:
+				if (!hitpause) {
+					commando_status_state[other.ST_LOPPER] = 0;
+					commando_status_counter[other.ST_LOPPER] = 0;
+					commando_status_owner[other.ST_LOPPER] = noone;
+					// spawn despawn/endlag vfx
+				}
+				break;
+		}
+		
+	}
+}
+
+//#endregion
+
 //#region hitbox_update (for the sake of melee hitboxes)
 with pHitBox if (player_id == other) {
 	// Critical strike setup
@@ -129,22 +178,6 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 }
 
 //#endregion
-
-//#region Status management
-with oPlayer {
-	// Bleed
-	if (commando_status_owner[other.ST_BLEED] == other.player && commando_status_state[other.ST_BLEED] > 0) {
-		commando_status_counter[other.ST_BLEED]++;
-		if (commando_status_counter[other.ST_BLEED] >= other.BLEED_TICK_TIME) {
-			commando_status_state[other.ST_BLEED]--;
-			commando_status_counter[other.ST_BLEED] = 0;
-			take_damage(player, other.player, 1);
-			if (commando_status_state[other.ST_BLEED] <= 0) {
-				commando_status_owner[other.ST_BLEED] = noone;
-			}
-		}
-	}
-}
 
 //#region Item timers/states
 

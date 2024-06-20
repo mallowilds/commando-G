@@ -101,9 +101,6 @@ ST_STUN_EXPLOSIVE = 3;
 ST_LOPPER = 4;
 ST_SHATTERED = 5;
 ST_STATIC = 6;
-
-NUM_STATUSES = 7;
-
 //#endregion
 
 //#region General Properties
@@ -157,6 +154,8 @@ DSPEC_LCHEST_CD_HITS = 8;
 
 //#region Status Properties
 BLEED_TICK_TIME = 45;
+
+LOPSTATUS_AWAIT_TIME = 60;
 
 //#region Item Properties
 
@@ -232,6 +231,9 @@ RJETPACK_GRAV_SPEED_BASE = -0.05; // Just a flat modifier, no scaling here
 FIREBOOTS_THRESHOLD = 26; // Number of pixels walked to generate a fire instance
 FIREBOOTS_PARRY_LOCKOUT = 180;
 FIREBOOTS_HIT_LOCKOUT = 20;
+
+// The Ol' Lopper
+LOPPER_DAMAGE_THRESHOLD = 120;
 
 // Photon Jetpack
 PJETPACK_FUEL_MAX_BASE = 30;
