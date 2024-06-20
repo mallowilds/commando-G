@@ -42,8 +42,16 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 }
 //#endregion
 
+//#region Break stuns
+else if (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] != 0) {
+	hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] = 2;
+	hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = 0;
+	hit_player_obj.commando_status_owner[ST_STUN_ELECTRIC] = player;
+}
+//#endregion
+
 //#region Ol' Lopper
-if (get_player_damage(hit_player_obj.player) >= LOPPER_DAMAGE_THRESHOLD && item_grid[ITEM_LOPPER][IG_NUM_HELD] > 0) {
+if (get_player_damage(hit_player_obj.player) >= LOPPER_DAMAGE_THRESHOLD && hit_player_obj.orig_knock >= LOPPER_KB_THRESHOLD && item_grid[ITEM_LOPPER][IG_NUM_HELD] > 0) {
 	if (hit_player_obj.commando_status_owner[ST_LOPPER] == noone) {
 		hit_player_obj.commando_status_state[ST_LOPPER] = 1;
 		hit_player_obj.commando_status_owner[ST_LOPPER] = player;

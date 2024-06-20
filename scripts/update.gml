@@ -82,6 +82,11 @@ with oPlayer {
 	// Electric stun (state 1 is active, state 2 is lockout. Status counter counts down to allow external stun time setting)
 	if (commando_status_owner[other.ST_STUN_ELECTRIC] == other.player && commando_status_state[other.ST_STUN_ELECTRIC] > 0) {
 		commando_status_counter[other.ST_STUN_ELECTRIC]--;
+		if (last_player != commando_status_owner[other.ST_STUN_ELECTRIC]) { // mirrored in hit_player
+			commando_status_state[other.ST_STUN_ELECTRIC] = 0;
+			commando_status_counter[other.ST_STUN_ELECTRIC] = 0;
+			commando_status_owner[other.ST_STUN_ELECTRIC] = noone;
+		}
 		switch (commando_status_state[other.ST_STUN_ELECTRIC]) {
 			case 1:
 				if (commando_status_counter[other.ST_STUN_ELECTRIC] <= 0) {
@@ -95,18 +100,17 @@ with oPlayer {
 					commando_status_state[other.ST_STUN_ELECTRIC] = 0;
 					commando_status_counter[other.ST_STUN_ELECTRIC] = 0;
 					commando_status_owner[other.ST_STUN_ELECTRIC] = noone;
-					// spawn despawn/endlag vfx
 				}
 				break;
 		}
 	}
 	
-	// The Ol' Lopper effect (state 1 is awaiting, state 2 is hitpause)
+	// The Ol' Lopper effect (state 1 is awaiting, state 2 is hitpause, state 3 is lockout)
 	if (commando_status_owner[other.ST_LOPPER] == other.player && commando_status_state[other.ST_LOPPER] > 0) {
 		if (!hitpause) commando_status_counter[other.ST_LOPPER]++;
 		switch (commando_status_state[other.ST_LOPPER]) {
 			case 1:
-				if (commando_status_counter[other.ST_LOPPER] >= other.LOPSTATUS_AWAIT_TIME) {
+				if (commando_status_counter[other.ST_LOPPER] >= other.LOPPER_AWAIT_TIME) {
 					commando_status_state[other.ST_LOPPER] = 2;
 					commando_status_counter[other.ST_LOPPER] = 0;
 					with (other) create_hitbox(AT_EXTRA_1, 2, other.x, other.y+floor(char_height/2));
@@ -114,10 +118,16 @@ with oPlayer {
 				break;
 			case 2:
 				if (!hitpause) {
+					commando_status_state[other.ST_LOPPER] = 3;
+					commando_status_counter[other.ST_LOPPER] = 0;
+					// spawn despawn/endlag vfx
+				}
+				break;
+			case 3:
+				if (commando_status_counter[other.ST_LOPPER] >= other.LOPPER_LOCKOUT) {
 					commando_status_state[other.ST_LOPPER] = 0;
 					commando_status_counter[other.ST_LOPPER] = 0;
 					commando_status_owner[other.ST_LOPPER] = noone;
-					// spawn despawn/endlag vfx
 				}
 				break;
 		}
