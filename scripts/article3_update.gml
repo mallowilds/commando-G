@@ -68,12 +68,11 @@ switch state {
         }
         with oPlayer {
             if (player != other.player && !burned && place_meeting(x, y, other)) {
-                other.do_hitbox = true;
+                burned = true;
+                burnt_id = other;
+                burn_timer = 0;
+                burnt_pause = 0;
             }
-        }
-        if (do_hitbox) {
-            do_hitbox = false;
-            create_hitbox(AT_EXTRA_1, 1, x, y-17);
         }
         break;
         

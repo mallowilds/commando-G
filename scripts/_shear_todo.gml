@@ -7,8 +7,6 @@
         Consume hitboxes
         Laser Scope hitboxes
     Create status effect system (for enemy players)
-    Research base-cast fire status
-        Might need to hook into custom status system to achieve variable DoTs
 
 --> Items
 
@@ -34,10 +32,6 @@
         The Ol' Lopper
         Shattering Justice
     
-    Needs research regarding fire status
-        Kjaro's
-        Gasoline
-    
     < Not currently doable >
     
     Needs more moves added
@@ -47,6 +41,8 @@
         AtG
         Brilliant Behemoth
         Hardlight Afterburner
+        Kjaro's
+        Gasoline
     
     Needs planning
         Legendary Spark

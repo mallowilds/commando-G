@@ -20,7 +20,9 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 		user_event(0); // refresh stats
 	}
 	
-	if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0 && hit_player_obj.burned) do_ignite_hbox = true;
+	if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0 && hit_player_obj.burned) {
+		do_ignite_hbox = true;
+	}
 	
 }
 //#endregion

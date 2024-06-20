@@ -107,9 +107,9 @@ set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 0); // spawned man
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 96);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -2);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 50);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 30);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -10);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 70);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 40);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 6);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 9);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
