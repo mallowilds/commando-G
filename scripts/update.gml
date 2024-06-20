@@ -130,6 +130,22 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 
 //#endregion
 
+//#region Status management
+with oPlayer {
+	// Bleed
+	if (commando_status_owner[other.ST_BLEED] == other.player && commando_status_state[other.ST_BLEED] > 0) {
+		commando_status_counter[other.ST_BLEED]++;
+		if (commando_status_counter[other.ST_BLEED] >= other.BLEED_TICK_TIME) {
+			commando_status_state[other.ST_BLEED]--;
+			commando_status_counter[other.ST_BLEED] = 0;
+			take_damage(player, other.player, 1);
+			if (commando_status_state[other.ST_BLEED] <= 0) {
+				commando_status_owner[other.ST_BLEED] = noone;
+			}
+		}
+	}
+}
+
 //#region Item timers/states
 
 // Bustling Fungus

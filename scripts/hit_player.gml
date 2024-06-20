@@ -24,6 +24,13 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 		do_ignite_hbox = true;
 	}
 	
+	if (item_grid[ITEM_BLEEDDAGGER][IG_NUM_HELD] > 0) {
+		var bleed_damage = BLEEDDAGGER_DAMAGE_BASE + item_grid[ITEM_BLEEDDAGGER][IG_NUM_HELD] * BLEEDDAGGER_DAMAGE_SCALE;
+		hit_player_obj.commando_status_owner[ST_BLEED] = player;
+		if (hit_player_obj.commando_status_state[ST_BLEED] < bleed_damage) hit_player_obj.commando_status_state[ST_BLEED] = bleed_damage;
+		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_crit_blood);
+	}
+	
 }
 //#endregion
 
@@ -221,11 +228,11 @@ aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD] * amount;
 
 #define get_effect_offset_x
 
-return (hit_player_obj.x + x) * 0.5 + get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_VISUAL_EFFECT_X_OFFSET) * spr_dir;
+return (hit_player_obj.x + my_hitboxID.x) * 0.5 + get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_VISUAL_EFFECT_X_OFFSET) * spr_dir;
 
 #define get_effect_offset_y
 
-return (hit_player_obj.y + y)*0.5 + get_hitbox_value(my_hitboxID.attack,my_hitboxID.hbox_num,HG_VISUAL_EFFECT_Y_OFFSET) - 25;
+return (hit_player_obj.y + my_hitboxID.y)*0.5 + get_hitbox_value(my_hitboxID.attack,my_hitboxID.hbox_num,HG_VISUAL_EFFECT_Y_OFFSET) - 25;
 
 #define spawn_comp_hit_fx
 //function takes in an array that contains smaller arrays with the vfx information

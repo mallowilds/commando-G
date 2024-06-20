@@ -101,7 +101,8 @@ ST_STUN_EXPLOSIVE = 3;
 ST_LOPPER = 4;
 ST_SHATTERED = 5;
 ST_STATIC = 6;
-// tbd
+
+NUM_STATUSES = 7;
 
 //#endregion
 
@@ -154,6 +155,9 @@ DSPEC_LCHEST_CD_HITS = 8;
 
 //#endregion
 
+//#region Status Properties
+BLEED_TICK_TIME = 45;
+
 //#region Item Properties
 
 // Crowbar
@@ -182,6 +186,10 @@ SCARF_FRAMES_SCALE = 2;
 
 // Topaz Brooch
 BROOCH_BARRIER_SCALE = 5;
+
+// Tri-Tip Dagger
+BLEEDDAGGER_DAMAGE_BASE = 2;
+BLEEDDAGGER_DAMAGE_SCALE = 3;
 
 // Soldier's Syringe
 SYRINGE_ASPEED_SCALE = 2;
