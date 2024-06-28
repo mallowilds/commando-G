@@ -660,7 +660,8 @@ air_dodge_sound                 = asset_get("sfx_quick_dodge");
 bubble_x                        = 0;
 bubble_y                        = 8;
 
-
+//win stuff
+set_victory_portrait(sprite_get("portrait_base") ) 
 
 // DEBUG | TODO: remove before beta
 new_item_id = noone;
