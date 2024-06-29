@@ -1,50 +1,32 @@
 /* TODO LIST
 
---> Programming Tasks
-    
-    Add index arrays for crit hitboxes + system to enable/disable them
-        Default hitboxes
-        Consume hitboxes
-        Laser Scope hitboxes
-    Create status effect system (for enemy players)
-
 --> Items
 
     < Currently doable >
     
-    Manageable
-        Headstompers
-        Ignition Tank
-        Laser Scope
+    Definitely doable
+        Brilliant Behemoth
     
-    Needs art (real or temporary)
+    I think this one's pretty close to ready?
+        Hardlight Afterburner
+    
+    Manageable, but needs temp art
+        Headstompers
+        Classified Access Codes
         Warbanner
         Filial Imprinting
     
-    Needs DSpecial added
-        Classified Access Codes
-    
-    Needs status effect system
-        Tri-Tip Dagger
-        Taser
+    Needs explosive move for testing (or Brilliant Behemoth)
         Sticky Bomb
         Concussion Grenade
-        The Ol' Lopper
-        Shattering Justice
     
     < Not currently doable >
     
     Needs more moves added
-        Armor-Piercing Rounds
-        Runald's
         Ukelele
-        AtG
-        Brilliant Behemoth
-        Hardlight Afterburner
-        Kjaro's
-        Gasoline
     
     Needs planning
+        AtG
         Legendary Spark
         Ancient Scepter
         57-Leaf Clover

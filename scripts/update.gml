@@ -526,7 +526,7 @@ if (damage_taken > barrier_val) {
 	take_damage(player, player, -floor(barrier_val));
 	barrier_val = barrier_val - floor(barrier_val);
 } else {
-	take_damage(player, player, -barrier_val);
+	take_damage(player, player, -damage_taken);
 	barrier_val -= damage_taken;
 }
 return barrier_val;
