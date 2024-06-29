@@ -73,13 +73,22 @@ else if (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] != 0) {
 }
 //#endregion
 
-//#region Ol' Lopper
+//#region Ol' Lopper / Shattering Justice
 if (get_player_damage(hit_player_obj.player) >= LOPPER_DAMAGE_THRESHOLD && hit_player_obj.orig_knock >= LOPPER_KB_THRESHOLD && item_grid[ITEM_LOPPER][IG_NUM_HELD] > 0) {
 	if (hit_player_obj.commando_status_owner[ST_LOPPER] == noone) {
 		hit_player_obj.commando_status_state[ST_LOPPER] = 1;
 		hit_player_obj.commando_status_owner[ST_LOPPER] = player;
 		hit_player_obj.commando_status_timer[ST_LOPPER] = 0;
 	}
+}
+
+if (get_player_damage(hit_player_obj.player) >= SHATTERING_DAMAGE_THRESHOLD && item_grid[ITEM_SHATTERING][IG_NUM_HELD] > 0) {
+	if (hit_player_obj.commando_status_owner[ST_SHATTERED] == noone) {
+		hit_player_obj.knockback_adj += SHATTERING_KB_SHRED;
+		hit_player_obj.commando_status_state[ST_SHATTERED] = hit_player_obj.knockback_adj;
+		hit_player_obj.commando_status_owner[ST_SHATTERED] = player;
+	}
+	hit_player_obj.commando_status_timer[ST_SHATTERED] = 0; // duration is reapplied regardless
 }
 //#endregion
 

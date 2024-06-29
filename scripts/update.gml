@@ -145,6 +145,24 @@ with oPlayer {
 		}
 	}
 	
+	// Shattering Justice effect (state is cheatily used to store the modified knockback_adj)
+	if (commando_status_owner[other.ST_SHATTERED] == other.player && commando_status_state[other.ST_SHATTERED] > 0) {
+		if (!hitpause) commando_status_counter[other.ST_SHATTERED]++;
+		if (knockback_adj != commando_status_state[other.ST_SHATTERED]) { // If knockback_adj was changed externally, reapply the shred
+			knockback_adj += other.SHATTERING_KB_SHRED;
+			commando_status_state[other.ST_SHATTERED] = knockback_adj;
+		}
+		if (commando_status_counter[other.ST_SHATTERED] >= other.SHATTERING_DURATION) { // Reset upon finishing duration
+			knockback_adj -= other.SHATTERING_KB_SHRED;
+			commando_status_state[other.ST_SHATTERED] = 0;
+			commando_status_counter[other.ST_SHATTERED] = 0;
+			commando_status_owner[other.ST_SHATTERED] = noone;
+		}
+		print_debug("Timer: " + string(commando_status_counter[other.ST_SHATTERED]));
+	}
+	
+	if (self != other) print_debug(knockback_adj);
+	
 }
 
 //#endregion

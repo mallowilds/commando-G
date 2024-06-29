@@ -6,5 +6,4 @@ commando_status_state = array_create(7);
 commando_status_counter = array_create(7);
 commando_status_owner = array_create(7, noone); // for the sake of the ditto
 
-
-burnt_pause = 0;
+burnt_pause = 0; // seems to improve stability (?)

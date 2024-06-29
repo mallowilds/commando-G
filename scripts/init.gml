@@ -65,8 +65,8 @@ item_grid = [
     ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Upgrade your Neutral Special."], // 31 | Unimplemented
     ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Fight fire with fire.."], // 32 | update.gml, article3, AT_EXTRA_1, user_event0.gml
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_KNOCKBACK,    0, noone, "Hooah."], // 33 | Unimplemented
-    ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | Unimplemented
-    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | Unimplemented
+    ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | update.gml, hit_player.gml, other_post_draw.gml
+    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    1, 34,    "Enemies above 100% have their Armor shattered."], // 35 | update.gml, hit_player.gml, other_post_draw.gml
     ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       0, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | Unimplemented
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        0, 37,    "Jump much higher, and fall much faster."], // 38 | user_event0.gml
@@ -87,7 +87,7 @@ item_grid = [
 ]
 
 // Inventory store
-inventory_list = [ITEM_BLEEDDAGGER, ITEM_TASER, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE];
+inventory_list = [ITEM_BLEEDDAGGER, ITEM_TASER, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE, ITEM_SHATTERING];
 
 // For use by item init (user_event0)
 new_item_id = noone;

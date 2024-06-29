@@ -13,3 +13,8 @@ if (commando_status_state[other_player_id.ST_LOPPER] == 1) {
 else if (commando_status_state[other_player_id.ST_LOPPER] == 2) {
     draw_debug_text(x, y-14, "lopped");
 }
+
+// Shattering Justice
+if (commando_status_state[other_player_id.ST_SHATTERED] > 0) {
+    draw_debug_text(x, y-14, "shattered");
+}
