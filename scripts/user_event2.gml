@@ -94,7 +94,7 @@ ITEM_CELL           = 50;
 
 
 // ST -> Statuses
-ST_BURNCOUNTER = 0;
+ST_BURNCOUNTER = 0; // mostly deprecated, used for debug purposes
 ST_BLEED = 1;
 ST_STUN_ELECTRIC = 2;
 ST_STUN_EXPLOSIVE = 3;
@@ -236,6 +236,7 @@ RJETPACK_GRAV_SPEED_BASE = -0.05; // Just a flat modifier, no scaling here
 FIREBOOTS_THRESHOLD = 26; // Number of pixels walked to generate a fire instance
 FIREBOOTS_PARRY_LOCKOUT = 180;
 FIREBOOTS_HIT_LOCKOUT = 20;
+FIREBOOTS_DAMAGE = 5;
 
 // The Ol' Lopper
 LOPPER_DAMAGE_THRESHOLD = 120;

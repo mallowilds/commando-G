@@ -68,6 +68,18 @@ with oPlayer {
 		}
 	}
 	
+	// Burn counter (effectively deprecated, retained as a debug utility)
+	if (commando_status_owner[other.ST_BURNCOUNTER] == other.player && commando_status_state[other.ST_BURNCOUNTER] > 0) {
+		print_debug("_")
+		print_debug(burnt_id);
+		print_debug(other);
+		print_debug(burn_timer);
+		if (burnt_id != other) {
+			commando_status_state[other.ST_BURNCOUNTER] = 0;
+			commando_status_counter[other.ST_BURNCOUNTER] = 0;
+		}
+	}
+	
 	// Bleed (state indicates damage ticks remaining)
 	if (commando_status_owner[other.ST_BLEED] == other.player && commando_status_state[other.ST_BLEED] > 0) {
 		commando_status_counter[other.ST_BLEED]++;

@@ -50,14 +50,14 @@ switch state {
         }
         with oPlayer {
             if (player != other.player && !burned && place_meeting(x, y, other)) {
-            	print_debug(get_gameplay_time());
                 burned = true;
-                burnt_id = other;
-                burn_timer = 0;
+                burnt_id = other.player_id;
+                burn_timer = 150 - 30*other.player_id.FIREBOOTS_DAMAGE;
                 burned_color = 0;
-                other.enemy_burnID = self;
-                other.other_burned = true;
+                other.player_id.enemy_burnID = self;
+                other.player_id.other_burned = true;
                 init_shader();
+                sound_play(asset_get("sfx_burnapplied"));
             }
         }
         break;
@@ -67,18 +67,6 @@ switch state {
         if (image_index >= 6) {
             instance_destroy();
             exit;
-        }
-        with oPlayer {
-            if (player != other.player && !burned && place_meeting(x, y, other)) {
-            	print_debug(get_gameplay_time());
-                burned = true;
-                burnt_id = other;
-                burn_timer = 0;
-                burned_color = 0;
-                other.enemy_burnID = self;
-                other.other_burned = true;
-                init_shader();
-            }
         }
         break;
         
