@@ -160,6 +160,11 @@ DSPEC_LCHEST_CD_HITS = 8;
 CROWBAR_MULT_BASE = 0;
 CROWBAR_MULT_SCALE = 0.5;
 
+// Armor-Piercing Rounds
+APROUNDS_DAMAGE_SCALE = 2;
+APROUNDS_BKB_SCALE = 0.75;
+APROUNDS_KBS_SCALE = 0;
+
 // Bustling Fungus
 BUNGUS_WAIT_TIME = 90;
 BUNGUS_TICK_TIME = 30; // Heal 1% every n/(bungus count) frames

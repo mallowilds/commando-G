@@ -179,6 +179,11 @@ with pHitBox if (player_id == other) {
 			}
 		}
 		if (cmd_strong_finisher) {
+			if (player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD] > 0) { // Armor-Piercing Rounds
+				damage += player_id.APROUNDS_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
+				kb_value += player_id.APROUNDS_BKB_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
+				kb_scale += player_id.APROUNDS_KBS_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
+			}
 			if (player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD] > 0) { // Runald's Band
 				kb_scale += player_id.ICEBAND_KBS_SCALE * player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD];
 				hitpause += player_id.ICEBAND_HITPAUSE;

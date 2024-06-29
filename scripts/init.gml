@@ -32,7 +32,7 @@ item_grid = [
     ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Deal more damage & knockback to healthy enemies."], // 0 | hit_player.gml
     ["Warbanner",               RTY_COMMON,     ITP_DAMAGE,       0, noone, "Taunt to place down a powerful buffing Warbanner."], // 1 | Unimplemented
     ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       0, noone, "Hurt enemies by fast-falling."], // 2 | Unimplemented
-    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    0, noone, "Strongs deal more damage and slightly more knockback."], // 3 | Unimplemented
+    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    3, noone, "Strongs deal more damage and slightly more knockback."], // 3 | Unimplemented
     ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      0, noone, "Crouch to heal over time."], // 4 | update.gml, post_draw.gml
     ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        0, noone, "Move faster."], // 5 | user_event0.gml
     ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        0, noone, "Dash faster."], // 6 | user_event0.gml
@@ -87,7 +87,7 @@ item_grid = [
 ]
 
 // Inventory store
-inventory_list = [ITEM_SCOPE, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE, ITEM_SHATTERING];
+inventory_list = [ITEM_APROUNDS, ITEM_SCOPE, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE, ITEM_SHATTERING];
 
 // For use by item init (user_event0)
 new_item_id = noone;
