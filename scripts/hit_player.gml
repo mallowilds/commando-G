@@ -11,15 +11,8 @@ if (!first_hit || (my_hitboxID.type == 2 && ("is_fake_hit" not in my_hitboxID ||
 if (my_hitboxID.cmd_strong_finisher) {
 	// Kjaro's Band
 	if (item_grid[ITEM_FIREBAND][IG_NUM_HELD] > 0) {
-		var damage = FIREBAND_DAMAGE_BASE + item_grid[ITEM_FIREBAND][IG_NUM_HELD] * FIREBAND_DAMAGE_SCALE;
-		hit_player_obj.burned = true;
-        hit_player_obj.burnt_id = self;
-        hit_player_obj.burn_timer = 150 - 30*damage;
-        hit_player_obj.burned_color = 0;
-        enemy_burnID = hit_player_obj;
-        other_burned = true;
-        with (hit_player_obj) init_shader();
-        sound_play(asset_get("sfx_burnapplied"));
+		var band_damage = FIREBAND_DAMAGE_BASE + item_grid[ITEM_FIREBAND][IG_NUM_HELD] * FIREBAND_DAMAGE_SCALE;
+		apply_burn(hit_player_obj, band_damage);
         // spawn vfx
 	}
 	
@@ -281,6 +274,17 @@ switch(my_hitboxID.attack) {
 take_damage(player, player, -amount);
 aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD] * amount;
 
+#define apply_burn(target_player_obj, burn_damage)
+	var ticks = 150 - 30*burn_damage;
+	if (!target_player_obj.burned || ticks < target_player_obj.burn_timer) target_player_obj.burn_timer = ticks; // don't reduce an existing burn
+	target_player_obj.burned = true;
+    target_player_obj.burnt_id = self;
+    target_player_obj.burned_color = 0;
+    enemy_burnID = target_player_obj;
+    other_burned = true;
+    with (target_player_obj) init_shader();
+    sound_play(asset_get("sfx_burnapplied"));
+
 #define get_effect_offset_x
 
 return (hit_player_obj.x + my_hitboxID.x) * 0.5 + get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_VISUAL_EFFECT_X_OFFSET) * spr_dir;
@@ -288,51 +292,6 @@ return (hit_player_obj.x + my_hitboxID.x) * 0.5 + get_hitbox_value(my_hitboxID.a
 #define get_effect_offset_y
 
 return (hit_player_obj.y + my_hitboxID.y)*0.5 + get_hitbox_value(my_hitboxID.attack,my_hitboxID.hbox_num,HG_VISUAL_EFFECT_Y_OFFSET) - 25;
-
-#define spawn_comp_hit_fx
-//function takes in an array that contains smaller arrays with the vfx information
-// list formatting: [ [x, y, delay_time, index, rotation, depth, force_dir], ..]
-var fx_list = argument0;
-vfx_created = false;
-
-//temporary array
-var temp_array = [{cur_timer: -1, max_timer: 0}];  //first value is an array that constains current and max timer, to detect when to spawn vfx and when to stop and be replaced
-                            //later values are the fx
-var player_dir = spr_dir;
-
-//first take the arrays from the function, set them into objects, and store them in an array
-for (var i=0;i < array_length(fx_list);i++) {
-    //create new fx part tracker and add to temp array
-    var new_fx_part = {
-        x: fx_list[i][0],
-        y: fx_list[i][1],
-        delay_timer: fx_list[i][2],
-        index: fx_list[i][3],
-        rotation: fx_list[i][4],
-        depth: fx_list[i][5],
-        spr_dir: fx_list[i][6] == 0 ? player_dir : fx_list[i][6]
-    };
-    array_push(temp_array, new_fx_part);
-    
-    //change max timer if delay is bigger than it
-    if (new_fx_part.delay_timer > temp_array[0].max_timer) {
-        temp_array[0].max_timer = new_fx_part.delay_timer;
-    }
-}
-
-//add temp array to final array
-for (var e=0;e<array_length(comp_vfx_array);e++) {
-    if (vfx_created) { //stop process if effect is created
-        break;
-    } 
-    if (comp_vfx_array[e][0].cur_timer > comp_vfx_array[e][0].max_timer) { //replace finished effects
-        comp_vfx_array[e] = temp_array;
-        vfx_created = true;
-    } else if (e == array_length(comp_vfx_array)-1) { //otherwise add it in the end of the array
-        array_push(comp_vfx_array, temp_array);
-        vfx_created = true;
-    }
-}
 
 #define spawn_base_dust // written by supersonic
 /// spawn_base_dust(x, y, name, dir = 0)
