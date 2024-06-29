@@ -22,6 +22,7 @@ if (my_hitboxID.cmd_strong_finisher) {
 		// spawn vfx
 	}
 }
+//#endregion
 
 //#region Crit handling
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
@@ -70,6 +71,11 @@ else if (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] != 0) {
 	hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] = 2;
 	hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = 0;
 	hit_player_obj.commando_status_owner[ST_STUN_ELECTRIC] = player;
+}
+if (hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] != 0) {
+	hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] = 2;
+	hit_player_obj.commando_status_counter[ST_STUN_EXPLOSIVE] = 0;
+	hit_player_obj.commando_status_owner[ST_STUN_EXPLOSIVE] = player;
 }
 //#endregion
 
@@ -123,7 +129,7 @@ if (!hit_player_obj.clone) {
 if (my_hitboxID.attack == AT_DSPECIAL && my_hitboxID.orig_player == player && "owner_chest" in my_hitboxID) {
 	my_hitboxID.owner_chest.hitstop = floor(hit_player_obj.hitstop);
 }
-
+//#endregion
 
 //#region Kill tracking
 
@@ -135,11 +141,30 @@ if (!hit_player_obj.clone && recently_hit[hit_player_obj.player-1] == noone) {
 //#endregion
 
 //#region Monster Tooth
-if (item_grid[47][IG_NUM_HELD] > 0 && hit_player_obj.orig_knock >= 12) {
+if (item_grid[ITEM_MTOOTH][IG_NUM_HELD] > 0 && hit_player_obj.orig_knock >= 12) {
 	tooth_awaiting_spawn[hit_player_obj.player-1] = point_direction(0, 0, hit_player_obj.hsp*-1, abs(hit_player_obj.vsp)*-1);
 }
 //#endregion
 
+//#region Brilliant Behemoth/ATG
+
+// Store knockback if appropriate
+if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied) {
+	hbox_stored_damage = my_hitboxID.damage; // probably won't see use in practice
+	hbox_stored_bkb = my_hitboxID.kb_value;
+	hbox_stored_kbg = my_hitboxID.kb_scale;
+	hbox_stored_angle = point_direction(0, 0, hit_player_obj.hsp, hit_player_obj.vsp); // as an aside, behemoth/atg hitboxes should have spr_dir fixed at 1
+	hbox_stored_bhp = my_hitboxID.hitpause;
+	hbox_stored_hps = my_hitboxID.hitpause_growth;
+	hbox_stored_lockout = my_hitboxID.orig_lockout;
+}
+
+if (my_hitboxID.cmd_behemoth_applied && item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) {
+	print_debug("woo")
+	do_behemoth_hbox = 1;
+}
+
+//#endregion
 
 
 // hitbox lerp code
@@ -274,6 +299,12 @@ switch(my_hitboxID.attack) {
     case AT_USPECIAL:
         //a
         break;
+       
+    case AT_EXTRA_1:
+    	if (my_hitboxID.orig_player == player && my_hitboxID.hbox_num == 1) { // Brilliant Behemoth
+    		behemoth_hfx_hitstop = max(0, hit_player_obj.hitstop * 0.67);
+    	}
+    	break;
     
 }
 

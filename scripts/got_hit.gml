@@ -8,3 +8,6 @@ do_ignite_hbox = 0;
 
 // Fireman's Boots
 if (fireboots_lockout < FIREBOOTS_HIT_LOCKOUT) fireboots_lockout = FIREBOOTS_HIT_LOCKOUT;
+
+// Brilliant Behemoth
+do_behemoth_hbox = 0;

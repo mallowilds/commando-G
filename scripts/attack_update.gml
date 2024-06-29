@@ -5,6 +5,8 @@ if (attack == AT_NSPECIAL || attack == AT_FSPECIAL || attack == AT_DSPECIAL || a
 // window length of the current window of the attack
 var window_length = get_window_value(attack, window, AG_WINDOW_LENGTH);
 
+attempt_behemoth_explosion();
+
 // specific attack behaviour
 switch(attack) {
     case AT_JAB:
@@ -353,6 +355,24 @@ switch(attack) {
 }
 
 // Defines
+#define attempt_behemoth_explosion
+if (do_behemoth_hbox && hit_player_obj.hitstop < 1) {
+	var _x = floor(hit_player_obj.x);
+	var _y = floor(hit_player_obj.y - (hit_player_obj.char_height/2));
+	var hbox = create_hitbox(AT_EXTRA_1, 1, _x, _y);
+	hbox.spr_dir = 1;
+	hbox.kb_value = hbox_stored_bkb;
+	hbox.kb_scale = hbox_stored_kbg;
+	hbox.kb_angle = hbox_stored_angle;
+	hbox.hitpause = hbox_stored_bhp;
+	hbox.hitpause_growth = hbox_stored_hps;
+	hbox.do_not_hit = hbox_stored_lockout;
+	do_behemoth_hbox = false;
+	behemoth_hfx = spawn_hit_fx(_x, _y, HFX_ELL_BOOM_BIG);
+	behemoth_hfx.depth = hit_player_obj.depth+1;
+	behemoth_hfx_hitstop = 0; // to be overwritten shortly
+}
+
 #define sound_window_play //basically a shortcut to avoid repeating if statements over and over
 /// sound_window_play(_window, _timer, _sound, _looping = false, _panning = noone, _volume = 1, _pitch = 1)
 var _window = argument[0], _timer = argument[1], _sound = argument[2];

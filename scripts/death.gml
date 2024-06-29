@@ -15,6 +15,9 @@ heart_barrier_timer = 0;
 // Ignition Tank
 do_ignite_hbox = 0;
 
+// Brilliant Behemoth
+do_behemoth_hbox = 0;
+
 // Dio's Best Friend
 if (item_grid[44][IG_NUM_HELD] > 0) {
     

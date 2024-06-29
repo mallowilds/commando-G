@@ -196,6 +196,10 @@ with pHitBox if (player_id == other) {
 			kb_scale += player_id.IGNITION_KBS_SCALE * player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD];
 			if (player_id.item_grid[player_id.ITEM_SCOPE][player_id.IG_NUM_HELD] > 0) kb_scale += player_id.IGNITION_SCOPE_KBS_ADD; // Laser Scope adjustment
 		}
+		if (cmd_strong_finisher || cmd_behemoth_applied) {
+			orig_lockout = no_other_hit;
+			if (cmd_behemoth_applied) no_other_hit = 0; // ATG should also trigger this eventually
+		}
 	}
 }
 //#endregion
@@ -391,6 +395,12 @@ if (item_grid[38][IG_NUM_HELD] > 0) {
 		if (fast_falling) sound_play(asset_get("sfx_land_heavy"));
 		h3ad_was_fast_falling = fast_falling;
 	}
+}
+
+// Brilliant Behemoth
+if (instance_exists(behemoth_hfx) && behemoth_hfx_hitstop > 0) {
+	behemoth_hfx_hitstop--;
+	behemoth_hfx.step_timer--;
 }
 
 // Dio's Best Friend

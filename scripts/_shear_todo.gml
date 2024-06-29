@@ -33,3 +33,14 @@
         
     Honestly I don't even know
         Laser Turbine  
+        
+        
+
+--> List of missing assets on otherwise finished items
+Lens' Maker's: Might need a gamefeel tell of some sort? idk
+Soldier's Syringe: Bleed effect particles (?)
+Kjaro's Band: HFX
+Runald's Band: HFX
+Locked Jewel/Predatory Instincts: possibly some sort of vfx?
+The Ol' Lopper: Visual
+Shattering Justice: Visual
