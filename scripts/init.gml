@@ -48,8 +48,8 @@ item_grid = [
     ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks set enemies on fire."], // 16 | Unimplemented, user_event0.gml
     ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    0, noone, "I'm coming home soon. Stay strong."], // 17 | user_event0.gml
     
-    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       3, noone, "Strongs blast enemies with runic fire, lighting them ablaze."], // 18 | Unimplemented, user_event0.gml
-    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs blast enemies with runic ice, freezing to the bone."], // 19 | Unimplemented
+    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       3, noone, "Strongs blast enemies with runic fire, lighting them ablaze."], // 18 | hit_player.gml, user_event0.gml
+    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    3, noone, "Strongs blast enemies with runic ice, freezing to the bone."], // 19 | melee hitbox update, hit_player.gml
     ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "..And his music was electric."], // 20 | Unimplemented
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
     ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield. Recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
@@ -87,7 +87,7 @@ item_grid = [
 ]
 
 // Inventory store
-inventory_list = [ITEM_BLEEDDAGGER, ITEM_TASER, ITEM_IGNITION, ITEM_FIREBAND, ITEM_SCYTHE];
+inventory_list = [ITEM_BLEEDDAGGER, ITEM_TASER, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE];
 
 // For use by item init (user_event0)
 new_item_id = noone;

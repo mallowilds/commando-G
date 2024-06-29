@@ -151,11 +151,26 @@ with oPlayer {
 
 //#region hitbox_update (for the sake of melee hitboxes)
 with pHitBox if (player_id == other) {
-	// Critical strike setup
+	// Init
 	if (hitbox_timer == 0) {
-		with (other) other.cmd_is_critical = get_hitbox_value(other.attack, other.hbox_num, HG_IS_CRITICAL);
-		if (cmd_is_critical == 1) {
-			damage += player_id.GLASSES_DAMAGE_BASE + player_id.GLASSES_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD]; // Lens Maker's Glasses
+		with (other) {
+			other.cmd_is_critical = get_hitbox_value(other.attack, other.hbox_num, HG_IS_CRITICAL);
+			other.cmd_strong_finisher = get_hitbox_value(other.attack, other.hbox_num, HG_STRONG_FINISHER);
+		}
+		if (cmd_is_critical) {
+			if (player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD] > 0) { // Lens Maker's Glasses
+				damage += player_id.GLASSES_DAMAGE_BASE + player_id.GLASSES_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD];
+			}
+		}
+		if (cmd_strong_finisher) {
+			if (player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD] > 0) { // Runald's Band
+				kb_scale += player_id.ICEBAND_KBS_SCALE * player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD];
+				hitpause += player_id.ICEBAND_HITPAUSE;
+				extra_hitpause += player_id.ICEBAND_EXTRA_HITPAUSE;
+			}
+		}
+		if (effect == 2 && player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD] > 0) { // Ignition Tank
+			kb_scale += player_id.IGNITION_KBS_SCALE * player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD];
 		}
 	}
 }

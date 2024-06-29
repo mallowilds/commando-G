@@ -35,6 +35,7 @@ IG_DESC = 5;
 // HG -> Hitbox Grid
 HG_IS_CRITICAL = 80;
 HG_PROJECTILE_FAKE_HIT = 81; // disables certain on-hit behavior, such as dspecial cooldown updates
+HG_STRONG_FINISHER = 82;
 
 // ITEM -> Item indices
 ITEM_CROWBAR        = 0;
@@ -210,8 +211,8 @@ FIREBAND_DAMAGE_BASE = 2;
 FIREBAND_DAMAGE_SCALE = 3;
 
 // Runald's Band
-ICEBAND_HITPAUSE = 5;
-ICEBAND_EXTRA_HITPAUSE = 3;
+ICEBAND_HITPAUSE = 8;
+ICEBAND_EXTRA_HITPAUSE = 4;
 ICEBAND_KBS_SCALE = 0.1;
 
 // Guardian Heart
