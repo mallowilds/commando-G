@@ -64,15 +64,30 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	}
 	
 }
-//#endregion
 
-//#region Break stuns
 else if (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] != 0) {
 	hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] = 2;
 	hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = 0;
 	hit_player_obj.commando_status_owner[ST_STUN_ELECTRIC] = player;
 }
-if (hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] != 0) {
+//#endregion
+
+//#region Explosive handling
+if (my_hitboxID.cmd_is_explosive == 1) {
+	
+	// Concussion Grenade
+	if (item_grid[ITEM_STUNGRENADE][IG_NUM_HELD] > 0) {
+		var stun_type = (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] == 0 && hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] == 0) ? 1 : 2;
+		hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] = stun_type;
+		hit_player_obj.commando_status_counter[ST_STUN_EXPLOSIVE] = STUNGRENADE_STUN_BASE + item_grid[ITEM_STUNGRENADE][IG_NUM_HELD] * STUNGRENADE_STUN_SCALE;
+		hit_player_obj.commando_status_owner[ST_STUN_EXPLOSIVE] = player;
+		sound_play(asset_get("sfx_mol_flash_explode"));
+		// hfx
+	}
+	
+}
+
+else if (hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] != 0) {
 	hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] = 2;
 	hit_player_obj.commando_status_counter[ST_STUN_EXPLOSIVE] = 0;
 	hit_player_obj.commando_status_owner[ST_STUN_EXPLOSIVE] = player;
@@ -160,7 +175,6 @@ if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied) {
 }
 
 if (my_hitboxID.cmd_behemoth_applied && item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) {
-	print_debug("woo")
 	do_behemoth_hbox = 1;
 }
 
@@ -302,7 +316,7 @@ switch(my_hitboxID.attack) {
        
     case AT_EXTRA_1:
     	if (my_hitboxID.orig_player == player && my_hitboxID.hbox_num == 1) { // Brilliant Behemoth
-    		behemoth_hfx_hitstop = max(0, hit_player_obj.hitstop * 0.67);
+    		behemoth_hfx_hitstop = max(0, hit_player_obj.hitstop);
     	}
     	break;
     

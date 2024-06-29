@@ -117,6 +117,32 @@ with oPlayer {
 		}
 	}
 	
+	// Explosive stun (state 1 is active, state 2 is lockout. Status counter counts down to allow external stun time setting)
+	if (commando_status_owner[other.ST_STUN_EXPLOSIVE] == other.player && commando_status_state[other.ST_STUN_EXPLOSIVE] > 0) {
+		commando_status_counter[other.ST_STUN_EXPLOSIVE]--;
+		if (last_player != commando_status_owner[other.ST_STUN_EXPLOSIVE]) { // mirrored in hit_player
+			commando_status_state[other.ST_STUN_EXPLOSIVE] = 0;
+			commando_status_counter[other.ST_STUN_EXPLOSIVE] = 0;
+			commando_status_owner[other.ST_STUN_EXPLOSIVE] = noone;
+		}
+		switch (commando_status_state[other.ST_STUN_EXPLOSIVE]) {
+			case 1:
+				if (commando_status_counter[other.ST_STUN_EXPLOSIVE] <= 0) {
+					commando_status_state[other.ST_STUN_EXPLOSIVE] = 2;
+					commando_status_counter[other.ST_STUN_EXPLOSIVE] = 0;
+				}
+				else hitstop++;;
+				break;
+			case 2:
+				if (!hitpause) {
+					commando_status_state[other.ST_STUN_EXPLOSIVE] = 0;
+					commando_status_counter[other.ST_STUN_EXPLOSIVE] = 0;
+					commando_status_owner[other.ST_STUN_EXPLOSIVE] = noone;
+				}
+				break;
+		}
+	}
+	
 	// The Ol' Lopper effect (state 1 is awaiting, state 2 is hitpause, state 3 is lockout)
 	if (commando_status_owner[other.ST_LOPPER] == other.player && commando_status_state[other.ST_LOPPER] > 0) {
 		if (!hitpause) commando_status_counter[other.ST_LOPPER]++;

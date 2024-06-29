@@ -57,7 +57,7 @@ item_grid = [
     ["Harvester's Scythe",      RTY_UNCOMMON,   ITP_HEALING,      1, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | hit_player.gml, user_event0.gml
     ["Ignition Tank",           RTY_VOID,       ITP_CRITICAL,     1, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Several attacks, hit_player.gml, attack_update.gml, got_hit.gml, death.gml. Becomes uncommon in a user_event0 script
     ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | update.gml, hit_player.gml, user_event0.gml
-    ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, noone, "Blast attacks stun enemies briefly."], // 27 | Unimplemented
+    ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    1, noone, "Blast attacks stun enemies briefly."], // 27 | Unimplemented
     ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs fire a missile."], // 28 | Unimplemented
     ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Increase jump height and reduce gravity."], // 29 | user_event0.gml
     ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    0, noone, "Smite them. Smite them all."], // 30 | Unimplemented
@@ -87,7 +87,7 @@ item_grid = [
 ]
 
 // Inventory store
-inventory_list = [ITEM_APROUNDS, ITEM_SCOPE, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE, ITEM_SHATTERING, ITEM_BEHEMOTH];
+inventory_list = [ITEM_APROUNDS, ITEM_SCOPE, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE, ITEM_SHATTERING, ITEM_BEHEMOTH, ITEM_STUNGRENADE];
 
 // For use by item init (user_event0)
 new_item_id = noone;

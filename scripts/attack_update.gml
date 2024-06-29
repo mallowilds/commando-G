@@ -364,8 +364,8 @@ if (do_behemoth_hbox && hit_player_obj.hitstop < 1) {
 	hbox.kb_value = hbox_stored_bkb;
 	hbox.kb_scale = hbox_stored_kbg;
 	hbox.kb_angle = hbox_stored_angle;
-	hbox.hitpause = hbox_stored_bhp;
-	hbox.hitpause_growth = hbox_stored_hps;
+	hbox.hitpause = hbox_stored_bhp * BEHEMOTH_HITPAUSE_MULT;
+	hbox.hitpause_growth = hbox_stored_hps * BEHEMOTH_HITPAUSE_MULT;
 	hbox.do_not_hit = hbox_stored_lockout;
 	do_behemoth_hbox = false;
 	behemoth_hfx = spawn_hit_fx(_x, _y, HFX_ELL_BOOM_BIG);

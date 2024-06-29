@@ -42,5 +42,6 @@ Soldier's Syringe: Bleed effect particles (?)
 Kjaro's Band: HFX
 Runald's Band: HFX
 Locked Jewel/Predatory Instincts: possibly some sort of vfx?
+Concussion Grenade: some form of visual idk
 The Ol' Lopper: Visual
 Shattering Justice: Visual
