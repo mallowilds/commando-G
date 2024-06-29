@@ -205,6 +205,10 @@ MOCHA_ASPEED_SCALE = 1;
 // Tough Times
 TTIMES_KBADJ_SCALE = -0.1;
 
+// Kjaro's Band
+FIREBAND_DAMAGE_BASE = 2;
+FIREBAND_DAMAGE_SCALE = 3;
+
 // Guardian Heart
 HEART_ENDANGERED_TIME = 300; // Time in frames until heart barrier starts regenerating
 HEART_TICK_TIME = 60; // Time between regeneration ticks
@@ -236,7 +240,7 @@ RJETPACK_GRAV_SPEED_BASE = -0.05; // Just a flat modifier, no scaling here
 FIREBOOTS_THRESHOLD = 26; // Number of pixels walked to generate a fire instance
 FIREBOOTS_PARRY_LOCKOUT = 180;
 FIREBOOTS_HIT_LOCKOUT = 20;
-FIREBOOTS_DAMAGE = 5;
+FIREBOOTS_DAMAGE = 4;
 
 // The Ol' Lopper
 LOPPER_DAMAGE_THRESHOLD = 120;

@@ -136,7 +136,11 @@ switch new_item_id {
     gravity_speed = gravity_speed_base - (RJETPACK_GRAV_SPEED_BASE * (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0)); // Rusty Jetpack
     
     return;
+
+#define update_strong_properties
     
+    return;
+
 #define enable_ignition_tank
     if (item_grid[ITEM_IGNITION][IG_RARITY] == RTY_VOID) {
         item_grid[@ ITEM_IGNITION][@ IG_RARITY] = RTY_UNCOMMON;

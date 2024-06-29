@@ -7,6 +7,23 @@ if (!first_hit || (my_hitboxID.type == 2 && ("is_fake_hit" not in my_hitboxID ||
 }
 //#endregion
 
+//#region Strong handling
+if (my_hitboxID.attack == AT_FSTRONG || my_hitboxID.attack == AT_USTRONG || my_hitboxID.attack == AT_USTRONG_2 || my_hitboxID.attack == AT_DSTRONG) {
+	// Runald's Band
+	if (item_grid[ITEM_FIREBAND][IG_NUM_HELD] > 0) {
+		var damage = FIREBAND_DAMAGE_BASE + item_grid[ITEM_FIREBAND][IG_NUM_HELD] * FIREBAND_DAMAGE_SCALE;
+		hit_player_obj.burned = true;
+        hit_player_obj.burnt_id = self;
+        hit_player_obj.burn_timer = 150 - 30*damage;
+        hit_player_obj.burned_color = 0;
+        enemy_burnID = hit_player_obj;
+        other_burned = true;
+        with (hit_player_obj) init_shader();
+        sound_play(asset_get("sfx_burnapplied"));
+        // spawn vfx
+	}
+}
+
 //#region Crit handling
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	// Play crit sound

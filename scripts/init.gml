@@ -48,7 +48,7 @@ item_grid = [
     ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks set enemies on fire."], // 16 | Unimplemented, user_event0.gml
     ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    0, noone, "I'm coming home soon. Stay strong."], // 17 | user_event0.gml
     
-    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, noone, "Strongs blast enemies with runic fire, lighting them ablaze."], // 18 | Unimplemented, user_event0.gml
+    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       3, noone, "Strongs blast enemies with runic fire, lighting them ablaze."], // 18 | Unimplemented, user_event0.gml
     ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs blast enemies with runic ice, freezing to the bone."], // 19 | Unimplemented
     ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "..And his music was electric."], // 20 | Unimplemented
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
@@ -63,7 +63,7 @@ item_grid = [
     ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    0, noone, "Smite them. Smite them all."], // 30 | Unimplemented
     
     ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Upgrade your Neutral Special."], // 31 | Unimplemented
-    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       1, noone, "Fight fire with fire.."], // 32 | update.gml, article3, AT_EXTRA_1, user_event0.gml
+    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Fight fire with fire.."], // 32 | update.gml, article3, AT_EXTRA_1, user_event0.gml
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_KNOCKBACK,    0, noone, "Hooah."], // 33 | Unimplemented
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | Unimplemented
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | Unimplemented
@@ -148,7 +148,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
 }
 
 // Inventory store
-inventory_list = [ITEM_BLEEDDAGGER, ITEM_TASER, ITEM_IGNITION, ITEM_FIREBOOTS];
+inventory_list = [ITEM_BLEEDDAGGER, ITEM_TASER, ITEM_IGNITION, ITEM_FIREBAND];
 
 // For use by item init (user_event0)
 new_item_id = noone;
