@@ -74,7 +74,7 @@ item_grid = [
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     1, 41,    "Critical hits deal massive damage and knockback."], // 40 | Several attacks, user_event0.gml, melee hitbox update (for ignition tank effects)
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      1, noone, "All healing also gives you half of its value as barrier."], // 42 | integrated into the healing-applying function (and general barrier utils)
-    ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
+    ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | update.gml
     ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      0, noone, "Cheat death."], // 44 | update.gml, death.gml
     ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
@@ -87,7 +87,7 @@ item_grid = [
 ]
 
 // Inventory store
-inventory_list = [ITEM_APROUNDS, ITEM_SCOPE, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE, ITEM_SHATTERING, ITEM_AEGIS];
+inventory_list = [ITEM_APROUNDS, ITEM_SCOPE, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE, ITEM_SHATTERING];
 
 // For use by item init (user_event0)
 new_item_id = noone;
