@@ -40,8 +40,8 @@ item_grid = [
     ["Hermit's Scarf",          RTY_COMMON,     ITP_SPEED,        0, noone, "Parry, rolls, and airdodges have more invulnerability."], // 8 | user_event0.gml
     ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      0, noone, "Gain 5% barrier on kill."], // 9 | update.gml
     ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes deal more damage."], // 10 | update.gml ~ melee hitbox update, user_event0.gml
-    ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     1, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | Unimplemented
-    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     1, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done), user_event0.gml
+    ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | Unimplemented
+    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done), user_event0.gml
     ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
     ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks attach a little more firepower."], // 15 | Unimplemented
@@ -55,7 +55,7 @@ item_grid = [
     ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield. Recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml
     ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a burst of shield and speed after opening chests."], // 23 | Unimplemented, init done
     ["Harvester's Scythe",      RTY_UNCOMMON,   ITP_HEALING,      1, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | hit_player.gml, user_event0.gml
-    ["Ignition Tank",           RTY_VOID,       ITP_CRITICAL,     1, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Unimplemented. Becomes uncommon in a user_event0 script
+    ["Ignition Tank",           RTY_VOID,       ITP_CRITICAL,     1, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Several attacks, hit_player.gml, attack_update.gml. Becomes uncommon in a user_event0 script
     ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | update.gml, hit_player.gml, user_event0.gml
     ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, noone, "Blast attacks stun enemies briefly."], // 27 | Unimplemented
     ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs fire a missile."], // 28 | Unimplemented
@@ -71,7 +71,7 @@ item_grid = [
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        0, 37,    "Jump much higher, and fall much faster."], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, noone, "Upgrades your side special."], // 39 | Unimplemented
-    ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     0, 41,    "Critical hits deal massive damage and knockback."], // 40 | Unimplemented
+    ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     1, 41,    "Critical hits deal massive damage and knockback."], // 40 | Several attacks, user_event0.gml, melee hitbox update (for ignition tank effects)
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | update.gml, hit_player.gml, article3 (monster tooth)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | Unimplemented
@@ -87,7 +87,7 @@ item_grid = [
 ]
 
 // Inventory store
-inventory_list = [ITEM_BLEEDDAGGER, ITEM_TASER, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE, ITEM_SHATTERING];
+inventory_list = [ITEM_SCOPE, ITEM_IGNITION, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_SCYTHE, ITEM_SHATTERING];
 
 // For use by item init (user_event0)
 new_item_id = noone;
@@ -667,4 +667,3 @@ set_victory_portrait(sprite_get("portrait_base") )
 // DEBUG | TODO: remove before beta
 new_item_id = noone;
 user_event(0);
-critical_active = 1;

@@ -19,6 +19,11 @@ switch(attack) {
     case AT_DTILT:
         if (window == 1 && window_timer == window_length - 1) {
             sound_play(s_dag_swing)
+            
+            if (item_grid[ITEM_SCOPE][IG_NUM_HELD] > 0) { // debug: laser scope refresh (REMOVE ONCE TESTING IS DONE)
+				new_item_id = ITEM_SCOPE;
+				user_event(0);
+			}
         }
         if (do_ignite_hbox && !hitpause) {
         	create_hitbox(AT_DTILT, 4, x, y); // melee hitbox, position doesn't matter

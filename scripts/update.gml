@@ -158,13 +158,11 @@ with oPlayer {
 			commando_status_counter[other.ST_SHATTERED] = 0;
 			commando_status_owner[other.ST_SHATTERED] = noone;
 		}
-		print_debug("Timer: " + string(commando_status_counter[other.ST_SHATTERED]));
 	}
 	
-	if (self != other) print_debug(knockback_adj);
+	// if (self != other) print_debug(knockback_adj);
 	
 }
-
 //#endregion
 
 //#region hitbox_update (for the sake of melee hitboxes)
@@ -189,6 +187,7 @@ with pHitBox if (player_id == other) {
 		}
 		if (effect == 2 && player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD] > 0) { // Ignition Tank
 			kb_scale += player_id.IGNITION_KBS_SCALE * player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD];
+			if (player_id.item_grid[player_id.ITEM_SCOPE][player_id.IG_NUM_HELD] > 0) kb_scale += player_id.IGNITION_SCOPE_KBS_ADD; // Laser Scope adjustment
 		}
 	}
 }

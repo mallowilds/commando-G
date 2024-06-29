@@ -75,7 +75,22 @@ switch new_item_id {
     case 38: // H3AD-5T V2
         update_vertical_movement();
         break;
+    
+    case 40: // Laser Scope
+        // Manually disables the default crit hitboxes and enables the buffed ones.
+        // Not sure there's a more elegant way to handle this efficiently, unfortunately
+        // TODO: set up handling for deactivating the laser scope (for the sake of training mode)
         
+        // DTilt
+        set_num_hitboxes(AT_DTILT, 3);
+        set_hitbox_value(AT_DTILT, 2, HG_WINDOW, 0);
+        
+        critical_active = 1;
+        
+        print_debug("scope'd!");
+        
+        break;
+    
     case 42: // Aegis
         aegis_ratio = AEGIS_RATIO_BASE + AEGIS_RATIO_SCALE*item_grid[42][IG_NUM_HELD]
         break;
@@ -88,7 +103,7 @@ switch new_item_id {
         update_attack_speed();
         update_horizontal_movement();
         update_vertical_movement();
-        //critical_active = 1;
+        critical_active = 1;
         break;
     
 }

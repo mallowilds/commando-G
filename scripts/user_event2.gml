@@ -231,7 +231,8 @@ SCYTHE_HEAL_BASE = 0.166666666;
 SCYTHE_HEAL_SCALE = 0.166666667;
 
 // Ignition Tank
-IGNITION_KBS_SCALE = 0.1;
+IGNITION_KBS_SCALE = 0.05;
+IGNITION_SCOPE_KBS_ADD = 0.1; // Applied if Laser Scope is also active
 
 // Predatory Instincts
 INSTINCTS_DURATION = 300;

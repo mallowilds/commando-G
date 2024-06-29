@@ -34,7 +34,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG
 window_num++;
 
 //                        --attack hitboxes--                                 //
-set_num_hitboxes(atk, 4); 
+set_num_hitboxes(atk, 2); 
 var hbox_num = 1;//Sour
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -80,7 +80,7 @@ set_hitbox_value(atk, hbox_num, HG_IS_CRITICAL              , 1);
 var hbox_num = 3; //Crit (Laser Scope)
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-//set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 96);
@@ -114,7 +114,7 @@ set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 6);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 9);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 9);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.9);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.75); // remember, this gets increased
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 10);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.8);
 set_hitbox_value(atk, hbox_num, HG_EXTRA_HITPAUSE           , 5);
