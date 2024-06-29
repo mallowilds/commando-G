@@ -209,6 +209,11 @@ TTIMES_KBADJ_SCALE = -0.1;
 FIREBAND_DAMAGE_BASE = 2;
 FIREBAND_DAMAGE_SCALE = 3;
 
+// Runald's Band
+ICEBAND_HITPAUSE = 5;
+ICEBAND_EXTRA_HITPAUSE = 3;
+ICEBAND_KBS_SCALE = 0.1;
+
 // Guardian Heart
 HEART_ENDANGERED_TIME = 300; // Time in frames until heart barrier starts regenerating
 HEART_TICK_TIME = 60; // Time between regeneration ticks
@@ -223,6 +228,9 @@ JEWEL_DURATION = 300;
 // Harvester's Scythe
 SCYTHE_HEAL_BASE = 0.166666666;
 SCYTHE_HEAL_SCALE = 0.166666667;
+
+// Ignition Tank
+IGNITION_KBS_SCALE = 0.1;
 
 // Predatory Instincts
 INSTINCTS_DURATION = 300;

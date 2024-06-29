@@ -29,9 +29,16 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	// Play crit sound
 	print_debug("crit!");
 	sound_play(s_crit);
-	//sound_play(s_critheal) //tie this to harvesters scythe when u get a chance 
-	do_healing(floor(my_hitboxID.damage * (SCYTHE_HEAL_BASE + SCYTHE_HEAL_SCALE*item_grid[24][IG_NUM_HELD]))); // Harvester's Scythe
-	if (item_grid[26][IG_NUM_HELD] > 0) {
+	
+	if (item_grid[ITEM_SCYTHE][IG_NUM_HELD] > 0) {
+		sound_play(s_critheal) //tie this to harvesters scythe when u get a chance 
+		do_healing(floor(my_hitboxID.damage * (SCYTHE_HEAL_BASE + SCYTHE_HEAL_SCALE*item_grid[24][IG_NUM_HELD]))); // Harvester's Scythe
+		spawn_lfx(sprite_get("vfx_item_u_heal"), x-45+random_func_2(player*1, 30, false), y-60+random_func_2(player*2, 50, false), 39+random_func_2(player*3, 7, true), 1, 1, 0, -1);
+		spawn_lfx(sprite_get("vfx_item_u_heal"), x-15+random_func_2(player*4, 30, false), y-60+random_func_2(player*5, 50, false), 39+random_func_2(player*6, 7, true), 1, 1, 0, -1);
+		spawn_lfx(sprite_get("vfx_item_u_heal"), x+15+random_func_2(player*7, 30, false), y-60+random_func_2(player*8, 50, false), 39+random_func_2(player*9, 7, true), 1, 1, 0, -1);
+	}
+	
+	if (item_grid[ITEM_INSTINCTS][IG_NUM_HELD] > 0) {
 		instincts_timer = INSTINCTS_DURATION;
 		new_item_id = 26;
 		user_event(0); // refresh stats
@@ -352,3 +359,17 @@ newdust.dust_color = dust_color; //set the dust color
 if dir != 0 newdust.spr_dir = dir; //set the spr_dir
 newdust.draw_angle = dfa;
 return newdust;
+
+#define spawn_lfx(in_sprite, _x, _y, in_lifetime, in_spr_dir, in_foreground, in_hsp, in_vsp)
+var new_lfx = {
+    lfx_x : _x,
+    lfx_y : _y,
+    lfx_sprite_index : in_sprite,
+    lfx_max_lifetime : in_lifetime,
+    lfx_lifetime : 0,
+    lfx_spr_dir : in_spr_dir,
+    lfx_foreground : in_foreground,
+    lfx_hsp : in_hsp,
+    lfx_vsp : in_vsp,
+};
+ds_list_add(lfx_list, new_lfx);
