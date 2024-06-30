@@ -84,7 +84,8 @@ with oPlayer {
 			var _x = floor(x);
 			var _y = floor(y - (char_height*0.7));
 			with (other) {
-				create_hitbox(AT_EXTRA_1, 3, _x, _y);
+				var hbox = create_hitbox(AT_EXTRA_1, 3, _x, _y);
+				hbox.damage += (STICKY_DAMAGE_SCALE) * (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD] - 1);
 				spawn_hit_fx(_x, _y, HFX_MOL_EXPLODE_HIT);
 			}
 			commando_status_state[other.ST_STICKY] = 0;
