@@ -27,14 +27,16 @@
         
 
 --> List of missing assets on otherwise finished items
-Lens' Maker's: Might need a gamefeel tell of some sort? idk
-Soldier's Syringe: Bleed effect particles (?)
+Headstompers: Needs vfx. (Would sfx be good to?)
+Lens' Maker's: Some sort of gamefeel tell might be appropriate
+Tri-Tip Dagger: Bleed effect particles (?)
 Kjaro's Band: HFX
 Runald's Band: HFX
 Locked Jewel/Predatory Instincts: possibly some sort of vfx?
 Concussion Grenade: some form of visual idk
 The Ol' Lopper: Visual
 Shattering Justice: Visual
+Classified Access Codes: bomb. also probably needs a new explosion, given that the mollo bomb has the symbol
 
 
 

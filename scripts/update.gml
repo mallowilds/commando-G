@@ -269,12 +269,21 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 
 //#region Item timers/states
 
+// Warbanner
+if (commando_warbanner_updated) { 
+	commando_warbanner_updated = 0;
+	new_item_id = ITEM_WARBANNER;
+	user_event(0); // refresh stats
+}
+
 // Headstompers
 if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 	if (stompers_active) {
 		if (!free) {
 			// Entering the land state automatically destroys melee hitboxes
 			stompers_active = false;
+			stompers_hbox_air = noone;
+			stompers_hbox_ground = noone;
 			create_hitbox(AT_EXTRA_1, 6, x, y);
 		}
 		else if (state_cat == SC_HITSTUN || (vsp < fast_fall && !hitpause)) {
@@ -283,7 +292,6 @@ if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 			stompers_hbox_air = noone;
 			if (instance_exists(stompers_hbox_ground)) stompers_hbox_ground.hitbox_timer = 999; // destroy
 			stompers_hbox_ground = noone;
-			print_debug("lol no");
 		}
 	}
 	else {
