@@ -4,9 +4,6 @@
 
     < Currently doable >
     
-    Definitely doable
-        Brilliant Behemoth
-    
     I think this one's pretty close to ready?
         Hardlight Afterburner
     
@@ -15,10 +12,7 @@
         Classified Access Codes
         Warbanner
         Filial Imprinting
-    
-    Needs explosive move for testing (or Brilliant Behemoth)
         Sticky Bomb
-        Concussion Grenade
     
     < Not currently doable >
     
@@ -45,3 +39,24 @@ Locked Jewel/Predatory Instincts: possibly some sort of vfx?
 Concussion Grenade: some form of visual idk
 The Ol' Lopper: Visual
 Shattering Justice: Visual
+
+
+
+
+commando training mode menu
+- probably hovers behind commando? 
+- top panel is item list, bottom panel is descriptions + prompts
+- how to implement word wrapping efficiently?
+
+- when in training mode, add ignition tank to the item pool immediately
+
+Text
+default
+- (A) Add item
+- (B) Remove item
+
+When no copies of an item are available, the (B) prompt simply disappears.
+The (A) prompt can be replaced with text if it is unavailable
+Max item quantity reached
+Max rare quantity reached
+Incompatible with [item name]
