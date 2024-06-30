@@ -7,7 +7,6 @@
         Headstompers
         Classified Access Codes
         Warbanner
-        Hardlight Afterburner (and aerial fspec)
     
     Very easy, just time-consuming
         Filial Imprinting
