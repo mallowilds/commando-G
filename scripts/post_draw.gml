@@ -1,13 +1,12 @@
 
 
-
 //#region NSpecial beam
 
 if (state == clamp(state, PS_ATTACK_AIR, PS_ATTACK_GROUND) && attack == AT_NSPECIAL) {
-    if (window == 2 || window == 3) {
+    if (window == 2) {
         draw_sprite_ext(sprite_get("nspecproj"), window_timer >= 2, x-8*spr_dir, y-100, spr_dir, 1, 0, c_white, 1);
     }
-    else if (window == 4) {
+    else if (window == 3) {
         draw_sprite_ext(sprite_get("nspecproj"), 4+window_timer/2, x-8*spr_dir, y-100, spr_dir, 1, 0, c_white, 1);
     }
 }

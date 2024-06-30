@@ -130,24 +130,49 @@ switch(attack) {
                 Whiff, window 1: swipe_medium1, if there is a multihit, s_gunf. If theres no multihit, go straight to s_gunf.
                 Whiff, multihit windows: Use s_gunf with sfx_blow_weak hitsounds for each multihit window - Before the last hit, s_gunf should play.
         */
+        
+        move_cooldown[AT_NSPECIAL] = 36;
 
         if window != 1 && window != 5{ hud_offset = 30 }
         switch window {
             case 1: //startup HSP lerp - feel free to change if theres a more natural way to halt HSP before the first acive frame.
                 hsp = lerp(hsp, 0, .1)
                 vsp = lerp(vsp, 0, .1)
+                num_loops = attack_speed - 1;
+                if (window_timer == window_length) {
+                	if (0 >= num_loops) {
+                		window = 2;
+		    			window_timer = 999; // jump to window 3
+		    			sound_play(s_gunh);
+                	}
+		    		else sound_play(s_gunf);
+		    	}
                 break;
             case 2: //multihit windows
+            	if (window_timer == window_length && !hitpause) {
+            		num_loops--;
+                	if (0 < num_loops) {
+                		window = 1;
+		    			window_timer = 999; // jump to window 2
+		    			sound_play(s_gunf);
+		    			attack_end();
+                	}
+		    		else sound_play(s_gunh);
+		    	}
+		    	hsp = 0;
+                vsp = 0;
+                can_fast_fall = 0
+                can_move = 0
+                if (window_timer == 1 && !hitpause) spawn_base_dust(x, y, "dash", spr_dir)
+		    	break;
             case 3:
-            case 4:
                 hsp = 0;
                 vsp = 0;
                 can_fast_fall = 0
                 can_move = 0
-                if window_timer == 1 { spawn_base_dust(x, y, "dash", spr_dir)}
+                if (window_timer == 1 && !hitpause) spawn_base_dust(x, y, "dash_start", spr_dir)
                 break;
-            case 5: //final window stuff
-                if window_timer == 1 { spawn_base_dust(x, y, "dash_start", spr_dir)} //fyi, these might need to be changed to be spawned before the hitbox, idk how itll work with hitpause. if it looks fine it doesnt matter though
+            case 4: //final window stuff
                 can_fast_fall = 0
                 can_move = 0
                 if window_timer < 8 {

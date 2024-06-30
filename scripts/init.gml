@@ -48,7 +48,7 @@ item_grid = [
     ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes deal more damage."], // 10 | update.gml ~ melee hitbox update, user_event0.gml
     ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | update.gml, hit_player.gml
     ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     0, noone, "Critical Strikes briefly stun opponents."], // 12 | update.gml ~ melee hitbox update (partially done), user_event0.gml
-    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
+    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 2, noone, "Increased attack speed."], // 13 | user_event0.gml
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
     ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    1, noone, "Blast attacks attach a little more firepower."], // 15 | Unimplemented
     ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks set enemies on fire."], // 16 | hit_player.gml, user_event0.gml
@@ -71,7 +71,7 @@ item_grid = [
     ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Upgrade your Neutral Special."], // 31 | Unimplemented
     ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       0, noone, "Fight fire with fire.."], // 32 | update.gml, article3, user_event0.gml
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_KNOCKBACK,    0, noone, "Hooah."], // 33 | Unimplemented
-    ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    1, 35,    "Enemies above 120% take massive knockback."], // 34 | update.gml, hit_player.gml, other_post_draw.gml
+    ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | update.gml, hit_player.gml, other_post_draw.gml
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | update.gml, hit_player.gml, other_post_draw.gml
     ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       0, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | Unimplemented
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
@@ -82,7 +82,7 @@ item_grid = [
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | integrated into the healing-applying function (and general barrier utils)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    1, noone, "Your gunshots explode!"], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml
     ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      0, noone, "Cheat death."], // 44 | update.gml, death.gml
-    ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
+    ["Withered Best Friend",    RTY_VOID,       ITP_HEALING,      0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
     
     ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      0, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | hit_player.gml, article3
@@ -92,8 +92,17 @@ item_grid = [
     
 ]
 
+
+// BETA
+item_grid[@ ITEM_UKELELE][@ IG_RARITY] = RTY_VOID;
+item_grid[@ ITEM_ATG1][@ IG_RARITY] = RTY_VOID;
+item_grid[@ ITEM_ATG2][@ IG_RARITY] = RTY_VOID;
+item_grid[@ ITEM_TURBINE][@ IG_RARITY] = RTY_VOID;
+item_grid[@ ITEM_FILIAL][@ IG_RARITY] = RTY_VOID;
+
+
 // Inventory store
-inventory_list = [ITEM_SCOPE, ITEM_BEHEMOTH, ITEM_STICKYBOMB, ITEM_LOPPER, ITEM_AFTERBURNER];
+inventory_list = [ITEM_SCOPE, ITEM_BEHEMOTH, ITEM_STICKYBOMB, ITEM_AFTERBURNER, ITEM_SYRINGE];
 
 // For use by item init (user_event0)
 new_item_id = noone;
