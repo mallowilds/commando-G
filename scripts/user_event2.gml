@@ -171,6 +171,10 @@ WARBANNER_SPEED_SCALE = 1;
 WARBANNER_ASPEED_BASE = 0;
 WARBANNER_ASPEED_SCALE = 2;
 
+// Headstompers
+STOMPERS_DAMAGE_SCALE = 0.5; // unlike other scalings, this one starts at 0 for a single item copy and increases from there
+STOMPERS_BHP_SCALE = 1;
+
 // Armor-Piercing Rounds
 APROUNDS_DAMAGE_SCALE = 2;
 APROUNDS_BKB_SCALE = 0.75;

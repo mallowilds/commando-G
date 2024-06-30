@@ -3,7 +3,6 @@
 --> Items
     
     To be done prior to leaving for the week
-        Headstompers
         Warbanner
     
     Very easy, just time-consuming
@@ -73,15 +72,4 @@ Incompatible with [item name]
     +1*strength move speed
     +2*strength attack speed
 
-*/
-
-
-/* Headstompers handling (HG_GROUNDEDNESS == 1 for ground only, HG_GROUNDEDNESS == 2 for air only)
-- 2 falling hurtboxes:
-    - Air only: strictly polite (effect = 9), knocks down slightly
-    - Ground only: always forces flinch (force_flinch = 1)
-- 1 grounded hitbox:
-    - Ground only: very standard. Should pop up slightly in order to prevent infinites with headset
-- All hitboxes should be subject to crouch armor
-scaling: ??? (might update hitbox values in user_event(0))
 */

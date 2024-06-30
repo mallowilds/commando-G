@@ -128,7 +128,7 @@ if (get_player_damage(hit_player_obj.player) >= SHATTERING_DAMAGE_THRESHOLD && i
 }
 //#endregion
 
-//#region Damage multipliers (crowbar, warbanner)
+//#region Fractional damage / multiplier handling (crowbar, warbanner, headstompers)
 
 // Crowbar handing (This also increases kb)
 var crowbar_mult_add = 0;
@@ -143,8 +143,15 @@ if (get_player_damage(hit_player_obj.player) - my_hitboxID.damage <= 50 && item_
 var warbanner_mult_add = 0;
 if (commando_warbanner_strength > 0) warbanner_mult_add = WARBANNER_MULT_BASE + commando_warbanner_strength * WARBANNER_MULT_SCALE;
 
-// Base amp
-var mult_damage_add = my_hitboxID.damage * (crowbar_mult_add + warbanner_mult_add);
+// Headstompers handling
+var stompers_extra_damage = 0;
+if (my_hitboxID.type == 1 && my_hitboxID.attack == AT_EXTRA_1 && 4 <= my_hitboxID.hbox_num && my_hitboxID.hbox_num <= 6) {
+	stompers_extra_damage = STOMPERS_DAMAGE_SCALE * (item_grid[ITEM_STOMPERS][IG_NUM_HELD] - 1);
+}
+
+// Apply damage amps
+var base_damage = my_hitboxID.damage + stompers_extra_damage;
+var mult_damage_add = base_damage * (crowbar_mult_add + warbanner_mult_add) + stompers_extra_damage;
 take_damage(hit_player_obj.player, player, floor(mult_damage_add));
 
 // Buffer non-integer damage, apply buffer as needed

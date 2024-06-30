@@ -204,44 +204,6 @@ with oPlayer {
 }
 //#endregion
 
-//#region hitbox_update (for the sake of melee hitboxes)
-with pHitBox if (player_id == other) {
-	// Init
-	if (hitbox_timer == 0) {
-		with (other) {
-			other.cmd_is_critical = get_hitbox_value(other.attack, other.hbox_num, HG_IS_CRITICAL);
-			other.cmd_strong_finisher = get_hitbox_value(other.attack, other.hbox_num, HG_STRONG_FINISHER);
-			other.cmd_is_explosive = get_hitbox_value(other.attack, other.hbox_num, HG_IS_EXPLOSIVE);
-			other.cmd_behemoth_applied = (item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) && get_hitbox_value(other.attack, other.hbox_num, HG_IS_GUNSHOT);
-		}
-		if (cmd_is_critical) {
-			if (player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD] > 0) { // Lens Maker's Glasses
-				damage += player_id.GLASSES_DAMAGE_BASE + player_id.GLASSES_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD];
-			}
-		}
-		if (cmd_strong_finisher) {
-			if (player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD] > 0) { // Armor-Piercing Rounds
-				damage += player_id.APROUNDS_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
-				kb_value += player_id.APROUNDS_BKB_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
-				kb_scale += player_id.APROUNDS_KBS_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
-			}
-			if (player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD] > 0) { // Runald's Band
-				kb_scale += player_id.ICEBAND_KBS_SCALE * player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD];
-				hitpause += player_id.ICEBAND_HITPAUSE;
-				extra_hitpause += player_id.ICEBAND_EXTRA_HITPAUSE;
-			}
-		}
-		if (effect == 2 && player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD] > 0) { // Ignition Tank
-			kb_scale += player_id.IGNITION_KBS_SCALE * player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD];
-			if (player_id.item_grid[player_id.ITEM_SCOPE][player_id.IG_NUM_HELD] > 0) kb_scale += player_id.IGNITION_SCOPE_KBS_ADD; // Laser Scope adjustment
-		}
-		if (cmd_strong_finisher || cmd_behemoth_applied) {
-			orig_lockout = no_other_hit;
-			if (cmd_behemoth_applied) no_other_hit = 0; // ATG should also trigger this eventually
-		}
-	}
-}
-//#endregion
 
 //#region dodge_duration_add management
 
@@ -306,8 +268,35 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 
 //#region Item timers/states
 
+// Headstompers
+if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
+	if (stompers_active) {
+		if (!free) {
+			// Entering the land state automatically destroys melee hitboxes
+			stompers_active = false;
+			create_hitbox(AT_EXTRA_1, 6, x, y);
+		}
+		else if (state_cat == SC_HITSTUN || (vsp < fast_fall && !hitpause)) {
+			stompers_active = false;
+			if (instance_exists(stompers_hbox_air)) stompers_hbox_air.hitbox_timer = 999; // destroy
+			stompers_hbox_air = noone;
+			if (instance_exists(stompers_hbox_ground)) stompers_hbox_ground.hitbox_timer = 999; // destroy
+			stompers_hbox_ground = noone;
+			print_debug("lol no");
+		}
+	}
+	else {
+		if (fast_falling) {
+			attack_end(AT_EXTRA_1);
+			stompers_active = true;
+			stompers_hbox_air = create_hitbox(AT_EXTRA_1, 4, x, y);
+			stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
+		}
+	}
+}
+
 // Bustling Fungus
-if (item_grid[4][IG_NUM_HELD] != 0) {
+if (item_grid[ITEM_BUNGUS][IG_NUM_HELD] != 0) {
 	var attack_crouching = (state == PS_ATTACK_GROUND) && (attack == AT_DTILT || attack == AT_DSPECIAL);
 	if (state == PS_CROUCH || attack_crouching) { 
 		if (!bungus_active && bungus_timer > BUNGUS_WAIT_TIME) {
@@ -550,6 +539,51 @@ if (barrier > 0) {
 }
 
 //#endregion
+
+
+//#region hitbox_update (for the sake of melee hitboxes)
+with pHitBox if (player_id == other) {
+	// Init
+	if (hitbox_timer == 0) {
+		with (other) {
+			other.cmd_is_critical = get_hitbox_value(other.attack, other.hbox_num, HG_IS_CRITICAL);
+			other.cmd_strong_finisher = get_hitbox_value(other.attack, other.hbox_num, HG_STRONG_FINISHER);
+			other.cmd_is_explosive = get_hitbox_value(other.attack, other.hbox_num, HG_IS_EXPLOSIVE);
+			other.cmd_behemoth_applied = (item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) && get_hitbox_value(other.attack, other.hbox_num, HG_IS_GUNSHOT);
+		}
+		if (cmd_is_critical) {
+			if (player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD] > 0) { // Lens Maker's Glasses
+				damage += player_id.GLASSES_DAMAGE_BASE + player_id.GLASSES_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD];
+			}
+		}
+		if (cmd_strong_finisher) {
+			if (player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD] > 0) { // Armor-Piercing Rounds
+				damage += player_id.APROUNDS_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
+				kb_value += player_id.APROUNDS_BKB_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
+				kb_scale += player_id.APROUNDS_KBS_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
+			}
+			if (player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD] > 0) { // Runald's Band
+				kb_scale += player_id.ICEBAND_KBS_SCALE * player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD];
+				hitpause += player_id.ICEBAND_HITPAUSE;
+				extra_hitpause += player_id.ICEBAND_EXTRA_HITPAUSE;
+			}
+		}
+		if (effect == 2 && player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD] > 0) { // Ignition Tank
+			kb_scale += player_id.IGNITION_KBS_SCALE * player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD];
+			if (player_id.item_grid[player_id.ITEM_SCOPE][player_id.IG_NUM_HELD] > 0) kb_scale += player_id.IGNITION_SCOPE_KBS_ADD; // Laser Scope adjustment
+		}
+		if (cmd_strong_finisher || cmd_behemoth_applied) {
+			orig_lockout = no_other_hit;
+			if (cmd_behemoth_applied) no_other_hit = 0; // ATG should also trigger this eventually
+		}
+		if (attack == AT_EXTRA_1 && 4 <= hbox_num && hbox_num <= 6) { // headstompers
+			// since damage scaling is non-integer, it has to be handled on-hit ~ see hit_player.gml
+			hitpause += player_id.STOMPERS_BHP_SCALE * player_id.item_grid[player_id.ITEM_STOMPERS][player_id.IG_NUM_HELD]
+		}
+	}
+}
+//#endregion
+
 
 //#region Reset fractional damage on enemy death
 with object_index {

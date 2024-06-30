@@ -396,6 +396,8 @@ switch(attack) {
 				set_debug_item(ITEM_SYRINGE, 2);
 				set_debug_item(ITEM_CODES, 1);
 				set_debug_item(ITEM_AFTERBURNER, 1);
+				set_debug_item(ITEM_STOMPERS, 2);
+				set_debug_item(ITEM_HEADSET, 1);
 			}
 			//#endregion
 			
