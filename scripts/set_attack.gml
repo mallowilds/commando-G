@@ -8,7 +8,7 @@ if (attack == AT_TAUNT) {
 
 if (attack == AT_USTRONG) attack = ustrong_index;
 
-if (attack == AT_FSPECIAL && free) attack = AT_FSPECIAL_AIR;
+if (attack == AT_FSPECIAL && (free || state == PS_JUMPSQUAT)) attack = AT_FSPECIAL_AIR;
 if (prev_attack == AT_FSPECIAL_AIR) hsp = clamp(hsp, -leave_ground_max, leave_ground_max);
 
 if (attack == AT_DSPECIAL) {

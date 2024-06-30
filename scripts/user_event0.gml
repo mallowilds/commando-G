@@ -156,9 +156,6 @@ switch new_item_id {
     
     return;
 
-#define update_strong_properties
-    
-    return;
 
 #define enable_ignition_tank
     if (item_grid[ITEM_IGNITION][IG_RARITY] == RTY_VOID) {

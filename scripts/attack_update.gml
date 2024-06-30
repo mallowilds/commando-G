@@ -23,11 +23,6 @@ switch(attack) {
     case AT_DTILT:
         if (window == 1 && window_timer == window_length - 1) {
             sound_play(s_dag_swing)
-            
-            if (item_grid[ITEM_SCOPE][IG_NUM_HELD] > 0) { // debug: laser scope refresh (REMOVE ONCE TESTING IS DONE)
-				new_item_id = ITEM_SCOPE;
-				user_event(0);
-			}
         }
         if (do_ignite_hbox && !hitpause) {
         	create_hitbox(AT_DTILT, 4, x, y); // melee hitbox, position doesn't matter
@@ -185,7 +180,6 @@ switch(attack) {
         //a
         break;
     case AT_FSPECIAL:
-    	if (item_grid[ITEM_AFTERBURNER][IG_NUM_HELD] > 0) set_num_hitboxes(AT_FSPECIAL, 1); // debug, remove later
         if (free) {
             if vsp > 5 vsp = 5 
             if hsp > (7*spr_dir) hsp = (7*spr_dir)
@@ -396,8 +390,18 @@ switch(attack) {
     
     case AT_TAUNT:
 		if (window == 1 && window_timer == 1) {
+			
+			//#region DEBUG: Item granter
+			if (get_match_setting(SET_PRACTICE) && down_down) {
+				set_debug_item(ITEM_SYRINGE, 2);
+				set_debug_item(ITEM_CODES, 1);
+				set_debug_item(ITEM_AFTERBURNER, 1);
+			}
+			//#endregion
+			
 			new_item_id = noone;
 			user_event(0); // debug stat refresh
+			
 		}
     	break;
     case AT_DSTRONG: {
@@ -413,6 +417,15 @@ switch(attack) {
 }
 
 // Defines
+
+// Not currently configured for removing items or altering the probability set!!!
+#define set_debug_item(item_id, quantity)
+	if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
+	item_grid[@ item_id][@ IG_NUM_HELD] = quantity;
+	new_item_id = item_id;
+	user_event(0);
+	
+
 #define attempt_behemoth_explosion
 if (do_behemoth_hbox && hit_player_obj.hitstop < hit_player_obj.hitstop_full * (1-BEHEMOTH_AWAIT_MULT)) {
 	var _x = floor(hit_player_obj.x);
