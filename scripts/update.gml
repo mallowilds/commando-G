@@ -3,7 +3,7 @@
 
 // Debug: spawn item on parry
 // Note that this lets you break item limits in its current form depending on luck. As this is dev code, I'm not planning to fix it.
-if (get_gameplay_time() % 10 == 11) || (state == PS_PARRY && state_timer == 0) {
+if (get_gameplay_time() % 60 == 61) || (get_match_setting(SET_PRACTICE) && state == PS_PARRY && state_timer == 0) {
 	
 	var rarity_weights = [SCHEST_C_WEIGHT, SCHEST_U_WEIGHT, SCHEST_R_WEIGHT];
     if (uncommons_remaining <= 0) rarity_weights[1] = 0;
@@ -68,15 +68,19 @@ with oPlayer {
 		}
 	}
 	
-	// Burn counter (effectively deprecated, retained as a debug utility)
-	if (commando_status_owner[other.ST_BURNCOUNTER] == other.player && commando_status_state[other.ST_BURNCOUNTER] > 0) {
-		print_debug("_")
-		print_debug(burnt_id);
-		print_debug(other);
-		print_debug(burn_timer);
-		if (burnt_id != other) {
-			commando_status_state[other.ST_BURNCOUNTER] = 0;
-			commando_status_counter[other.ST_BURNCOUNTER] = 0;
+	// Sticky Bomb (state > 1 indicates active)
+	if (commando_status_owner[other.ST_STICKY] == other.player && commando_status_state[other.ST_STICKY] > 0) {
+		if (!hitpause) commando_status_counter[other.ST_STICKY]++;
+		if (commando_status_counter[other.ST_STICKY] >= other.STICKY_DELAY) {
+			var _x = floor(x);
+			var _y = floor(y - (char_height*0.7));
+			with (other) {
+				create_hitbox(AT_EXTRA_1, 3, _x, _y);
+				spawn_hit_fx(_x, _y, HFX_MOL_EXPLODE_HIT);
+			}
+			commando_status_state[other.ST_STICKY] = 0;
+			commando_status_counter[other.ST_STICKY] = 0;
+			commando_status_owner[other.ST_STICKY] = noone;
 		}
 	}
 	

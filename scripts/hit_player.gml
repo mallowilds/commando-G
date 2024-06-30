@@ -85,6 +85,15 @@ if (my_hitboxID.cmd_is_explosive == 1) {
 		// hfx
 	}
 	
+	// Sticky Bomb
+	if (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD] > 0) {
+		hit_player_obj.commando_status_state[ST_STICKY] = 1;
+		hit_player_obj.commando_status_counter[ST_STICKY] = 0;
+		hit_player_obj.commando_status_owner[ST_STICKY] = player;
+		sound_play(asset_get("sfx_absa_cloud_placepop"));
+		// hfx
+	}
+	
 	// Gasoline
 	if (item_grid[ITEM_GASOLINE][IG_NUM_HELD] > 0) {
 		var gas_damage = GASOLINE_DAMAGE_BASE + item_grid[ITEM_GASOLINE][IG_NUM_HELD] * GASOLINE_DAMAGE_SCALE;

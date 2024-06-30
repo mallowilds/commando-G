@@ -97,7 +97,7 @@ ITEM_CELL           = 50;
 
 
 // ST -> Statuses
-ST_BURNCOUNTER = 0; // mostly deprecated, used for debug purposes
+ST_STICKY = 0;
 ST_BLEED = 1;
 ST_STUN_ELECTRIC = 2;
 ST_STUN_EXPLOSIVE = 3;
@@ -213,6 +213,9 @@ MOCHA_ASPEED_SCALE = 1;
 // Gasoline
 GASOLINE_DAMAGE_BASE = 0;
 GASOLINE_DAMAGE_SCALE = 3;
+
+// Sticky Bomb
+STICKY_DELAY = 30;
 
 // Tough Times
 TTIMES_KBADJ_SCALE = -0.1;

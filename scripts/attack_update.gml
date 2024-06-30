@@ -192,28 +192,32 @@ switch(attack) {
         break;
     case AT_DSPECIAL_2:
     	if (window == 1 && window_timer == 1) {
-    		if (point_distance(x, y, chest_obj.x, chest_obj.y) <= ((chest_obj.state < 20) ? DSPEC_SCHEST_RADIUS : DSPEC_LCHEST_RADIUS)) {
-    			if (chest_obj.state == 12) { // Large chest
-    				chest_obj.state = 13;
-    				chest_obj.state_timer = 0;
-					dspec_cooldown_hits = DSPEC_SCHEST_CD_HITS;
-    			}
-    			else if (chest_obj.state == 22) { // Large chest
-    				chest_obj.state = 23;
-    				chest_obj.state_timer = 0;
-					dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
-    			}
-    			
-    			if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
-    				jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
-    				jewel_barrier_timer = JEWEL_DURATION;
-    				new_item_id = ITEM_JEWEL;
-    				user_event(0);
-    			}
-    		}
+			if (chest_obj.state == 12) { // Large chest
+				chest_obj.state = 13;
+				chest_obj.state_timer = 0;
+				dspec_cooldown_hits = DSPEC_SCHEST_CD_HITS;
+			}
+			else if (chest_obj.state == 22) { // Large chest
+				chest_obj.state = 23;
+				chest_obj.state_timer = 0;
+				dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
+			}
+			
+			if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
+				jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
+				jewel_barrier_timer = JEWEL_DURATION;
+				new_item_id = ITEM_JEWEL;
+				user_event(0); // for ms buff
+			}
     		var window_length = (chest_obj.state < 20) ? 8 : 28;
     		set_window_value(attack, window, AG_WINDOW_LENGTH, window_length)
     		set_window_value(attack, window, AG_WINDOW_SFX_FRAME, window_length-1);
+    		hsp = 0;
+    		spr_dir = (x < chest_obj.x) ? 1 : -1;
+    	}
+    	if (window < 3) {
+    		can_move = false;
+    		vsp = 0;
     	}
     	break;
     case AT_USPECIAL:
