@@ -1,4 +1,4 @@
-var atk             = AT_FSPECIAL;
+var atk             = AT_FSPECIAL_AIR;
 var window_num      = 1;
 var window_length   = 0;
 
@@ -7,7 +7,8 @@ set_attack_value(atk, AG_SPRITE                         , sprite_get("fspecial")
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("fspecial_hurt"));
 set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
 set_attack_value(atk, AG_CATEGORY                       , 2);
-set_attack_value(atk, AG_OFF_LEDGE                     , 1);
+set_attack_value(atk, AG_OFF_LEDGE                      , 1);
+set_attack_value(atk, AG_USES_CUSTOM_GRAVITY            , 1);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 11);
@@ -24,10 +25,10 @@ set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, w
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 16);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_HSPEED_TYPE, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_HSPEED, 10);
+set_window_value(atk, window_num                        , AG_WINDOW_HSPEED, 13);
+set_window_value(atk, window_num                        , AG_WINDOW_VSPEED, -5);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 window_num++;
@@ -35,33 +36,11 @@ window_num++;
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 18);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_CUSTOM_GROUND_FRICTION, .4);
-set_window_value(atk, window_num                        , AG_WINDOW_HAS_CUSTOM_FRICTION, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_VSPEED, -1);
 window_num++;
 
 //                        --attack hitboxes--                                 //
 set_num_hitboxes(atk, 0);
 var hbox_num = 1;
-
-set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
-set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 18);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -24);
-set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 64);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 36);
-set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
-set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 6);
-set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
-set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 9);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.3);
-set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 5);
-set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.25);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_CLA_DSMASH_BREAK);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 10);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 10);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_ice_back_air"));

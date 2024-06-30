@@ -18,6 +18,12 @@ legendary_type_name = "Legendary";
 // Lightweight particles
 lfx_list = ds_list_create();
 
+// General utility
+prev_attack = noone;
+
+// FSpec
+fspec_air_uses = 1;
+
 // DSpec
 chest_obj = noone;
 dspec_cooldown_hits = DSPEC_INIT_CD_HITS; // Hits on the opponent remaining until DSpec goes off cooldown.
@@ -70,7 +76,7 @@ item_grid = [
     ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       0, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | Unimplemented
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        0, 37,    "Jump much higher, and fall much faster."], // 38 | user_event0.gml
-    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        0, noone, "Upgrades your side special."], // 39 | Unimplemented
+    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        1, noone, "Upgrades your side special."], // 39 | update.gml, user_event0.gml, attack_update (temp)
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     1, 41,    "Critical hits deal massive damage and knockback."], // 40 | Several attacks, user_event0.gml, melee hitbox update (for ignition tank effects)
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | integrated into the healing-applying function (and general barrier utils)
@@ -87,7 +93,7 @@ item_grid = [
 ]
 
 // Inventory store
-inventory_list = [ITEM_SCOPE, ITEM_BEHEMOTH, ITEM_STICKYBOMB, ITEM_LOPPER];
+inventory_list = [ITEM_SCOPE, ITEM_BEHEMOTH, ITEM_STICKYBOMB, ITEM_LOPPER, ITEM_AFTERBURNER];
 
 // For use by item init (user_event0)
 new_item_id = noone;

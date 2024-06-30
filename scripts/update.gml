@@ -36,9 +36,18 @@ if (attack_air_limit_ver) {
 }
 
 
-//#region DSpec cooldown management
+//#region Cooldown management
+
+// FSpec cooldown
+if (!free || state_cat == SC_HITSTUN || state == PS_RESPAWN || state == PS_WALL_JUMP) {
+	fspec_air_uses = (item_grid[ITEM_AFTERBURNER][IG_NUM_HELD] > 0) ? 2 : 1;
+}
+if (fspec_air_uses <= 0 && move_cooldown[AT_FSPECIAL_AIR] < 2) move_cooldown[AT_FSPECIAL_AIR] = 2;
+
+// DSpec cooldown
 if (dspec_cooldown_hits	> 0) move_cooldown[AT_DSPECIAL] = 2;
 first_hit = has_hit;
+
 //#endregion
 
 //#region Lightweight particle management

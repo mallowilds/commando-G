@@ -1,32 +1,31 @@
 /* TODO LIST
 
 --> Items
-
-    < Currently doable >
     
-    I think this one's pretty close to ready?
-        Hardlight Afterburner
-    
-    Manageable, but needs temp art
+    To be done prior to leaving for the week
+        NSpecial (and ancient scepter?)
         Headstompers
         Classified Access Codes
         Warbanner
-        Filial Imprinting
-        Sticky Bomb
+        Hardlight Afterburner (and aerial fspec)
     
-    < Not currently doable >
+    Very easy, just time-consuming
+        Filial Imprinting
+    
+    Still time-consuming, but less easy
+        AtG
+    
+    Need to get a better understanding of this one
+        Laser Turbine  
     
     Needs more moves added
         Ukelele
     
     Needs planning
-        AtG
         Legendary Spark
-        Ancient Scepter
         57-Leaf Clover
         
-    Honestly I don't even know
-        Laser Turbine  
+    
         
         
 

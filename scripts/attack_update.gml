@@ -7,6 +7,8 @@ var window_length = get_window_value(attack, window, AG_WINDOW_LENGTH);
 
 attempt_behemoth_explosion();
 
+prev_attack = attack;
+
 // specific attack behaviour
 switch(attack) {
     case AT_JAB:
@@ -157,8 +159,9 @@ switch(attack) {
         }
         //a
         break;
-    case AT_FSPECIAL: //Fspecial ground
-        if free  {
+    case AT_FSPECIAL:
+    	if (item_grid[ITEM_AFTERBURNER][IG_NUM_HELD] > 0) set_num_hitboxes(AT_FSPECIAL, 1); // debug, remove later
+        if (free) {
             if vsp > 5 vsp = 5 
             if hsp > (7*spr_dir) hsp = (7*spr_dir)
         }
@@ -167,7 +170,33 @@ switch(attack) {
             can_attack = true
             can_strong = true
         }
-        move_cooldown [AT_FSPECIAL] = 50
+        move_cooldown[AT_FSPECIAL] = 50;
+        break;
+    case AT_FSPECIAL_AIR:
+    	if (window == 1) {
+    		vsp = 0;
+    		hsp *= 0.9;
+    	}
+        else {
+            can_jump = true
+            can_attack = true
+            can_strong = true
+        }
+        
+        if (window == 2) {
+        	if (window_timer == 1 && !hitpause) fspec_air_uses--;
+        	hsp -= 0.15 * spr_dir;
+        	vsp += 0.075;
+        } else {
+        	if (hsp > air_max_speed) hsp -= 0.6;
+        	else if (hsp < air_max_speed*-1) hsp += 0.6;
+        	else if (hsp > 3) hsp -= 0.3;
+        	else if (hsp < -3) hsp += 0.3;
+        	vsp += 0.3;
+        }
+        
+        can_move = (window == 3);
+        
         break;
     case AT_DSPECIAL:
         can_fast_fall = false;

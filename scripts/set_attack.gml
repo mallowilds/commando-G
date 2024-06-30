@@ -8,6 +8,9 @@ if (attack == AT_TAUNT) {
 
 if (attack == AT_USTRONG) attack = ustrong_index;
 
+if (attack == AT_FSPECIAL && free) attack = AT_FSPECIAL_AIR;
+if (prev_attack == AT_FSPECIAL_AIR) hsp = clamp(hsp, -leave_ground_max, leave_ground_max);
+
 if (attack == AT_DSPECIAL) {
     if (!instance_exists(chest_obj)) chest_obj = noone;
     else if (chest_obj.state != clamp(chest_obj.state, 1, 2)) {

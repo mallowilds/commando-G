@@ -76,6 +76,10 @@ switch new_item_id {
         update_vertical_movement();
         break;
     
+    case 39: // Hardlight Afterburner
+        set_num_hitboxes(AT_FSPECIAL, 1);
+        break;
+    
     case 40: // Laser Scope
         // Manually disables the default crit hitboxes and enables the buffed ones.
         // Not sure there's a more elegant way to handle this efficiently, unfortunately
