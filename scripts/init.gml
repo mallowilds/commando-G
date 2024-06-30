@@ -61,7 +61,7 @@ item_grid = [
     ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield. Recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml , general barrier utils
     ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a burst of shield and speed after opening chests."], // 23 | attack_update.gml, update.gml, general barrier utils
     ["Harvester's Scythe",      RTY_UNCOMMON,   ITP_HEALING,      0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | hit_player.gml, user_event0.gml
-    ["Ignition Tank",           RTY_VOID,       ITP_CRITICAL,     0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Several attacks, hit_player.gml, attack_update.gml, got_hit.gml, death.gml. Becomes uncommon in a user_event0 script
+    ["Ignition Tank",           RTY_UNCOMMON,   ITP_CRITICAL,     0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Several attacks, hit_player.gml, attack_update.gml, got_hit.gml, death.gml. Becomes uncommon in a user_event0 script
     ["Predatory Instincts",     RTY_UNCOMMON,   ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | update.gml, hit_player.gml, user_event0.gml
     ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    0, noone, "Blast attacks stun enemies briefly."], // 27 | Unimplemented
     ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs fire a missile."], // 28 | Unimplemented
@@ -92,13 +92,15 @@ item_grid = [
     
 ]
 
-// Practice mode: enable ignition tank immediately
-if (get_match_setting(SET_PRACTICE)) item_grid[@ ITEM_IGNITION][@ IG_RARITY] = RTY_UNCOMMON;
 
-// BETA
+// If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
+// Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
+if (!get_match_setting(SET_PRACTICE)) item_grid[@ ITEM_IGNITION][@ IG_RARITY] = RTY_VOID; // Ignition Tank is whitelisted manually upon obtaining burn items.
+// v BETA REMOVALS v
 item_grid[@ ITEM_UKELELE][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_ATG1][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_ATG2][@ IG_RARITY] = RTY_VOID;
+item_grid[@ ITEM_SCEPTER][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_TURBINE][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_FILIAL][@ IG_RARITY] = RTY_VOID;
 
@@ -188,8 +190,6 @@ ustrong_index = AT_USTRONG // altered by Ukelele
 
 // Multipliers and fractional damage (see also: other_init.gml)
 u_mult_damage_buffer = 0;
-multiplier = 0;
-multiplier_base = 0;
 
 // Hitbox data storage (for use by ATG and Behemoth)
 hbox_stored_damage = 0; // probably won't see use in practice

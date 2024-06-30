@@ -57,3 +57,31 @@ The (A) prompt can be replaced with text if it is unavailable
 Max item quantity reached
 Max rare quantity reached
 Incompatible with [item name]
+
+
+/* Warbanner handling
+
+- Warbanner field should be colored with player color; it will be applied to teammates, too
+- Warbanner owner is determined by which warbanner has the highest strength
+- Whenever warbanner strength changes, commando_warbanner_updated flag is set to 1 as a signal
+- This is technically compat, but I'll probably leave it undocumented
+
+- Number of warbanner items is applied to warbanner during init as warbanner_strength; this remains constant until replaced
+- Warbanner size scales with banners held
+- Buffs applied by warbanner include:
+    +(0.2*strength) damage multiplier (additive with crowbar)
+    +1*strength move speed
+    +2*strength attack speed
+
+*/
+
+
+/* Headstompers handling (HG_GROUNDEDNESS == 1 for ground only, HG_GROUNDEDNESS == 2 for air only)
+- 2 falling hurtboxes:
+    - Air only: strictly polite (effect = 9), knocks down slightly
+    - Ground only: always forces flinch (force_flinch = 1)
+- 1 grounded hitbox:
+    - Ground only: very standard. Should pop up slightly in order to prevent infinites with headset
+- All hitboxes should be subject to crouch armor
+scaling: ??? (might update hitbox values in user_event(0))
+*/

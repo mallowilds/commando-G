@@ -128,19 +128,23 @@ if (get_player_damage(hit_player_obj.player) >= SHATTERING_DAMAGE_THRESHOLD && i
 }
 //#endregion
 
-//#region Damage multipliers
+//#region Damage multipliers (crowbar, warbanner)
 
-//#region Crowbar handing
+// Crowbar handing (This also increases kb)
 var crowbar_mult_add = 0;
 if (get_player_damage(hit_player_obj.player) - my_hitboxID.damage <= 50 && item_grid[0][IG_NUM_HELD] > 0) {
-	crowbar_mult_add = CROWBAR_MULT_BASE + CROWBAR_MULT_SCALE*item_grid[0][IG_NUM_HELD];
-	hit_player_obj.orig_knock += 10 * my_hitboxID.kb_scale * 0.12 * hit_player_obj.knockback_adj * item_grid[0][IG_NUM_HELD]; 
 	sound_play(s_cbar, 0, noone, 1, 0.95 + 0.1*random_func(player, 1, false));
+	crowbar_mult_add = CROWBAR_MULT_BASE + CROWBAR_MULT_SCALE*item_grid[0][IG_NUM_HELD];
+	hit_player_obj.orig_knock += CROWBAR_KB_ADD_SCALE * my_hitboxID.kb_scale * 0.12 * hit_player_obj.knockback_adj * item_grid[0][IG_NUM_HELD];
+	// Note that this kb increase could result in scenarios where galaxies don't properly trigger. However, given that it only applies at low percents, this is unlikely to occur outside of practice mode.
 }
-//#endregion
+
+// Warbanner handling
+var warbanner_mult_add = 0;
+if (commando_warbanner_strength > 0) warbanner_mult_add = WARBANNER_MULT_BASE + commando_warbanner_strength * WARBANNER_MULT_SCALE;
 
 // Base amp
-var mult_damage_add = my_hitboxID.damage * (multiplier + crowbar_mult_add);
+var mult_damage_add = my_hitboxID.damage * (crowbar_mult_add + warbanner_mult_add);
 take_damage(hit_player_obj.player, player, floor(mult_damage_add));
 
 // Buffer non-integer damage, apply buffer as needed
