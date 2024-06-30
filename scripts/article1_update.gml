@@ -59,8 +59,6 @@ switch(state) { // use this one for doing actual article behavior
         // Classified Access Codes: drop bomb after 5s
         else if (player_id.item_grid[player_id.ITEM_CODES][player_id.IG_NUM_HELD] >= 1 && state_timer >= 300) { 
             set_state(30);
-            // not yet implemented, so~
-            should_die = true;
         }
         break;
     case 03: // Jammed (parried state)
@@ -188,6 +186,45 @@ switch(state) { // use this one for doing actual article behavior
         break;
     //#endregion
     
+    //#region Classified Access Codes
+    case 30: // Init
+        target_y = y;
+        y = get_stage_data(SD_TOP_BLASTZONE_Y)+80;
+        vsp = 2;
+        set_state(31);
+        hbox = create_hitbox(AT_DSPECIAL, 5, x, y-50);
+        hbox.vsp = vsp;
+        hbox.owner_chest = self;
+        sound_play(player_id.s_cfall);
+        sound_play(asset_get("sfx_mol_huge_countdown"), false, noone, 1, 0.7);
+        break;
+    case 31: // Fall
+    	if (state_timer > 30) vsp += 0.9;
+        if (y + vsp > target_y) {
+            mask_index = sprite_get("dspec_cac_bomb"); // todo: make an actual mask
+            ignores_walls = false;
+            can_be_grounded = true;
+        }
+        if (!free || has_hit) {
+            set_state(32);
+            var explode_vfx = spawn_hit_fx(x, y-50, HFX_MOL_BOOM_FINISH);
+            explode_vfx.depth = depth-1;
+            hbox.destroyed = true;
+            hbox = noone;
+            var explode_hbox = create_hitbox(AT_DSPECIAL, 6, x, y-50);
+            explode_hbox.owner_chest = self;
+            sound_play(asset_get("sfx_mol_huge_explode"));
+        }
+        else {
+            hbox.hitbox_timer--;
+            hbox.vsp = vsp;
+        }
+        break;
+    case 32: // Despawning
+        should_die = true;
+        break;
+    //#endregion
+    
 }
 
 switch(state) { // use this one for changing sprites and animating
@@ -245,6 +282,19 @@ switch(state) { // use this one for changing sprites and animating
         sprite_index = sprite_get("dspec_largechest");
         image_index = 16;
         break;
+    
+    // Classified Acces Codes bomb
+    case 30: // Init
+        sprite_index = sprite_get("null");
+        break;
+    case 31: // Fall
+        sprite_index = sprite_get("dspec_cac_bomb");
+        image_index = 0;
+        break;
+    case 32:
+    case 33:
+    	sprite_index = sprite_get("null");
+    	break;
     
 }
 // don't forget that articles aren't affected by small_sprites

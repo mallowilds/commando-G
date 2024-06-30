@@ -158,6 +158,7 @@ if (!hit_player_obj.clone) {
 //#region DSpec chest hitpause
 if (my_hitboxID.attack == AT_DSPECIAL && my_hitboxID.orig_player == player && "owner_chest" in my_hitboxID) {
 	my_hitboxID.owner_chest.hitstop = floor(hit_player_obj.hitstop);
+	my_hitboxID.owner_chest.has_hit = true;
 }
 //#endregion
 

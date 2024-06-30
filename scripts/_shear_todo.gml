@@ -3,13 +3,12 @@
 --> Items
     
     To be done prior to leaving for the week
-        NSpecial (and ancient scepter?)
         Headstompers
-        Classified Access Codes
         Warbanner
     
     Very easy, just time-consuming
         Filial Imprinting
+        Ancient Scepter
     
     Still time-consuming, but less easy
         AtG

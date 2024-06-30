@@ -73,7 +73,7 @@ item_grid = [
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_KNOCKBACK,    0, noone, "Hooah."], // 33 | Unimplemented
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    0, 35,    "Enemies above 120% take massive knockback."], // 34 | update.gml, hit_player.gml, other_post_draw.gml
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | update.gml, hit_player.gml, other_post_draw.gml
-    ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       0, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | Unimplemented
+    ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       1, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | article1_update.gml
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        0, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        0, 37,    "Jump much higher, and fall much faster."], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        1, noone, "Upgrades your side special."], // 39 | update.gml, user_event0.gml, attack_update (temp)
@@ -102,7 +102,7 @@ item_grid[@ ITEM_FILIAL][@ IG_RARITY] = RTY_VOID;
 
 
 // Inventory store
-inventory_list = [ITEM_SCOPE, ITEM_BEHEMOTH, ITEM_STICKYBOMB, ITEM_AFTERBURNER, ITEM_SYRINGE];
+inventory_list = [ITEM_SCOPE, ITEM_BEHEMOTH, ITEM_STICKYBOMB, ITEM_AFTERBURNER, ITEM_SYRINGE, ITEM_CODES];
 
 // For use by item init (user_event0)
 new_item_id = noone;
