@@ -210,6 +210,10 @@ SYRINGE_ASPEED_SCALE = 2;
 MOCHA_SPEED_SCALE = 0.5;
 MOCHA_ASPEED_SCALE = 1;
 
+// Gasoline
+GASOLINE_DAMAGE_BASE = 0;
+GASOLINE_DAMAGE_SCALE = 3;
+
 // Tough Times
 TTIMES_KBADJ_SCALE = -0.1;
 
@@ -292,6 +296,7 @@ AEGIS_RATIO_BASE = 0.5;
 AEGIS_RATIO_SCALE = 0.25;
 
 // Brilliant Behemoth
+BEHEMOTH_AWAIT_MULT = 0.67; // As a percentage of enemy hitpause to wait through before exploding
 BEHEMOTH_HITPAUSE_MULT = 0.67;
 
 // Dio's Best Friend

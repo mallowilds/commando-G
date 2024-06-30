@@ -5,7 +5,7 @@
 // Note that this lets you break item limits in its current form depending on luck. As this is dev code, I'm not planning to fix it.
 if (get_gameplay_time() % 10 == 11) || (state == PS_PARRY && state_timer == 0) {
 	
-	var rarity_weights = [1, 1, 100];
+	var rarity_weights = [SCHEST_C_WEIGHT, SCHEST_U_WEIGHT, SCHEST_R_WEIGHT];
     if (uncommons_remaining <= 0) rarity_weights[1] = 0;
     if (rares_remaining <= 0) rarity_weights[2] = 0;
     grant_rarity = random_weighted_roll(item_seed, rarity_weights);

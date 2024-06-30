@@ -356,9 +356,9 @@ switch(attack) {
 
 // Defines
 #define attempt_behemoth_explosion
-if (do_behemoth_hbox && hit_player_obj.hitstop < 1) {
+if (do_behemoth_hbox && hit_player_obj.hitstop < hit_player_obj.hitstop_full * (1-BEHEMOTH_AWAIT_MULT)) {
 	var _x = floor(hit_player_obj.x);
-	var _y = floor(hit_player_obj.y - (hit_player_obj.char_height/2));
+	var _y = floor(hit_player_obj.y - (hit_player_obj.char_height*0.7));
 	var hbox = create_hitbox(AT_EXTRA_1, 1, _x, _y);
 	hbox.spr_dir = 1;
 	hbox.kb_value = hbox_stored_bkb;

@@ -45,7 +45,7 @@ item_grid = [
     ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Increased attack speed."], // 13 | user_event0.gml
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, 0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
     ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks attach a little more firepower."], // 15 | Unimplemented
-    ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    0, noone, "Blast attacks set enemies on fire."], // 16 | Unimplemented, user_event0.gml
+    ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    1, noone, "Blast attacks set enemies on fire."], // 16 | hit_player.gml, user_event0.gml
     ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    0, noone, "I'm coming home soon. Stay strong."], // 17 | user_event0.gml
     
     ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, noone, "Strongs blast enemies with runic fire, lighting them ablaze."], // 18 | hit_player.gml, user_event0.gml
@@ -74,7 +74,7 @@ item_grid = [
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     1, 41,    "Critical hits deal massive damage and knockback."], // 40 | Several attacks, user_event0.gml, melee hitbox update (for ignition tank effects)
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, 0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | integrated into the healing-applying function (and general barrier utils)
-    ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    0, noone, "Your gunshots explode!"], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml
+    ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    1, noone, "Your gunshots explode!"], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml
     ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      0, noone, "Cheat death."], // 44 | update.gml, death.gml
     ["Withered Best Friend",    RTY_VOID,       ITP_LEGENDARY,    0, noone, "A spent item with no remaining power."], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    0, noone, "Luck is on your side."], // 46 | Unimplemented
@@ -87,7 +87,7 @@ item_grid = [
 ]
 
 // Inventory store
-inventory_list = [ITEM_SCOPE];
+inventory_list = [ITEM_SCOPE, ITEM_GASOLINE, ITEM_BEHEMOTH];
 
 // For use by item init (user_event0)
 new_item_id = noone;

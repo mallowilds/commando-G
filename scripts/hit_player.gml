@@ -85,6 +85,12 @@ if (my_hitboxID.cmd_is_explosive == 1) {
 		// hfx
 	}
 	
+	// Gasoline
+	if (item_grid[ITEM_GASOLINE][IG_NUM_HELD] > 0) {
+		var gas_damage = GASOLINE_DAMAGE_BASE + item_grid[ITEM_GASOLINE][IG_NUM_HELD] * GASOLINE_DAMAGE_SCALE;
+		apply_burn(hit_player_obj, gas_damage);
+	}
+	
 }
 
 else if (hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] != 0) {
