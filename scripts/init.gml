@@ -596,6 +596,7 @@ walk_speed_base                 = walk_speed;
 walk_accel_base                 = walk_accel;
 initial_dash_speed_base         = initial_dash_speed;
 dash_speed_base                 = dash_speed;
+moonwalk_accel_base             = moonwalk_accel;
 
 
 //                       --aerial movement stats--                            //
