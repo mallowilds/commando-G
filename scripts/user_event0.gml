@@ -148,6 +148,10 @@ switch new_item_id {
     max_jump_hsp = max_jump_hsp_base + (MSPEED_MAX_JUMP_HSP_SCALE * move_speed);
     air_max_speed = air_max_speed_base + (MSPEED_AIR_MAX_HSP_SCALE * move_speed);
     
+    set_window_value(AT_FSPECIAL, 2, AG_WINDOW_HSPEED, FSPEC_GROUND_HSP_BASE + (FSPEC_GROUND_HSP_SCALE * move_speed));
+    set_window_value(AT_FSPECIAL_AIR, 2, AG_WINDOW_HSPEED, FSPEC_AIR_HSP_BASE + (FSPEC_AIR_HSP_SCALE * move_speed));
+    set_window_value(AT_FSPECIAL_AIR, 2, AG_WINDOW_VSPEED, FSPEC_AIR_VSP_BASE + (FSPEC_AIR_VSP_SCALE * move_speed));
+    
     return;
 
 #define update_vertical_movement
