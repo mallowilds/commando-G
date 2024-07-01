@@ -2,9 +2,6 @@
 
 --> Items
     
-    To be done prior to leaving for the week
-        Warbanner
-    
     Very easy, just time-consuming
         Filial Imprinting
         Ancient Scepter
