@@ -170,6 +170,8 @@ WARBANNER_SPEED_BASE = 0;
 WARBANNER_SPEED_SCALE = 1;
 WARBANNER_ASPEED_BASE = 0;
 WARBANNER_ASPEED_SCALE = 2;
+WARBANNER_RADIUS_BASE = 100;
+WARBANNER_RADIUS_SCALE = 50;
 
 // Headstompers
 STOMPERS_DAMAGE_SCALE = 0.5; // unlike other scalings, this one starts at 0 for a single item copy and increases from there

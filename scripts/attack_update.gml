@@ -397,12 +397,18 @@ switch(attack) {
 				set_debug_item(ITEM_CODES, 1);
 				set_debug_item(ITEM_AFTERBURNER, 1);
 				set_debug_item(ITEM_STOMPERS, 2);
-				set_debug_item(ITEM_HEADSET, 1);
+				set_debug_item(ITEM_WARBANNER, 1);
 			}
 			//#endregion
 			
 			new_item_id = noone;
 			user_event(0); // debug stat refresh
+			
+		}
+		if (window == 1 && window_timer == window_length && item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) {
+			
+			warbanner_obj = instance_create(x, y, "obj_article3");
+			warbanner_obj.state = 30;
 			
 		}
     	break;

@@ -121,7 +121,7 @@ switch new_item_id {
 #define update_attack_speed
     
     attack_speed = 1
-                 + ((command_warbanner_strength > 0) ? (WARBANNER_ASPEED_BASE + WARBANNER_ASPEED_SCALE*commando_warbanner_strength) : 0) // Warbanner
+                 + ((commando_warbanner_strength > 0) ? (WARBANNER_ASPEED_BASE + WARBANNER_ASPEED_SCALE*commando_warbanner_strength) : 0) // Warbanner
                  + (SYRINGE_ASPEED_SCALE * item_grid[ITEM_SYRINGE][IG_NUM_HELD]) // Soldier's Syringe
                  + (MOCHA_ASPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD]) // Mocha
                  + ((instincts_timer > 0) ? (INSTINCTS_ASPEED_BASE + INSTINCTS_ASPEED_SCALE*item_grid[ITEM_INSTINCTS][IG_NUM_HELD]) : 0) // Predatory Instincts
@@ -131,7 +131,7 @@ switch new_item_id {
     
 #define update_horizontal_movement
     
-    move_speed = ((command_warbanner_strength > 0) ? (WARBANNER_SPEED_BASE + WARBANNER_SPEED_SCALE*commando_warbanner_strength) : 0) // Warbanner
+    move_speed = ((commando_warbanner_strength > 0) ? (WARBANNER_SPEED_BASE + WARBANNER_SPEED_SCALE*commando_warbanner_strength) : 0) // Warbanner
                + (HOOF_SPEED_SCALE * item_grid[ITEM_HOOF][IG_NUM_HELD]) // Paul's Goat Hoof
                + (get_player_damage(player) >= BLADES_THRESHOLD ? BLADES_SPEED_SCALE * item_grid[ITEM_BLADES][IG_NUM_HELD] : 0) // Arcane Blades
                + (MOCHA_SPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD]) // Mocha

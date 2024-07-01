@@ -226,6 +226,7 @@ recently_hit = array_create(20, noone)
 num_recently_hit = 0;
 
 // Misc item-specific vars
+warbanner_obj = noone;
 commando_warbanner_owner = noone; // mirrored in other_init
 commando_warbanner_strength = 0;
 commando_warbanner_updated = 0;
