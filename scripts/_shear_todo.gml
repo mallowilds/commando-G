@@ -24,7 +24,7 @@
         
 
 --> List of missing assets on otherwise finished items
-Headstompers: Needs vfx. (Would sfx be good to?)
+Headstompers: Needs vfx. (Would sfx be good too?)
 Lens' Maker's: Some sort of gamefeel tell might be appropriate
 Tri-Tip Dagger: Bleed effect particles (?)
 Kjaro's Band: HFX

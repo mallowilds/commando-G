@@ -298,7 +298,7 @@ switch state {
 			}
 		}
 		
-		if (player_id.state == PS_RESPAWN || player_id.state == PS_DEAD || player_id.warbanner_obj != self) {
+		if (player_id.was_parried || player_id.state == PS_RESPAWN || player_id.state == PS_DEAD || player_id.warbanner_obj != self) {
 			state = 33;
 			state_timer = 0;
 			sprite_index = sprite_get("item_temp_warbanner_despawn");

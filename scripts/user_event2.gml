@@ -21,7 +21,7 @@ ITP_CRITICAL = 4;
 ITP_ATTACK_SPEED = 5;
 ITP_BARRIER = 6;
 ITP_EXPLOSIVE = 7;
-num_itp_indices = 8; // update as needed! excludes legendary.
+NUM_ITP_INDICES = 8; // update as needed! excludes legendary.
                      // be sure to also add a new entry to the weight and name arrays.
 
 // IG -> Item grid
@@ -110,9 +110,9 @@ ST_STATIC = 6;
 
 // Probability properties
 LEGENDARY_ODDS = 0.01 // global
-INIT_COMMON_VALUES = [6, 6, 3, 6, 5, 5, 3, 5]; // Note: unlike the below weights, these are independent of the numbers of items
-INIT_UNCOMMON_WEIGHTS = [6, 6, 3, 6, 5, 5, 3, 5];
-INIT_RARE_WEIGHTS = [6, 6, 3, 6, 5, 5, 3, 5]; // these init values are only for use by init.gml!
+INIT_COMMON_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5];
+INIT_UNCOMMON_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5];
+INIT_RARE_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5]; // these init arrays are only for use by init.gml!
 
 SCHEST_C_WEIGHT = 80;
 SCHEST_U_WEIGHT = 15;
@@ -304,7 +304,7 @@ LOPPER_LOCKOUT = 300;
 // Shattering Justice
 SHATTERING_DAMAGE_THRESHOLD = 100;
 SHATTERING_DURATION = 90;
-SHATTERING_KB_SHRED = 0.1;
+SHATTERING_KB_SHRED = 0.099973; // oddly specific magic number value is used to better detect changes
 
 // Photon Jetpack
 PJETPACK_FUEL_MAX_BASE = 30;

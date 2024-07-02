@@ -112,11 +112,11 @@ inventory_list = [];
 new_item_id = noone;
 
 // Randomizer index stores
-rnd_index_store = array_create(3); // 3*num_itp_indices store of lists
+rnd_index_store = array_create(3); // 3*NUM_ITP_INDICES store of lists
 rnd_legend_index_store = array_create(3); // store of 3 lists
 for (var rty = 0; rty < 3; rty++) {
-    rnd_index_store[rty] = array_create(num_itp_indices);
-    for (var itp = 0; itp < num_itp_indices; itp++) {
+    rnd_index_store[rty] = array_create(NUM_ITP_INDICES);
+    for (var itp = 0; itp < NUM_ITP_INDICES; itp++) {
         rnd_index_store[@ rty][@ itp] = [];
     }
     
@@ -138,9 +138,9 @@ grant_rarity = noone; // for user_event(1). This default value throws an error a
 // Legendary items are handled differently and thus not included here.
 type_values = [
     // In order of ITP indices (see above)
-    INIT_COMMON_VALUES,  // commons
-    array_create(num_itp_indices, 0),     // uncommons
-    array_create(num_itp_indices, 0),     // rares
+    array_create(NUM_ITP_INDICES, 0),  // commons
+    array_create(NUM_ITP_INDICES, 0),  // uncommons
+    array_create(NUM_ITP_INDICES, 0),  // rares
 ]
 
 // Type weights: the probability weights for any single item of a given rarity and type.
@@ -148,7 +148,7 @@ type_values = [
 // Common items are handled differently and are set to zero.
 type_weights = [
     // In order of ITP indices (see above)
-    array_create(num_itp_indices, 0),     // commons
+    INIT_COMMON_WEIGHTS,     // commons
     INIT_UNCOMMON_WEIGHTS,  // uncommons
     INIT_RARE_WEIGHTS,  // rares
 ]
@@ -164,9 +164,7 @@ for (var iid = 0; iid < array_length(item_grid); iid++) {
     else if (rty > RTY_DUMMY) {
         for (var n = 0; n < (rty == RTY_UNCOMMON ? 3 : 1); n++) { // add 3 instances to the pool for uncommons
             array_push(rnd_index_store[rty][itp], iid);
-            if (rty != RTY_COMMON) {
-                type_values[@ rty][@ itp] = type_values[rty][itp] + type_weights[rty][itp];
-            }
+            type_values[@ rty][@ itp] = type_values[rty][itp] + type_weights[rty][itp];
         }
         if (rty == RTY_UNCOMMON) uncommons_remaining += 3;
     }
