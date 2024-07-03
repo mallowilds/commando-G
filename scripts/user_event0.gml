@@ -6,9 +6,8 @@ var is_valid_index = (new_item_id == clamp(new_item_id, 0, array_length(item_gri
 // If new_item_id does not represent a valid item, perform failsafe updates and exit
 // (Alternatively, if new_item_id == noone, this can be used as a manual refresh for general stats)
 if (!is_valid_index) {
-    if (new_item_id != noone) { // 
-        print_debug("ERROR: bad new_item_id value "  + string(new_item_id) + " for user_event(0) call.");
-        print_debug("Using failsafe updates.");
+    if (new_item_id != noone) {
+        print_debug("user_event0 error: bad new_item_id value "  + string(new_item_id) + " for user_event(0) call. Using failsafe updates");
     }
     update_attack_speed();
     update_horizontal_movement();

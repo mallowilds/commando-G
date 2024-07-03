@@ -98,6 +98,7 @@ item_grid = [
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
 if (!get_match_setting(SET_PRACTICE)) item_grid[@ ITEM_IGNITION][@ IG_RARITY] = RTY_VOID; // Ignition Tank is whitelisted manually upon obtaining burn items.
 // v BETA REMOVALS v
+item_grid[@ ITEM_UKELELE][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_ATG1][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_ATG2][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_SCEPTER][@ IG_RARITY] = RTY_VOID;
@@ -110,6 +111,11 @@ inventory_list = [];
 
 // For use by item init (user_event0)
 new_item_id = noone;
+
+// For use by user_event1 (These should never be true outside of training mode)
+// If these are both true, an error will be thrown and nothing will happen
+force_grant_item = false;
+force_remove_item = false;
 
 // Randomizer index stores
 rnd_index_store = array_create(3); // 3*NUM_ITP_INDICES store of lists
@@ -309,8 +315,6 @@ s_itemr = sound_get("cm_item_red")
 make it look cleaner
 */
 
-// adds once-per-air limit to an attack
-AG_ATTACK_AIR_LIMIT             = 30;
 
 // might add ai indexes here later so you can tell the cpu when to use certain
 // moves
@@ -378,51 +382,6 @@ through enemies, otherwise it might just despawn on hit
 
 
 //                               PRE-SET STUFF                                //
-// attack/hitbox index variables
-attack_air_limit                = array_create(50, false);
-                                        // tracks per-air limit for attacks
-attack_air_limit_ver            = false;// if true, will check if air limits
-                                        // should be reset
-                                        // so that it doesn't go through the big
-                                        // array more often than needed
-grabbed_player_obj              = noone;// the player that got grabbed
-grabbed_player_relative_x       = 0;    // x position in relation to the player, 
-                                        // for the grabbed player to be moved to
-grabbed_player_relative_y       = 0;    // y position in relation to the player, 
-                                        // for the grabbed player to be moved to
-
-// article variables
-article_id                      = noone;// id that refers to a spawned article
-                                        // change name to whatever you want
-
-// composite vfx array
-comp_vfx_array                  = [[{cur_timer: 1, max_timer: 0}]];
-                                        // array containing the composite
-                                        // vfx
-vfx_created                     = false;// checks if the effect was successfully
-                                        // created in the array
-
-/* // WIP 
-// alt color shade slots
-num_base_colors                 = 1;    // how many colors the character has
-
-col_shade_list                  = [
-                                [1],
-                                [0],
-                                [0],
-                                [0],
-                                [1],
-                                [1]
-                                ];      // array holding shade values in each
-                                        // alt for each color
-                                        // as sandbert only has 1 color and 6
-                                        // alts, there's 6 arrays with 1 element
-
-*/
-/*
-- remember that css needs it's own version of these variables, so if you change
-it here, change it there too!
-*/
 
 // animation stuff
 idle_air_loops                  = false;// whether idle air has a looping 
@@ -441,113 +400,8 @@ dash_moonwalks                  = false; // if the character has a moonwalk anim
 
 //=-(                     ~~//** CUSTOM EFFECTS **//~~                     )-=//
 
-//                           --sound effects--                                //
-//a
 
 //                           --visual effects--                               //
-// full vfx
-
-// NOTE !!!
-// while the vfx tool is still a work in progress, I recommend keeping it simple
-// and not doing too many effect variants like this, it'll be an absolute hassle 
-// to work with otherwise
-
-// plus there's some effects here that I'm gonna remove, and others that need to
-// be polished, so you should probs delete those and their sprites and make your
-// own
-
-// vfx parts for spawning multiple at a time, for more complex visuals
-/*
-fx_small_circle1                = hit_fx_create(sprite_get("fx_small_circle1"),14);
-fx_small_circle2                = hit_fx_create(sprite_get("fx_small_circle2"),14);
-fx_small_circle3                = hit_fx_create(sprite_get("fx_small_circle3"),14);
-fx_small_circle4                = hit_fx_create(sprite_get("fx_small_circle4"),14);
-
-fx_small_circle_angled1         = hit_fx_create(sprite_get("fx_small_circle_angled1"),14);
-
-fx_medium_circle1               = hit_fx_create(sprite_get("fx_medium_circle1"),14);
-
-fx_medium_circle_angled1        = hit_fx_create(sprite_get("fx_medium_circle_angled1"),14);
-fx_medium_circle_angled2        = hit_fx_create(sprite_get("fx_medium_circle_angled2"),14);
-
-fx_large_circle1                = hit_fx_create(sprite_get("fx_large_circle1"),16);
-
-fx_large_circle_angled1         = hit_fx_create(sprite_get("fx_large_circle_angled1"),16);
-
-fx_small_flare1_0               = hit_fx_create(sprite_get("fx_small_flare1_0"),8);
-fx_small_flare1_1               = hit_fx_create(sprite_get("fx_small_flare1_1"),8);
-fx_small_flare1_2               = hit_fx_create(sprite_get("fx_small_flare1_2"),8);
-fx_small_flare1_3               = hit_fx_create(sprite_get("fx_small_flare1_3"),8);
-
-fx_small_spark1_0               = hit_fx_create(sprite_get("fx_small_spark1_0"),10);
-fx_small_spark1_1               = hit_fx_create(sprite_get("fx_small_spark1_1"),10);
-fx_small_spark1_2               = hit_fx_create(sprite_get("fx_small_spark1_2"),10);
-fx_small_spark1_3               = hit_fx_create(sprite_get("fx_small_spark1_3"),10);
-
-fx_small_centershine            = hit_fx_create(sprite_get("fx_small_centershine"),10);
-
-fx_small_shine0                 = hit_fx_create(sprite_get("fx_small_shine0"),8);
-fx_small_shine1                 = hit_fx_create(sprite_get("fx_small_shine1"),8);
-fx_small_shine2                 = hit_fx_create(sprite_get("fx_small_shine2"),8);
-fx_small_shine3                 = hit_fx_create(sprite_get("fx_small_shine3"),8);
-
-fx_small_flashlight1            = hit_fx_create(sprite_get("fx_small_flashlight1"),14);
-
-// arrays with vfx parts, useful if you want to draw a random one
-fx_array_circle_small           = [
-                                fx_small_circle1,
-                                fx_small_circle2,
-                                fx_small_circle3,
-                                fx_small_circle4,
-                                ];
-
-fx_array_circle_medium          = [
-                                fx_medium_circle1
-                                ];
-
-fx_array_circle_large           = [
-                                fx_large_circle1
-                                ];
-
-fx_array_circle_small_angled    = [
-                                fx_small_circle_angled1
-                                ];
-
-fx_array_circle_medium_angled   = [
-                                fx_medium_circle_angled1,
-                                fx_medium_circle_angled2,
-                                ];
-
-fx_array_circle_large_angled    = [
-                                fx_large_circle_angled1
-                                ];
-
-fx_array_flare                  = [
-                                fx_small_flare1_0,
-                                fx_small_flare1_1,
-                                fx_small_flare1_2,
-                                fx_small_flare1_3
-                                ];
-                                
-fx_array_spark                  = [
-                                fx_small_spark1_0,
-                                fx_small_spark1_1,
-                                fx_small_spark1_2,
-                                fx_small_spark1_3
-                                ];
-
-fx_array_shine                  = [
-                                fx_small_shine0,
-                                fx_small_shine1,
-                                fx_small_shine2,
-                                fx_small_shine3
-                                ];
-
-fx_array_flashlight             = [
-                                fx_small_flashlight1
-                                ];
-*/
-
 fx_crit                     = hit_fx_create(sprite_get("vfx_crit"), 24);
 fx_crit_blood               = hit_fx_create(sprite_get("vfx_crit_blood"), 24);
 fx_crit_shock               = hit_fx_create(sprite_get("vfx_crit_shock"), 24);
@@ -557,6 +411,8 @@ fx_item_res                 = hit_fx_create(sprite_get("vfx_item_res"), 160);
 
 fx_small_chest_land         = hit_fx_create(sprite_get("dspec_smallchest_landvfx"), 16);
 fx_large_chest_land         = hit_fx_create(sprite_get("dspec_largechest_landvfx"), 16);
+
+
 
 //=-(                      ~~//** BASE STATS **//~~                        )-=//
 

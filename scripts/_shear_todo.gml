@@ -56,3 +56,14 @@ Max item quantity reached
 Max rare quantity reached
 Incompatible with [item name]
 
+
+
+NSpec reqs
+provided requirements:
+    Normally, it just shoots a single beam, which acts as a large disjointed hitbox (projectile). It should be segmented into 2 hitboxes, with the further one having reduced power.
+    Attack Speed: Every stack of attack speed adds a multihit to it, using the 'multihit hold' window. The hits should be extremely fast and dont need to be segmented into 2 hitboxes, since they should just be weak and very low hitpause.
+    Ancient Scepter: The beam will get larger, and the final hit will have more knockback, along with not having KB falloff. It will also have 3 or so frames reduced startup (if needed? just think it'd be cool)
+    Laser Turbine: When you fill up the meter for Laser Turbine to activate, No matter your attack speed, it will be replaced with a single, large laser, that doesnt have falloff.
+personal notes:
+    Base implmentation is done at this point
+    Probably farm out ancient scepter/laser turbine procs to separate attack indices?
