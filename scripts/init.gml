@@ -56,7 +56,7 @@ item_grid = [
     
     ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       0, noone, "Strongs blast enemies with runic fire, lighting them ablaze."], // 18 | hit_player.gml, user_event0.gml
     ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "Strongs blast enemies with runic ice, freezing to the bone."], // 19 | melee hitbox update, hit_player.gml
-    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "..And his music was electric."], // 20 | Unimplemented
+    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    0, noone, "..And his music was electric."], // 20 | user_event0.gml, AT_USTRONG_2
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        0, noone, "Gain an extra jump."], // 21 | user_event0.gml
     ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a 4% shield. Recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml , general barrier utils
     ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      0, noone, "Gain a burst of shield and speed after opening chests."], // 23 | attack_update.gml, update.gml, general barrier utils
@@ -97,7 +97,6 @@ item_grid = [
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
 if (!get_match_setting(SET_PRACTICE)) item_grid[@ ITEM_IGNITION][@ IG_RARITY] = RTY_VOID; // Ignition Tank is whitelisted manually upon obtaining burn items.
 // v BETA REMOVALS v
-item_grid[@ ITEM_UKELELE][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_ATG1][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_ATG2][@ IG_RARITY] = RTY_VOID;
 item_grid[@ ITEM_SCEPTER][@ IG_RARITY] = RTY_VOID;

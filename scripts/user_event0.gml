@@ -43,6 +43,10 @@ switch new_item_id {
         knockback_adj = knockback_adj_base + TTIMES_KBADJ_SCALE*item_grid[17][IG_NUM_HELD];
         break;
     
+    case 20: // Ukelele
+        ustrong_index = (item_grid[20][IG_NUM_HELD] > 0) ? AT_USTRONG_2 : AT_USTRONG;
+        break;
+    
     case 21: // Hopoo Feather
         max_djumps = max_djumps_base + item_grid[21][IG_NUM_HELD];
         break;

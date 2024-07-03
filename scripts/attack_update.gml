@@ -393,10 +393,8 @@ switch(attack) {
 			
 			//#region DEBUG: Item granter
 			if (get_match_setting(SET_PRACTICE) && down_down) {
-				set_debug_item(ITEM_CODES, 1);
-				set_debug_item(ITEM_AFTERBURNER, 1);
-				set_debug_item(ITEM_STOMPERS, 2);
-				set_debug_item(ITEM_WARBANNER, 5);
+				set_debug_item(ITEM_UKELELE, 1);
+				set_debug_item(ITEM_TASER, 2);
 			}
 			//#endregion
 			
