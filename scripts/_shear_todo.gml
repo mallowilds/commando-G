@@ -56,19 +56,3 @@ Max item quantity reached
 Max rare quantity reached
 Incompatible with [item name]
 
-
-/* Warbanner handling
-
-- Warbanner field should be colored with player color; it will be applied to teammates, too
-- Warbanner owner is determined by which warbanner has the highest strength
-- Whenever warbanner strength changes, commando_warbanner_updated flag is set to 1 as a signal
-- This is technically compat, but I'll probably leave it undocumented
-
-- Number of warbanner items is applied to warbanner during init as warbanner_strength; this remains constant until replaced
-- Warbanner size scales with banners held
-- Buffs applied by warbanner include:
-    +(0.2*strength) damage multiplier (additive with crowbar)
-    +1*strength move speed
-    +2*strength attack speed
-
-*/

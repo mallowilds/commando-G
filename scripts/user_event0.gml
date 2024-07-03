@@ -1,10 +1,33 @@
 // ITEM INIT
 // Called whenever an item is added to Commando's inventory or needs to perform a stat update.
 
+var is_valid_index = (new_item_id == clamp(new_item_id, 0, array_length(item_grid)-1));
+
+// If new_item_id does not represent a valid item, perform failsafe updates and exit
+// (Alternatively, if new_item_id == noone, this can be used as a manual refresh for general stats)
+if (!is_valid_index) {
+    if (new_item_id != noone) { // 
+        print_debug("ERROR: bad new_item_id value "  + string(new_item_id) + " for user_event(0) call.");
+        print_debug("Using failsafe updates.");
+    }
+    update_attack_speed();
+    update_horizontal_movement();
+    update_vertical_movement();
+    assess_critical_active();
+    exit;
+}
+
+// Crit items (assumes they're properly tagged)
+if (is_valid_index && item_grid[new_item_id][IG_TYPE] == ITP_CRITICAL) {
+    if (item_grid[new_item_id][IG_NUM_HELD] > 0) critical_active = 1;
+    else assess_critical_active();
+}
+
 // Switch statement uses hard-coded IDs since RCF constants aren't real constants on dev builds.
 switch new_item_id {
     
     case 1: // Warbanner
+        if (item_grid[1][IG_NUM_HELD] == 0) warbanner_obj = noone; // this will prompt the warbanner to clean itself up
         update_horizontal_movement();
         update_attack_speed();
         break;
@@ -17,12 +40,6 @@ switch new_item_id {
     
     case 8: // Hermit Scarf
         dodge_duration_add = SCARF_FRAMES_BASE + SCARF_FRAMES_SCALE*item_grid[8][IG_NUM_HELD];
-        break;
-    
-    case 10: // Lens Maker's Glasses
-    case 11: // Tri-Tip Dagger
-    case 12: // Taser
-        critical_active = 1;
         break;
     
     case 13: // Soldier's Syringe
@@ -58,13 +75,8 @@ switch new_item_id {
     case 23: // Locked Jewel
         update_horizontal_movement();
         break;
-    
-    case 24: // Harvester's Scythe
-        critical_active = 1;
-        break;
         
     case 26: // Predatory Instincts
-        critical_active = 1;
         update_attack_speed();
         break;
     
@@ -86,21 +98,23 @@ switch new_item_id {
         break;
     
     case 39: // Hardlight Afterburner
-        set_num_hitboxes(AT_FSPECIAL, 1);
+        set_num_hitboxes(AT_FSPECIAL, (item_grid[39][IG_NUM_HELD] > 0)); // enable fspec hitbox if afterburner is present
         break;
     
     case 40: // Laser Scope
         // Manually disables the default crit hitboxes and enables the buffed ones.
         // Not sure there's a more elegant way to handle this efficiently, unfortunately
-        // TODO: set up handling for deactivating the laser scope (for the sake of training mode)
         
-        // DTilt
-        set_num_hitboxes(AT_DTILT, 3);
-        set_hitbox_value(AT_DTILT, 2, HG_WINDOW, 0);
+        if (item_grid[40][IG_NUM_HELD] > 0) {
+            // DTilt
+            set_num_hitboxes(AT_DTILT, 3);
+            set_hitbox_value(AT_DTILT, 2, HG_WINDOW, 0);
+        }
         
-        critical_active = 1;
-        
-        print_debug("scope'd!");
+        else { // TODO: ensure this works
+            reset_num_hitboxes(AT_DTILT);
+            reset_hitbox_value(AT_DTILT, 2, HG_WINDOW);
+        }
         
         break;
     
@@ -112,15 +126,20 @@ switch new_item_id {
         update_attack_speed();
         break;
     
-    case noone: // Debug
-        update_attack_speed();
-        update_horizontal_movement();
-        update_vertical_movement();
-        critical_active = 1;
-        break;
-    
 }
 
+
+
+#define assess_critical_active
+
+    critical_active = false;
+        var i = 0;
+        while (!critical_active && i < array_length(item_grid)) {
+            if (item_grid[i][IG_TYPE] == ITP_CRITICAL && item_grid[i][IG_NUM_HELD] > 0) critical_active = true;
+            i++;
+        }
+    
+    return;
 
 #define update_attack_speed
     

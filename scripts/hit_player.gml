@@ -25,6 +25,8 @@ if (my_hitboxID.cmd_strong_finisher) {
 //#endregion
 
 //#region Crit handling
+// Critical active is only technically necessary for disabling the crit sound,
+// but avoiding the other checks is a small optimization boost anyway
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	// Play crit sound
 	print_debug("crit!");
