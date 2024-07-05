@@ -17,7 +17,7 @@ if (!is_valid_index) {
 }
 
 // Crit items (assumes they're properly tagged)
-if (is_valid_index && item_grid[new_item_id][IG_TYPE] == ITP_CRITICAL) {
+if (is_valid_index && (item_grid[new_item_id][IG_TYPE] == ITP_CRITICAL || item_grid[new_item_id][IG_TYPE2] == ITP_CRITICAL)) {
     if (item_grid[new_item_id][IG_NUM_HELD] > 0) critical_active = 1;
     else assess_critical_active();
 }

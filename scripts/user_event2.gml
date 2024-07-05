@@ -27,10 +27,11 @@ NUM_ITP_INDICES = 8; // update as needed! excludes legendary.
 // IG -> Item grid
 IG_NAME = 0;
 IG_RARITY = 1;
-IG_TYPE = 2;
-IG_NUM_HELD = 3;
-IG_INCOMPATIBLE = 4; // denotes an index for another item that, if held, prevents this item from being held.
-IG_DESC = 5;
+IG_TYPE = 2; // Primary type sets the item's probability.
+IG_TYPE2 = 3; // Tentative inclusion, might remove
+IG_NUM_HELD = 4;
+IG_INCOMPATIBLE = 5; // denotes an index for another item that, if held, prevents this item from being held.
+IG_DESC = 6;
 
 // HG -> Hitbox Grid
 HG_IS_CRITICAL = 80;
@@ -113,6 +114,7 @@ LEGENDARY_ODDS = 0.01 // global
 INIT_COMMON_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5];
 INIT_UNCOMMON_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5];
 INIT_RARE_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5]; // these init arrays are only for use by init.gml!
+ABYSS_BUFFED_WEIGHT = 80;
 
 SCHEST_C_WEIGHT = 80;
 SCHEST_U_WEIGHT = 15;
