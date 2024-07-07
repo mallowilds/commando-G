@@ -1,10 +1,10 @@
 //                                  debug                                     //
 should_debug = 0;
-debug_display_count = 25;
+debug_display_count = 23;
 debug_display_index = 0;
 debug_display_scrolltimer = 0;
 debug_display_type = 0;
-debug_display_typerange = 1;
+debug_display_typerange = 2;
 rainfont = font_get("_rfont");
 rainfontbig = font_get("_rfontbig");
 init_complete = false;

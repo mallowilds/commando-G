@@ -84,6 +84,9 @@ if (should_debug) {
 	draw_rectangle_color(0, 0, 840, 480, c_black, c_black, c_black, c_black, false);
 	draw_set_alpha(1);
 	
+	draw_debug_text(0, 466, "TAUNT+DIRECTION: Navigate | ATTACK+TAUNT: Taunt | ATTACK+SPECIAL: Exit")
+	draw_debug_text(824, 466, "P" + string(player));
+	
 	// Item grid info
 	if (debug_display_type == 0) {
 	
@@ -210,6 +213,71 @@ if (should_debug) {
 		
 	}
 	
+	
+	
+	// Stat info
+	if (debug_display_type == 2) {
+		
+		// Commando properties
+		var debug_x = 360;
+		draw_debug_text(debug_x, 210, "Move speed stacks: " + string(move_speed));
+		draw_debug_text(debug_x, 230, "Attack speed stacks: " + string(attack_speed));
+		draw_debug_text(debug_x, 250, "Critical strike checks: " + (critical_active ? "Active" : "Inactive"));
+		
+		// Stats (labels)
+		var debug_x = 60;
+		var debug_y = -44;
+		
+		draw_debug_text(debug_x, debug_y+60, "Walk anim speed: ");
+		draw_debug_text(debug_x, debug_y+80, "Dash anim speed: ");
+		
+		draw_debug_text(debug_x, debug_y+120, "Walk speed: ");
+		draw_debug_text(debug_x, debug_y+140, "Walk acceleration: ");
+		draw_debug_text(debug_x, debug_y+160, "Initial dash speed: ");
+		draw_debug_text(debug_x, debug_y+180, "Dash speed: ");
+		draw_debug_text(debug_x, debug_y+200, "Moonwalk acceleration: ");
+		
+		draw_debug_text(debug_x, debug_y+240, "Max jump HSP: ");
+		draw_debug_text(debug_x, debug_y+260, "Max airborne HSP: ");
+		
+		draw_debug_text(debug_x, debug_y+300, "Jump VSP: ");
+		draw_debug_text(debug_x, debug_y+320, "Short hop VSP: ");
+		draw_debug_text(debug_x, debug_y+340, "Wall jump VSP: ");
+		draw_debug_text(debug_x, debug_y+360, "Max fall VSP: ");
+		draw_debug_text(debug_x, debug_y+380, "Fast fall VSP: ");
+		draw_debug_text(debug_x, debug_y+400, "Gravity: ");
+		
+		draw_debug_text(debug_x, debug_y+440, "Double jumps: ");
+		draw_debug_text(debug_x, debug_y+460, "Extra dodge frames: ");
+		draw_debug_text(debug_x, debug_y+480, "Weight value: ");
+		
+		// Stats (values)
+		var debug_x = 230;
+		
+		draw_debug_text(debug_x, debug_y+60, string(walk_anim_speed));
+		draw_debug_text(debug_x, debug_y+80, string(dash_anim_speed));
+		
+		draw_debug_text(debug_x, debug_y+120, string(walk_speed));
+		draw_debug_text(debug_x, debug_y+140, string(walk_accel));
+		draw_debug_text(debug_x, debug_y+160, string(initial_dash_speed));
+		draw_debug_text(debug_x, debug_y+180, string(dash_speed));
+		draw_debug_text(debug_x, debug_y+200, string(moonwalk_accel));
+		
+		draw_debug_text(debug_x, debug_y+240, string(max_jump_hsp));
+		draw_debug_text(debug_x, debug_y+260, string(air_max_speed));
+		
+		draw_debug_text(debug_x, debug_y+300, string(jump_speed));
+		draw_debug_text(debug_x, debug_y+320, string(short_hop_speed));
+		draw_debug_text(debug_x, debug_y+340, string(walljump_vsp));
+		draw_debug_text(debug_x, debug_y+360, string(max_fall));
+		draw_debug_text(debug_x, debug_y+380, string(fast_fall));
+		draw_debug_text(debug_x, debug_y+400, string(gravity_speed));
+		
+		draw_debug_text(debug_x, debug_y+440, string(max_djumps));
+		draw_debug_text(debug_x, debug_y+460, string(dodge_duration_add));
+		draw_debug_text(debug_x, debug_y+480, string(knockback_adj));
+		
+	}
+	
 }
-
 //#endregion

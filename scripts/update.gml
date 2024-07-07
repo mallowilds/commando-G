@@ -3,7 +3,7 @@
 // Debug: manage debug display
 if (should_debug) {
 	if (debug_display_scrolltimer > 0) debug_display_scrolltimer--;
-	else {
+	else if (taunt_down) {
 		if (up_down && debug_display_index > 0) {
 			debug_display_index--;
 			debug_display_scrolltimer = 10;
@@ -13,14 +13,18 @@ if (should_debug) {
 			debug_display_scrolltimer = 10;
 		}
 	}
-	if (left_pressed) {
+	if (taunt_down && left_pressed || left_down && taunt_pressed) {
 		debug_display_type--;
 		if (debug_display_type < 0) debug_display_type = debug_display_typerange;
+		clear_button_buffer(PC_TAUNT_PRESSED);
 	}
-	if (right_pressed) {
+	if (taunt_down && right_pressed || right_down && taunt_pressed) {
 		debug_display_type++;
 		if (debug_display_type > debug_display_typerange) debug_display_type = 0;
+		clear_button_buffer(PC_TAUNT_PRESSED);
 	}
+	if (!attack_down) move_cooldown[AT_TAUNT] = 2;
+	if (attack_pressed && special_pressed) should_debug = false;
 }
 
 // Debug: spawn item on parry
