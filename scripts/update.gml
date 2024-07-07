@@ -1,10 +1,34 @@
 
 
+// Debug: manage debug display
+if (should_debug) {
+	if (debug_display_scrolltimer > 0) debug_display_scrolltimer--;
+	else {
+		if (up_down && debug_display_index > 0) {
+			debug_display_index--;
+			debug_display_scrolltimer = 10;
+		}
+		else if (down_down && debug_display_index+debug_display_count < array_length(item_id_ordering)) {
+			debug_display_index++;
+			debug_display_scrolltimer = 10;
+		}
+	}
+	if (left_pressed) {
+		debug_display_type--;
+		if (debug_display_type < 0) debug_display_type = debug_display_typerange;
+	}
+	if (right_pressed) {
+		debug_display_type++;
+		if (debug_display_type > debug_display_typerange) debug_display_type = 0;
+	}
+}
+
 // Debug: spawn item on parry
+// (This can and will cause excess spawns per item rarity. Since this is strictly a debug util and the error is handled externally, this needn't be fixed).
 if (get_gameplay_time() % 60 == 61) || (get_match_setting(SET_PRACTICE) && state == PS_PARRY && state_timer == 0) {
 	
 	var rarity_weights = [SCHEST_C_WEIGHT, SCHEST_U_WEIGHT, SCHEST_R_WEIGHT];
-    if (uncommons_remaining <= 0) rarity_weights[1] = 0;
+    if (uncommon_pool_size <= 0) rarity_weights[1] = 0;
     if (rares_remaining <= 0) rarity_weights[2] = 0;
     grant_rarity = random_weighted_roll(item_seed, rarity_weights);
     item_seed = (item_seed + 1) % 200;
@@ -452,6 +476,7 @@ if (dios_revive_timer > 0) {
 		item_grid[@ 45][@ IG_NUM_HELD]++; // spent dios
 		if (item_grid[45][IG_NUM_HELD] == 1) array_push(inventory_list, 45);
 		
+		// Remove Dios from item display
 		if (item_grid[44][IG_NUM_HELD] == 0) {
 			var i = 0;
 			var num_items = array_length(inventory_list)
@@ -461,6 +486,14 @@ if (dios_revive_timer > 0) {
 				i++;
 			}
 			inventory_list = array_slice(inventory_list, 0, num_items-1);
+		}
+		
+		// In practice mode: return Dios to item pool to permit testing
+		if (get_match_setting(SET_PRACTICE)) {
+			var access_id = item_grid[ITEM_DIOS][IG_RANDOMIZER_INDEX];
+			p_item_remaining[@ RTY_RARE][@ access_id] += 1;
+			p_item_weights[@ RTY_RARE][@ access_id] += p_item_values[RTY_RARE][access_id];
+			rares_remaining++;
 		}
 		
 	}

@@ -353,7 +353,9 @@ switch(attack) {
 			
 			//#region DEBUG: Item granter
 			if (get_match_setting(SET_PRACTICE)) {
-				new_item_id = ITEM_EDRINK;
+				
+				// Item adder/remover: stepwise
+				new_item_id = ITEM_HEADSET;
 				if (up_down) {
 					force_grant_item = true;
 					user_event(1);
@@ -363,10 +365,12 @@ switch(attack) {
 					user_event(1);
 				}
 				
+				// Item adder: fixed
 				if (up_down || down_down) {
-					set_debug_item(ITEM_UKELELE, 1);
-					set_debug_item(ITEM_TASER, 2);
+					//set_debug_item(ITEM_UKELELE, 1);
+					//set_debug_item(ITEM_TASER, 2);
 				}
+				
 			}
 			//#endregion
 			
@@ -380,6 +384,14 @@ switch(attack) {
 			warbanner_obj.state = 30;
 			
 		}
+		
+		//#region DEBUG: enable debug var
+		if (get_match_setting(SET_PRACTICE) && special_pressed && shield_pressed) {
+			clear_button_buffer(PC_SPECIAL_PRESSED);
+			clear_button_buffer(PC_SHIELD_PRESSED);
+			should_debug = !should_debug;
+		}
+		
     	break;
     
     //#endregion

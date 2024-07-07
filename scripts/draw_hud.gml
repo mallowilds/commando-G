@@ -1,6 +1,7 @@
 
 
 if ("inventory_list" not in self) exit;
+if (!init_complete) exit;
 
 var x_spacing = clamp(72 - 6 * array_length(inventory_list), 26, 44);
 var y_spacing = 22;
@@ -64,6 +65,151 @@ if (dspec_cooldown_hits > 0) {
 	}
 	var in_col = make_color_rgb(217, 132, 53);
 	draw_text_color(temp_x-14+on_screen_edge, temp_y+22, str, in_col, in_col, in_col, in_col, 1);
+}
+
+//#endregion
+
+
+
+
+
+
+
+
+//#region Item info display
+
+if (should_debug) {
+	
+	draw_set_alpha(0.4);
+	draw_rectangle_color(0, 0, 840, 480, c_black, c_black, c_black, c_black, false);
+	draw_set_alpha(1);
+	
+	// Item grid info
+	if (debug_display_type == 0) {
+	
+		var debug_x = [0, 200, 300, 420, 540, 640, 840];
+		var debug_y = 2;
+		
+		draw_debug_text(debug_x[0], debug_y, "Name");
+		draw_debug_text(debug_x[1], debug_y, "Rarity");
+		draw_debug_text(debug_x[2], debug_y, "Type");
+		draw_debug_text(debug_x[3], debug_y, "Type 2");
+		draw_debug_text(debug_x[4], debug_y, "# Held");
+		draw_debug_text(debug_x[5], debug_y, "Incompatible");
+		
+		debug_y = 30;
+		var start_index = debug_display_index;
+		var end_index = start_index + debug_display_count;
+		for (var ordered_id = start_index; ordered_id < end_index; ordered_id++) {
+			
+			var item_id = item_id_ordering[ordered_id];
+			if (item_id != noone) {
+				
+				draw_debug_text(debug_x[0], debug_y, item_grid[item_id][IG_NAME]);
+				
+				var rarity = item_grid[item_id][IG_RARITY]
+				if (rarity < 0) rarity_str = negative_rarity_names[-rarity];
+				else var rarity_str = rarity_names[rarity];
+				draw_debug_text(debug_x[1], debug_y, rarity_str);
+				
+				var itp = item_grid[item_id][IG_TYPE];
+				if (itp < 0 || NUM_ITP_INDICES <= itp) {
+					if (itp == -1) var itp_str = legendary_type_name;
+					else if (itp == noone) var itp_str = "";
+					else var itp_str = "Invalid";
+				}
+				else var itp_str = item_type_names[itp];
+				draw_debug_text(debug_x[2], debug_y, itp_str);
+				
+				var itp = item_grid[item_id][IG_TYPE2];
+				if (itp < 0 || NUM_ITP_INDICES <= itp) {
+					if (itp == -1) var itp_str = legendary_type_name;
+					else if (itp == noone) var itp_str = "...";
+					else var itp_str = "Invalid";
+				}
+				else var itp_str = item_type_names[itp];
+				draw_debug_text(debug_x[3], debug_y, itp_str);
+				
+				draw_debug_text(debug_x[4], debug_y, string(item_grid[item_id][IG_NUM_HELD]));
+				
+				var incompat_id = item_grid[item_id][IG_INCOMPATIBLE];
+				if (incompat_id == noone) var incompat_str = "...";
+				else var incompat_str = item_grid[incompat_id][IG_NAME];
+				draw_debug_text(debug_x[5], debug_y, incompat_str);
+				
+			}
+			debug_y += 18;
+			
+		}
+	
+	}
+	
+	// Probability info
+	if (debug_display_type == 1) {
+		
+		draw_debug_text(540, 200, "Uncommons available: " + string(uncommon_pool_size));
+		draw_debug_text(540, 220, "Rares remaining: " + string(rares_remaining));
+		draw_debug_text(540, 240, "Common legendaries available: " + string(legendary_pool_size[RTY_COMMON]));
+		draw_debug_text(540, 260, "Uncommon legendaries available: " + string(legendary_pool_size[RTY_UNCOMMON]));
+		draw_debug_text(540, 280, "Rare legendaries available: " + string(legendary_pool_size[RTY_RARE]));
+		
+		var debug_x = [0, 200, 300, 380, 440];
+		var debug_y = 2;
+		
+		draw_debug_text(debug_x[0], debug_y, "Name");
+		draw_debug_text(debug_x[1], debug_y, "Rarity");
+		draw_debug_text(debug_x[2], debug_y, "Remaining");
+		draw_debug_text(debug_x[3], debug_y, "Weight");
+		draw_debug_text(debug_x[4], debug_y, "Value");
+		
+		debug_y = 30;
+		var start_index = debug_display_index;
+		var end_index = start_index + debug_display_count;
+		for (var ordered_id = start_index; ordered_id < end_index; ordered_id++) {
+			
+			var item_id = item_id_ordering[ordered_id];
+			if (item_id != noone) {
+				
+				var itp = item_grid[item_id][IG_TYPE];
+				var rarity = item_grid[item_id][IG_RARITY];
+				var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
+				draw_debug_text(debug_x[0], debug_y, item_grid[item_id][IG_NAME]);
+				
+				var rarity = item_grid[item_id][IG_RARITY]
+				if (rarity < 0) rarity_str = negative_rarity_names[-rarity];
+				else var rarity_str = rarity_names[rarity];
+				
+				// Case: invalid rarity
+				if (rarity < 0 || 2 < rarity) {
+					draw_debug_text(debug_x[1], debug_y, rarity_str);
+					draw_debug_text(debug_x[2], debug_y, "...");
+					draw_debug_text(debug_x[3], debug_y, "...");
+					draw_debug_text(debug_x[4], debug_y, "...");
+				}
+				
+				// Case: legendary item
+				else if (itp == ITP_LEGENDARY) {
+					draw_debug_text(debug_x[1], debug_y, rarity_str + "_L");
+					draw_debug_text(debug_x[2], debug_y, string(p_legendary_remaining[rarity][access_index]));
+					draw_debug_text(debug_x[3], debug_y, string(p_legendary_available[rarity][access_index]));
+					draw_debug_text(debug_x[4], debug_y, "...");
+				}
+				
+				// Standard case
+				else {
+					draw_debug_text(debug_x[1], debug_y, rarity_str);
+					draw_debug_text(debug_x[2], debug_y, string(p_item_remaining[rarity][access_index]));
+					draw_debug_text(debug_x[3], debug_y, string(p_item_weights[rarity][access_index]));
+					draw_debug_text(debug_x[4], debug_y, string(p_item_values[rarity][access_index]));
+				}
+			
+			}
+			debug_y += 18;
+			
+		}
+		
+	}
+	
 }
 
 //#endregion

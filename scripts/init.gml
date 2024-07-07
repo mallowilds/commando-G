@@ -1,13 +1,20 @@
 //                                  debug                                     //
-should_debug                    = 0;
+should_debug = 0;
+debug_display_count = 25;
+debug_display_index = 0;
+debug_display_scrolltimer = 0;
+debug_display_type = 0;
+debug_display_typerange = 1;
 rainfont = font_get("_rfont");
 rainfontbig = font_get("_rfontbig");
+init_complete = false;
 
 //=-(                        ~~//** CONSTANTS **//~~                       )-=//
 user_event(2); // Lots of primitive constants are defined in here. These should be baked into the code before release (using the planned tool)
 
 // Non-primitive constants are below. (mostly text strings)
 rarity_names = ["Common", "Uncommon", "Rare"];
+negative_rarity_names = ["", "Dummy", "Void"];
 item_type_names = ["Damage", "Knockback", "Healing", "Speed", "Critical", "Attack Speed", "Barrier", "Explosive"];
 legendary_type_name = "Legendary";
 
@@ -34,65 +41,123 @@ first_hit = false; // Mirrors has_hit, but is accessible from hit_player to trac
 // Item Grid
 // Format: see IG indices.
 // Do not reorder items without updating their indices (user_event2.gml)! If you need to remove an item, use RTY_DUMMY to disable it.
-// Critical and Legendary items must be correctly tagged. Only primary tag affects probability.
+// Legendary items must be correctly tagged in the primary type field, or they will be treated as normal items.
+// Critical items must be correctly tagged in either type field to enable their effects.
 item_grid = [
-    ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    ITP_DAMAGE,       0, noone, "Deal more damage & knockback to healthy enemies."], // 0 | hit_player.gml
-    ["Warbanner",               RTY_COMMON,     ITP_SPEED,        ITP_ATTACK_SPEED, 0, noone, "Taunt to place down a powerful buffing Warbanner."], // 1 | other_init.gml, article3_update.gml, attack_update.gml, update.gml
-    ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Hurt enemies by fast-falling."], // 2 | update.gml, AT_EXTRA1, hit_player.gml, melee hitbox update
-    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    ITP_DAMAGE,       0, noone, "Strongs deal more damage and slightly more knockback."], // 3 | melee hitbox update
-    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      noone,            0, noone, "Crouch to heal over time."], // 4 | update.gml, post_draw.gml
-    ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Move faster."], // 5 | user_event0.gml
-    ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Dash faster."], // 6 | user_event0.gml
-    ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Move faster after reaching 100%."], // 7 | user_event0.gml, update.gml
-    ["Hermit's Scarf",          RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Parry, rolls, and airdodges have more invulnerability."], // 8 | user_event0.gml
-    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      noone,            0, noone, "Gain 5% barrier on kill."], // 9 | update.gml, general barrier utils
-    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     noone,            0, noone, "Critical Strikes deal more damage."], // 10 | update.gml ~ melee hitbox update
-    ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     noone,            0, noone, "Critical Strikes bleed opponents, dealing damage over time."], // 11 | update.gml, hit_player.gml
-    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     noone,            0, noone, "Critical Strikes briefly stun opponents."], // 12 | hit_player.gml, update.gml
-    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, noone,            0, noone, "Increased attack speed."], // 13 | user_event0.gml
-    ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, ITP_SPEED,        0, noone, "Slightly increased movement & attack speed."], // 14 | user_event0.gml
-    ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    noone,            0, noone, "Blast attacks attach a little more firepower."], // 15 | hit_player.gml, update.gml
-    ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    noone,            0, noone, "Blast attacks set enemies on fire."], // 16 | hit_player.gml, user_event0.gml
-    ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    noone,            0, noone, "I'm coming home soon. Stay strong."], // 17 | user_event0.gml
+    ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    ITP_DAMAGE,       0, noone, "Deal more damage & knockback to healthy enemies.", noone], // 0 | hit_player.gml
+    ["Warbanner",               RTY_COMMON,     ITP_SPEED,        ITP_ATTACK_SPEED, 0, noone, "Taunt to place down a powerful buffing Warbanner.", noone], // 1 | other_init.gml, article3_update.gml, attack_update.gml, update.gml
+    ["Headstompers",            RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Hurt enemies by fast-falling.", noone], // 2 | update.gml, AT_EXTRA1, hit_player.gml, melee hitbox update
+    ["Armor-Piercing Rounds",   RTY_COMMON,     ITP_KNOCKBACK,    ITP_DAMAGE,       0, noone, "Strongs deal more damage and slightly more knockback.", noone], // 3 | melee hitbox update
+    ["Bustling Fungus",         RTY_COMMON,     ITP_HEALING,      noone,            0, noone, "Crouch to heal over time.", noone], // 4 | update.gml, post_draw.gml
+    ["Paul's Goat Hoof",        RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Move faster.", noone], // 5 | user_event0.gml
+    ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Dash faster.", noone], // 6 | user_event0.gml
+    ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Move faster after reaching 100%.", noone], // 7 | user_event0.gml, update.gml
+    ["Hermit's Scarf",          RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Parry, rolls, and airdodges have more invulnerability.", noone], // 8 | user_event0.gml
+    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      noone,            0, noone, "Gain 5% barrier on kill.", noone], // 9 | update.gml, general barrier utils
+    ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     noone,            0, noone, "Critical Strikes deal more damage.", noone], // 10 | update.gml ~ melee hitbox update
+    ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     noone,            0, noone, "Critical Strikes bleed opponents, dealing damage over time.", noone], // 11 | update.gml, hit_player.gml
+    ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     noone,            0, noone, "Critical Strikes briefly stun opponents.", noone], // 12 | hit_player.gml, update.gml
+    ["Soldier's Syringe",       RTY_COMMON,     ITP_ATTACK_SPEED, noone,            0, noone, "Increased attack speed.", noone], // 13 | user_event0.gml
+    ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, ITP_SPEED,        0, noone, "Slightly increased movement & attack speed.", noone], // 14 | user_event0.gml
+    ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    noone,            0, noone, "Blast attacks attach a little more firepower.", noone], // 15 | hit_player.gml, update.gml
+    ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    noone,            0, noone, "Blast attacks set enemies on fire.", noone], // 16 | hit_player.gml, user_event0.gml
+    ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    noone,            0, noone, "I'm coming home soon. Stay strong.", noone], // 17 | user_event0.gml
     
-    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       noone,            0, noone, "Strongs blast enemies with runic fire, lighting them ablaze."], // 18 | hit_player.gml, user_event0.gml
-    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    noone,            0, noone, "Strongs blast enemies with runic ice, freezing to the bone."], // 19 | melee hitbox update, hit_player.gml
-    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    ITP_CRITICAL,     0, noone, "..And his music was electric."], // 20 | user_event0.gml, AT_USTRONG_2
-    ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Gain an extra jump."], // 21 | user_event0.gml
-    ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      noone,            0, noone, "Gain a 4% shield. Recharges outside of danger."], // 22 | update.gml, got_hit.gml, user_event0.gml, general barrier utils
-    ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      ITP_SPEED,        0, noone, "Gain a burst of shield and speed after opening chests."], // 23 | attack_update.gml, update.gml, general barrier utils
-    ["Harvester's Scythe",      RTY_UNCOMMON,   ITP_HEALING,      ITP_CRITICAL,     0, noone, "Critical Strikes heal you by a portion of the damage they deal."], // 24 | hit_player.gml
-    ["Ignition Tank",           RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Critical Strikes deal extra knockback to enemies on fire."], // 25 | Crit attacks, user_event0.gml, hit_player.gml, attack_update.gml, got_hit.gml, death.gml
-    ["Predatory Instincts",     RTY_UNCOMMON,   ITP_CRITICAL,     ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed."], // 26 | update.gml, hit_player.gml, user_event0.gml
-    ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    noone,            0, noone, "Blast attacks stun enemies briefly."], // 27 | hit_player.gml, update.gml
-    ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_DAMAGE,       noone,            0, noone, "Strongs fire a missile."], // 28 | Unimplemented
-    ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Increase jump height and reduce gravity."], // 29 | user_event0.gml
-    ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    noone,            0, noone, "Smite them. Smite them all."], // 30 | Unimplemented
+    ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       noone,            0, noone, "Strongs blast enemies with runic fire, lighting them ablaze.", noone], // 18 | hit_player.gml, user_event0.gml
+    ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    noone,            0, noone, "Strongs blast enemies with runic ice, freezing to the bone.", noone], // 19 | melee hitbox update, hit_player.gml
+    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    ITP_CRITICAL,     0, noone, "..And his music was electric.", noone], // 20 | user_event0.gml, AT_USTRONG_2
+    ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Gain an extra jump.", noone], // 21 | user_event0.gml
+    ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      noone,            0, noone, "Gain a 4% shield. Recharges outside of danger.", noone], // 22 | update.gml, got_hit.gml, user_event0.gml, general barrier utils
+    ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      ITP_SPEED,        0, noone, "Gain a burst of shield and speed after opening chests.", noone], // 23 | attack_update.gml, update.gml, general barrier utils
+    ["Harvester's Scythe",      RTY_UNCOMMON,   ITP_HEALING,      ITP_CRITICAL,     0, noone, "Critical Strikes heal you by a portion of the damage they deal.", noone], // 24 | hit_player.gml
+    ["Ignition Tank",           RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Critical Strikes deal extra knockback to enemies on fire.", noone], // 25 | Crit attacks, user_event0.gml, hit_player.gml, attack_update.gml, got_hit.gml, death.gml
+    ["Predatory Instincts",     RTY_UNCOMMON,   ITP_CRITICAL,     ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed.", noone], // 26 | update.gml, hit_player.gml, user_event0.gml
+    ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    noone,            0, noone, "Blast attacks stun enemies briefly.", noone], // 27 | hit_player.gml, update.gml
+    ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_DAMAGE,       noone,            0, noone, "Strongs fire a missile.", noone], // 28 | Unimplemented
+    ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Increase jump height and reduce gravity.", noone], // 29 | user_event0.gml
+    ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    noone,            0, noone, "Smite them. Smite them all.", noone], // 30 | Unimplemented
     
-    ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Upgrade your Neutral Special."], // 31 | Unimplemented
-    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Fight fire with fire.."], // 32 | update.gml, article3, user_event0.gml
-    ["AtG Missile Mk. 2",       RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hooah."], // 33 | Unimplemented
-    ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 35,    "Enemies above 120% take massive knockback."], // 34 | update.gml, hit_player.gml, other_post_draw.gml
-    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 34,    "Enemies above 100% have their Armor shattered."], // 35 | update.gml, hit_player.gml, other_post_draw.gml
-    ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Down Special requests extreme reinforcements after 15 seconds."], // 36 | article1_update.gml
-    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        noone,            0, 38,    "No hands!"], // 37 | user_event0.gml, update.gml, post_draw.gml
-    ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster."], // 38 | user_event0.gml
-    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special."], // 39 | update.gml, user_event0.gml, attack_update (temp)
-    ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback."], // 40 | Crit attacks, user_event0.gml, melee hitbox update (for ignition tank effects)
-    ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge laser blast."], // 41 | Unimplemented
-    ["Aegis",                   RTY_RARE,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier."], // 42 | integrated into the healing-applying function (and general barrier utils)
-    ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!"], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml
-    ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      noone,            0, noone, "Cheat death."], // 44 | update.gml, death.gml
-    ["Withered Best Friend",    RTY_VOID,       ITP_HEALING,      noone,            0, noone, "A spent item with no remaining power."], // 45 | N/A
-    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    noone,            0, noone, "Luck is on your side."], // 46 | Unimplemented
+    ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Upgrade your Neutral Special.", noone], // 31 | Unimplemented
+    ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Fight fire with fire..", noone], // 32 | update.gml, article3, user_event0.gml
+    ["AtG Missile Mk. 2",       RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hooah.", noone], // 33 | Unimplemented
+    ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 35,    "Enemies above 120% take massive knockback.", noone], // 34 | update.gml, hit_player.gml, other_post_draw.gml
+    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 34,    "Enemies above 100% have their Armor shattered.", noone], // 35 | update.gml, hit_player.gml, other_post_draw.gml
+    ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Down Special requests extreme reinforcements after 15 seconds.", noone], // 36 | article1_update.gml
+    ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        noone,            0, 38,    "No hands!", noone], // 37 | user_event0.gml, update.gml, post_draw.gml
+    ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml
+    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | update.gml, user_event0.gml, attack_update (temp)
+    ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, user_event0.gml, melee hitbox update (for ignition tank effects)
+    ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge laser blast.", noone], // 41 | Unimplemented
+    ["Aegis",                   RTY_RARE,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | integrated into the healing-applying function (and general barrier utils)
+    ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!", noone], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml
+    ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      noone,            0, noone, "Cheat death.", noone], // 44 | update.gml, death.gml
+    ["Withered Best Friend",    RTY_VOID,       ITP_HEALING,      noone,            0, noone, "A spent item with no remaining power.", noone], // 45 | N/A
+    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    noone,            0, noone, "Luck is on your side.", noone], // 46 | Unimplemented
     
-    ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      noone,            0, noone, "Enemies that get launched hard enough spawn healing orbs."], // 47 | hit_player.gml, article3
-    ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Jumping while dashing boosts you forward."], // 48 | update.gml
-    ["Filial Imprinting",       RTY_UNCOMMON,   ITP_HEALING,      noone,            0, noone, "Hatch a strange creature who drops buffs every 15 seconds."], // 49 | Unimplemented
-    ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, noone,            0, noone, "Gain attack speed the more you're damaged."], // 50 | user_event0.gml, update.gml
+    ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      noone,            0, noone, "Enemies that get launched hard enough spawn healing orbs.", noone], // 47 | hit_player.gml, article3
+    ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Jumping while dashing boosts you forward.", noone], // 48 | update.gml
+    ["Filial Imprinting",       RTY_UNCOMMON,   ITP_HEALING,      noone,            0, noone, "Hatch a strange creature who drops buffs every 15 seconds.", noone], // 49 | Unimplemented
+    ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, noone,            0, noone, "Gain attack speed the more you're damaged.", noone], // 50 | user_event0.gml, update.gml
     
 ]
 
+// Ordering for in-game utilities (debug displays and practice mode)
+item_id_ordering = [
+    ITEM_CROWBAR,
+    ITEM_WARBANNER,
+    ITEM_STOMPERS,
+    ITEM_APROUNDS,
+    ITEM_BUNGUS,
+    ITEM_HOOF,
+    ITEM_EDRINK,
+    ITEM_BLADES,
+    ITEM_SCARF,
+    ITEM_BROOCH,
+    ITEM_MTOOTH,
+    ITEM_GLASSES,
+    ITEM_BLEEDDAGGER,
+    ITEM_TASER,
+    ITEM_SYRINGE,
+    ITEM_MOCHA,
+    ITEM_STICKYBOMB,
+    ITEM_GASOLINE,
+    noone, // denotes a category break, can be either used or ignored
+    ITEM_FIREBAND,
+    ITEM_ICEBAND,
+    ITEM_UKELELE,
+    ITEM_RJETPACK,
+    ITEM_QUAIL,
+    ITEM_FEATHER,
+    ITEM_HEART,
+    ITEM_JEWEL,
+    ITEM_FILIAL,
+    ITEM_SCYTHE,
+    ITEM_IGNITION,
+    ITEM_INSTINCTS,
+    ITEM_CELL,
+    ITEM_STUNGRENADE,
+    ITEM_ATG1,
+    noone,
+    ITEM_SCEPTER,
+    ITEM_FIREBOOTS,
+    ITEM_ATG2,
+    ITEM_LOPPER,
+    ITEM_SHATTERING,
+    ITEM_CODES,
+    ITEM_PJETPACK,
+    ITEM_HEADSET,
+    ITEM_AFTERBURNER,
+    ITEM_SCOPE,
+    ITEM_TURBINE,
+    ITEM_AEGIS,
+    ITEM_BEHEMOTH,
+    ITEM_DIOS,
+    // excludes spent dios
+    noone,
+    ITEM_TTIMES,
+    ITEM_SPARK,
+    ITEM_CLOVER,
+];
 
 // If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
@@ -117,96 +182,92 @@ new_item_id = noone;
 force_grant_item = false;
 force_remove_item = false;
 
-// Randomizer index stores
-rnd_index_store = array_create(3); // 3*NUM_ITP_INDICES store of lists
-rnd_legend_index_store = array_create(3); // store of 3 lists
-for (var rty = 0; rty < 3; rty++) {
-    rnd_index_store[rty] = array_create(NUM_ITP_INDICES);
-    for (var itp = 0; itp < NUM_ITP_INDICES; itp++) {
-        rnd_index_store[@ rty][@ itp] = [];
-    }
-    
-    rnd_legend_index_store[rty] = [];
-}
 
 // Randomizer properties
-legendaries_remaining = array_create(3, 0); // to be initialized
+legendary_pool_size = array_create(3, 0); // to be initialized
 rares_remaining = 3; // manual limit, assumes that at least 3 rares exist
-uncommons_remaining = 0; // to be initialized
+uncommon_pool_size = 0; // to be initialized
 item_seed = player * 5; // max 200, this should hold within the rivals engine
 
 grant_rarity = noone; // for user_event(1). This default value throws an error as a sanity check
 
 
-// Type values: absolute probability that a category will be rolled within a given rarity.
-// Only common is set here; uncommon and rare are generated dynamically based on the
-// number of items in each category and their weights.
-// Legendary items are handled differently and thus not included here.
-type_values = [
-    // In order of ITP indices (see above)
-    array_create(NUM_ITP_INDICES, 0),  // commons
-    array_create(NUM_ITP_INDICES, 0),  // uncommons
-    array_create(NUM_ITP_INDICES, 0),  // rares
-]
+// New randomizer
+// Initialize arrays
+p_item_ids = array_create(3);
+p_item_weights = array_create(3);
+p_item_values = array_create(3); // weight per quantity remaining
+p_item_remaining = array_create(3);
+p_legendary_ids = array_create(3);
+p_legendary_available = array_create(3); // mostly identical to legendary_remaining; gets set to 0 in an incompat case
+p_legendary_remaining = array_create(3);
 
-// Type weights: the probability weights for any single item of a given rarity and type.
-// The type_value of a given type/rarity will be reduced by this value upon pulling it.
-// Common items are handled differently and are set to zero.
-type_weights = [
-    // In order of ITP indices (see above)
-    INIT_COMMON_WEIGHTS,     // commons
-    INIT_UNCOMMON_WEIGHTS,  // uncommons
-    INIT_RARE_WEIGHTS,  // rares
-]
+for (var rty = 0; rty < 3; rty++) {
+    p_item_ids[rty] = [];
+    p_item_weights[rty] = [];
+    p_item_values[rty] = [];
+    p_item_remaining[rty] = [];
+    p_legendary_ids[rty] = [];
+    p_legendary_available[rty] = [];
+    p_legendary_remaining[rty] = [];
+}
 
-// Type weights are altered by 1-cost abyss runes.
-if (get_match_setting(SET_RUNES)) for (var i = 0; i < 3; i++) {
-    if (has_rune("A")) {
-        type_values[@ i][@ ITP_DAMAGE] = ABYSS_BUFFED_WEIGHT;
-        type_values[@ i][@ ITP_KNOCKBACK] = ABYSS_BUFFED_WEIGHT;
+// Populate arrays
+var num_items = array_length(item_grid);
+var type_weights = INIT_WEIGHTS;
+for (var i = 0; i < num_items; i++) {
+    var rty = item_grid[i][IG_RARITY];
+    var itp = item_grid[i][IG_TYPE];
+    
+    if (rty < RTY_COMMON || RTY_RARE < rty) continue;
+    var quantity = (rty == RTY_UNCOMMON) ? UNCOMMON_LIMIT : 1;
+    
+    if (itp == ITP_LEGENDARY) {
+        item_grid[@ i][@ IG_RANDOMIZER_INDEX] = array_length(p_legendary_ids[rty]);
+        array_push(p_legendary_ids[rty], i);
+        array_push(p_legendary_available[rty], quantity);
+        array_push(p_legendary_remaining[rty], quantity);
+        legendary_pool_size[rty] += quantity;
     }
-    if (has_rune("B")) {
-        type_values[@ i][@ ITP_SPEED] = ABYSS_BUFFED_WEIGHT;
-    }
-    if (has_rune("C")) {
-        type_values[@ i][@ ITP_HEALING] = ABYSS_BUFFED_WEIGHT;
-        type_values[@ i][@ ITP_BARRIER] = ABYSS_BUFFED_WEIGHT;
-    }
-    if (has_rune("D")) {
-        type_values[@ i][@ ITP_CRITICAL] = ABYSS_BUFFED_WEIGHT;
-    }
-    if (has_rune("E")) {
-        type_values[@ i][@ ITP_ATTACK_SPEED] = ABYSS_BUFFED_WEIGHT;
-    }
-    if (has_rune("F")) {
-        type_values[@ i][@ ITP_EXPLOSIVE] = ABYSS_BUFFED_WEIGHT;
+    else {
+        item_grid[@ i][@ IG_RANDOMIZER_INDEX] = array_length(p_item_ids[rty]);
+        array_push(p_item_ids[rty], i);
+        array_push(p_item_weights[rty], quantity*type_weights[itp]);
+        array_push(p_item_values[rty], type_weights[itp]);
+        array_push(p_item_remaining[rty], quantity);
+        if (rty == RTY_UNCOMMON) uncommon_pool_size += quantity;
     }
 }
 
-
-// Populate randomizer info
-for (var iid = 0; iid < array_length(item_grid); iid++) {
-    var rty = item_grid[iid][IG_RARITY];
-    var itp = item_grid[iid][IG_TYPE];
-    if (itp == ITP_LEGENDARY && rty > RTY_DUMMY) {
-        array_push(rnd_legend_index_store[rty], iid);
-        legendaries_remaining[rty]++;
-    }
-    else if (rty > RTY_DUMMY) {
-        for (var n = 0; n < (rty == RTY_UNCOMMON ? 3 : 1); n++) { // add 3 instances to the pool for uncommons
-            array_push(rnd_index_store[rty][itp], iid);
-            type_values[@ rty][@ itp] = type_values[rty][itp] + type_weights[rty][itp];
+// Item weights are altered by 1-cost abyss runes.
+if (get_match_setting(SET_RUNES)) {
+    
+    for (var rty = RTY_COMMON; rty <= RTY_RARE; rty++) {
+        var arr_len = array_length(p_item_ids[rty]);
+        for (var i = 0; i < arr_len; i++) {
+            var iid = p_item_ids[rty][i];
+            var type1 = item_grid[iid][IG_TYPE];
+            var type2 = item_grid[iid][IG_TYPE2];
+            if ( (has_rune("A") && (type1 == ITP_DAMAGE || type2 == ITP_DAMAGE || type1 == ITP_KNOCKBACK || type2 == ITP_KNOCKBACK))
+              || (has_rune("B") && (type1 == ITP_SPEED || type2 == ITP_SPEED))
+              || (has_rune("C") && (type1 == ITP_HEALING || type2 == ITP_HEALING || type1 == ITP_BARRIER || type2 == ITP_BARRIER))
+              || (has_rune("D") && (type1 == ITP_CRITICAL || type2 == ITP_CRITICAL))
+              || (has_rune("E") && (type1 == ITP_ATTACK_SPEED || type2 == ITP_ATTACK_SPEED))
+              || (has_rune("F") && (type1 == ITP_EXPLOSIVE || type2 == ITP_EXPLOSIVE))
+            ) {
+                var quantity = p_item_remaining[rty][i];
+                p_item_values[@ rty][@ i] = ABYSS_BUFFED_VALUE;
+                p_item_weights[@ rty][@ i] = quantity * ABYSS_BUFFED_VALUE;
+            }
         }
-        if (rty == RTY_UNCOMMON) uncommons_remaining += 3;
     }
+    
 }
-
 
 
 // Item variables
 // Keyword trackers
 critical_active = 0;     // enables checks for crit items
-explosive_active = 0;    // enables checks for explosive items
 attack_speed = 1;        // inits to 1, goes up with attack speed items
 move_speed = 0;          // inits to 0, goes up with items like Paul's Goat Hoof
 dodge_duration_add = 0;  // inits to 0, adds n frames to shield actions
@@ -586,3 +647,4 @@ set_victory_portrait(sprite_get("portrait_base") )
 // DEBUG | TODO: remove before beta
 new_item_id = noone;
 user_event(0);
+init_complete = true;

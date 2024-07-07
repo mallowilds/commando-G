@@ -14,7 +14,6 @@ else {
 
 // This is in a define in order to accomodate the object perspective-switching above.
 #define do_user_event1
-
 var command_type = force_grant_item + 2*force_remove_item
 switch command_type {
 	case 0: // grant a random item
@@ -69,58 +68,30 @@ if (rarity < 0 || rarity > 2) {
 // Attempt to generate a legendary item
 var rnd_legendary = random_func_2(item_seed, 1, false);
 item_seed = (item_seed + 1) % 200;
-if (rnd_legendary <= LEGENDARY_ODDS && legendaries_remaining[rarity] > 0) {
+if (rnd_legendary <= LEGENDARY_ODDS && legendary_pool_size[rarity] > 0) {
 	
-	var num_items = array_length(rnd_legend_index_store[rarity]);
-	var access_index = random_func_2(num_items, 1, false);
+	var weight_array = p_legendary_available[rarity];
+	var access_index = random_weighted_roll(item_seed, weight_array);
 	item_seed = (item_seed + 1) % 200;
-	var item_id = rnd_legend_index_store[rarity][access_index];
-	
-	legendaries_remaining[rarity]--;
-	// Remove legendary from item pool
-	for (var i = access_index; i < num_items-1; i++) {
-		rnd_legend_index_store[@ rarity][@ i] = rnd_legend_index_store[rarity][i+1];
-	}
-	rnd_legend_index_store[@ rarity] = array_slice(rnd_legend_index_store[rarity], 0, num_items-1);
+	var item_id = p_legendary_ids[rarity][access_index];
 	
 }
 
+// Generate a standard item
 else {
 	
-	// Generate a standard item
-	var item_type = random_weighted_roll(item_seed, type_values[rarity]);
+	var weight_array = p_item_weights[rarity];
+	var access_index = random_weighted_roll(item_seed, weight_array);
 	item_seed = (item_seed + 1) % 200;
-	var num_items = array_length(rnd_index_store[rarity][item_type]);
-	var access_index = random_func_2(item_seed, num_items, false);
-	item_seed = (item_seed + 1) % 200;
-	var item_id = rnd_index_store[rarity][item_type][access_index];
-	
-	// Update probability properties to account for new item
-	type_values[@ rarity][@ item_type] -= type_weights[rarity][item_type]; // update weights
-	if (rarity = RTY_UNCOMMON) uncommons_remaining--;
-	// remove item instance from rnd_index_store
-	if (rarity != RTY_COMMON) {
-		for (var i = access_index; i < num_items-1; i++) {
-			rnd_index_store[@ rarity][@ item_type][@ i] = rnd_index_store[rarity][item_type][i+1];
-		}
-		rnd_index_store[@ rarity][@ item_type] = array_slice(rnd_index_store[rarity][item_type], 0, num_items-1);
-	}
+	var item_id = p_item_ids[rarity][access_index];
 	
 }
 
-// Apply item (or roll for a new one if a conflict occured)
+// Apply item
 var item_applied = apply_item(item_id);
-if (!item_applied) {
-	item_id = generate_item(rarity);
-	/*
-	var is_valid_index = (item_id == clamp(item_id, 0, array_length(item_grid)-1));
-	if (is_valid_index) print_debug("ERROR: failed to grant " + string(item_grid[item_id][IG_NAME]) + ". In a non-debug environment, this could result in a crash.");
-	else print_debug("ERROR: failed to grant item with id " + string(item_id) + ". In a non-debug environment, this could result in a crash.");
-	*/
-}
+// if (!item_applied) print_debug("user_event1 error: unknown item conflict")
 
 return item_id;
-
 
 // Returns true if the item was applied successfully, false if a conflict occurred
 #define apply_item(item_id)
@@ -129,11 +100,15 @@ var rarity = item_grid[item_id][IG_RARITY];
 var incompat_index = item_grid[item_id][IG_INCOMPATIBLE]
 var is_valid_index = (item_id == clamp(item_id, 0, array_length(item_grid)-1));
 var is_incompatible = (incompat_index != noone && item_grid[incompat_index][IG_NUM_HELD] >= 1);
-var is_excess_uncommon = (rarity == RTY_UNCOMMON && item_grid[item_id][IG_NUM_HELD] >= 3);
+var is_excess_uncommon = (rarity == RTY_UNCOMMON && item_grid[item_id][IG_NUM_HELD] >= UNCOMMON_LIMIT);
 var is_excess_rare = (rarity == RTY_RARE && (rares_remaining <= 0 || item_grid[item_id][IG_NUM_HELD] >= 1));
 
+// Successful item grant
 if (is_valid_index && !is_incompatible && !is_excess_uncommon && !is_excess_rare) {
-	switch rarity {
+	
+	// Play item get sound
+	if (item_grid[item_id][IG_TYPE] == ITP_LEGENDARY) sound_play(s_itemr);
+	else switch rarity {
 		case 0:
 			sound_play(s_itemw);
 			break;
@@ -145,30 +120,86 @@ if (is_valid_index && !is_incompatible && !is_excess_uncommon && !is_excess_rare
 			break;
 	}
 	
+	// Grant item
 	if (item_grid[item_id][IG_NUM_HELD] == 0) array_push(inventory_list, item_id);
 	item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] + 1;
-	if (rarity = RTY_RARE) rares_remaining--;
 	new_item_id = item_id;
 	user_event(0);
+	
+	// If something else is incompatible, remove it from the pool
+	if (incompat_index != noone) {
+		var incompat_access_index = item_grid[incompat_index][IG_RANDOMIZER_INDEX];
+		var incompat_rarity = item_grid[incompat_index][IG_RARITY];
+		if (0 <= incompat_rarity && incompat_rarity <= 2) {
+			if (item_grid[incompat_index][IG_TYPE] == ITP_LEGENDARY) {
+				p_legendary_available[@ incompat_rarity][@ incompat_access_index] = 0;
+			}
+			else {
+				p_item_weights[@ incompat_rarity][@ incompat_access_index] = 0;
+			}
+		}
+	}
+	
+	// Update probabilities
+	if (rarity != RTY_COMMON) reduce_item_probability(item_id);
+	
 	return true;
+	
 }
+
+// Fail case
+// (If everything is working properly, this should never run.)
+else if (!is_valid_index) print_debug("user_event1 error: attempted to grant item at invalid index " + string(item_id));
+else if (is_incompatible) print_debug("user_event1 error: attempted to grant incompatible item " + item_grid[item_id][IG_NAME]);
+else if (is_excess_uncommon) print_debug("user_event1 error: attempted to grant excess uncommon item " + item_grid[item_id][IG_NAME]);
+else if (is_excess_rare) print_debug("user_event1 error: attempted to grant excess rare item " + item_grid[item_id][IG_NAME]);
+else print_debug("user_event1 error: unknown item conflict");
 
 return false;
 
-// Returns true if the item was applied successfully, false if there was no item to remove
+#define reduce_item_probability(item_id)
+	var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
+	var itp = item_grid[item_id][IG_TYPE];
+	var rarity = item_grid[item_id][IG_RARITY];
+	
+	// Reduce for a legendary item
+	if (itp == ITP_LEGENDARY) {
+		legendary_pool_size[rarity]--;
+		p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] - 1;
+		p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] - 1;
+		// Don't decrement the uncommon pool! Legendaries aren't a part of it
+		if (rarity == RTY_RARE) rares_remaining--;
+	}
+	
+	// Reduce for a standard item
+	else {
+		var remaining = p_item_remaining[rarity][access_index];
+		var value = p_item_values[rarity][access_index];
+		p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] - 1;
+		p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] - value;
+		if (rarity == RTY_UNCOMMON) uncommon_pool_size--;
+		if (rarity == RTY_RARE) rares_remaining--;
+	}
+
+// Returns true if the item was applied successfully, false if there was no item to remove.
 #define remove_item(item_id)
 
 var is_valid_index = (item_id == clamp(item_id, 0, array_length(item_grid)-1));
-if (!is_valid_index || item_grid[item_id][IG_NUM_HELD] <= 0) return false;
+if (!is_valid_index || item_grid[item_id][IG_NUM_HELD] <= 0) {
+	if (!is_valid_index) print_debug("user_event1 error: attempted to remove item at invalid index " + string(item_id));
+	else print_debug("user_event1 error: attempted to remove unowned item " + item_grid[item_id][IG_NAME]);
+	return false;
+}
 
+// Remove item
 item_grid[@ item_id][@ IG_NUM_HELD] = item_grid[item_id][IG_NUM_HELD] - 1;
-if (item_grid[item_id][IG_RARITY] == RTY_RARE) rares_remaining++;
 new_item_id = item_id;
 user_event(0);
 
-// Remove from the inventory list if appropriate
+// If removing an item returns the number held to 0:
 if (item_grid[item_id][IG_NUM_HELD] <= 0) {
 	
+	// Remove from the inventory list
 	var i = 0;
 	var j = 0;
 	var inv_list_len = array_length(inventory_list);
@@ -184,6 +215,48 @@ if (item_grid[item_id][IG_NUM_HELD] <= 0) {
 	
 	inventory_list = new_inv_list;
 	
+	// Reenable incompatible items if present
+	var incompat_index = item_grid[item_id][IG_INCOMPATIBLE]
+	if (incompat_index != noone) {
+		var incompat_access_index = item_grid[incompat_index][IG_RANDOMIZER_INDEX];
+		var incompat_rarity = item_grid[incompat_index][IG_RARITY];
+		if (0 <= incompat_rarity && incompat_rarity <= 2) {
+			if (item_grid[incompat_index][IG_TYPE] == ITP_LEGENDARY) {
+				p_legendary_available[@ incompat_rarity][@ incompat_access_index] = p_legendary_remaining[@ incompat_rarity][@ incompat_access_index];
+			}
+			else {
+				p_item_weights[@ incompat_rarity][@ incompat_access_index] = p_item_remaining[incompat_rarity][incompat_access_index] * p_item_values[incompat_rarity][incompat_access_index];
+			}
+		}
+	}
+	
 }
 
+// increase item probability
+if (item_grid[item_id][IG_RARITY] != RTY_COMMON) increase_item_probability(item_id);
+
 return true;
+
+#define increase_item_probability(item_id)
+	var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
+	var itp = item_grid[item_id][IG_TYPE];
+	var rarity = item_grid[item_id][IG_RARITY];
+	
+	// Increase for a legendary item
+	if (itp == ITP_LEGENDARY) {
+		legendary_pool_size[rarity]++;
+		p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] + 1;
+		p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] + 1;
+		if (rarity == RTY_RARE) rares_remaining++;
+	}
+	
+	// Increase for a standard item
+	else {
+		var remaining = p_item_remaining[rarity][access_index];
+		var value = p_item_values[rarity][access_index];
+		p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] + 1;
+		p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] + value;
+		if (rarity == RTY_UNCOMMON) uncommon_pool_size++;
+		if (rarity == RTY_RARE) rares_remaining++;
+	}
+

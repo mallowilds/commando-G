@@ -32,6 +32,7 @@ IG_TYPE2 = 3; // Tentative inclusion, might remove
 IG_NUM_HELD = 4;
 IG_INCOMPATIBLE = 5; // denotes an index for another item that, if held, prevents this item from being held.
 IG_DESC = 6;
+IG_RANDOMIZER_INDEX = 7;
 
 // HG -> Hitbox Grid
 HG_IS_CRITICAL = 80;
@@ -110,11 +111,11 @@ ST_STATIC = 6;
 //#region General Properties
 
 // Probability properties
-LEGENDARY_ODDS = 0.01 // global
-INIT_COMMON_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5];
-INIT_UNCOMMON_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5];
-INIT_RARE_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5]; // these init arrays are only for use by init.gml!
-ABYSS_BUFFED_WEIGHT = 80;
+LEGENDARY_ODDS = 0.01;
+UNCOMMON_LIMIT = 3; // per uncommon item
+RARE_LIMIT = 3; // across all rare items
+INIT_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5]; // maps to primary ITP indices. this init array is only for use by init.gml!
+ABYSS_BUFFED_VALUE = 15;
 
 SCHEST_C_WEIGHT = 80;
 SCHEST_U_WEIGHT = 15;

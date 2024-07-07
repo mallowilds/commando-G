@@ -111,7 +111,7 @@ switch(state) { // use this one for doing actual article behavior
         if (state_timer == 1) sound_play(sound_get("cm_smallchest"));
         if (state_timer == 20) {
             var rarity_weights = [player_id.SCHEST_C_WEIGHT, player_id.SCHEST_U_WEIGHT, player_id.SCHEST_R_WEIGHT]
-            if (player_id.uncommons_remaining <= 0) rarity_weights[1] = 0;
+            if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
             if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
             var rarity = random_weighted_roll(player_id.item_seed, rarity_weights);
             player_id.item_seed = (player_id.item_seed + 1) % 200;
@@ -170,7 +170,7 @@ switch(state) { // use this one for doing actual article behavior
         if (state_timer == 1) sound_play(sound_get("cm_largechest"));
         if (state_timer == 20) {
             var rarity_weights = [player_id.LCHEST_C_WEIGHT, player_id.LCHEST_U_WEIGHT, player_id.LCHEST_R_WEIGHT]
-            if (player_id.uncommons_remaining <= 0) rarity_weights[1] = 0;
+            if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
             if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
             var rarity = random_weighted_roll(player_id.item_seed, rarity_weights);
             player_id.item_seed = (player_id.item_seed + 1) % 200;
