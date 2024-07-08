@@ -350,30 +350,8 @@ switch(attack) {
     
     case AT_TAUNT:
 		if (window == 1 && window_timer == 1) {
-			
-			//#region DEBUG: Item granter
-			if (get_match_setting(SET_PRACTICE)) {
-				// Item adder/remover: stepwise
-				new_item_id = ITEM_HEADSET;
-				if (up_down) {
-					force_grant_item = true;
-					user_event(1);
-				}
-				if (down_down) {
-					force_remove_item = true;
-					user_event(1);
-				}
-				// Item adder: fixed
-				if (up_down || down_down) {
-					//set_debug_item(ITEM_UKELELE, 1);
-					//set_debug_item(ITEM_TASER, 2);
-				}
-			}
-			//#endregion
-			
 			new_item_id = noone;
 			user_event(0); // stat refresh
-			
 		}
 		
 		//#region DEBUG: enable debug var

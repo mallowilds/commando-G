@@ -199,3 +199,8 @@ switch new_item_id {
         type_values[@ RTY_UNCOMMON][@ itp] = type_values[RTY_UNCOMMON][itp] + 3*type_weights[RTY_UNCOMMON][itp];
         uncommon_pool_size += 3;
     }
+    
+#define set_taunt_indices
+    utaunt_index = (item_grid[ITEM_UKELELE][IG_NUM_HELD] > 0) ? AT_TAUNT_2 : AT_TAUNT;
+    ntaunt_index = (item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) ? AT_EXTRA_1 : utaunt_index;
+    // dtaunt is constant and set in init.gml
