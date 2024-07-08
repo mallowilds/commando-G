@@ -39,6 +39,52 @@ chest_obj = noone;
 dspec_cooldown_hits = DSPEC_INIT_CD_HITS; // Hits on the opponent remaining until DSpec goes off cooldown.
 first_hit = false; // Mirrors has_hit, but is accessible from hit_player to track the first hit applied.
 
+//Death Messages
+death_messages = [
+    "You have died. Maybe next time..",
+    "ur dead LOL get wrecked",
+    "DEAD",
+    "Smashed.",
+    "Your family will never know how you died.",
+    "You died painlessly.",
+    "Your death was extremely painful.",
+    "Dead from blunt trauma to the face.",
+    "You have passed away. Try again?",
+    "Your internal organs have failed.",
+    "This planet has killed you.",
+    "Crushed.",
+    "[TBD]",
+    "You have broken every bone in your body.",
+    "rekt",
+    "ded",
+    "Sucks to suck.",
+    "They will surely feast on your flesh.",
+    "Remember to use your Down Special.",
+    "You are dead.",
+    "Get styled upon.",
+    "You walk towards the light.",
+    "You embrace the void.",
+    "Come back soon!",
+    "Your body was gone an hour later.",
+    "[TBD]",
+    "Choose a new character?",
+    "Consider picking a different stage.",
+    "That was definitely not your fault.",
+    "That was absolutely your fault.",
+    "Close!",
+    "..the harder they fall.",
+    "Beep.. beep.. beeeeeeeeeeeeeeeee",
+    "You really messed up.",
+    "It wasn't your time to die...",
+    "You had a lot more to live for.",
+    "Maybe next time.",
+    "You die in a hilarious pose.",
+    "You die a slightly embarassing death."
+]
+
+death_message_pick = death_messages[random_func_2( 0, array_length(death_messages), 1 )]
+print(death_message_pick)
+final_death_timer = 0;
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 
 // Item Grid
@@ -418,6 +464,8 @@ s_cland = sound_get("cm_chestland")
 s_itemw = sound_get("cm_item_white")
 s_itemg = sound_get("cm_item_green")
 s_itemr = sound_get("cm_item_red")
+
+s_mortem = sound_get("death")
 //
 
 

@@ -331,3 +331,13 @@ if (debug_display_opened) {
 	
 }
 //#endregion
+
+
+//#region Death Messages //This needs to be moved from here to a different file, and have the position adjusted. Ideally it'd still be centered on the camera, not to the stage, but idk how to do that.
+
+draw_set_font( font_get("_rfont") );
+draw_set_halign( fa_center );
+draw_text_color( 480, 100, string(death_message_pick), c_white, c_white, c_white, c_white, (final_death_timer * 2) / 50);
+
+
+//#endregion

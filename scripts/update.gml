@@ -676,6 +676,13 @@ with object_index {
 }
 //#endregion
 
+//#region Death Message
+
+if final_death_timer > 0{
+	final_death_timer--;
+}
+
+//#endregion
 
 
 #define do_healing(amount)

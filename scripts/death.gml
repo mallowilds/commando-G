@@ -40,3 +40,8 @@ if (item_grid[44][IG_NUM_HELD] > 0) {
     dios_stored_damage = get_player_damage(player) - 20;
     
 }
+
+// Death Message
+if get_player_stocks( player ) == 0 {
+	final_death_timer = 60
+}

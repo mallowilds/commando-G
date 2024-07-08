@@ -15,8 +15,12 @@ switch(attack) {
 	//#region Standard normals
 	
     case AT_JAB:
+
         // clear attack so jab2 doesn't automatically happen
-    	if (window == 1 && window_timer == 1) clear_button_buffer(PC_ATTACK_PRESSED);
+    	if (window == 1 && window_timer == 1) {
+			clear_button_buffer(PC_ATTACK_PRESSED);
+			//death_message_pick = death_messages[random_func_2( 0, array_length(death_messages), 1 )] //debug
+		}
         break;
         
     case AT_FTILT:
