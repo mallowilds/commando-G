@@ -30,8 +30,8 @@ if (debug_display_opened) {
 		clear_button_buffer(PC_TAUNT_PRESSED);
 		
 		var list_max = array_length(item_id_ordering)-debug_display_count;
-		if (debug_display_type < 2 && debug_display_index >= list_max) {
-			debug_display_index = list_max-1;
+		if (debug_display_type < 2 && debug_display_index > list_max) {
+			debug_display_index = list_max;
 		}
 	}
 	if (taunt_down && right_pressed || right_down && taunt_pressed) {
@@ -40,8 +40,8 @@ if (debug_display_opened) {
 		clear_button_buffer(PC_TAUNT_PRESSED);
 		
 		var list_max = array_length(item_id_ordering)-debug_display_count;
-		if (debug_display_type < 2 && debug_display_index >= list_max) {
-			debug_display_index = list_max-1;
+		if (debug_display_type < 2 && debug_display_index > list_max) {
+			debug_display_index = list_max;
 		}
 	}
 	

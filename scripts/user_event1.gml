@@ -206,8 +206,8 @@ if (item_grid[item_id][IG_NUM_HELD] <= 0) {
 	var new_inv_list = array_create(inv_list_len - 1);
 	
 	while (i < inv_list_len && j < inv_list_len - 1) {
-		if (inv_list[i] != item_id) {
-			new_inv_list[j] = inv_list[i];
+		if (inventory_list[i] != item_id) {
+			new_inv_list[j] = inventory_list[i];
 			j++;
 		}
 		i++;

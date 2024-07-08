@@ -167,12 +167,14 @@ ordering_start_indices = [0, 18, 34, 49];
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
 if (!get_match_setting(SET_PRACTICE)) item_grid[@ ITEM_IGNITION][@ IG_RARITY] = RTY_VOID; // Ignition Tank is whitelisted manually upon obtaining burn items.
 // v BETA REMOVALS v
-item_grid[@ ITEM_UKELELE][@ IG_RARITY] = RTY_VOID;
-item_grid[@ ITEM_ATG1][@ IG_RARITY] = RTY_VOID;
-item_grid[@ ITEM_ATG2][@ IG_RARITY] = RTY_VOID;
-item_grid[@ ITEM_SCEPTER][@ IG_RARITY] = RTY_VOID;
-item_grid[@ ITEM_TURBINE][@ IG_RARITY] = RTY_VOID;
-item_grid[@ ITEM_FILIAL][@ IG_RARITY] = RTY_VOID;
+if (!get_match_setting(SET_PRACTICE)) {
+    item_grid[@ ITEM_UKELELE][@ IG_RARITY] = RTY_VOID;
+    item_grid[@ ITEM_ATG1][@ IG_RARITY] = RTY_VOID;
+    item_grid[@ ITEM_ATG2][@ IG_RARITY] = RTY_VOID;
+    item_grid[@ ITEM_SCEPTER][@ IG_RARITY] = RTY_VOID;
+    item_grid[@ ITEM_TURBINE][@ IG_RARITY] = RTY_VOID;
+    item_grid[@ ITEM_FILIAL][@ IG_RARITY] = RTY_VOID;
+}
 
 
 // Inventory store
