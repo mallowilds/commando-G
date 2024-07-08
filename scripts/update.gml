@@ -2,6 +2,8 @@
 
 // Debug: manage debug display
 if (debug_display_opened) {
+	
+	// Vertical option scrolling
 	if (debug_display_scrolltimer > 0) debug_display_scrolltimer--;
 	if (taunt_down && debug_display_type != 2 && (up_pressed || down_pressed || debug_display_scrolltimer == 0)) {
 		if (up_down) {
@@ -14,12 +16,14 @@ if (debug_display_opened) {
 		}
 		if (debug_display_scrolltimer > 0) {
 			var index_min = 0;
-			var index_max = (debug_display_type == 3) ? array_length(item_id_ordering) : array_length(item_id_ordering)-debug_display_count;
-			if (debug_display_index < index_min) debug_display_index = index_max-1;
-			else if (debug_display_index >= index_max) debug_display_index = 0;
+			var index_max = (debug_display_type == 3) ? array_length(item_id_ordering)-1 : array_length(item_id_ordering)-debug_display_count;
+			if (debug_display_index < index_min) debug_display_index = index_max;
+			else if (debug_display_index > index_max) debug_display_index = 0;
 			if (debug_display_type == 3 && item_id_ordering[debug_display_index] == noone) debug_display_index += down_down - up_down;
 		}
 	}
+	
+	// Horizontal pael scrolling
 	if (taunt_down && left_pressed || left_down && taunt_pressed) {
 		debug_display_type--;
 		if (debug_display_type < 0) debug_display_type = debug_display_typerange;
@@ -40,8 +44,11 @@ if (debug_display_opened) {
 			debug_display_index = list_max-1;
 		}
 	}
-	if (!attack_down) move_cooldown[AT_TAUNT] = 2;
+	
+	// Closing display
 	if (attack_pressed && special_pressed) debug_display_opened = false;
+	
+	// Panel 3: item adder/remover
 	else if (debug_display_type == 3) {
 		if (item_id_ordering[debug_display_index] == noone) debug_display_index++;
 		if (taunt_down && special_pressed || special_down && taunt_pressed) {
@@ -59,6 +66,10 @@ if (debug_display_opened) {
 			clear_button_buffer(PC_TAUNT_PRESSED);
 		}
 	}
+	
+	if (!attack_down) move_cooldown[AT_TAUNT] = 2;
+	move_cooldown[AT_EXTRA_3] = 2;
+	
 }
 
 // Debug: spawn item on parry

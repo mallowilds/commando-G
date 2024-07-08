@@ -81,16 +81,16 @@ if (dspec_cooldown_hits > 0) {
 if (debug_display_opened) {
 	
 	draw_set_alpha(0.4);
-	draw_rectangle_color(0, 0, 840, 480, c_black, c_black, c_black, c_black, false);
+	draw_rectangle_color(54, 0, 906, 480, c_black, c_black, c_black, c_black, false);
 	draw_set_alpha(1);
 	
-	draw_debug_text(0, 466, "TAUNT+DIRECTION: Navigate | ATTACK+TAUNT: Taunt | ATTACK+SPECIAL: Exit")
-	draw_debug_text(824, 466, "P" + string(player));
+	draw_debug_text(60, 466, "TAUNT+DIRECTION: Navigate | ATTACK+TAUNT: Taunt | ATTACK+SPECIAL: Exit")
+	draw_debug_text(884, 466, "P" + string(player));
 	
 	// Item grid info
 	if (debug_display_type == 0) {
 	
-		var debug_x = [0, 200, 300, 420, 540, 640, 840];
+		var debug_x = [60, 260, 360, 480, 600, 700, 900];
 		var debug_y = 2;
 		
 		draw_debug_text(debug_x[0], debug_y, "Name");
@@ -150,13 +150,13 @@ if (debug_display_opened) {
 	// Probability info
 	if (debug_display_type == 1) {
 		
-		draw_debug_text(540, 200, "Uncommons available: " + string(uncommon_pool_size));
-		draw_debug_text(540, 220, "Rares remaining: " + string(rares_remaining));
-		draw_debug_text(540, 240, "Common legendaries available: " + string(legendary_pool_size[RTY_COMMON]));
-		draw_debug_text(540, 260, "Uncommon legendaries available: " + string(legendary_pool_size[RTY_UNCOMMON]));
-		draw_debug_text(540, 280, "Rare legendaries available: " + string(legendary_pool_size[RTY_RARE]));
+		draw_debug_text(600, 200, "Uncommons available: " + string(uncommon_pool_size));
+		draw_debug_text(600, 220, "Rares remaining: " + string(rares_remaining));
+		draw_debug_text(600, 240, "Common legendaries available: " + string(legendary_pool_size[RTY_COMMON]));
+		draw_debug_text(600, 260, "Uncommon legendaries available: " + string(legendary_pool_size[RTY_UNCOMMON]));
+		draw_debug_text(600, 280, "Rare legendaries available: " + string(legendary_pool_size[RTY_RARE]));
 		
-		var debug_x = [0, 200, 300, 380, 440];
+		var debug_x = [60, 260, 360, 440, 500];
 		var debug_y = 2;
 		
 		draw_debug_text(debug_x[0], debug_y, "Name");
@@ -216,14 +216,8 @@ if (debug_display_opened) {
 	// Stat info
 	if (debug_display_type == 2) {
 		
-		// Commando properties
-		var debug_x = 360;
-		draw_debug_text(debug_x, 210, "Move speed stacks: " + string(move_speed));
-		draw_debug_text(debug_x, 230, "Attack speed stacks: " + string(attack_speed));
-		draw_debug_text(debug_x, 250, "Critical strike checks: " + (critical_active ? "Active" : "Inactive"));
-		
 		// Stats (labels)
-		var debug_x = 70;
+		var debug_x = 190;
 		var debug_y = -44;
 		
 		draw_debug_text(debug_x, debug_y+60, "Walk anim speed: ");
@@ -250,7 +244,7 @@ if (debug_display_opened) {
 		draw_debug_text(debug_x, debug_y+480, "Weight value: ");
 		
 		// Stats (values)
-		var debug_x = 240;
+		var debug_x = 360;
 		
 		draw_debug_text(debug_x, debug_y+60, string(walk_anim_speed));
 		draw_debug_text(debug_x, debug_y+80, string(dash_anim_speed));
@@ -275,6 +269,12 @@ if (debug_display_opened) {
 		draw_debug_text(debug_x, debug_y+460, string(dodge_duration_add));
 		draw_debug_text(debug_x, debug_y+480, string(knockback_adj));
 		
+		// Commando properties
+		var debug_x = 480;
+		draw_debug_text(debug_x, 210, "Move speed stacks: " + string(move_speed));
+		draw_debug_text(debug_x, 230, "Attack speed stacks: " + string(attack_speed));
+		draw_debug_text(debug_x, 250, "Critical strike checks: " + (critical_active ? "Active" : "Inactive"));
+		
 	}
 	
 	// Item granter
@@ -283,7 +283,7 @@ if (debug_display_opened) {
 		var item_id = item_id_ordering[debug_display_index];
 		if (item_id == noone) exit;
 		
-		var debug_x = 70;
+		var debug_x = 130;
 		var debug_y = 220;
 		draw_sprite_ext(sprite_get("item"), item_id, debug_x, debug_y, 2, 2, 0, c_white, 1);
 		
@@ -293,7 +293,7 @@ if (debug_display_opened) {
 		draw_debug_text(debug_x, debug_y+24, "TAUNT+SPECIAL: Add item");
 		draw_debug_text(debug_x, debug_y+40, "TAUNT+SHIELD: Remove item");
 		
-		debug_x = 390;
+		debug_x = 450;
 		debug_y = 204;
 		draw_debug_text(debug_x, debug_y, "Attacks are disabled while this panel is open.");
 		draw_debug_text(debug_x, debug_y+30, "Note: a much nicer item-granting utility is planned for");
@@ -301,7 +301,7 @@ if (debug_display_opened) {
 		
 		draw_set_alpha(0.7);
 		
-		debug_x = 84;
+		debug_x = 144;
 		debug_y = 280;
 		var temp_display_index = debug_display_index;
 		for (var i = 1; i <= 3; i++) {
@@ -312,7 +312,7 @@ if (debug_display_opened) {
 			debug_y += 30;
 		}
 		
-		debug_x = 84;
+		debug_x = 144;
 		debug_y = 190;
 		var temp_display_index = debug_display_index;
 		for (var i = 1; i <= 3; i++) {
