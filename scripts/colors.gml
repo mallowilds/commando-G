@@ -14,11 +14,11 @@ set_color_profile_slot_range( 2, 2, 3, 16 );
 
 // HelmetLight
 set_color_profile_slot( 0, 3, 255, 228, 156 );
-set_color_profile_slot_range( 3, 2, 35, 37 );
+set_color_profile_slot_range( 3, 2, 15, 8 );
 
 // HelmetDark
 set_color_profile_slot( 0, 4, 197, 161, 68 );
-set_color_profile_slot_range( 4, 1, 1, 1 );
+set_color_profile_slot_range( 4, 2, 6, 10 );
 
 // ClothesLight
 set_color_profile_slot( 0, 5, 37, 41, 50 );
@@ -34,7 +34,7 @@ set_color_profile_slot_range( 7, 1, 14, 22 );
 
 
 // ALTERNATE COLORS
-set_num_palettes( 16 );
+set_num_palettes( 17 );
 
 // Ground Zero
 set_color_profile_slot( 1, 0, 18, 91, 166 ); //ArmorLight
@@ -186,9 +186,19 @@ set_color_profile_slot( 15, 5, 31, 34, 38 ); //ClothesLight
 set_color_profile_slot( 15, 6, 110, 103, 74 ); //Belt
 set_color_profile_slot( 15, 7, 143, 188, 188 ); //Guns
 
+// unnamed alt palette
+set_color_profile_slot( 16, 0, 0, 255, 0 ); //ArmorLight
+set_color_profile_slot( 16, 1, 0, 255, 0 ); //ArmorMid
+set_color_profile_slot( 16, 2, 0, 255, 0 ); //ArmorDark
+set_color_profile_slot( 16, 3, 0, 255, 0 ); //HelmetLight
+set_color_profile_slot( 16, 4, 0, 255, 0 ); //HelmetDark
+set_color_profile_slot( 16, 5, 0, 255, 0 ); //ClothesLight
+set_color_profile_slot( 16, 6, 0, 255, 0 ); //Belt
+set_color_profile_slot( 16, 7, 0, 255, 0 ); //Guns
+
 
 /* This is a comment used by that one RoA colors.gml generator tool to store palette data. You can safely keep it in your colors.gml if you plan to re-use the tool later, or safely remove it if you don't.
 === BEGIN JSON PALETTE ===
-{"formatversion":1,"data":[{"name":"ArmorLight","colors":[{"r":219,"g":133,"b":46,"main":true},{"r":242,"g":158,"b":73}]},{"name":"ArmorMid","colors":[{"r":205,"g":85,"b":28,"main":true}]},{"name":"ArmorDark","colors":[{"r":138,"g":52,"b":11,"main":true},{"r":177,"g":69,"b":17}]},{"name":"HelmetLight","colors":[{"r":255,"g":228,"b":156,"main":true},{"r":238,"g":203,"b":111},{"r":220,"g":184,"b":88},{"r":164,"g":132,"b":45}]},{"name":"HelmetDark","colors":[{"r":197,"g":161,"b":68,"main":true}]},{"name":"ClothesLight","colors":[{"r":37,"g":41,"b":50,"main":true},{"r":24,"g":26,"b":33}]},{"name":"Belt","colors":[{"r":74,"g":62,"b":55},{"r":56,"g":47,"b":42},{"r":127,"g":99,"b":83,"main":true}]},{"name":"Guns","colors":[{"r":24,"g":35,"b":63},{"r":43,"g":60,"b":104,"main":true},{"r":85,"g":105,"b":157}]}]}
+{"formatversion":1,"data":[{"name":"ArmorLight","colors":[{"r":219,"g":133,"b":46,"main":true},{"r":242,"g":158,"b":73}]},{"name":"ArmorMid","colors":[{"r":205,"g":85,"b":28,"main":true}]},{"name":"ArmorDark","colors":[{"r":138,"g":52,"b":11,"main":true},{"r":177,"g":69,"b":17}]},{"name":"HelmetLight","colors":[{"r":255,"g":228,"b":156,"main":true},{"r":238,"g":203,"b":111}]},{"name":"HelmetDark","colors":[{"r":197,"g":161,"b":68,"main":true},{"r":220,"g":184,"b":88}]},{"name":"ClothesLight","colors":[{"r":37,"g":41,"b":50,"main":true},{"r":24,"g":26,"b":33}]},{"name":"Belt","colors":[{"r":74,"g":62,"b":55},{"r":56,"g":47,"b":42},{"r":127,"g":99,"b":83,"main":true}]},{"name":"Guns","colors":[{"r":24,"g":35,"b":63},{"r":43,"g":60,"b":104,"main":true},{"r":85,"g":105,"b":157}]}]}
 === END JSON PALETTE ===
 */
