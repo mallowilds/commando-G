@@ -97,7 +97,6 @@ ITEM_QUAIL          = 48;
 ITEM_FILIAL         = 49;
 ITEM_CELL           = 50;
 
-
 // ST -> Statuses
 ST_STICKY = 0;
 ST_BLEED = 1;
@@ -106,6 +105,15 @@ ST_STUN_EXPLOSIVE = 3;
 ST_LOPPER = 4;
 ST_SHATTERED = 5;
 ST_STATIC = 6;
+
+// TMU -> Training Mode Utility (states)
+TMU_INACTIVE = -1;
+TMU_OPENING = 0;
+TMU_ITEM = 1;
+TMU_ITEM_CLOSING = 2;
+TMU_INFO = 3;
+TMU_INFO_CLOSING = 4;
+
 //#endregion
 
 //#region General Properties
@@ -246,7 +254,7 @@ STICKY_DELAY = 30;
 STICKY_DAMAGE_SCALE = 2;  // unlike other scalings, this one starts at 0 for a single item copy and increases from there
 
 // Tough Times
-TTIMES_KBADJ_SCALE = -0.1;
+TTIMES_KBADJ_EXP_SET = 0.9; // Sets kb_adj to 0.9^n
 
 // Kjaro's Band
 FIREBAND_DAMAGE_BASE = 2;

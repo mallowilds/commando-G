@@ -71,7 +71,11 @@ if (dspec_cooldown_hits > 0) {
 
 
 
+//#region Training mode utility
 
+if (tmu_state != TMU_INACTIVE) user_event(4);
+
+//#endregion
 
 
 

@@ -74,7 +74,9 @@ if (debug_display_opened) {
 
 // Debug: spawn item on parry
 // (This can and will cause excess spawns per item rarity. Since this is strictly a debug util and the error is handled externally, this needn't be fixed).
-if (get_gameplay_time() % 60 == 61) || (get_match_setting(SET_PRACTICE) && !debug_display_opened && state == PS_PARRY && state_timer == 0) {
+if (get_gameplay_time() % 1 == 9) || (get_match_setting(SET_PRACTICE) && !debug_display_opened && state == PS_PARRY && state_timer == 0) {
+	
+	//if ("debug_pgrant_results" not in self) debug_pgrant_results = [0, 0, 0];
 	
 	var rarity_weights = [SCHEST_C_WEIGHT, SCHEST_U_WEIGHT, SCHEST_R_WEIGHT];
     if (uncommon_pool_size <= 0) rarity_weights[1] = 0;
@@ -85,6 +87,9 @@ if (get_gameplay_time() % 60 == 61) || (get_match_setting(SET_PRACTICE) && !debu
 	var item = instance_create(get_stage_data(SD_X_POS) + floor(get_stage_data(SD_WIDTH)/2), get_stage_data(SD_Y_POS)-10, "obj_article3");
     item.state = 20;
     item.rarity = grant_rarity;
+    
+    //debug_pgrant_results[grant_rarity]++;
+    //print_debug(debug_pgrant_results);
 	
 }
 
@@ -752,6 +757,7 @@ for (var i = 0; i < array_len; i++) {
 }
 // on each loop, check if rand_int is less than the sum of all previous weights
 var rand_int = random_func_2(seed, total_weight, true);
+// print_debug(string(rand_int) + " " + string(total_weight));
 for (var i = 0; i < array_len; i++) {
 	if (rand_int < weight_array[i]) {
 		// print_debug("In: " + string(weight_array) + ", Out: " + string(i));

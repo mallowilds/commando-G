@@ -376,15 +376,26 @@ switch(attack) {
     case AT_EXTRA_3:
     	attack_invince = true;
     	if (window == 1 && window_timer == 1) clear_button_buffer(PC_TAUNT_PRESSED);
+    	
     	if (window == 2) {
     		if (taunt_pressed) {
 	    		window = 3;
 	    		window_timer = 0;
+	    		if (tmu_state != TMU_INACTIVE) {
+    				tmu_state = TMU_ITEM_CLOSING;
+    				tmu_timer = 0;
+    			}
     		}
     		else if (window_timer == window_length) {
     			window_timer = 0;
+    			if (tmu_state == TMU_INACTIVE) {
+    				tmu_state = TMU_OPENING;
+    				tmu_timer = 0;
+    			}
     		}
     	}
+    	
+    	if (tmu_state != TMU_INACTIVE) user_event(3)
     	break;
     
     //#endregion

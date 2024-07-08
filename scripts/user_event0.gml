@@ -56,7 +56,7 @@ switch new_item_id {
         break;
     
     case 17: // Tough Times
-        knockback_adj = knockback_adj_base + TTIMES_KBADJ_SCALE*item_grid[17][IG_NUM_HELD];
+        knockback_adj = (item_grid[17][IG_NUM_HELD] > 0) ? power(TTIMES_KBADJ_EXP_SET, item_grid[17][IG_NUM_HELD]) : knockback_adj_base;
         break;
     
     case 20: // Ukelele

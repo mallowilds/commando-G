@@ -121,47 +121,47 @@ item_id_ordering = [
     ITEM_BLEEDDAGGER,
     ITEM_TASER,
     ITEM_SYRINGE,
-    ITEM_MOCHA,
-    ITEM_STICKYBOMB,    // 15
+    ITEM_MOCHA,         // 15
+    ITEM_STICKYBOMB,
     ITEM_GASOLINE,
     noone, // category delimiter
-    ITEM_FIREBAND,      // 18
-    ITEM_ICEBAND,
-    ITEM_UKELELE,       // 20
+    ITEM_FIREBAND,      // 19
+    ITEM_ICEBAND,       // 20
+    ITEM_UKELELE,
     ITEM_RJETPACK,
     ITEM_QUAIL,
     ITEM_FEATHER,
-    ITEM_HEART,
-    ITEM_JEWEL,         // 25
+    ITEM_HEART,         // 25
+    ITEM_JEWEL,
     ITEM_FILIAL,
     ITEM_SCYTHE,
     ITEM_IGNITION,
-    ITEM_INSTINCTS,
-    ITEM_CELL,          // 30
+    ITEM_INSTINCTS,     // 30
+    ITEM_CELL,
     ITEM_STUNGRENADE,
     ITEM_ATG1,
     noone,
-    ITEM_SCEPTER,       // 34
-    ITEM_FIREBOOTS,     // 35
+    ITEM_SCEPTER,       // 35
+    ITEM_FIREBOOTS,
     ITEM_ATG2,
     ITEM_LOPPER,
     ITEM_SHATTERING,
-    ITEM_CODES,
-    ITEM_PJETPACK,      // 40
+    ITEM_CODES,         // 40
+    ITEM_PJETPACK,
     ITEM_HEADSET,
     ITEM_AFTERBURNER,
     ITEM_SCOPE,
-    ITEM_TURBINE,
-    ITEM_AEGIS,         // 45
+    ITEM_TURBINE,       // 45
+    ITEM_AEGIS,
     ITEM_BEHEMOTH,
     ITEM_DIOS,
     noone,
-    ITEM_TTIMES,        // 49
+    ITEM_TTIMES,        // 50
     ITEM_SPARK,
     ITEM_CLOVER,
 ];
 
-ordering_start_indices = [0, 18, 34, 49];
+ordering_start_indices = [0, 19, 35, 50];
 
 // If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
@@ -365,6 +365,29 @@ dios_stored_damage = 0;
 tooth_awaiting_spawn = array_create(20, -1);
 
 quail_do_boost = 0;
+
+
+// Training mode utility
+tmu_state = TMU_INACTIVE;
+if (get_match_setting(SET_PRACTICE)) {
+    
+    tmu_timer = 0;
+    
+    tmu_row = 0;
+    tmu_column = 0;
+    tmu_selected = 0;
+    tmu_display_row = 0;
+    
+    tmu_item_panel = 0;
+    tmu_item_panel_max = 3;
+    tmu_item_panel_contents = noone; // filled on load
+    tmu_legendary_unlock_counter = 0;
+    
+    tmu_item_id = 0;
+    tmu_signal_add_item = false;
+    tmu_signal_remove_item = false;
+    
+}
 
 
 //          Sound Effects (gonna use init this time, wanna see if it makes it easier)                //
