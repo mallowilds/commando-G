@@ -380,7 +380,7 @@ switch(attack) {
 		if (get_match_setting(SET_PRACTICE) && special_pressed && attack_pressed) {
 			clear_button_buffer(PC_SPECIAL_PRESSED);
 			clear_button_buffer(PC_SHIELD_PRESSED);
-			should_debug = !should_debug;
+			debug_display_opened = !debug_display_opened;
 		}
 		//#endregion
 		

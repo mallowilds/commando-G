@@ -1,13 +1,16 @@
 //                                  debug                                     //
-should_debug = 0;
+init_complete = false; // used to ensure that draw scripts don't flood the error log if initialization is interrupted
+
+debug_display_opened = 0;
 debug_display_count = 23;
 debug_display_index = 0;
 debug_display_scrolltimer = 0;
-debug_display_type = 0;
-debug_display_typerange = 2;
+debug_display_type = 3;
+debug_display_typerange = 3;
+
 rainfont = font_get("_rfont");
 rainfontbig = font_get("_rfontbig");
-init_complete = false;
+
 
 //=-(                        ~~//** CONSTANTS **//~~                       )-=//
 user_event(2); // Lots of primitive constants are defined in here. These should be baked into the code before release (using the planned tool)
