@@ -1,6 +1,6 @@
 
 
-if (should_debug && attack_pressed && taunt_pressed) attack = AT_TAUNT;
+if (debug_display_opened && attack_pressed && taunt_pressed) attack = AT_TAUNT;
 
 if (attack == AT_TAUNT) {
     if (up_down) attack = utaunt_index;
@@ -20,3 +20,5 @@ if (attack == AT_DSPECIAL) {
         if (point_distance(x, y, chest_obj.x, chest_obj.y) >= ((chest_obj.state < 20) ? DSPEC_SCHEST_RADIUS : DSPEC_LCHEST_RADIUS)) move_cooldown[AT_DSPECIAL_2] = 2;
     }
 }
+
+if (attack != AT_TAUNT && debug_display_opened && debug_display_type == 3 && move_cooldown[attack] < 2) move_cooldown[attack] = 2;

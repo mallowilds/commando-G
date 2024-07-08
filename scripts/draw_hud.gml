@@ -78,7 +78,7 @@ if (dspec_cooldown_hits > 0) {
 
 //#region Item info display
 
-if (should_debug) {
+if (debug_display_opened) {
 	
 	draw_set_alpha(0.4);
 	draw_rectangle_color(0, 0, 840, 480, c_black, c_black, c_black, c_black, false);
@@ -213,8 +213,6 @@ if (should_debug) {
 		
 	}
 	
-	
-	
 	// Stat info
 	if (debug_display_type == 2) {
 		
@@ -225,7 +223,7 @@ if (should_debug) {
 		draw_debug_text(debug_x, 250, "Critical strike checks: " + (critical_active ? "Active" : "Inactive"));
 		
 		// Stats (labels)
-		var debug_x = 60;
+		var debug_x = 70;
 		var debug_y = -44;
 		
 		draw_debug_text(debug_x, debug_y+60, "Walk anim speed: ");
@@ -252,7 +250,7 @@ if (should_debug) {
 		draw_debug_text(debug_x, debug_y+480, "Weight value: ");
 		
 		// Stats (values)
-		var debug_x = 230;
+		var debug_x = 240;
 		
 		draw_debug_text(debug_x, debug_y+60, string(walk_anim_speed));
 		draw_debug_text(debug_x, debug_y+80, string(dash_anim_speed));
@@ -276,6 +274,56 @@ if (should_debug) {
 		draw_debug_text(debug_x, debug_y+440, string(max_djumps));
 		draw_debug_text(debug_x, debug_y+460, string(dodge_duration_add));
 		draw_debug_text(debug_x, debug_y+480, string(knockback_adj));
+		
+	}
+	
+	// Item granter
+	if (debug_display_type == 3) {
+		
+		var item_id = item_id_ordering[debug_display_index];
+		if (item_id == noone) exit;
+		
+		var debug_x = 70;
+		var debug_y = 220;
+		draw_sprite_ext(sprite_get("item"), item_id, debug_x, debug_y, 2, 2, 0, c_white, 1);
+		
+		debug_x += 60;
+		debug_y -= 10;
+		draw_debug_text(debug_x, debug_y, item_grid[item_id][IG_NAME]);
+		draw_debug_text(debug_x, debug_y+24, "TAUNT+SPECIAL: Add item");
+		draw_debug_text(debug_x, debug_y+40, "TAUNT+SHIELD: Remove item");
+		
+		debug_x = 390;
+		debug_y = 204;
+		draw_debug_text(debug_x, debug_y, "Attacks are disabled while this panel is open.");
+		draw_debug_text(debug_x, debug_y+30, "Note: a much nicer item-granting utility is planned for");
+		draw_debug_text(debug_x, debug_y+48, "the final release. This one's mostly temporary.");
+		
+		draw_set_alpha(0.7);
+		
+		debug_x = 84;
+		debug_y = 280;
+		var temp_display_index = debug_display_index;
+		for (var i = 1; i <= 3; i++) {
+			temp_display_index++;
+			if (temp_display_index >= array_length(item_id_ordering)) temp_display_index = 0;
+			if (item_id_ordering[temp_display_index] == noone) temp_display_index++;
+			draw_sprite(sprite_get("item"), item_id_ordering[temp_display_index], debug_x, debug_y);
+			debug_y += 30;
+		}
+		
+		debug_x = 84;
+		debug_y = 190;
+		var temp_display_index = debug_display_index;
+		for (var i = 1; i <= 3; i++) {
+			temp_display_index--;
+			if (temp_display_index < 0) temp_display_index = array_length(item_id_ordering) - 1;
+			if (item_id_ordering[temp_display_index] == noone) temp_display_index--;
+			draw_sprite(sprite_get("item"), item_id_ordering[temp_display_index], debug_x, debug_y);
+			debug_y -= 30;
+		}
+		
+		draw_set_alpha(1);
 		
 	}
 	
