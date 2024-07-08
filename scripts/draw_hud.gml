@@ -297,11 +297,9 @@ if (debug_display_opened) {
 		draw_debug_text(debug_x, debug_y+24, "TAUNT+SPECIAL: Add item");
 		draw_debug_text(debug_x, debug_y+40, "TAUNT+SHIELD: Remove item");
 		
-		debug_x = 450;
-		debug_y = 204;
+		debug_x = 480;
+		debug_y = 230;
 		draw_debug_text(debug_x, debug_y, "Attacks are disabled while this panel is open.");
-		draw_debug_text(debug_x, debug_y+30, "Note: a much nicer item-granting utility is planned for");
-		draw_debug_text(debug_x, debug_y+48, "the final release. This one's mostly temporary.");
 		
 		draw_set_alpha(0.7);
 		

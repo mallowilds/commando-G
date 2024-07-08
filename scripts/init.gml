@@ -5,7 +5,7 @@ debug_display_opened = 0;
 debug_display_count = 23;
 debug_display_index = 0;
 debug_display_scrolltimer = 0;
-debug_display_type = 3;
+debug_display_type = 0;
 debug_display_typerange = 3;
 
 rainfont = font_get("_rfont");
