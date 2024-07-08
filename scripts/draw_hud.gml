@@ -338,7 +338,11 @@ if (debug_display_opened) {
 if final_death_timer > 0 {
 	draw_set_font( font_get("_rfont") );
 	draw_set_halign( fa_center );
-	draw_text_color( 480, 100, string(death_message_pick), c_white, c_white, c_white, c_white, (final_death_timer * 2) / 50);
+	if is_na {
+		draw_text_color( 480, 100, "You have been detained. Await your sentence at the end of Time.", c_white, c_white, c_white, c_white, (final_death_timer * 2) / 50);
+	} else {
+		draw_text_color( 480, 100, string(death_message_pick), c_white, c_white, c_white, c_white, (final_death_timer * 2) / 50);
+	}
 }
 
 //#endregion

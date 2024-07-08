@@ -11,3 +11,11 @@ if (fireboots_lockout < FIREBOOTS_HIT_LOCKOUT) fireboots_lockout = FIREBOOTS_HIT
 
 // Brilliant Behemoth
 do_behemoth_hbox = 0;
+
+//Death Message (N/A Compat)
+
+if hit_player_obj.url = 2229832619 {
+    is_na = 1
+} else {
+    is_na = 0
+}
