@@ -25,10 +25,28 @@ precondition: rarity = (0, 1, 2)
 - 23: Despawn
 
 WARBANNER
-- 30: initialization
+- 30: Initialization
 - 31: Spawning
 - 32: Active/Idle
 - 33: Despawn
+
+FILIAL IMPRINTING ~ critter
+precondition: upon spawning, spawn_num = item_grid[ITEM_FILIAL][IG_NUM_HELD]
+- 40: Initialization
+- 41: Spawning / Warping to player
+- 42: Idle ~ standing
+- 43: Idle ~ wandering
+- 44: Chasing ~ running
+- 45: Chasing ~ jumping
+- 46: Dropping buff
+- 47: Taunt
+- 48: Despawn
+
+FILIIAL IMPRINTING ~ buff
+- 40: Initialization
+- 41: Move speed buff
+- 42: Attack speed buff
+- 43: Healing
 
 */
 
@@ -325,6 +343,121 @@ switch state {
 	
     //#endregion
     
+    //#region Filial Imprinting ~ critter
+    
+    // Init
+    case 40:
+    
+    	sprite_index = sprite_get("item_sucker_idle");
+    	image_index = 0;
+    	
+    	buffspawn_timer = 0;
+    	idle_statechange_threshold = 60; // changes at random
+    	
+    	ignores_walls = false;
+    	can_be_grounded = true;
+    	
+    	stage_center_x = get_stage_data(SD_X_POS) + floor(get_stage_data(SD_WIDTH)/2);
+    	chase_variance = random_func_2(player*spawn_num, player_id.FILIAL_CHASE_VARIANCE, true);
+    	
+    	state = 41;
+    	state_timer = 0;
+    	break;
+    
+    // Spawning / Warping to player
+    case 41:
+    	filial_status_update();
+    	vsp += 0.4;
+    	image_index += 0.15;
+    	
+    	if (!free) {
+    		state = 42;
+    		state_timer = 0;
+    	}
+    	else if (state_timer > 30 && !is_ground_below(150)) {
+    		state = 45;
+    		state_timer = 0;
+    		if (x_outside_stage_width(player_id.x)) face_target(stage_center_x);
+    		else face_target(player_id.x);
+    	}
+    	break;
+
+	// Idle ~ standing
+	case 42:
+		filial_status_update();
+		hsp = 0;
+		vsp += 0.4;
+		image_index += 0.15;
+		if (state_timer == 1) idle_statechange_threshold = 60 + random_func_2(player*spawn_num, 90, true);
+		
+		if (!x_outside_stage_width(player_id.x) && abs(x-player_id.x) > player_id.FILIAL_CHASE_RANGE+chase_variance) {
+			state = 44;
+			state_timer = 0;
+		}
+		else if (state_timer >= idle_statechange_threshold) {
+			spr_dir = 2*random_func_2(player*spawn_num, 2, true) - 1;
+			state = 43;
+			state_timer = 0;
+		}
+    	break;
+
+	// Idle ~ wandering
+	case 43:
+		filial_status_update();
+		hsp = 1.5*spr_dir;
+		vsp += 0.4;
+		image_index += 0.15;
+		if (state_timer == 1) idle_statechange_threshold = 20 + random_func_2(player*spawn_num, 40, true);
+		
+		if (!x_outside_stage_width(player_id.x) && abs(x-player_id.x) > player_id.FILIAL_CHASE_RANGE+chase_variance) {
+			state = 44;
+			state_timer = 0;
+		}
+		else if (state_timer >= idle_statechange_threshold) {
+			spr_dir = 2*random_func_2(player*spawn_num, 2, true) - 1;
+			state = 42;
+			state_timer = 0;
+		}
+    	break;
+
+	// Chasing ~ running
+	case 44:
+		filial_status_update();
+		face_target(player_id.x);
+		hsp = 2*spr_dir;
+		vsp += 0.4;
+		image_index += 0.15;
+		
+		if (x_outside_stage_width(player_id.x) || abs(x-player_id.x) <= player_id.FILIAL_ENDCHASE_RANGE+chase_variance) {
+			state = 42;
+			state_timer = 0;
+			chase_variance = random_func_2(player*spawn_num, player_id.FILIAL_CHASE_VARIANCE, true);
+		}
+		
+    	break;
+
+	// Chasing ~ jumping
+	case 45:
+		filial_status_update();
+    	break;
+
+	// Dropping buff
+	case 46:
+		filial_status_update();
+    	break;
+
+	// Taunt
+	case 47:
+		filial_status_update();
+    	break;
+
+	// Despawn
+	case 48:
+		instance_destroy();
+		exit;
+    	break;
+    
+    //#endregion
     
     //#region Failed initialization
     default:
@@ -338,6 +471,36 @@ switch state {
 
 // Make time progress
 state_timer++;
+
+
+#define filial_status_update
+	if (player_id.item_grid[player_id.ITEM_FILIAL][player_id.IG_NUM_HELD] < spawn_num) {
+		player_id.filial_num_spawned--;
+		state = 48;
+		state_timer = 0;
+		exit;
+	}
+	if (point_distance(x, y, player_id.x, player_id.y) > player_id.FILIAL_WARP_RADIUS) {
+		x = player_id.x-(60*player_id.spr_dir);
+		y = player_id.y-60;
+		// spawn vfx
+		state = 41;
+		state_timer = 0;
+	}
+	buffspawn_timer++;
+
+#define is_ground_below(distance)
+	var ground_collision = collision_line(x, y, x, y+distance, asset_get("par_block"), false, false);
+	var plat_collision = collision_line(x, y, x, y+distance, asset_get("par_jumpthrough"), false, false);
+	return ground_collision || plat_collision;
+
+#define x_outside_stage_width(_x)
+	if (player_id.is_playtest) return false;
+	return (_x < get_stage_data(SD_X_POS) || (get_stage_data(SD_X_POS)+get_stage_data(SD_WIDTH)) < _x);
+
+#define face_target(target_x)
+	if (target_x < x) spr_dir = -1;
+	else spr_dir = 1;
 
 #define spawn_lfx(in_sprite, _x, _y, in_lifetime, in_spr_dir, in_foreground, in_hsp, in_vsp)
 var new_lfx = {

@@ -1,5 +1,6 @@
 //                                  debug                                     //
 init_complete = false; // used to ensure that draw scripts don't flood the error log if initialization is interrupted
+is_playtest = (object_index == oTestPlayer);
 
 debug_display_opened = 0;
 debug_display_count = 23;
@@ -412,6 +413,10 @@ dios_stored_damage = 0;
 tooth_awaiting_spawn = array_create(20, -1);
 
 quail_do_boost = 0;
+
+filial_num_spawned = 0;
+filial_aspeed_timer = 0;
+filial_speed_timer = 0;
 
 
 // Training mode utility
