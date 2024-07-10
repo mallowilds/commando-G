@@ -68,7 +68,9 @@ sprite_change_offset("item_temp_warbanner_idle" , 60, 114);
 sprite_change_offset("item_temp_warbanner_despawn", 60, 114);
 sprite_change_offset("item_firetile_mask"       , 14, 38);
 sprite_change_offset("item_tooth_orb"           , 14, 28);
+
 sprite_change_offset("item_sucker_idle"         , 16, 24);
+sprite_change_offset("item_sucker_mask"         , 16, 24);
 
 sprite_change_offset("vfx_item_orb_c"           , 24, 24);
 sprite_change_offset("vfx_item_orb_u"           , 24, 24);

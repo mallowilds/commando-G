@@ -126,8 +126,8 @@ switch new_item_id {
             var critter = instance_create(x-((54+6*filial_num_spawned)*spr_dir), y-60, "obj_article3");
             critter.state = 40;
             critter.spawn_num = item_grid[49][IG_NUM_HELD];
-            filial_num_spawned++;
         }
+        filial_num_spawned = item_grid[49][IG_NUM_HELD];
         update_attack_speed();
         update_horizontal_movement();
         break;

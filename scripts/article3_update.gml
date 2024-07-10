@@ -347,9 +347,9 @@ switch state {
     
     // Init
     case 40:
-    
     	sprite_index = sprite_get("item_sucker_idle");
     	image_index = 0;
+    	mask_index = sprite_get("item_sucker_mask");
     	
     	buffspawn_timer = 0;
     	idle_statechange_threshold = 60; // changes at random
@@ -359,15 +359,21 @@ switch state {
     	
     	stage_center_x = get_stage_data(SD_X_POS) + floor(get_stage_data(SD_WIDTH)/2);
     	chase_variance = random_func_2(player*spawn_num, player_id.FILIAL_CHASE_VARIANCE, true);
+    	chase_range = player_id.FILIAL_ENDCHASE_RANGE+chase_variance;
     	
     	state = 41;
     	state_timer = 0;
+    	
+    	var hfx = spawn_hit_fx(x-(4*spr_dir), y-6, HFX_ABY_EXPLODE_WARN);
+		hfx.depth = depth-1;
+		
+    	filial_status_update();
     	break;
     
     // Spawning / Warping to player
     case 41:
     	filial_status_update();
-    	vsp += 0.4;
+    	if (free) vsp += 0.4;
     	image_index += 0.15;
     	
     	if (!free) {
@@ -377,39 +383,51 @@ switch state {
     	else if (state_timer > 30 && !is_ground_below(150)) {
     		state = 45;
     		state_timer = 0;
-    		if (x_outside_stage_width(player_id.x)) face_target(stage_center_x);
+    		if (x_outside_stage_width(x, 0)) face_target(stage_center_x);
     		else face_target(player_id.x);
+    	}
+    	else if (player_id.state == PS_ATTACK_GROUND && player_id.attack == AT_TAUNT && player_id.state_timer == 0) {
+    		state = 47;
+    		state_timer = 0;
     	}
     	break;
 
 	// Idle ~ standing
 	case 42:
 		filial_status_update();
-		hsp = 0;
-		vsp += 0.4;
+		if (!free) hsp = 0;
+		if (free) vsp += 0.4;
 		image_index += 0.15;
 		if (state_timer == 1) idle_statechange_threshold = 60 + random_func_2(player*spawn_num, 90, true);
 		
-		if (!x_outside_stage_width(player_id.x) && abs(x-player_id.x) > player_id.FILIAL_CHASE_RANGE+chase_variance) {
+		if (x_outside_stage_width(x, 0) || (abs(x-player_id.x) > chase_range && !x_outside_stage_width(player_id.x, chase_range))) {
 			state = 44;
 			state_timer = 0;
 		}
-		else if (state_timer >= idle_statechange_threshold) {
+		else if (!free && state_timer >= idle_statechange_threshold) {
 			spr_dir = 2*random_func_2(player*spawn_num, 2, true) - 1;
 			state = 43;
 			state_timer = 0;
 		}
+		else if (!free && buffspawn_timer > player_id.FILIAL_BUFFSPAWN_FRAMES) {
+			state = 46;
+			state_timer = 0;
+		}
+		else if (!free && player_id.state == PS_ATTACK_GROUND && player_id.attack == AT_TAUNT && player_id.state_timer == 0) {
+    		state = 47;
+    		state_timer = 0;
+    	}
     	break;
 
 	// Idle ~ wandering
 	case 43:
 		filial_status_update();
 		hsp = 1.5*spr_dir;
-		vsp += 0.4;
+		if (free) vsp += 0.4;
 		image_index += 0.15;
 		if (state_timer == 1) idle_statechange_threshold = 20 + random_func_2(player*spawn_num, 40, true);
 		
-		if (!x_outside_stage_width(player_id.x) && abs(x-player_id.x) > player_id.FILIAL_CHASE_RANGE+chase_variance) {
+		if (x_outside_stage_width(x, 0) || (abs(x-player_id.x) > player_id.FILIAL_CHASE_RANGE+chase_variance)) {
 			state = 44;
 			state_timer = 0;
 		}
@@ -418,17 +436,34 @@ switch state {
 			state = 42;
 			state_timer = 0;
 		}
+		else if (buffspawn_timer > player_id.FILIAL_BUFFSPAWN_FRAMES) {
+			state = 46;
+			state_timer = 0;
+		}
+		else if (player_id.state == PS_ATTACK_GROUND && player_id.attack == AT_TAUNT && player_id.state_timer == 0) {
+    		state = 47;
+    		state_timer = 0;
+    	}
     	break;
 
 	// Chasing ~ running
 	case 44:
 		filial_status_update();
-		face_target(player_id.x);
+		if (state_timer == 1) chase_range = player_id.FILIAL_ENDCHASE_RANGE+chase_variance;
+		var returning_to_center = x_outside_stage_width(x, -20);
+		var chase_target = (returning_to_center ? stage_center_x : player_id.x);
+		face_target(chase_target);
 		hsp = 2*spr_dir;
-		vsp += 0.4;
+		if (free) vsp += 0.4;
 		image_index += 0.15;
 		
-		if (x_outside_stage_width(player_id.x) || abs(x-player_id.x) <= player_id.FILIAL_ENDCHASE_RANGE+chase_variance) {
+		if (((free && !is_ground_below(200)) || hit_wall)) {
+			state = 45;
+			state_timer = 0;
+		}
+		else if ( (!returning_to_center && (abs(x-player_id.x) <= chase_range || x_outside_stage_width(player_id.x, chase_range)))
+			   || (returning_to_center && !x_outside_stage_width(x, 0))
+		) {
 			state = 42;
 			state_timer = 0;
 			chase_variance = random_func_2(player*spawn_num, player_id.FILIAL_CHASE_VARIANCE, true);
@@ -439,20 +474,56 @@ switch state {
 	// Chasing ~ jumping
 	case 45:
 		filial_status_update();
+		if (state_timer == 1) chase_range = player_id.FILIAL_ENDCHASE_RANGE+chase_variance;
+		var returning_to_center = x_outside_stage_width(x, -20);
+		var chase_target = (returning_to_center ? stage_center_x : player_id.x);
+		face_target(chase_target);
+		hsp = 2*spr_dir;
+		if (state_timer == 1) vsp = -8;
+		if (free) vsp += 0.4;
+		
+		if ( (!returning_to_center && abs(x-player_id.x) <= chase_range)
+		  || (returning_to_center && !x_outside_stage_width(x, 0))
+		) {
+			state = 42;
+			state_timer = 0;
+			chase_variance = random_func_2(player*spawn_num, player_id.FILIAL_CHASE_VARIANCE, true);
+		}
+		else if ((vsp > 6 && !is_ground_below(200)) || hit_wall) {
+			state = 45;
+			state_timer = 0;
+		}
+		else if (!free) {
+			state = 44;
+			state_timer = 0;
+		}
+		
     	break;
 
 	// Dropping buff
 	case 46:
 		filial_status_update();
+		hsp = 0;
+		if (free) vsp += 0.4;
+		// unimplemented, so...
+		state = 42;
+		state_timer = 0;
+		buffspawn_timer = 0;
     	break;
 
 	// Taunt
 	case 47:
 		filial_status_update();
+		// unimplemented, so...
+		state = 42;
+		state_timer = 0;
     	break;
 
 	// Despawn
 	case 48:
+		if (!free) var hfx = spawn_hit_fx(x, y, HFX_ABY_FLOOR_HIT);
+		else var hfx = spawn_hit_fx(x, y-12, HFX_ABY_PROJ_HIT);
+		hfx.depth = depth-1;
 		instance_destroy();
 		exit;
     	break;
@@ -468,14 +539,12 @@ switch state {
     
 }
 
-
 // Make time progress
 state_timer++;
 
 
 #define filial_status_update
-	if (player_id.item_grid[player_id.ITEM_FILIAL][player_id.IG_NUM_HELD] < spawn_num) {
-		player_id.filial_num_spawned--;
+	if (player_id.filial_num_spawned < spawn_num) {
 		state = 48;
 		state_timer = 0;
 		exit;
@@ -483,6 +552,7 @@ state_timer++;
 	if (point_distance(x, y, player_id.x, player_id.y) > player_id.FILIAL_WARP_RADIUS) {
 		x = player_id.x-(60*player_id.spr_dir);
 		y = player_id.y-60;
+		vsp = 0;
 		// spawn vfx
 		state = 41;
 		state_timer = 0;
@@ -494,9 +564,9 @@ state_timer++;
 	var plat_collision = collision_line(x, y, x, y+distance, asset_get("par_jumpthrough"), false, false);
 	return ground_collision || plat_collision;
 
-#define x_outside_stage_width(_x)
+#define x_outside_stage_width(_x, _tol)
 	if (player_id.is_playtest) return false;
-	return (_x < get_stage_data(SD_X_POS) || (get_stage_data(SD_X_POS)+get_stage_data(SD_WIDTH)) < _x);
+	return (_x < (get_stage_data(SD_X_POS)-_tol) || (get_stage_data(SD_X_POS)+get_stage_data(SD_WIDTH)+_tol) < _x);
 
 #define face_target(target_x)
 	if (target_x < x) spr_dir = -1;
