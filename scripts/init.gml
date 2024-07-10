@@ -66,7 +66,7 @@ death_messages = [
     "You embrace the void.",
     "Come back soon!",
     "Your body was gone an hour later.",
-    "[TBD]",
+    "Try playing the Intermediate Defense tutorial to live longer.",
     "Choose a new character?",
     "Consider picking a different stage.",
     "That was definitely not your fault.",
