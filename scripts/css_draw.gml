@@ -31,7 +31,7 @@ init_shader();
 //
 // now, please change this string to your character's name. used for resetting the values after other characters.
 //--- ---
-var qe_b = "BaseBert"
+var qe_b = "commando"
 // ! you can now scroll down until you reach "the primary part you should change."
  
 var tmp_cur = 0;
@@ -80,33 +80,63 @@ if (!variable_instance_exists(id,"ae") || ye == true){
     //--- ---
     // the primary part you should change.
     //--- ---
-    altsel = 0; // change the alt select sound here. if you don't want to change the sound, put 0 here.
+    altsel = sound_get("cm_altsel"); // change the alt select sound here. if you don't want to change the sound, put 0 here.
     color_desc_activate = false; // optional "alt color description button". set to "true" to turn it on.
     
-    col_max = 5; // number of alternate color palettes. 0 is the default color, count it accordingly.
-    
-    //first array index is for alternate color. second array index is for distinguishing the information in it.
-    ce[0,0] = make_color_rgb(236, 123, 222) // "color preview square" color. can be any color!
-    ce[0,1] = "Default" // the name of the alternate color.
-    ce[0,2] = "The default color." // description to display if "alt color description button" is on. keep it blank if none, and you can remove it if you didn't turn it on.
-    ce[1,0] = make_color_rgb(140, 192, 255)
-    ce[1,1] = "color_1"
-    ce[1,2] = "References this thing, etc. a a a a a a a a a a"
-    ce[2,0] = make_color_rgb(181, 88, 72)
-    ce[2,1] = "color_2"
-    ce[2,2] = ""
-    ce[3,0] = make_color_rgb(42, 222, 160)
-    ce[3,1] = "color_3"
-    ce[3,2] = ""
-    ce[4,0] = make_color_rgb(133, 112, 118)
-    ce[4,1] = "color_4"
-    ce[4,2] = ""
-    ce[5,0] = make_color_rgb(118, 93, 135)
-    ce[5,1] = "color_5"
-    ce[5,2] = ""
-    // you can add more, by copypasting and changing the first index of the array accordingly.
-    // ! changing part end.
-    // you can ignore the mess below...
+	col_max = 16; // number of alternate color palettes. 0 is the default color, count it accordingly.
+	
+	//first array index is for alternate color. second array index is for distinguishing the information in it.
+	ce[0,0] = make_color_rgb(255, 228, 156) // "color preview square" color. can be any color!
+	ce[0,1] = "Cornered" // the name of the alternate color.
+	ce[0,2] = "The default color." // description to display if "alt color description button" is on. keep it blank if none, and you can remove it if you didn't turn it on.
+	ce[1,0] = make_color_rgb(126, 211, 214)
+	ce[1,1] = "Ground Zero"
+	ce[1,2] = "References this thing, etc. a a a a a a a a a a"
+	ce[2,0] = make_color_rgb(179, 173, 230)
+	ce[2,1] = "Sky Meadow"
+	ce[2,2] = ""
+	ce[3,0] = make_color_rgb(140, 28, 28)
+	ce[3,1] = "Wisp Installation"
+	ce[3,2] = ""
+	ce[4,0] = make_color_rgb(230, 93, 83)
+	ce[4,1] = "The Core"
+	ce[4,2] = ""
+	ce[5,0] = make_color_rgb(116, 169, 199)
+	ce[5,1] = "Commencement"
+	ce[5,2] = ""
+    ce[6,0] = make_color_rgb(94, 97, 107)
+	ce[6,1] = "UES Contact Light"
+	ce[6,2] = ""
+    ce[7,0] = make_color_rgb(41, 92, 45)
+	ce[7,1] = "Malachite"
+	ce[7,2] = ""
+    ce[8,0] = make_color_rgb(0, 163, 136)
+	ce[8,1] = "Celestine"
+	ce[8,2] = ""
+    ce[9,0] = make_color_rgb(38, 143, 199)
+	ce[9,1] = "Perfected"
+	ce[9,2] = ""
+    ce[10,0] = make_color_rgb(76, 0, 146)
+	ce[10,1] = "Voidtouched"
+	ce[10,2] = ""
+    ce[11,0] = make_color_rgb(255, 169, 79)
+	ce[11,1] = "Ethereal"
+	ce[11,2] = ""
+    ce[12,0] = make_color_rgb(251, 0, 20)
+	ce[12,1] = "Vestige"
+	ce[12,2] = ""
+    ce[13,0] = make_color_rgb(195, 103, 9)
+	ce[13,1] = "Employee"
+	ce[13,2] = ""
+    ce[14,0] = make_color_rgb(255, 118, 33)
+	ce[14,1] = "Hornet"
+	ce[14,2] = ""
+    ce[15,0] = make_color_rgb(21, 64, 46)
+	ce[15,1] = "S.O.S."
+	ce[15,2] = ""
+    ce[16,0] = make_color_rgb(230, 28, 28)
+	ce[16,1] = "Judgement"
+	ce[16,2] = ""
 }
  
 if (ae == "ae"){

@@ -156,15 +156,15 @@ set_color_profile_slot( 12, 5, 97, 5, 20 ); //ClothesLight
 set_color_profile_slot( 12, 6, 143, 56, 129 ); //Belt
 set_color_profile_slot( 12, 7, 145, 33, 42 ); //Guns
 
-// S.O.S.
-set_color_profile_slot( 13, 0, 161, 170, 160 ); //ArmorLight
-set_color_profile_slot( 13, 1, 72, 91, 76 ); //ArmorMid
-set_color_profile_slot( 13, 2, 21, 64, 46 ); //ArmorDark
-set_color_profile_slot( 13, 3, 2, 158, 93 ); //HelmetLight
-set_color_profile_slot( 13, 4, 21, 64, 46 ); //HelmetDark
-set_color_profile_slot( 13, 5, 45, 50, 41 ); //ClothesLight
-set_color_profile_slot( 13, 6, 173, 219, 182 ); //Belt
-set_color_profile_slot( 13, 7, 60, 92, 54 ); //Guns
+// Employee
+set_color_profile_slot( 13, 0, 195, 103, 9 ); //ArmorLight
+set_color_profile_slot( 13, 1, 120, 56, 6 ); //ArmorMid
+set_color_profile_slot( 13, 2, 79, 18, 7 ); //ArmorDark
+set_color_profile_slot( 13, 3, 97, 97, 97 ); //HelmetLight
+set_color_profile_slot( 13, 4, 25, 25, 28 ); //HelmetDark
+set_color_profile_slot( 13, 5, 48, 39, 32 ); //ClothesLight
+set_color_profile_slot( 13, 6, 33, 33, 38 ); //Belt
+set_color_profile_slot( 13, 7, 64, 64, 64 ); //Guns
 
 // Hornet
 set_color_profile_slot( 14, 0, 120, 42, 32 ); //ArmorLight
@@ -176,25 +176,25 @@ set_color_profile_slot( 14, 5, 38, 17, 17 ); //ClothesLight
 set_color_profile_slot( 14, 6, 117, 105, 36 ); //Belt
 set_color_profile_slot( 14, 7, 82, 82, 82 ); //Guns
 
-// Judgement
-set_color_profile_slot( 15, 0, 230, 28, 28 ); //ArmorLight
-set_color_profile_slot( 15, 1, 145, 18, 18 ); //ArmorMid
-set_color_profile_slot( 15, 2, 97, 11, 11 ); //ArmorDark
-set_color_profile_slot( 15, 3, 186, 254, 255 ); //HelmetLight
-set_color_profile_slot( 15, 4, 169, 179, 214 ); //HelmetDark
-set_color_profile_slot( 15, 5, 31, 34, 38 ); //ClothesLight
-set_color_profile_slot( 15, 6, 110, 103, 74 ); //Belt
-set_color_profile_slot( 15, 7, 143, 188, 188 ); //Guns
+// S.O.S.
+set_color_profile_slot( 15, 0, 161, 170, 160 ); //ArmorLight
+set_color_profile_slot( 15, 1, 72, 91, 76 ); //ArmorMid
+set_color_profile_slot( 15, 2, 21, 64, 46 ); //ArmorDark
+set_color_profile_slot( 15, 3, 2, 158, 93 ); //HelmetLight
+set_color_profile_slot( 15, 4, 21, 64, 46 ); //HelmetDark
+set_color_profile_slot( 15, 5, 45, 50, 41 ); //ClothesLight
+set_color_profile_slot( 15, 6, 173, 219, 182 ); //Belt
+set_color_profile_slot( 15, 7, 60, 92, 54 ); //Guns
 
-// unnamed alt palette
-set_color_profile_slot( 16, 0, 0, 255, 0 ); //ArmorLight
-set_color_profile_slot( 16, 1, 0, 255, 0 ); //ArmorMid
-set_color_profile_slot( 16, 2, 0, 255, 0 ); //ArmorDark
-set_color_profile_slot( 16, 3, 0, 255, 0 ); //HelmetLight
-set_color_profile_slot( 16, 4, 0, 255, 0 ); //HelmetDark
-set_color_profile_slot( 16, 5, 0, 255, 0 ); //ClothesLight
-set_color_profile_slot( 16, 6, 0, 255, 0 ); //Belt
-set_color_profile_slot( 16, 7, 0, 255, 0 ); //Guns
+// Judgement
+set_color_profile_slot( 16, 0, 230, 28, 28 ); //ArmorLight
+set_color_profile_slot( 16, 1, 145, 18, 18 ); //ArmorMid
+set_color_profile_slot( 16, 2, 97, 11, 11 ); //ArmorDark
+set_color_profile_slot( 16, 3, 186, 254, 255 ); //HelmetLight
+set_color_profile_slot( 16, 4, 169, 179, 214 ); //HelmetDark
+set_color_profile_slot( 16, 5, 31, 34, 38 ); //ClothesLight
+set_color_profile_slot( 16, 6, 110, 103, 74 ); //Belt
+set_color_profile_slot( 16, 7, 143, 188, 188 ); //Guns
 
 
 /* This is a comment used by that one RoA colors.gml generator tool to store palette data. You can safely keep it in your colors.gml if you plan to re-use the tool later, or safely remove it if you don't.
