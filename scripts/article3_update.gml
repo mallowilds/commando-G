@@ -358,6 +358,7 @@ switch state {
     	buff_spawn_frames = player_id.FILIAL_BUFFSPAWN_FRAMES
     	buff_spawn_trigger = floor(buff_spawn_frames / 3) * (spawn_num - 1);
     	do_buff_spawn = false;
+    	buff_sfx_vol = 1;
     	
     	ignores_walls = false;
     	can_be_grounded = true;
@@ -487,6 +488,11 @@ switch state {
 			state_timer = 0;
 			chase_variance = random_func_2(player*spawn_num, player_id.FILIAL_CHASE_VARIANCE, true);
 		}
+		else if (!free && do_buff_spawn) {
+			state = 46;
+			state_timer = 0;
+			do_buff_spawn = false;
+		}
 		
     	break;
 
@@ -531,7 +537,10 @@ switch state {
 		if (state_timer == 1) sprite_index = sprite_get("item_sucker_buff");
 		image_index = state_timer / 6;
 		
-		if (state_timer == 17) sound_play(asset_get("sfx_syl_shake"));
+		if (state_timer == 17 && buff_sfx_vol > 0) {
+			sound_play(asset_get("sfx_syl_shake"), 0, noone, buff_sfx_vol, 1);
+			if (get_match_setting(SET_PRACTICE)) buff_sfx_vol -= 0.2;
+		}
 		
 		if (image_index >= 6 || free) {
 			state = 42;
