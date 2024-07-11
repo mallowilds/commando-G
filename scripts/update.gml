@@ -614,6 +614,65 @@ if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 	}
 }
 
+// Filial Imprinting
+var filial_outline_type = 0;
+var filial_fx = noone;
+
+if (filial_speed_timer > 0) {
+	filial_outline_type = 1;
+	filial_speed_timer--;
+	if (filial_speed_timer == 0) {
+		filial_outline_type = -1;
+		filial_do_update = true;
+	}
+	if (get_gameplay_time() % 24 == 0) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
+	if (get_gameplay_time() % 24 == 12) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
+}
+
+if (filial_aspeed_timer > 0) {
+	if (filial_outline_type == 1) filial_outline_type = 3;
+	else filial_outline_type = 2;
+	filial_aspeed_timer--;
+	if (filial_aspeed_timer == 0) {
+		filial_outline_type = (filial_outline_type == 3) ? 1 : -1;
+		filial_do_update = true;
+	}
+	if (get_gameplay_time() % 24 == 6) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
+	if (get_gameplay_time() % 24 == 18) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
+}
+
+if (filial_do_update) {
+	new_item_id = ITEM_FILIAL;
+	user_event(0);
+	filial_do_update = false;
+}
+
+if (filial_fx != noone) filial_fx.depth = depth-1;
+
+if (!burned && filial_outline_type != 0) {
+	var filial_outline = noone;
+	switch filial_outline_type {
+		case 3:
+			filial_outline = filial_double_outline;
+			break;
+		case 2:
+			filial_outline = filial_aspeed_outline;
+			break;
+		case 1:
+			filial_outline = filial_speed_outline;
+			break;
+		default:
+			filial_outline = [0, 0, 0];
+			break;
+	}
+	
+	if (!array_equals(filial_outline, outline_color)) {
+		outline_color = filial_outline;
+		init_shader();
+	}
+}
+
+
 
 //#endregion
 
