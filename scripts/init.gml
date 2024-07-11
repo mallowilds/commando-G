@@ -385,6 +385,8 @@ bungus_vis_timer = 999;
 bungus_vis_x = x;
 bungus_vis_y = y;
 
+bleeddagger_outline_col = [100, 0, 0];
+
 instincts_timer = 0; // Predatory Instincts
 
 do_ignite_hbox = 0; // Ignition Tank

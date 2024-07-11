@@ -134,6 +134,8 @@ for (var i = 0; i < ds_list_size(lfx_list); i++) {
 // Since this spawns hitboxes, it should be above the hitbox update block
 with oPlayer {
 	
+	var update_outline = false;
+	
 	if (state == PS_DEAD || state == PS_RESPAWN) {
 		for (var i = 0; i < 7; i++) {
 			commando_status_state[i] = 0;
@@ -161,13 +163,27 @@ with oPlayer {
 	
 	// Bleed (state indicates damage ticks remaining)
 	if (commando_status_owner[other.ST_BLEED] == other.player && commando_status_state[other.ST_BLEED] > 0) {
+		
 		commando_status_counter[other.ST_BLEED]++;
+		
+		if (array_equals(outline_color, [0, 0, 0])) {
+			outline_color = other.bleeddagger_outline_col;
+			update_outline = true;
+		}
+		
 		if (commando_status_counter[other.ST_BLEED] >= other.BLEED_TICK_TIME) {
 			commando_status_state[other.ST_BLEED]--;
 			commando_status_counter[other.ST_BLEED] = 0;
 			take_damage(player, other.player, 1);
-			if (commando_status_state[other.ST_BLEED] <= 0) commando_status_owner[other.ST_BLEED] = noone;
+			if (commando_status_state[other.ST_BLEED] <= 0) {
+				commando_status_owner[other.ST_BLEED] = noone;
+				if (array_equals(outline_color, other.bleeddagger_outline_col)) {
+					outline_color = [0, 0, 0];
+					update_outline = true;
+				}
+			}
 		}
+		
 	}
 	
 	// Electric stun (state 1 is active, state 2 is lockout. Status counter counts down to allow external stun time setting)
@@ -266,6 +282,8 @@ with oPlayer {
 	}
 	
 	// if (self != other) print_debug(knockback_adj);
+	
+	if (update_outline) init_shader();
 	
 }
 //#endregion
