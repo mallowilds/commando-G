@@ -544,7 +544,8 @@ switch state {
 		else if (state_timer == 19) {
 			var buffdrop = instance_create(x, y-4, "obj_article3");
 			buffdrop.state = 50;
-			buffdrop.buff_type = random_func_2(player*spawn_num, 2, true);
+			buffdrop.buff_type = random_func_2(player, 1000, true) % 2;
+			buffdrop.depth -= 1;
 		}
 		
 		if (image_index >= 6 || free) {
@@ -605,7 +606,7 @@ switch state {
     	if (free) vsp += 0.5;
     	
     	with oPlayer {
-    		if (point_distance(x, y, other.x, other.y) < 10) {
+    		if (point_distance(x, y, other.x, other.y) < 18) {
     			other.should_destroy = true;
     			if (other.buff_type) filial_aspeed_timer = other.buff_duration;
     			else filial_speed_timer = other.buff_duration;

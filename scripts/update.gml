@@ -1,5 +1,4 @@
 
-
 // Debug: manage debug display
 if (debug_display_opened) {
 	
