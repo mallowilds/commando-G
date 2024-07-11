@@ -351,8 +351,13 @@ switch state {
     	image_index = 0;
     	mask_index = sprite_get("item_sucker_mask");
     	
-    	buffspawn_timer = 0;
+    	idle_taunt_timer = 0;
     	idle_statechange_threshold = 60; // changes at random
+    	idle_taunt_threshold = 240 + random_func_2(player*spawn_num+1, 120, true);
+    	
+    	buff_spawn_frames = player_id.FILIAL_BUFFSPAWN_FRAMES
+    	buff_spawn_trigger = floor(buff_spawn_frames / 3) * (spawn_num - 1);
+    	do_buff_spawn = false;
     	
     	ignores_walls = false;
     	can_be_grounded = true;
@@ -374,6 +379,8 @@ switch state {
     case 41:
     	filial_status_update();
     	if (free) vsp += 0.4;
+    	
+    	if (state_timer == 1) sprite_index = sprite_get("item_sucker_idle");
     	image_index += 0.15;
     	
     	if (!free) {
@@ -397,8 +404,10 @@ switch state {
 		filial_status_update();
 		if (!free) hsp = 0;
 		if (free) vsp += 0.4;
-		image_index += 0.15;
 		if (state_timer == 1) idle_statechange_threshold = 60 + random_func_2(player*spawn_num, 90, true);
+		
+		if (state_timer == 1) sprite_index = sprite_get("item_sucker_idle");
+		image_index += 0.15;
 		
 		if (x_outside_stage_width(x, 0) || (abs(x-player_id.x) > chase_range && !x_outside_stage_width(player_id.x, chase_range))) {
 			state = 44;
@@ -409,11 +418,14 @@ switch state {
 			state = 43;
 			state_timer = 0;
 		}
-		else if (!free && buffspawn_timer > player_id.FILIAL_BUFFSPAWN_FRAMES) {
+		else if (!free && do_buff_spawn) {
 			state = 46;
 			state_timer = 0;
+			do_buff_spawn = false;
 		}
-		else if (!free && player_id.state == PS_ATTACK_GROUND && player_id.attack == AT_TAUNT && player_id.state_timer == 0) {
+		else if ( (!free && player_id.state == PS_ATTACK_GROUND && player_id.attack == AT_TAUNT && player_id.state_timer == 0)
+			   || (!free && idle_taunt_timer > idle_taunt_threshold)
+		) {
     		state = 47;
     		state_timer = 0;
     	}
@@ -424,8 +436,10 @@ switch state {
 		filial_status_update();
 		hsp = 1.5*spr_dir;
 		if (free) vsp += 0.4;
-		image_index += 0.15;
 		if (state_timer == 1) idle_statechange_threshold = 20 + random_func_2(player*spawn_num, 40, true);
+		
+		if (state_timer == 1) sprite_index = sprite_get("item_sucker_walk");
+		image_index += 0.15;
 		
 		if (x_outside_stage_width(x, 0) || (abs(x-player_id.x) > player_id.FILIAL_CHASE_RANGE+chase_variance)) {
 			state = 44;
@@ -436,11 +450,14 @@ switch state {
 			state = 42;
 			state_timer = 0;
 		}
-		else if (buffspawn_timer > player_id.FILIAL_BUFFSPAWN_FRAMES) {
+		else if (!free && do_buff_spawn) {
 			state = 46;
 			state_timer = 0;
+			do_buff_spawn = false;
 		}
-		else if (player_id.state == PS_ATTACK_GROUND && player_id.attack == AT_TAUNT && player_id.state_timer == 0) {
+		else if ( (!free && player_id.state == PS_ATTACK_GROUND && player_id.attack == AT_TAUNT && player_id.state_timer == 0)
+			   || (!free && idle_taunt_timer > idle_taunt_threshold)
+		) {
     		state = 47;
     		state_timer = 0;
     	}
@@ -455,7 +472,9 @@ switch state {
 		face_target(chase_target);
 		hsp = 2*spr_dir;
 		if (free) vsp += 0.4;
-		image_index += 0.15;
+		
+		if (state_timer == 1) sprite_index = sprite_get("item_sucker_walk");
+		image_index += 0.2;
 		
 		if (((free && !is_ground_below(200)) || hit_wall)) {
 			state = 45;
@@ -482,6 +501,9 @@ switch state {
 		if (state_timer == 1) vsp = -8;
 		if (free) vsp += 0.4;
 		
+		if (state_timer == 1) sprite_index = sprite_get("item_sucker_idle");
+		image_index = (vsp < 0) ? 5 : 4;
+		
 		if ( (!returning_to_center && abs(x-player_id.x) <= chase_range)
 		  || (returning_to_center && !x_outside_stage_width(x, 0))
 		) {
@@ -504,19 +526,35 @@ switch state {
 	case 46:
 		filial_status_update();
 		hsp = 0;
-		if (free) vsp += 0.4;
-		// unimplemented, so...
-		state = 42;
-		state_timer = 0;
-		buffspawn_timer = 0;
+		vsp = 0;
+		
+		if (state_timer == 1) sprite_index = sprite_get("item_sucker_buff");
+		image_index = state_timer / 6;
+		
+		if (state_timer == 17) sound_play(asset_get("sfx_syl_shake"));
+		
+		if (image_index >= 6 || free) {
+			state = 42;
+			state_timer = 0;
+			sprite_index = sprite_get("item_sucker_idle");
+		}
+		
     	break;
 
 	// Taunt
 	case 47:
 		filial_status_update();
-		// unimplemented, so...
-		state = 42;
-		state_timer = 0;
+		hsp = 0;
+		vsp = 0;
+		
+		if (state_timer == 1) sprite_index = sprite_get("item_sucker_taunt");
+		image_index = state_timer / 6;
+		
+		if (image_index >= 7 || free) {
+			state = 42;
+			state_timer = 0;
+			sprite_index = sprite_get("item_sucker_idle");
+		}
     	break;
 
 	// Despawn
@@ -542,7 +580,7 @@ switch state {
 // Make time progress
 state_timer++;
 
-
+// Handles event checks and performs integrity checks on player distance and spawn_num.
 #define filial_status_update
 	if (player_id.filial_num_spawned < spawn_num) {
 		state = 48;
@@ -550,14 +588,19 @@ state_timer++;
 		exit;
 	}
 	if (point_distance(x, y, player_id.x, player_id.y) > player_id.FILIAL_WARP_RADIUS) {
-		x = player_id.x-(60*player_id.spr_dir);
+		x = player_id.x;
 		y = player_id.y-60;
 		vsp = 0;
-		// spawn vfx
+		var hfx = spawn_hit_fx(x-(4*spr_dir), y-6, HFX_ABY_EXPLODE_WARN);
+		hfx.depth = depth-1;
 		state = 41;
 		state_timer = 0;
 	}
-	buffspawn_timer++;
+	
+	if (get_gameplay_time() % buff_spawn_frames == buff_spawn_trigger) do_buff_spawn = true;
+	
+	if (state <= 43) idle_taunt_timer++;
+	else idle_taunt_timer = 0;
 
 #define is_ground_below(distance)
 	var ground_collision = collision_line(x, y, x, y+distance, asset_get("par_block"), false, false);
