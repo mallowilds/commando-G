@@ -85,6 +85,9 @@ sprite_change_offset("vfx_crit"                 , 144, 150);
 sprite_change_offset("vfx_crit_blood"           , 144, 150);
 sprite_change_offset("vfx_crit_shock"           , 144, 150);
 sprite_change_offset("vfx_blast"                , 135, 150);
+sprite_change_offset("vfx_bleed"                , 8, 10);
+sprite_change_offset("vfx_bleed_2"              , 8, 10);
+
 
 sprite_change_offset("nspecial_proj"            , 68, 68);
 

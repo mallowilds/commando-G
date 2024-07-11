@@ -137,6 +137,12 @@ with oPlayer {
 	var update_outline = false;
 	
 	if (state == PS_DEAD || state == PS_RESPAWN) {
+		if (commando_status_owner[other.ST_BLEED] == other.player && commando_status_state[other.ST_BLEED] > 0) {
+			if (array_equals(outline_color, other.bleeddagger_outline_col)) {
+				outline_color = [0, 0, 0];
+				update_outline = true;
+			}
+		}
 		for (var i = 0; i < 7; i++) {
 			commando_status_state[i] = 0;
 			commando_status_counter[i] = 0;
@@ -169,6 +175,15 @@ with oPlayer {
 		if (array_equals(outline_color, [0, 0, 0])) {
 			outline_color = other.bleeddagger_outline_col;
 			update_outline = true;
+		}
+		
+		if (get_gameplay_time() % 8 == player) with other {
+			var _x = -36 + random_func_2(9, 73, true);
+			var _y = -floor(other.char_height * (0.3 + 0.8*random_func_2(7, 1, false))); 
+			var _type = random_func_2(14, 2, true)
+			var bleed_fx = spawn_hit_fx(other.x+_x, other.y+_y, fx_bleed[_type]);
+			bleed_fx.spr_dir = other.spr_dir;
+			//bleed_fx.depth = other.depth-1;
 		}
 		
 		if (commando_status_counter[other.ST_BLEED] >= other.BLEED_TICK_TIME) {
