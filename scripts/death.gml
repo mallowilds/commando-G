@@ -41,6 +41,10 @@ if (item_grid[44][IG_NUM_HELD] > 0) {
     
 }
 
+// Filial Imprinting
+if (filial_aspeed_timer > 0) filial_aspeed_timer = 1;
+if (filial_speed_timer > 0) filial_speed_timer = 1;
+
 // Death Message
 if is_na && get_player_stocks(player) == 0 {
 	sound_play(s_jailed, 0, noone, 1.5, 1)

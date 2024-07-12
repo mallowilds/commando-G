@@ -208,8 +208,17 @@ switch new_item_id {
     if (item_grid[ITEM_IGNITION][IG_RARITY] == RTY_VOID) {
         item_grid[@ ITEM_IGNITION][@ IG_RARITY] = RTY_UNCOMMON;
         var itp = item_grid[ITEM_IGNITION][IG_TYPE]
-        for (var i = 0; i < 3; i++) array_push(rnd_index_store[RTY_UNCOMMON][itp], ITEM_IGNITION);
-        type_values[@ RTY_UNCOMMON][@ itp] = type_values[RTY_UNCOMMON][itp] + 3*type_weights[RTY_UNCOMMON][itp];
+        var type_weights = INIT_WEIGHTS;
+        var value = type_weights[itp];
+        var quantity = 3;
+        var rty = RTY_UNCOMMON;
+        
+        item_grid[@ ITEM_IGNITION][@ IG_RANDOMIZER_INDEX] = array_length(p_item_ids[rty]);
+        array_push(p_item_ids[rty], ITEM_IGNITION);
+        array_push(p_item_weights[rty], quantity*type_weights[itp]);
+        array_push(p_item_values[rty], type_weights[itp]);
+        array_push(p_item_remaining[rty], quantity);
+        
         uncommon_pool_size += 3;
     }
     

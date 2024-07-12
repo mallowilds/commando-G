@@ -221,7 +221,6 @@ if (!get_match_setting(SET_PRACTICE)) {
     item_grid[@ ITEM_ATG2][@ IG_RARITY] = RTY_VOID;
     item_grid[@ ITEM_SCEPTER][@ IG_RARITY] = RTY_VOID;
     item_grid[@ ITEM_TURBINE][@ IG_RARITY] = RTY_VOID;
-    item_grid[@ ITEM_FILIAL][@ IG_RARITY] = RTY_VOID;
 }
 
 

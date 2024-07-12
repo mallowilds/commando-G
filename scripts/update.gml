@@ -648,7 +648,7 @@ if (filial_do_update) {
 
 if (filial_fx != noone) filial_fx.depth = depth-1;
 
-if (!burned && filial_outline_type != 0) {
+if (filial_outline_type != 0) {
 	var filial_outline = noone;
 	switch filial_outline_type {
 		case 3:
