@@ -34,6 +34,9 @@ IG_INCOMPATIBLE = 5; // denotes an index for another item that, if held, prevent
 IG_DESC = 6;
 IG_RANDOMIZER_INDEX = 7;
 
+// AG -> Attack Grid
+AG_DISABLES_JETPACK = 40;
+
 // HG -> Hitbox Grid
 HG_IS_CRITICAL = 80;
 HG_PROJECTILE_FAKE_HIT = 81; // disables certain on-hit behavior, such as dspecial cooldown updates

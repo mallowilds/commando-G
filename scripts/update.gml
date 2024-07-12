@@ -492,8 +492,9 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 	else if (free && vsp >= PJETPACK_THRESHOLD) {
 		pjetpack_available = true;
 	}
-
-	if (jump_down && pjetpack_available && pjetpack_fuel > 0) {
+	
+	var inactionable = (state == PS_PRATFALL) || (state == PS_ATTACK_AIR && get_attack_value(attack, AG_DISABLES_JETPACK));
+	if (jump_down && pjetpack_available && pjetpack_fuel > 0 && !inactionable) {
 		pjetpack_fuel--;
 		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
 		if (get_gameplay_time() % 6 == 0) {
