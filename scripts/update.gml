@@ -391,13 +391,11 @@ if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 			stompers_hbox_ground = noone;
 		}
 	}
-	else {
-		if (fast_falling) {
-			attack_end(AT_EXTRA_1);
-			stompers_active = true;
-			stompers_hbox_air = create_hitbox(AT_EXTRA_1, 4, x, y);
-			stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
-		}
+	else if (fast_falling && !hitstop && state_cat != SC_HITSTUN) {
+		attack_end(AT_EXTRA_1);
+		stompers_active = true;
+		stompers_hbox_air = create_hitbox(AT_EXTRA_1, 4, x, y);
+		stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
 	}
 }
 
@@ -494,7 +492,7 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 	}
 	
 	var inactionable = (state == PS_PRATFALL) || (state == PS_ATTACK_AIR && get_attack_value(attack, AG_DISABLES_JETPACK));
-	if (jump_down && pjetpack_available && pjetpack_fuel > 0 && !inactionable) {
+	if (!inactionable && jump_down && pjetpack_available && pjetpack_fuel > 0) {
 		pjetpack_fuel--;
 		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
 		if (get_gameplay_time() % 6 == 0) {

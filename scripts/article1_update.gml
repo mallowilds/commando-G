@@ -96,7 +96,7 @@ switch(state) { // use this one for doing actual article behavior
             land_hbox.owner_chest = self;
             sound_play(player_id.s_cland);
         }
-        else {
+        else if (instance_exists(hbox)) {
             hbox.hitbox_timer--;
             hbox.vsp = vsp;
         }
@@ -155,7 +155,7 @@ switch(state) { // use this one for doing actual article behavior
             land_hbox.owner_chest = self;
             sound_play(player_id.s_cland);
         }
-        else {
+        else if (instance_exists(hbox)) {
             hbox.hitbox_timer--;
             hbox.vsp = vsp;
         }

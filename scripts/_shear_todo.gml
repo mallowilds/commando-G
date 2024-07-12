@@ -19,7 +19,8 @@
         57-Leaf Clover
         
     
-        
+    
+* Should Aegis have a lockout similar to Ignition Tank?
         
 
 --> List of missing assets on otherwise finished items
