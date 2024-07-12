@@ -420,9 +420,9 @@ filial_num_spawned = 0;
 filial_aspeed_timer = 0;
 filial_speed_timer = 0;
 filial_do_update = false;
-filial_aspeed_outline = [226, 0, 0];
-filial_speed_outline = [98, 84, 225];
-filial_double_outline = [200, 64, 242];
+filial_aspeed_outline = [170, 0, 0];
+filial_speed_outline = [50, 40, 160];
+filial_double_outline = [120, 31, 150];
 
 
 // Training mode utility
