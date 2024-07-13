@@ -14,8 +14,10 @@ do_behemoth_hbox = 0;
 
 //Death Message (N/A Compat)
 
+print(hit_player_obj.url)
 if hit_player_obj.url = 2229832619 {
     is_na = 1
+    print("AWHAHAHA")
 } else {
     is_na = 0
 }
