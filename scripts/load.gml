@@ -74,6 +74,9 @@ sprite_change_offset("item_sucker_walk"         , 20, 40);
 sprite_change_offset("item_sucker_buff"         , 20, 40);
 sprite_change_offset("item_sucker_taunt"        , 20, 40);
 sprite_change_offset("item_sucker_mask"         , 16, 24);
+sprite_change_offset("item_suckerdrop_red"      , 8, 16);
+sprite_change_offset("item_suckerdrop_blue"     , 8, 16);
+
 
 sprite_change_offset("vfx_item_orb_c"           , 24, 24);
 sprite_change_offset("vfx_item_orb_u"           , 24, 24);
@@ -85,6 +88,11 @@ sprite_change_offset("vfx_crit"                 , 144, 150);
 sprite_change_offset("vfx_crit_blood"           , 144, 150);
 sprite_change_offset("vfx_crit_shock"           , 144, 150);
 sprite_change_offset("vfx_blast"                , 135, 150);
+sprite_change_offset("vfx_bleed"                , 8, 10);
+sprite_change_offset("vfx_bleed_2"              , 8, 10);
+sprite_change_offset("vfx_sucker_buff_red"      , 6, 22);
+sprite_change_offset("vfx_sucker_buff_blue"     , 6, 22);
+
 
 sprite_change_offset("nspecial_proj"            , 68, 68);
 

@@ -7,6 +7,7 @@ set_attack_value(atk, AG_SPRITE                         , sprite_get("nspecial")
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("nspecial_hurt"));
 set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
 set_attack_value(atk, AG_CATEGORY                       , 2);
+set_attack_value(atk, AG_DISABLES_JETPACK               , 1);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //startup
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 20);

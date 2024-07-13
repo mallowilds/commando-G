@@ -1,5 +1,4 @@
 
-
 // Debug: manage debug display
 if (debug_display_opened) {
 	
@@ -137,6 +136,12 @@ with oPlayer {
 	var update_outline = false;
 	
 	if (state == PS_DEAD || state == PS_RESPAWN) {
+		if (commando_status_owner[other.ST_BLEED] == other.player && commando_status_state[other.ST_BLEED] > 0) {
+			if (array_equals(outline_color, other.bleeddagger_outline_col)) {
+				outline_color = [0, 0, 0];
+				update_outline = true;
+			}
+		}
 		for (var i = 0; i < 7; i++) {
 			commando_status_state[i] = 0;
 			commando_status_counter[i] = 0;
@@ -169,6 +174,15 @@ with oPlayer {
 		if (array_equals(outline_color, [0, 0, 0])) {
 			outline_color = other.bleeddagger_outline_col;
 			update_outline = true;
+		}
+		
+		if (get_gameplay_time() % 8 == player) with other {
+			var _x = -36 + random_func_2(9, 73, true);
+			var _y = -floor(other.char_height * (0.3 + 0.8*random_func_2(7, 1, false))); 
+			var _type = random_func_2(14, 2, true)
+			var bleed_fx = spawn_hit_fx(other.x+_x, other.y+_y, fx_bleed[_type]);
+			bleed_fx.spr_dir = other.spr_dir;
+			//bleed_fx.depth = other.depth-1;
 		}
 		
 		if (commando_status_counter[other.ST_BLEED] >= other.BLEED_TICK_TIME) {
@@ -377,13 +391,11 @@ if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 			stompers_hbox_ground = noone;
 		}
 	}
-	else {
-		if (fast_falling) {
-			attack_end(AT_EXTRA_1);
-			stompers_active = true;
-			stompers_hbox_air = create_hitbox(AT_EXTRA_1, 4, x, y);
-			stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
-		}
+	else if (fast_falling && !hitstop && state_cat != SC_HITSTUN) {
+		attack_end(AT_EXTRA_1);
+		stompers_active = true;
+		stompers_hbox_air = create_hitbox(AT_EXTRA_1, 4, x, y);
+		stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
 	}
 }
 
@@ -478,8 +490,9 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 	else if (free && vsp >= PJETPACK_THRESHOLD) {
 		pjetpack_available = true;
 	}
-
-	if (jump_down && pjetpack_available && pjetpack_fuel > 0) {
+	
+	var inactionable = (state == PS_PRATFALL) || (state == PS_ATTACK_AIR && get_attack_value(attack, AG_DISABLES_JETPACK));
+	if (!inactionable && jump_down && pjetpack_available && pjetpack_fuel > 0) {
 		pjetpack_fuel--;
 		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
 		if (get_gameplay_time() % 6 == 0) {
@@ -598,6 +611,65 @@ if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 		}
 	}
 }
+
+// Filial Imprinting
+var filial_outline_type = 0;
+var filial_fx = noone;
+
+if (filial_speed_timer > 0) {
+	filial_outline_type = 1;
+	filial_speed_timer--;
+	if (filial_speed_timer == 0) {
+		filial_outline_type = -1;
+		filial_do_update = true;
+	}
+	if (get_gameplay_time() % 24 == 0) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
+	if (get_gameplay_time() % 24 == 12) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
+}
+
+if (filial_aspeed_timer > 0) {
+	if (filial_outline_type == 1) filial_outline_type = 3;
+	else filial_outline_type = 2;
+	filial_aspeed_timer--;
+	if (filial_aspeed_timer == 0) {
+		filial_outline_type = (filial_outline_type == 3) ? 1 : -1;
+		filial_do_update = true;
+	}
+	if (get_gameplay_time() % 24 == 6) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
+	if (get_gameplay_time() % 24 == 18) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
+}
+
+if (filial_do_update) {
+	new_item_id = ITEM_FILIAL;
+	user_event(0);
+	filial_do_update = false;
+}
+
+if (filial_fx != noone) filial_fx.depth = depth-1;
+
+if (filial_outline_type != 0) {
+	var filial_outline = noone;
+	switch filial_outline_type {
+		case 3:
+			filial_outline = filial_double_outline;
+			break;
+		case 2:
+			filial_outline = filial_aspeed_outline;
+			break;
+		case 1:
+			filial_outline = filial_speed_outline;
+			break;
+		default:
+			filial_outline = [0, 0, 0];
+			break;
+	}
+	
+	if (!array_equals(filial_outline, outline_color)) {
+		outline_color = filial_outline;
+		init_shader();
+	}
+}
+
 
 
 //#endregion

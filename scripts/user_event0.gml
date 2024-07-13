@@ -158,6 +158,7 @@ switch new_item_id {
                  + (SYRINGE_ASPEED_SCALE * item_grid[ITEM_SYRINGE][IG_NUM_HELD]) // Soldier's Syringe
                  + (MOCHA_ASPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD]) // Mocha
                  + ((instincts_timer > 0) ? (INSTINCTS_ASPEED_BASE + INSTINCTS_ASPEED_SCALE*item_grid[ITEM_INSTINCTS][IG_NUM_HELD]) : 0) // Predatory Instincts
+                 + ((filial_aspeed_timer > 0) ? FILIAL_ASPEED_STACKS : 0) // Filial Imprinting
                  + ((item_grid[ITEM_CELL][IG_NUM_HELD] > 0) ? floor(get_player_damage(player) / (CELL_THRESHOLD_BASE + CELL_THRESHOLD_SCALE*item_grid[ITEM_CELL][IG_NUM_HELD])) : 0); // Energy Cell
     
     return;
@@ -169,6 +170,7 @@ switch new_item_id {
                + (get_player_damage(player) >= BLADES_THRESHOLD ? BLADES_SPEED_SCALE * item_grid[ITEM_BLADES][IG_NUM_HELD] : 0) // Arcane Blades
                + (MOCHA_SPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD]) // Mocha
                + ((jewel_barrier_timer > 0) ? JEWEL_SPEED_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD] : 0) // Locked Jewel
+               + ((filial_speed_timer > 0) ? FILIAL_SPEED_STACKS : 0) // Filial Imprinting
     
     walk_anim_speed = walk_anim_speed_base + (MSPEED_WALK_ANIM_SCALE * move_speed);
     dash_anim_speed = dash_anim_speed_base + (MSPEED_DASH_ANIM_SCALE * move_speed) + (EDRINK_DASH_ANIM_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD]);
@@ -206,8 +208,17 @@ switch new_item_id {
     if (item_grid[ITEM_IGNITION][IG_RARITY] == RTY_VOID) {
         item_grid[@ ITEM_IGNITION][@ IG_RARITY] = RTY_UNCOMMON;
         var itp = item_grid[ITEM_IGNITION][IG_TYPE]
-        for (var i = 0; i < 3; i++) array_push(rnd_index_store[RTY_UNCOMMON][itp], ITEM_IGNITION);
-        type_values[@ RTY_UNCOMMON][@ itp] = type_values[RTY_UNCOMMON][itp] + 3*type_weights[RTY_UNCOMMON][itp];
+        var type_weights = INIT_WEIGHTS;
+        var value = type_weights[itp];
+        var quantity = 3;
+        var rty = RTY_UNCOMMON;
+        
+        item_grid[@ ITEM_IGNITION][@ IG_RANDOMIZER_INDEX] = array_length(p_item_ids[rty]);
+        array_push(p_item_ids[rty], ITEM_IGNITION);
+        array_push(p_item_weights[rty], quantity*type_weights[itp]);
+        array_push(p_item_values[rty], type_weights[itp]);
+        array_push(p_item_remaining[rty], quantity);
+        
         uncommon_pool_size += 3;
     }
     

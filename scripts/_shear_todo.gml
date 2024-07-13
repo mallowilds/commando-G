@@ -3,7 +3,6 @@
 --> Items
     
     Very easy, just time-consuming
-        Filial Imprinting
         Ancient Scepter
     
     Still time-consuming, but less easy
@@ -20,13 +19,13 @@
         57-Leaf Clover
         
     
-        
+    
+* Should Aegis have a lockout similar to Ignition Tank?
         
 
 --> List of missing assets on otherwise finished items
 Headstompers: Needs vfx. (Would sfx be good too?)
 Lens' Maker's: Some sort of gamefeel tell might be appropriate
-Tri-Tip Dagger: Bleed effect particles (?)
 Kjaro's Band: HFX
 Runald's Band: HFX
 Locked Jewel/Predatory Instincts: possibly some sort of vfx?
@@ -39,16 +38,6 @@ Classified Access Codes: bomb. also probably needs a new explosion, given that t
 
 
 commando training mode menu
-- probably hovers behind commando? 
-- top panel is item list, bottom panel is descriptions + prompts
-- how to implement word wrapping efficiently?
-
-- when in training mode, add ignition tank to the item pool immediately
-
-Text
-default
-- (A) Add item
-- (B) Remove item
 
 When no copies of an item are available, the (B) prompt simply disappears.
 The (A) prompt can be replaced with text if it is unavailable

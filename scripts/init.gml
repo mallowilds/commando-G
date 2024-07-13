@@ -147,7 +147,7 @@ item_grid = [
     
     ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      noone,            0, noone, "Enemies that get launched hard enough spawn healing orbs.", noone], // 47 | hit_player.gml, article3
     ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Jumping while dashing boosts you forward.", noone], // 48 | update.gml
-    ["Filial Imprinting",       RTY_UNCOMMON,   ITP_HEALING,      noone,            0, noone, "Hatch a strange creature who drops buffs every 15 seconds.", noone], // 49 | Unimplemented
+    ["Filial Imprinting",       RTY_UNCOMMON,   ITP_ATTACK_SPEED, ITP_SPEED,        0, noone, "Hatch a strange creature who drops buffs every 15 seconds.", noone], // 49 | Unimplemented
     ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, noone,            0, noone, "Gain attack speed the more you're damaged.", noone], // 50 | user_event0.gml, update.gml
     
 ]
@@ -221,7 +221,6 @@ if (!get_match_setting(SET_PRACTICE)) {
     item_grid[@ ITEM_ATG2][@ IG_RARITY] = RTY_VOID;
     item_grid[@ ITEM_SCEPTER][@ IG_RARITY] = RTY_VOID;
     item_grid[@ ITEM_TURBINE][@ IG_RARITY] = RTY_VOID;
-    item_grid[@ ITEM_FILIAL][@ IG_RARITY] = RTY_VOID;
 }
 
 
@@ -419,6 +418,10 @@ quail_do_boost = 0;
 filial_num_spawned = 0;
 filial_aspeed_timer = 0;
 filial_speed_timer = 0;
+filial_do_update = false;
+filial_aspeed_outline = [170, 0, 0];
+filial_speed_outline = [50, 40, 160];
+filial_double_outline = [120, 31, 150];
 
 
 // Training mode utility
@@ -580,7 +583,11 @@ fx_crit_blood               = hit_fx_create(sprite_get("vfx_crit_blood"), 24);
 fx_crit_shock               = hit_fx_create(sprite_get("vfx_crit_shock"), 24);
 fx_crit_shock_long          = hit_fx_create(sprite_get("vfx_crit_shock"), 50);
 fx_blast                    = hit_fx_create(sprite_get("vfx_blast"), 17);
+
 fx_item_res                 = hit_fx_create(sprite_get("vfx_item_res"), 160);
+fx_bleed                    = [hit_fx_create(sprite_get("vfx_bleed"), 15), hit_fx_create(sprite_get("vfx_bleed_2"), 15)];
+fx_sucker_buff_red          = hit_fx_create(sprite_get("vfx_sucker_buff_red"), 16);
+fx_sucker_buff_blue         = hit_fx_create(sprite_get("vfx_sucker_buff_blue"), 16);
 
 fx_small_chest_land         = hit_fx_create(sprite_get("dspec_smallchest_landvfx"), 16);
 fx_large_chest_land         = hit_fx_create(sprite_get("dspec_largechest_landvfx"), 16);

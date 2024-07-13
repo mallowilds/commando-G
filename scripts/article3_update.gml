@@ -42,11 +42,10 @@ precondition: upon spawning, spawn_num = item_grid[ITEM_FILIAL][IG_NUM_HELD]
 - 47: Taunt
 - 48: Despawn
 
-FILIIAL IMPRINTING ~ buff
-- 40: Initialization
-- 41: Move speed buff
-- 42: Attack speed buff
-- 43: Healing
+FILIIAL IMPRINTING ~ buff drop
+precondition: buff_type = (0 or 1)
+- 50: Initialization
+- 51: Idle
 
 */
 
@@ -542,6 +541,13 @@ switch state {
 			if (get_match_setting(SET_PRACTICE)) buff_sfx_vol -= 0.2;
 		}
 		
+		else if (state_timer == 19) {
+			var buffdrop = instance_create(x, y-4, "obj_article3");
+			buffdrop.state = 50;
+			buffdrop.buff_type = random_func_2(player, 1000, true) % 2;
+			buffdrop.depth -= 1;
+		}
+		
 		if (image_index >= 6 || free) {
 			state = 42;
 			state_timer = 0;
@@ -573,6 +579,46 @@ switch state {
 		hfx.depth = depth-1;
 		instance_destroy();
 		exit;
+    	break;
+    
+    //#endregion
+    
+    //#region Filial Imprinting ~ critter
+    
+    // Init
+    case 50:
+    	sprite_index = buff_type ? sprite_get("item_suckerdrop_red") : sprite_get("item_suckerdrop_blue");
+    	image_index = 0;
+    	
+    	ignores_walls = false;
+    	can_be_grounded = true;
+    	vsp = -9;
+    	
+    	state = 51;
+    	state_timer = 0;
+    	should_destroy = false;
+    	buff_duration = player_id.FILIAL_BUFF_DURATION;
+    	
+    	break;
+    
+    // Idle
+    case 51:
+    	if (free) vsp += 0.5;
+    	
+    	with oPlayer {
+    		if (point_distance(x, y, other.x, other.y) < 18) {
+    			other.should_destroy = true;
+    			if (other.buff_type) filial_aspeed_timer = other.buff_duration;
+    			else filial_speed_timer = other.buff_duration;
+    			filial_do_update = true;
+    		}
+    	}
+    	
+    	if (should_destroy || state_timer > 600) {
+    		// sfx, vfx
+    		instance_destroy();
+    		exit;
+    	}
     	break;
     
     //#endregion
