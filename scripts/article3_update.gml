@@ -544,7 +544,7 @@ switch state {
 		else if (state_timer == 19) {
 			var buffdrop = instance_create(x, y-4, "obj_article3");
 			buffdrop.state = 50;
-			buffdrop.buff_type = random_func_2(player, 1000, true) % 2;
+			buffdrop.buff_type = random_func(get_gameplay_time()%13, 1000, true) % 2;
 			buffdrop.depth -= 1;
 		}
 		
