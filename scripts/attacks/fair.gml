@@ -7,6 +7,7 @@ set_attack_value(atk, AG_SPRITE                         , sprite_get("fair"));
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("fair_hurt"));
 set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
 set_attack_value(atk, AG_CATEGORY                       , 1);
+set_attack_value(atk, AG_STRONG_CHARGE_WINDOW           , 9); // enables strong_charge checks (hacky)
 set_attack_value(atk, AG_HAS_LANDING_LAG                , 1);
 set_attack_value(atk, AG_LANDING_LAG                    , 6);
 
@@ -67,6 +68,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
+set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 
 hbox_num++;
 
@@ -90,3 +92,4 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
+set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);

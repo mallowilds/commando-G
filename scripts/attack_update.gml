@@ -53,7 +53,9 @@ switch(attack) {
         
     case AT_FAIR:
         if window == 2 {
-			if !attack_down && !hitpause && !left_stick_down && !right_stick_down || window_timer == 29{
+        	var holding = (attack_down || left_stick_down || right_stick_down);
+        	if (holding) strong_charge++;
+			if (!holding || window_timer == 29) {
 				sound_stop(s_reload)
             	sound_play(s_shotty, 0, noone, 3, .95)
 				window = 3 
