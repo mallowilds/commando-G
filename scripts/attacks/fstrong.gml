@@ -16,7 +16,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_S
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, s_reload);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, 5);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
@@ -24,9 +24,6 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 7);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
-set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_heavy2"));
-set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-2);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
@@ -87,7 +84,7 @@ set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 70);
 set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 75);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 9);
-set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 40);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 8);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.8);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 9);
