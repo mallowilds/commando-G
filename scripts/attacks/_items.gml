@@ -46,7 +46,7 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_IS_TRANSCENDENT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , true);
-set_hitbox_value(atk, hbox_num, HG_IS_EXPLOSIVE             , true);
+set_hitbox_value(atk, hbox_num, HG_IS_BLAST             , true);
 
 
 // Ol' Lopper hitbox

@@ -73,5 +73,5 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -55);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy2"));
 set_hitbox_value(atk, hbox_num, HG_HIT_LOCKOUT              , 6);
 set_hitbox_value(atk, hbox_num, HG_STRONG_FINISHER          , 1);
-set_hitbox_value(atk, hbox_num, HG_IS_EXPLOSIVE             , 1);
+set_hitbox_value(atk, hbox_num, HG_IS_BLAST             , 1);
 set_hitbox_value(atk, hbox_num, HG_IS_CRITICAL              , 1);

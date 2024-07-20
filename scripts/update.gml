@@ -721,7 +721,7 @@ with pHitBox if (player_id == other) {
 		with (other) {
 			other.cmd_is_critical = get_hitbox_value(other.attack, other.hbox_num, HG_IS_CRITICAL);
 			other.cmd_strong_finisher = get_hitbox_value(other.attack, other.hbox_num, HG_STRONG_FINISHER);
-			other.cmd_is_explosive = get_hitbox_value(other.attack, other.hbox_num, HG_IS_EXPLOSIVE);
+			other.cmd_is_explosive = get_hitbox_value(other.attack, other.hbox_num, HG_IS_BLAST);
 			other.cmd_behemoth_applied = (item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) && get_hitbox_value(other.attack, other.hbox_num, HG_IS_GUNSHOT);
 		}
 		if (cmd_is_critical) {

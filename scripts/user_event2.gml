@@ -41,7 +41,7 @@ AG_DISABLES_JETPACK = 40;
 HG_IS_CRITICAL = 80;
 HG_PROJECTILE_FAKE_HIT = 81; // disables certain on-hit behavior, such as dspecial cooldown updates
 HG_STRONG_FINISHER = 82;
-HG_IS_EXPLOSIVE = 83;
+HG_IS_BLAST = 83;
 HG_IS_GUNSHOT = 84; // applies followup explosion while Brilliant Behemoth is active. should only be used on finishers
 
 // ITEM -> Item indices
