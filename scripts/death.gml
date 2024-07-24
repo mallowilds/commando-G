@@ -47,10 +47,10 @@ if (filial_speed_timer > 0) filial_speed_timer = 1;
 
 // Death Message
 if (is_na && get_player_stocks(player) == 1) {
-	sound_play(s_jailed, 0, noone, 1.5, 1)
+	sound_play(s_jailed, 0, noone, 1.5, 1);
 } else {
-	sound_play(s_mortem)
+	sound_play(s_mortem);
 }
-if get_player_stocks( player ) == 1 {	
-	final_death_timer = 120
+if (get_player_stocks(player) == 1) {	
+	final_death_timer = 120;
 }

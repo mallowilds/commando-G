@@ -768,16 +768,8 @@ with object_index {
 }
 //#endregion
 
-//#region Death Message
-
-if (final_death_timer > 0) {
-	final_death_timer--;
-	if (state == PS_DEAD) {
-	    visible = true;
-	    grabbed_invisible = true;
-	}
-}
-
+//#region Death message
+if (final_death_timer > 0) final_death_timer--;
 //#endregion
 
 

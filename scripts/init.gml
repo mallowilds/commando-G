@@ -41,7 +41,7 @@ dspec_cooldown_hits = DSPEC_INIT_CD_HITS; // Hits on the opponent remaining unti
 first_hit = false; // Mirrors has_hit, but is accessible from hit_player to track the first hit applied.
 
 //Death Messages
-death_messages = [
+var death_messages = [
     "You have died. Maybe next time..",
     "ur dead LOL get wrecked",
     "DEAD",
@@ -82,10 +82,13 @@ death_messages = [
     "You die in a hilarious pose.",
     "You die a slightly embarassing death."
 ]
-
 death_message_pick = death_messages[random_func_2( 0, array_length(death_messages), 1 )]
 final_death_timer = 0;
-is_na = 0; //n/a compat
+is_na = 0; // n/a compat
+
+
+
+
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 
 // Item Grid

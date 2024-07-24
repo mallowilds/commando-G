@@ -583,7 +583,7 @@ switch state {
     
     //#endregion
     
-    //#region Filial Imprinting ~ critter
+    //#region Filial Imprinting ~ buff drop
     
     // Init
     case 50:
@@ -622,6 +622,7 @@ switch state {
     	break;
     
     //#endregion
+    
     
     //#region Failed initialization
     default:
