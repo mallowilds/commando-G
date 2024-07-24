@@ -1,4 +1,5 @@
 
+
 // Debug: manage debug display
 if (debug_display_opened) {
 	
@@ -326,6 +327,7 @@ switch state {
 }
 
 //#endregion
+
 
 //#region Hit/kill detection
 
@@ -768,8 +770,12 @@ with object_index {
 
 //#region Death Message
 
-if final_death_timer > 0{
+if (final_death_timer > 0) {
 	final_death_timer--;
+	if (state == PS_DEAD) {
+	    visible = true;
+	    grabbed_invisible = true;
+	}
 }
 
 //#endregion

@@ -84,7 +84,6 @@ death_messages = [
 ]
 
 death_message_pick = death_messages[random_func_2( 0, array_length(death_messages), 1 )]
-print(death_message_pick)
 final_death_timer = 0;
 is_na = 0; //n/a compat
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
