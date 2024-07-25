@@ -150,17 +150,22 @@ with oPlayer {
 		}
 	}
 	
-	// Sticky Bomb (state > 1 indicates active)
+	// Sticky Bomb (state 1 indicates active, >1 indicates cooldown)
 	if (commando_status_owner[other.ST_STICKY] == other.player && commando_status_state[other.ST_STICKY] > 0) {
 		if (!hitpause) commando_status_counter[other.ST_STICKY]++;
-		if (commando_status_counter[other.ST_STICKY] >= other.STICKY_DELAY) {
+		if (commando_status_state[other.ST_STICKY] == 1 && commando_status_counter[other.ST_STICKY] >= other.STICKY_DELAY) {
 			var _x = floor(x);
 			var _y = floor(y - (char_height*0.7));
 			with (other) {
 				var hbox = create_hitbox(AT_EXTRA_1, 3, _x, _y);
 				hbox.damage += (STICKY_DAMAGE_SCALE) * (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD] - 1);
 				spawn_hit_fx(_x, _y, HFX_MOL_EXPLODE_HIT);
+				sound_play(asset_get("sfx_mol_flare_shoot"));
 			}
+			commando_status_state[other.ST_STICKY] = 2;
+			commando_status_counter[other.ST_STICKY] = 0;
+		}
+		else if (commando_status_state[other.ST_STICKY] > 1 && commando_status_counter[other.ST_STICKY] >= other.STICKY_CD) {
 			commando_status_state[other.ST_STICKY] = 0;
 			commando_status_counter[other.ST_STICKY] = 0;
 			commando_status_owner[other.ST_STICKY] = noone;

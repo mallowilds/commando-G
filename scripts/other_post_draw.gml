@@ -3,7 +3,8 @@ if ("commando_status_state" not in self || !instance_exists(other_player_id) || 
 
 // Sticky Bomb
 if (commando_status_state[other_player_id.ST_STICKY] > 0) {
-    draw_debug_text(x, y+14, "sticky'd");
+    var text = (commando_status_state[other_player_id.ST_STICKY] == 1) ? "sticky'd" : "stickproof"
+    draw_debug_text(x, y+14, text);
 }
 
 // Ol' Lopper

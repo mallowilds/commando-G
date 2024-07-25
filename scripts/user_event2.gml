@@ -258,6 +258,7 @@ GASOLINE_DAMAGE_SCALE = 3;
 // Sticky Bomb
 STICKY_DELAY = 30;
 STICKY_DAMAGE_SCALE = 2;  // unlike other scalings, this one starts at 0 for a single item copy and increases from there
+STICKY_CD = 45;
 
 // Tough Times
 TTIMES_KBADJ_EXP_SET = 0.9; // Sets kb_adj to 0.9^n

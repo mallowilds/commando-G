@@ -88,7 +88,7 @@ if (my_hitboxID.cmd_is_explosive == 1) {
 	}
 	
 	// Sticky Bomb
-	if (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD] > 0) {
+	if (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD] > 0 && hit_player_obj.commando_status_state[ST_STICKY] <= 0) {
 		hit_player_obj.commando_status_state[ST_STICKY] = 1;
 		hit_player_obj.commando_status_counter[ST_STICKY] = 0;
 		hit_player_obj.commando_status_owner[ST_STICKY] = player;
@@ -128,6 +128,11 @@ if (get_player_damage(hit_player_obj.player) >= SHATTERING_DAMAGE_THRESHOLD && i
 	}
 	hit_player_obj.commando_status_timer[ST_SHATTERED] = 0; // duration is reapplied regardless
 }
+//#endregion
+
+//#region FAir extra strong charge damage
+if (my_hitboxID.attack == AT_FAIR) take_damage(hit_player_obj.player, player, floor(strong_charge/12 + 0.5));
+// Note that strong charge damage isn't factored into the below multiplier, so neither is this
 //#endregion
 
 //#region Fractional damage / multiplier handling (crowbar, warbanner, headstompers)
