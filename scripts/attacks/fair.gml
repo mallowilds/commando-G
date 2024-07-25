@@ -9,10 +9,10 @@ set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
 set_attack_value(atk, AG_CATEGORY                       , 1);
 set_attack_value(atk, AG_STRONG_CHARGE_WINDOW           , 9); // enables strong_charge checks (hacky)
 set_attack_value(atk, AG_HAS_LANDING_LAG                , 1);
-set_attack_value(atk, AG_LANDING_LAG                    , 6);
+set_attack_value(atk, AG_LANDING_LAG                    , 8);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //pre-chcarge
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 10);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 11);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
@@ -38,7 +38,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 14);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 17);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
@@ -53,8 +53,8 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 3);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 56);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , 13);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 70);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -15 );
 set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
 set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 70);
 set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 62);
