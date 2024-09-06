@@ -526,6 +526,7 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 if (item_grid[38][IG_NUM_HELD] > 0) { 
 	h3ad_lockout_timer++;
 	if (!free) h3ad_lockout_timer = 0;
+	if (state_cat == SC_HITSTUN || state == PS_RESPAWN || state == PS_DEAD) can_fast_fall = false;
 	if ((state == PS_DOUBLE_JUMP || state == PS_WALL_JUMP) && state_timer == 0) h3ad_lockout_timer = 0;
 	else if (h3ad_lockout_timer >= HEADSET_LOCKOUT_TIME && can_fast_fall && vsp < 0 && down_hard_pressed) {
 		vsp = 0;
