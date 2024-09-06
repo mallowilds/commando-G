@@ -50,11 +50,6 @@ switch new_item_id {
         update_horizontal_movement();
         break;
     
-    case 16: // Gasoline
-    case 18: // Kjaro's Band
-        enable_ignition_tank();
-        break;
-    
     case 17: // Tough Times
         knockback_adj = (item_grid[17][IG_NUM_HELD] > 0) ? power(TTIMES_KBADJ_EXP_SET, item_grid[17][IG_NUM_HELD]) : knockback_adj_base;
         break;
@@ -75,6 +70,13 @@ switch new_item_id {
         update_horizontal_movement();
         break;
         
+    case 25: // Ignition Tank
+        if (!ignition_odds_applied) {
+            buff_synergy_odds(ITP_BURNING, ITEM_IGNITION);
+            ignition_odds_applied = true;
+        }
+        break;
+    
     case 26: // Predatory Instincts
         update_attack_speed();
         break;
@@ -84,7 +86,6 @@ switch new_item_id {
         break;
         
     case 32: // Fireman's Boots
-        enable_ignition_tank();
         fireboots_lockout = 0;
         break;
     
@@ -119,6 +120,17 @@ switch new_item_id {
     
     case 42: // Aegis
         aegis_ratio = AEGIS_RATIO_BASE + AEGIS_RATIO_SCALE*item_grid[42][IG_NUM_HELD]
+        if (!aegis_odds_applied) {
+            buff_synergy_odds(ITP_HEALING, ITEM_AEGIS);
+            aegis_odds_applied = true;
+        }
+        break;
+        
+    case 43: // Brilliant Behemoth
+        if (!behemoth_odds_applied) {
+            buff_synergy_odds(ITP_EXPLOSIVE, ITEM_BEHEMOTH);
+            behemoth_odds_applied = true;
+        }
         break;
     
     case 49: // Filial Imprinting
@@ -202,27 +214,25 @@ switch new_item_id {
     gravity_speed = gravity_speed_base - (RJETPACK_GRAV_SPEED_BASE * (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0)); // Rusty Jetpack
     
     return;
-
-
-#define enable_ignition_tank
-    if (item_grid[ITEM_IGNITION][IG_RARITY] == RTY_VOID) {
-        item_grid[@ ITEM_IGNITION][@ IG_RARITY] = RTY_UNCOMMON;
-        var itp = item_grid[ITEM_IGNITION][IG_TYPE]
-        var type_weights = INIT_WEIGHTS;
-        var value = type_weights[itp];
-        var quantity = 3;
-        var rty = RTY_UNCOMMON;
-        
-        item_grid[@ ITEM_IGNITION][@ IG_RANDOMIZER_INDEX] = array_length(p_item_ids[rty]);
-        array_push(p_item_ids[rty], ITEM_IGNITION);
-        array_push(p_item_weights[rty], quantity*type_weights[itp]);
-        array_push(p_item_values[rty], type_weights[itp]);
-        array_push(p_item_remaining[rty], quantity);
-        
-        uncommon_pool_size += 3;
-    }
     
 #define set_taunt_indices
     utaunt_index = (item_grid[ITEM_UKELELE][IG_NUM_HELD] > 0) ? AT_TAUNT_2 : AT_TAUNT;
     ntaunt_index = (item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) ? AT_EXTRA_1 : utaunt_index;
     // dtaunt is constant and set in init.gml
+
+// source_id is the id of the item doing the buffing, which is excluded.
+// rare items are excluded on account of items like Dios existing.
+#define buff_synergy_odds(item_type, source_id)
+    for (var rty = RTY_COMMON; rty <= RTY_UNCOMMON; rty++) {
+        var arr_len = array_length(p_item_ids[rty]);
+        for (var i = 0; i < arr_len; i++) {
+            var iid = p_item_ids[rty][i];
+            var type1 = item_grid[iid][IG_TYPE];
+            var type2 = item_grid[iid][IG_TYPE2];
+            if ((type1 == item_type || type2 == item_type) && iid != source_id && p_item_values[@ rty][@ i] < SYNERGY_BUFFED_VALUE) {
+                var quantity = p_item_remaining[rty][i];
+                p_item_values[@ rty][@ i] = SYNERGY_BUFFED_VALUE;
+                p_item_weights[@ rty][@ i] = quantity * SYNERGY_BUFFED_VALUE;
+            }
+        }
+    }

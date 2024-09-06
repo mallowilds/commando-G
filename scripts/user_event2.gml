@@ -21,8 +21,10 @@ ITP_CRITICAL = 4;
 ITP_ATTACK_SPEED = 5;
 ITP_BARRIER = 6;
 ITP_EXPLOSIVE = 7;
-NUM_ITP_INDICES = 8; // update as needed! excludes legendary.
-                     // be sure to also add a new entry to the weight and name arrays.
+ITP_META = 8;         // Refers to items that operate on or grant other items.
+ITP_BURNING = 9;      // Should really only be used as a secondary index
+NUM_ITP_INDICES = 10; // update as needed! excludes legendary.
+                      // be sure to also add a new entry to the weight and name arrays.
 
 // IG -> Item grid
 IG_NAME = 0;
@@ -128,8 +130,9 @@ UNCOMMON_LIMIT = 3; // per uncommon item
 UNCOMMON_ABYSS_LIMIT = 5;
 RARE_LIMIT = 3; // across all rare items
 RARE_ABYSS_LIMIT = 5;
-INIT_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5]; // maps to primary ITP indices. this init array is only for use by init.gml!
+INIT_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5, 4, 6]; // maps to primary ITP indices. this init array is only for use by init.gml!
 ABYSS_BUFFED_VALUE = 15;
+SYNERGY_BUFFED_VALUE = 10; // Used by Ignition Tank and Brilliant Behemoth
 
 SCHEST_C_WEIGHT = 80;
 SCHEST_U_WEIGHT = 15;
