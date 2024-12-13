@@ -65,6 +65,7 @@ switch tmu_state {
             clear_button_buffer(PC_ATTACK_PRESSED);
             new_item_id = tmu_item_id;
             force_grant_item = true;
+            item_silenced = true;
             user_event(1);
         }
         

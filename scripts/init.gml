@@ -39,6 +39,7 @@ fspec_air_uses = 1;
 chest_obj = noone;
 dspec_cooldown_hits = DSPEC_INIT_CD_HITS; // Hits on the opponent remaining until DSpec goes off cooldown.
 first_hit = false; // Mirrors has_hit, but is accessible from hit_player to track the first hit applied.
+trishop_odds = TRISHOP_ODDS[0];
 
 //Death Messages
 var death_messages = [
@@ -151,11 +152,11 @@ item_grid = [
     ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Jumping while dashing boosts you forward.", noone], // 48 | update.gml
     ["Filial Imprinting",       RTY_UNCOMMON,   ITP_ATTACK_SPEED, ITP_SPEED,        0, noone, "Hatch a strange creature who drops buffs every 15 seconds.", noone], // 49 | Unimplemented
     ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, noone,            0, noone, "Gain attack speed the more you're damaged.", noone], // 50 | user_event0.gml, update.gml
+    ["Shipping Request Form",   RTY_UNCOMMON,   ITP_META,         noone,            0, noone, "Increases the odds of calling down a Tri-Shop.", noone], // 51 | Unimplemented, tentative
     
     /*
-    ["Growth Nectar",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, noone, "Upon gaining 5+ common items, become even stronger.", noone], // 51 | Unimplemented, tentative
-    ["Luminous Shot",           RTY_UNCOMMON,   ITP_KNOCKBACK,    noone,            0, noone, "Using a special briefly charges your next normal attack.", noone], // 52 | Unimplemented, tentative
-    ["Shipping Request Form",   RTY_UNCOMMON,   ITP_META,         noone,            0, noone, "Increases the odds of calling down a Tri-Shop.", noone], // 53 | Unimplemented, tentative
+    ["Growth Nectar",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, noone, "Upon gaining 5+ common items, become even stronger.", noone], // 52 | Unimplemented, tentative
+    ["Luminous Shot",           RTY_UNCOMMON,   ITP_KNOCKBACK,    noone,            0, noone, "Using a special briefly charges your next normal attack.", noone], // 53 | Unimplemented, tentative
     ["Bolstering Lantern",      RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Deal more damage after reaching 120%."],  // 54 | Unimplemented, tentative
     ["Trophy Hunter's Tricorn", RTY_RARE,       ITP_META,         noone,            0, noone, "Claim a trophy from the opponent with FStrong. Only has one shot.", noone], // 44 | update.gml, death.gml
     ["Trophy Hunter's Relic",   RTY_VOID,       ITP_HEALING,      noone,            0, noone, "Looks kinda cool, but that's about it. ", noone], // 45 | N/A
@@ -195,31 +196,32 @@ item_id_ordering = [
     ITEM_SCYTHE,
     ITEM_IGNITION,
     ITEM_INSTINCTS,     // 30
+    ITEM_SHIPPING,
     ITEM_CELL,
     ITEM_STUNGRENADE,
     ITEM_ATG1,
-    noone,
-    ITEM_SCEPTER,       // 35
+    noone,              // 35
+    ITEM_SCEPTER,
     ITEM_FIREBOOTS,
     ITEM_ATG2,
     ITEM_LOPPER,
-    ITEM_SHATTERING,
-    ITEM_CODES,         // 40
+    ITEM_SHATTERING,    // 40
+    ITEM_CODES,
     ITEM_PJETPACK,
     ITEM_HEADSET,
     ITEM_AFTERBURNER,
-    ITEM_SCOPE,
-    ITEM_TURBINE,       // 45
+    ITEM_SCOPE,         // 45
+    ITEM_TURBINE,
     ITEM_AEGIS,
     ITEM_BEHEMOTH,
     ITEM_DIOS,
-    noone,
-    ITEM_TTIMES,        // 50
+    noone,              // 50
+    ITEM_TTIMES,
     ITEM_SPARK,
     ITEM_CLOVER,
 ];
 
-ordering_start_indices = [0, 19, 35, 50];
+ordering_start_indices = [0, 19, 36, 51];
 
 // If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
@@ -243,6 +245,8 @@ new_item_id = noone;
 // If these are both true, an error will be thrown and nothing will happen
 force_grant_item = false;
 force_remove_item = false;
+// Flag that silences the next item-get pop-up. No conflicts on this one
+item_silenced = false;
 
 
 // Randomizer properties

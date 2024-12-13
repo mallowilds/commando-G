@@ -36,4 +36,14 @@ switch(state) { // use this one for changing sprites and animating
         
         break;
     
+    // Trishop
+    case 30: // Init
+    case 31: // Fall
+    case 32: // Idle
+    case 33: // Opening
+    case 34: // Despawning
+        draw_debug_text(x, y, "This is a trishop!!");
+        break;
+    
+    
 }

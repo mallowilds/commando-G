@@ -101,6 +101,7 @@ ITEM_MTOOTH         = 47;
 ITEM_QUAIL          = 48;
 ITEM_FILIAL         = 49;
 ITEM_CELL           = 50;
+ITEM_SHIPPING       = 51;
 
 // ST -> Statuses
 ST_STICKY = 0;
@@ -133,6 +134,8 @@ RARE_ABYSS_LIMIT = 5;
 INIT_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5, 4, 6]; // maps to primary ITP indices. this init array is only for use by init.gml!
 ABYSS_BUFFED_VALUE = 15;
 SYNERGY_BUFFED_VALUE = 10; // Used by Ignition Tank and Brilliant Behemoth
+
+TRISHOP_ODDS = [25, 50, 75, 100]; // array goes with Shipping Request Form
 
 SCHEST_C_WEIGHT = 80;
 SCHEST_U_WEIGHT = 15;

@@ -147,6 +147,11 @@ switch new_item_id {
     case 50: // Energy Cell
         update_attack_speed();
         break;
+        
+    case 51: // Shipping Request Forms
+        var odds = TRISHOP_ODDS;
+        trishop_odds = odds[item_grid[51][IG_NUM_HELD]]
+        break;
     
 }
 

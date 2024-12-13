@@ -216,6 +216,7 @@ switch state {
         vsp = -10 + (1.5*rarity);
         state = 21;
         state_timer = 0;
+        if ("item_type" not in self) item_type = -1;
         break;
        
     // rise
@@ -253,6 +254,15 @@ switch state {
     		state_timer = 0;
     		sprite_index = sprite_get("null");
     		player_id.grant_rarity = rarity;
+    		
+    		if ("forced_index") in self {
+    			print_debug("Forced index: "+string(forced_index));
+    			player_id.new_item_id = forced_index;
+        		player_id.force_grant_item = true;
+        		player_id.force_remove_item = false;
+        		player_id.item_silenced = false;
+    		}
+    		
     		user_event(1);
     	}
     	

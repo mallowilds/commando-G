@@ -21,3 +21,4 @@ outline_alpha = 0;
 hbox = noone;
 land_vfx = noone;
 has_hit = false;
+trishop_rarity = 0; // common, uncommon, rare

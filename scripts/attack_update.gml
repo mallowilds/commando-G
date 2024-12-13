@@ -331,6 +331,11 @@ switch(attack) {
 				chest_obj.state_timer = 0;
 				dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
 			}
+			else if (chest_obj.state == 32) { // trishop
+				chest_obj.state = 33;
+				chest_obj.state_timer = 0;
+				dspec_cooldown_hits = chest_obj.was_large ? DSPEC_LCHEST_CD_HITS : DSPEC_SCHEST_CD_HITS;
+			}
 			
 			if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
 				jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];

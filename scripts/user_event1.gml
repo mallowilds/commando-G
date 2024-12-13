@@ -18,12 +18,18 @@ var command_type = force_grant_item + 2*force_remove_item
 switch command_type {
 	case 0: // grant a random item
 		var iid = generate_item(grant_rarity);
-	    var popup = instance_create(x-172, y-110, "obj_article2");
-	    popup.item_id = iid;
+	    if (!item_silenced) {
+	    	var popup = instance_create(x-172, y-110, "obj_article2");
+	    	popup.item_id = iid;	
+	    } else item_silenced = false;
 		break;
 	case 1: // grant a copy of the item at new_item_id, if possible
 		apply_item(new_item_id);
 		force_grant_item = false;
+		if (!item_silenced) {
+	    	var popup = instance_create(x-172, y-110, "obj_article2");
+	    	popup.item_id = new_item_id;	
+	    } else item_silenced = false;
 		break;
 	case 2: // remove a copy of the item at new_item_id, if possible
 		remove_item(new_item_id);
@@ -33,6 +39,7 @@ switch command_type {
 		print_debug("user_event1 error: parameter conflict. resetting parameters")
 		force_grant_item = false;
 		force_remove_item = false;
+		item_silenced = false;
 		break;
 }
 

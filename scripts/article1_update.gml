@@ -22,8 +22,16 @@
  * 22 - Idle 
  * 23 - Opening
  * 24 - Despawning
+ *
+ * 3x - Tri-Shop
+ * 30 - Init
+ * 31 - Falling
+ * 32 - Idle 
+ * 33 - Opening
+ * 34 - Despawning
+ * 36 - Falling (large)
  * 
- * 3x - "Extreme Reinforcements" (Classified Access Codes)
+ * 5x - "Extreme Reinforcements" (Classified Access Codes)
  * 
  */
 
@@ -58,7 +66,7 @@ switch(state) { // use this one for doing actual article behavior
         }
         // Classified Access Codes: drop bomb after 5s
         else if (player_id.item_grid[player_id.ITEM_CODES][player_id.IG_NUM_HELD] >= 1 && state_timer >= 300) { 
-            set_state(30);
+            set_state(50);
         }
         break;
     case 03: // Jammed (parried state)
@@ -79,6 +87,17 @@ switch(state) { // use this one for doing actual article behavior
         hbox.vsp = vsp;
         hbox.owner_chest = self;
         sound_play(player_id.s_cfall);
+        
+        var roll = random_func(3, 100, true) + 1;
+        if (roll <= player_id.trishop_odds) {
+        	set_state(31);
+        	was_large = false;
+        	
+        	var rarity_weights = [player_id.SCHEST_C_WEIGHT, player_id.SCHEST_U_WEIGHT, player_id.SCHEST_R_WEIGHT];
+        	if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
+            if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
+            trishop_rarity = random_weighted_roll(player_id.item_seed, rarity_weights);
+        }
         break;
     case 11: // Fall
         if (y + vsp > target_y) {
@@ -138,6 +157,17 @@ switch(state) { // use this one for doing actual article behavior
         hbox.vsp = vsp;
         hbox.owner_chest = self;
         sound_play(player_id.s_cfall);
+        
+        var roll = random_func(3, 100, true) + 1;
+        if (roll <= player_id.trishop_odds) {
+        	set_state(31);
+        	was_large = true;
+        	
+        	var rarity_weights = [player_id.LCHEST_C_WEIGHT, player_id.LCHEST_C_WEIGHT, player_id.LCHEST_C_WEIGHT];
+        	if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
+            if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
+            trishop_rarity = random_weighted_roll(player_id.item_seed, rarity_weights);
+        }
         break;
     case 21: // Fall
         if (y + vsp > target_y) {
@@ -170,7 +200,7 @@ switch(state) { // use this one for doing actual article behavior
         if (state_timer == 1) sound_play(sound_get("cm_largechest"));
         if (state_timer == 20) {
             var rarity_weights = [player_id.LCHEST_C_WEIGHT, player_id.LCHEST_U_WEIGHT, player_id.LCHEST_R_WEIGHT]
-            if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
+            if (player_id.uncommon_pool_size <= 2) rarity_weights[1] = 0;
             if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
             var rarity = random_weighted_roll(player_id.item_seed, rarity_weights);
             player_id.item_seed = (player_id.item_seed + 1) % 200;
@@ -186,8 +216,56 @@ switch(state) { // use this one for doing actual article behavior
         break;
     //#endregion
     
+    //#region Trishop
+    // Trishop inherits its init from chests that turn into it, so no init here.
+    case 31: // Fall
+        if (y + vsp > target_y) {
+            mask_index = sprite_get("dspec_largechest"); // todo: make an actual mask
+            ignores_walls = false;
+            can_be_grounded = true;
+        }
+        if (!free) {
+            set_state(32);
+            land_vfx = spawn_hit_fx(x, y, was_large ? player_id.fx_large_chest_land : player_id.fx_small_chest_land);
+            land_vfx.depth = depth-1;
+            hbox.destroyed = true;
+            hbox = noone;
+            var land_hbox = create_hitbox(AT_DSPECIAL, was_large ? 4 : 2, x, y-16);
+            land_hbox.owner_chest = self;
+            sound_play(player_id.s_cland);
+            
+            // This is a good time to roll for Tri-shop loot.
+            trishop_loot = choose_three_items(trishop_rarity);
+            print_debug(trishop_loot);
+        }
+        else if (instance_exists(hbox)) {
+            hbox.hitbox_timer--;
+            hbox.vsp = vsp;
+        }
+        break;
+    case 32: // Idle
+        if (free) vsp = clamp(vsp+0.5, vsp, 8);
+        if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_SCHEST_RADIUS) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
+        else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
+        break;
+    case 33: // Opening
+        if (outline_alpha > 0) outline_alpha -= 0.2;
+        if (state_timer == 1) sound_play(sound_get("cm_smallchest"));
+        if (state_timer == 20) {
+            var item = instance_create(x, y-10, "obj_article3");
+            item.state = 20;
+            item.rarity = trishop_rarity;
+            item.forced_index = trishop_loot[0];
+        }
+        if (state_timer >= 35) set_state(34);
+        break;
+    case 34: // Despawning
+        if (state_timer >= 60) should_die = true;
+        break;
+    //#endregion
+    
     //#region Classified Access Codes
-    case 30: // Init
+    case 50: // Init
         target_y = y;
         y = get_stage_data(SD_TOP_BLASTZONE_Y)+80;
         vsp = 2;
@@ -198,7 +276,7 @@ switch(state) { // use this one for doing actual article behavior
         sound_play(player_id.s_cfall);
         sound_play(asset_get("sfx_mol_huge_countdown"), false, noone, 1, 0.7);
         break;
-    case 31: // Fall
+    case 51: // Fall
     	if (state_timer > 30) vsp += 0.9;
         if (y + vsp > target_y) {
             mask_index = sprite_get("dspec_cac_bomb"); // todo: make an actual mask
@@ -220,7 +298,7 @@ switch(state) { // use this one for doing actual article behavior
             hbox.vsp = vsp;
         }
         break;
-    case 32: // Despawning
+    case 52: // Despawning
         should_die = true;
         break;
     //#endregion
@@ -282,17 +360,38 @@ switch(state) { // use this one for changing sprites and animating
         sprite_index = sprite_get("dspec_largechest");
         image_index = 16;
         break;
-    
-    // Classified Acces Codes bomb
+       
+    // Trishop (no assets yet)
     case 30: // Init
         sprite_index = sprite_get("null");
         break;
     case 31: // Fall
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 0;
+        break;
+    case 32: // Idle
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 1 + ((state_timer < 6) ? state_timer / 3 : 2);
+        break;
+    case 33: // Opening
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 5 + (state_timer / 4.5);
+        break;
+    case 34: // Despawning
+        sprite_index = sprite_get("dspec_largechest");
+        image_index = 16;
+        break;
+    
+    // Classified Access Codes bomb
+    case 50: // Init
+        sprite_index = sprite_get("null");
+        break;
+    case 51: // Fall
         sprite_index = sprite_get("dspec_cac_bomb");
         image_index = 0;
         break;
-    case 32:
-    case 33:
+    case 52:
+    case 53:
     	sprite_index = sprite_get("null");
     	break;
     
@@ -330,3 +429,99 @@ for (var i = 0; i < array_len; i++) {
 	}
 	rand_int -= weight_array[i];
 }
+
+#define choose_three_items(rarity)
+
+var items = [];
+
+if (rarity < 0 || rarity > 2) {
+	print_debug("user_event1 error: bad rarity value");
+	exit;
+}
+
+while (array_length(items) < 3) {
+
+	// Attempt to generate a legendary item
+	var rnd_legendary = random_func_2(player_id.item_seed, 1, false);
+	player_id.item_seed = (player_id.item_seed + 1) % 200;
+	var odds = has_rune("O") ? player_id.LEGENDARY_ABYSS_ODDS : player_id.LEGENDARY_ODDS;
+	if (rnd_legendary <= odds && player_id.legendary_pool_size[rarity] > 0) {
+		
+		var weight_array =player_id. p_legendary_available[rarity];
+		var access_index = random_weighted_roll(player_id.item_seed, weight_array);
+		player_id.item_seed = (player_id.item_seed + 1) % 200;
+		var item_id =player_id. p_legendary_ids[rarity][access_index];
+		
+	}
+	
+	// Generate a standard item
+	else {
+		
+		var weight_array = player_id.p_item_weights[rarity];
+		var access_index = random_weighted_roll(player_id.item_seed, weight_array);
+		player_id.item_seed = (player_id.item_seed + 1) % 200;
+		var item_id = player_id.p_item_ids[rarity][access_index];
+		
+	}
+	
+	temp_reduce_item_probability(item_id);
+	array_push(items, item_id);
+
+}
+
+for (var i = 0; i < 3; i++) {
+	temp_restore_item_probability(items[i]);
+}
+
+return items;
+
+#define temp_reduce_item_probability(item_id)
+	with player_id {
+		var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
+		var itp = item_grid[item_id][IG_TYPE];
+		var rarity = item_grid[item_id][IG_RARITY];
+		
+		// Reduce for a legendary item
+		if (itp == ITP_LEGENDARY) {
+			legendary_pool_size[rarity]--;
+			p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] - 1;
+			p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] - 1;
+			// Don't decrement the uncommon pool! Legendaries aren't a part of it
+			//if (rarity == RTY_RARE) rares_remaining--;
+		}
+		
+		// Reduce for a standard item
+		else {
+			var remaining = p_item_remaining[rarity][access_index];
+			var value = p_item_values[rarity][access_index];
+			p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] - 1;
+			p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] - value;
+			if (rarity == RTY_UNCOMMON) uncommon_pool_size--;
+			//if (rarity == RTY_RARE) rares_remaining--;
+		}
+	}
+
+#define temp_restore_item_probability(item_id)
+	with player_id {
+		var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
+		var itp = item_grid[item_id][IG_TYPE];
+		var rarity = item_grid[item_id][IG_RARITY];
+		
+		// Increase for a legendary item
+		if (itp == ITP_LEGENDARY) {
+			legendary_pool_size[rarity]++;
+			p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] + 1;
+			p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] + 1;
+			//if (rarity == RTY_RARE) rares_remaining++;
+		}
+		
+		// Increase for a standard item
+		else {
+			var remaining = p_item_remaining[rarity][access_index];
+			var value = p_item_values[rarity][access_index];
+			p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] + 1;
+			p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] + value;
+			if (rarity == RTY_UNCOMMON) uncommon_pool_size++;
+			//if (rarity == RTY_RARE) rares_remaining++;
+		}
+	}
