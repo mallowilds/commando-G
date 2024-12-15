@@ -494,7 +494,7 @@ s_itemr = sound_get("cm_item_red")
 
 s_mortem = sound_get("death")
 s_jailed = sound_get("sentence")
-
+s_err = sound_get("cm_err")
 //
 
 
