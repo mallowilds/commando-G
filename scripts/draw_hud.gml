@@ -20,6 +20,7 @@ for (var i = 0; i < array_length(inventory_list); i++) {
 	}
 }
 
+
 //#region Barrier indicator
 
 var barrier = floor(brooch_barrier + heart_barrier + jewel_barrier + aegis_barrier);

@@ -57,13 +57,16 @@ switch(attack) {
         	if (holding) strong_charge += 1;	// Note that damage growth from this is increased - see hit_player.gml
 			if (!holding || window_timer == 29) {
 				sound_stop(s_reload)
-            	sound_play(s_shotty, 0, noone, 3, .95)
 				window = 3 
 				window_timer = 0;
-				if (vsp > -2) vsp = -2;
-				if (hsp*spr_dir <= -2) hsp -= -3*spr_dir;
-				else hsp = -5*spr_dir;
+				
 			}
+		}
+		if window == 3 && window_timer == 2 {
+			if (vsp > -2) vsp = -2;
+			if (hsp*spr_dir <= -2) hsp -= -3*spr_dir;
+			else hsp = -5*spr_dir;
+			sound_play(s_shotty, 0, noone, 3, .95)
 		}
         break;
 	

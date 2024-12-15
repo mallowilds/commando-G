@@ -11,7 +11,7 @@ set_attack_value(atk, AG_HAS_LANDING_LAG                , 1);
 set_attack_value(atk, AG_LANDING_LAG                    , 6);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //startup
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 7);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
@@ -26,7 +26,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_weak1"));
-set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
+//set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 
@@ -82,7 +82,7 @@ var hbox_num = 1; //whip hitbox
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
+//set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -32);
