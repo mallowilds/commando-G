@@ -167,10 +167,6 @@ switch(attack) {
     		sound_play(s_gunl);
         }
         
-        print_debug(window);
-        print_debug(window_timer);
-        print_debug(get_attack_value(attack, AG_CATEGORY));
-        
         break;
     //#endregion
     
@@ -343,33 +339,71 @@ switch(attack) {
         break;
     case AT_DSPECIAL_2:
     	if (window == 1 && window_timer == 1) {
-			if (chest_obj.state == 12) { // Large chest
-				chest_obj.state = 13;
-				chest_obj.state_timer = 0;
-				dspec_cooldown_hits = DSPEC_SCHEST_CD_HITS;
+    		if (chest_obj.state == 32) { // trishop
+				if (!halt_for_trishop) {
+					halt_for_trishop = true;
+					select_for_trishop = false;
+					dspec_cooldown_hits = chest_obj.is_large ? DSPEC_LCHEST_CD_HITS : DSPEC_SCHEST_CD_HITS;
+					set_window_value(attack, window, AG_WINDOW_LENGTH, 8)
+	    			set_window_value(attack, window, AG_WINDOW_SFX_FRAME, 7);
+	    			
+	    			chest_obj.trishop_vis_timer = 0;
+	    			chest_obj.trishop_vis_flashing = [0, 0, 0];
+	    			chest_obj.trishop_vis_opacities = [0.1, 0.1, 0.1];
+				}
+				
+				if (!select_for_trishop && !joy_pad_idle) {
+					select_for_trishop = joy_dir <= 180;
+				}
+				
+				if (select_for_trishop) {
+					if (joy_pad_idle && chest_obj.trishop_selection != -1) {
+						chest_obj.state = 33;
+						chest_obj.state_timer = 0;
+						window_timer++; // advance past freeze
+					}
+					else if (joy_dir > 180) {
+						chest_obj.trishop_selection = -1;
+						select_for_trishop = false;
+					}
+					else if (joy_dir > 130) {
+						chest_obj.trishop_selection = 0;
+						chest_obj.trishop_vis_opacities = [0.2, 0.1, 0.1];
+					}
+					else if (joy_dir >= 50) {
+						chest_obj.trishop_selection = 1;
+						chest_obj.trishop_vis_opacities = [0.1, 0.2, 0.1];
+					}
+					else {
+						chest_obj.trishop_selection = 2;
+						chest_obj.trishop_vis_opacities = [0.1, 0.1, 0.2];
+					}
+				}
+				window_timer--; // force freeze until selection is made
+			} else {
+				if (chest_obj.state == 12) { // Large chest
+					chest_obj.state = 13;
+					chest_obj.state_timer = 0;
+					dspec_cooldown_hits = DSPEC_SCHEST_CD_HITS;
+				}
+				else if (chest_obj.state == 22) { // Large chest
+					chest_obj.state = 23;
+					chest_obj.state_timer = 0;
+					dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
+				}
+
+				if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
+					jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
+					jewel_barrier_timer = JEWEL_DURATION;
+					new_item_id = ITEM_JEWEL;
+					user_event(0); // for ms buff
+				}
+	    		var window_length = (chest_obj.state < 20) ? 8 : 28;
+	    		set_window_value(attack, window, AG_WINDOW_LENGTH, window_length)
+	    		set_window_value(attack, window, AG_WINDOW_SFX_FRAME, window_length-1);
+	    		hsp = 0;
+	    		spr_dir = (x < chest_obj.x) ? 1 : -1;
 			}
-			else if (chest_obj.state == 22) { // Large chest
-				chest_obj.state = 23;
-				chest_obj.state_timer = 0;
-				dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
-			}
-			else if (chest_obj.state == 32) { // trishop
-				chest_obj.state = 33;
-				chest_obj.state_timer = 0;
-				dspec_cooldown_hits = chest_obj.was_large ? DSPEC_LCHEST_CD_HITS : DSPEC_SCHEST_CD_HITS;
-			}
-			
-			if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
-				jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
-				jewel_barrier_timer = JEWEL_DURATION;
-				new_item_id = ITEM_JEWEL;
-				user_event(0); // for ms buff
-			}
-    		var window_length = (chest_obj.state < 20) ? 8 : 28;
-    		set_window_value(attack, window, AG_WINDOW_LENGTH, window_length)
-    		set_window_value(attack, window, AG_WINDOW_SFX_FRAME, window_length-1);
-    		hsp = 0;
-    		spr_dir = (x < chest_obj.x) ? 1 : -1;
     	}
     	if (window < 3) {
     		can_move = false;

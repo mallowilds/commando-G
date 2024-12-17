@@ -256,7 +256,6 @@ switch state {
     		player_id.grant_rarity = rarity;
     		
     		if ("forced_index") in self {
-    			print_debug("Forced index: "+string(forced_index));
     			player_id.new_item_id = forced_index;
         		player_id.force_grant_item = true;
         		player_id.force_remove_item = false;

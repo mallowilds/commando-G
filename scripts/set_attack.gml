@@ -19,6 +19,7 @@ if (attack == AT_DSPECIAL) {
         attack = AT_DSPECIAL_2;
         var radius = (chest_obj.is_large) ? DSPEC_LCHEST_RADIUS : DSPEC_SCHEST_RADIUS;
         if (point_distance(x, y, chest_obj.x, chest_obj.y) >= radius) move_cooldown[AT_DSPECIAL_2] = 2;
+        halt_for_trishop = false;
     }
     else if (chest_obj.state != clamp(chest_obj.state, 1, 2)) {
         move_cooldown[AT_DSPECIAL] = 2;

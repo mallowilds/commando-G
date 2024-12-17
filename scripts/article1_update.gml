@@ -92,11 +92,11 @@ switch(state) { // use this one for doing actual article behavior
         var roll = random_func(3, 100, true) + 1;
         if (roll <= player_id.trishop_odds) {
         	set_state(31);
-        	
         	var rarity_weights = [player_id.SCHEST_C_WEIGHT, player_id.SCHEST_U_WEIGHT, player_id.SCHEST_R_WEIGHT];
-        	if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
+        	if (player_id.uncommon_pool_size <= 2) rarity_weights[1] = 0;
             if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
             trishop_rarity = random_weighted_roll(player_id.item_seed, rarity_weights);
+            player_id.item_seed = (player_id.item_seed + 1) % 200;
         }
         break;
     case 11: // Fall
@@ -159,14 +159,15 @@ switch(state) { // use this one for doing actual article behavior
         sound_play(player_id.s_cfall);
         is_large = true;
         
-        var roll = random_func(3, 100, true) + 1;
+        var roll = random_func(player_id.item_seed, 100, true) + 1;
+        player_id.item_seed = (player_id.item_seed + 1) % 200;
         if (roll <= player_id.trishop_odds) {
         	set_state(31);
-        	
-        	var rarity_weights = [player_id.LCHEST_C_WEIGHT, player_id.LCHEST_C_WEIGHT, player_id.LCHEST_C_WEIGHT];
-        	if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
+        	var rarity_weights = [player_id.LCHEST_C_WEIGHT, player_id.LCHEST_U_WEIGHT, player_id.LCHEST_R_WEIGHT];
+        	if (player_id.uncommon_pool_size <= 2) rarity_weights[1] = 0;
             if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
             trishop_rarity = random_weighted_roll(player_id.item_seed, rarity_weights);
+            player_id.item_seed = (player_id.item_seed + 1) % 200;
         }
         break;
     case 21: // Fall
@@ -236,7 +237,6 @@ switch(state) { // use this one for doing actual article behavior
             
             // This is a good time to roll for Tri-shop loot.
             trishop_loot = choose_three_items(trishop_rarity);
-            print_debug(trishop_loot);
         }
         else if (instance_exists(hbox)) {
             hbox.hitbox_timer--;
@@ -247,6 +247,7 @@ switch(state) { // use this one for doing actual article behavior
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
         if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_SCHEST_RADIUS) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
         else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
+        if (trishop_vis_timer >= 0) trishop_vis_timer++;
         break;
     case 33: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;
@@ -255,7 +256,7 @@ switch(state) { // use this one for doing actual article behavior
             var item = instance_create(x, y-10, "obj_article3");
             item.state = 20;
             item.rarity = trishop_rarity;
-            item.forced_index = trishop_loot[0];
+            item.forced_index = trishop_loot[trishop_selection];
         }
         if (state_timer >= 35) set_state(34);
         break;
@@ -435,7 +436,7 @@ for (var i = 0; i < array_len; i++) {
 var items = [];
 
 if (rarity < 0 || rarity > 2) {
-	print_debug("user_event1 error: bad rarity value");
+	print_debug("article1_update error: bad rarity value");
 	exit;
 }
 

@@ -63,6 +63,10 @@ sprite_change_offset("dspec_largechest_outline" , 144, 224);
 sprite_change_offset("dspec_cac_bomb"           , 144, 224);
 sprite_change_offset("dspecial_arrows"          , 60,   0);
 
+sprite_change_offset("trishop_bg_lines"         , 61, 50);
+sprite_change_offset("trishop_bg_sidefill"      , 61, 50);
+sprite_change_offset("trishop_bg_centerfill"    , 61, 50);
+
 sprite_change_offset("item_temp_warbanner_spawn", 88, 180);
 sprite_change_offset("item_temp_warbanner_idle" , 60, 114);
 sprite_change_offset("item_temp_warbanner_despawn", 60, 114);

@@ -23,7 +23,7 @@ if (debug_display_opened) {
 		}
 	}
 	
-	// Horizontal pael scrolling
+	// Horizontal panel scrolling
 	if (taunt_down && left_pressed || left_down && taunt_pressed) {
 		debug_display_type--;
 		if (debug_display_type < 0) debug_display_type = debug_display_typerange;
