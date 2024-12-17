@@ -13,10 +13,10 @@ set_attack_value(atk, AG_LANDING_LAG                    , 6);
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //startup
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_medium1"));
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_weak1"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 
@@ -25,8 +25,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_weak1"));
-//set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, s_gunf);
+set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 
@@ -36,7 +36,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 6);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 5);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_medium2"));
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, s_gunl);
 // set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true); // handled manually
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
@@ -50,7 +50,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //endlag
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 14);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 12);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 9);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
@@ -97,12 +97,12 @@ set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);
 set_hitbox_value(atk, hbox_num, HG_ANGLE_FLIPPER            , 5);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 5);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
-set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 4);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 3);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , -30);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak1"));
+//set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_mol_flare_shoot"));
 set_hitbox_value(atk, hbox_num, HG_HAS_LERP                 , 1);
 set_hitbox_value(atk, hbox_num, HG_LERP_PERCENT             , 0.1);
 set_hitbox_value(atk, hbox_num, HG_LERP_POS_X               , -25);
@@ -132,7 +132,7 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , .5);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , -30);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium3"));
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_mol_flare_shoot"));
 set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 
 var hbox_num = 3; //gunshot multihit landing hitbox

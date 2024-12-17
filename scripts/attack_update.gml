@@ -113,6 +113,9 @@ switch(attack) {
     
     //#region Back Air
     case AT_BAIR:
+    	if window != 1 && window != 5{
+    		if !fast_falling vsp = clamp(vsp, -10000, 4)
+    	}
         if (!hitpause && window == 1 && window_timer == 1) {
     		num_loops = attack_speed - 1;
     		loops_done = 0;
@@ -161,7 +164,7 @@ switch(attack) {
         	destroy_hitboxes();
         	window = 5;
     		window_timer = 999; // jump to window 6
-    		sound_play(asset_get("sfx_swipe_medium2"));
+    		sound_play(s_gunl);
         }
         
         print_debug(window);

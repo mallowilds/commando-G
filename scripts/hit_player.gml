@@ -1,5 +1,5 @@
 //                           --hit stuff--                                    //
-
+var chbox = my_hitboxID.hbox_num 
 //#region DSpec cooldown handling
 if (!first_hit || (my_hitboxID.type == 2 && ("is_fake_hit" not in my_hitboxID || !my_hitboxID.is_fake_hit) && (my_hitboxID.orig_player != player || my_hitboxID.attack != AT_EXTRA_1))) {
 	if (dspec_cooldown_hits == 1) sound_play(s_cd)
@@ -314,7 +314,14 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_BAIR:
-        //a
+    	if chbox = 1 {
+        	hit_player_obj.x = lerp(floor(hit_player_obj.x), x-20 * spr_dir, .2)
+			hit_player_obj.y = lerp(floor(hit_player_obj.y), y-5, .2)
+			sound_play(asset_get("sfx_mol_flare_shoot"), 0, noone, 1, 1.03)
+			sound_play(asset_get("sfx_blow_weak1"), 0, noone, .6, 1.05)
+    	} else {
+    		sound_play(asset_get("sfx_blow_medium3"), 0, noone, .6, 1.05)
+    	}
         break;
     case AT_DAIR:
         //a
@@ -331,7 +338,12 @@ switch(my_hitboxID.attack) {
     	//a
     	break;
     case AT_DSTRONG:
-    	//a
+    	if chbox < 4 && chbox != 1 {
+    		sound_play(asset_get("sfx_mol_flare_shoot"), 0, noone, 1, 1.03)
+    	}
+    	if chbox > 3 {
+    		sound_play(asset_get("sfx_mol_bat_bombhit"), 0, noone, .3, 1.3)
+    	}
     	break;
     
     
