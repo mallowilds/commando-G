@@ -22,3 +22,4 @@ hbox = noone;
 land_vfx = noone;
 has_hit = false;
 trishop_rarity = 0; // common, uncommon, rare
+is_large = false; // for the sake of trishops

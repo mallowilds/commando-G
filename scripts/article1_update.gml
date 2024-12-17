@@ -87,11 +87,11 @@ switch(state) { // use this one for doing actual article behavior
         hbox.vsp = vsp;
         hbox.owner_chest = self;
         sound_play(player_id.s_cfall);
+        is_large = false;
         
         var roll = random_func(3, 100, true) + 1;
         if (roll <= player_id.trishop_odds) {
         	set_state(31);
-        	was_large = false;
         	
         	var rarity_weights = [player_id.SCHEST_C_WEIGHT, player_id.SCHEST_U_WEIGHT, player_id.SCHEST_R_WEIGHT];
         	if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
@@ -157,11 +157,11 @@ switch(state) { // use this one for doing actual article behavior
         hbox.vsp = vsp;
         hbox.owner_chest = self;
         sound_play(player_id.s_cfall);
+        is_large = true;
         
         var roll = random_func(3, 100, true) + 1;
         if (roll <= player_id.trishop_odds) {
         	set_state(31);
-        	was_large = true;
         	
         	var rarity_weights = [player_id.LCHEST_C_WEIGHT, player_id.LCHEST_C_WEIGHT, player_id.LCHEST_C_WEIGHT];
         	if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
@@ -226,11 +226,11 @@ switch(state) { // use this one for doing actual article behavior
         }
         if (!free) {
             set_state(32);
-            land_vfx = spawn_hit_fx(x, y, was_large ? player_id.fx_large_chest_land : player_id.fx_small_chest_land);
+            land_vfx = spawn_hit_fx(x, y, is_large ? player_id.fx_large_chest_land : player_id.fx_small_chest_land);
             land_vfx.depth = depth-1;
             hbox.destroyed = true;
             hbox = noone;
-            var land_hbox = create_hitbox(AT_DSPECIAL, was_large ? 4 : 2, x, y-16);
+            var land_hbox = create_hitbox(AT_DSPECIAL, is_large ? 4 : 2, x, y-16);
             land_hbox.owner_chest = self;
             sound_play(player_id.s_cland);
             
@@ -269,7 +269,7 @@ switch(state) { // use this one for doing actual article behavior
         target_y = y;
         y = get_stage_data(SD_TOP_BLASTZONE_Y)+80;
         vsp = 2;
-        set_state(31);
+        set_state(51);
         hbox = create_hitbox(AT_DSPECIAL, 5, x, y-50);
         hbox.vsp = vsp;
         hbox.owner_chest = self;
@@ -284,7 +284,7 @@ switch(state) { // use this one for doing actual article behavior
             can_be_grounded = true;
         }
         if (!free || has_hit) {
-            set_state(32);
+            set_state(52);
             var explode_vfx = spawn_hit_fx(x, y-50, HFX_MOL_BOOM_FINISH);
             explode_vfx.depth = depth-1;
             hbox.destroyed = true;

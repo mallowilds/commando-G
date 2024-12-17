@@ -20,7 +20,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_g
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 
-set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //active gunwhip - 2 active 2 endlag
+set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); // formerly active gunwhip, now extra startup
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
@@ -78,32 +78,8 @@ window_num++;
 
 //                        --attack hitboxes--                                 //
 set_num_hitboxes(atk, 4);
-var hbox_num = 1; //whip hitbox
 
-set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 1);
-//set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
-set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -32);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -34);
-set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 77);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 27);
-set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
-set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 2);
-set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);
-set_hitbox_value(atk, hbox_num, HG_ANGLE_FLIPPER            , 5);
-set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 5);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
-set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 4);
-set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , -30);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium2"));
-
-var hbox_num = 2; //gunshot multihit hitbox
+var hbox_num = 1; //gunshot multihit hitbox
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , -1);
@@ -127,8 +103,13 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , -30);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak1"));
+set_hitbox_value(atk, hbox_num, HG_HAS_LERP                 , 1);
+set_hitbox_value(atk, hbox_num, HG_LERP_PERCENT             , 0.1);
+set_hitbox_value(atk, hbox_num, HG_LERP_POS_X               , -25);
+set_hitbox_value(atk, hbox_num, HG_LERP_POS_Y               , 0);
 
-var hbox_num = 3; //gunshot multihit hitbox
+
+var hbox_num = 2; //gunshot multihit launcher hitbox
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , -1);
@@ -154,7 +135,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium3"));
 set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 
-var hbox_num = 4; //gunshot multihit landing hitbox
+var hbox_num = 3; //gunshot multihit landing hitbox
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , -1);

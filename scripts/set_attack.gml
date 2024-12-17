@@ -15,9 +15,13 @@ if (prev_attack == AT_FSPECIAL_AIR) hsp = clamp(hsp, -leave_ground_max, leave_gr
 
 if (attack == AT_DSPECIAL) {
     if (!instance_exists(chest_obj)) chest_obj = noone;
-    else if (chest_obj.state != clamp(chest_obj.state, 1, 2)) {
+    else if (chest_obj.state % 10 == 2 && chest_obj.state != 2) {
         attack = AT_DSPECIAL_2;
-        if (point_distance(x, y, chest_obj.x, chest_obj.y) >= ((chest_obj.state < 20) ? DSPEC_SCHEST_RADIUS : DSPEC_LCHEST_RADIUS)) move_cooldown[AT_DSPECIAL_2] = 2;
+        var radius = (chest_obj.is_large) ? DSPEC_LCHEST_RADIUS : DSPEC_SCHEST_RADIUS;
+        if (point_distance(x, y, chest_obj.x, chest_obj.y) >= radius) move_cooldown[AT_DSPECIAL_2] = 2;
+    }
+    else if (chest_obj.state != clamp(chest_obj.state, 1, 2)) {
+        move_cooldown[AT_DSPECIAL] = 2;
     }
 }
 
