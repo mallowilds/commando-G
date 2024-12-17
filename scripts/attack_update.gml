@@ -113,7 +113,7 @@ switch(attack) {
     
     //#region Back Air
     case AT_BAIR:
-        if (window == 1 && window_timer == 1) {
+        if (!hitpause && window == 1 && window_timer == 1) {
     		num_loops = attack_speed - 1;
     		loops_done = 0;
     		loop_cancelled = false;
@@ -136,31 +136,37 @@ switch(attack) {
     	// Loop handling
     	var aerial_pressed = attack_pressed || is_attack_pressed(DIR_ANY) || left_strong_pressed || right_strong_pressed || down_strong_pressed || up_strong_pressed || is_strong_pressed(DIR_ANY); // thank you dan
     	if (window >= 2 && aerial_pressed) loop_cancelled = true;
-    	if (window == 2 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) && 0 >= num_loops) {
+    	if (!hitpause && window == 2 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) && 0 >= num_loops) {
     		window = 3;
     		window_timer = 999; // jump to window 4
+    		set_attack_value(attack, AG_CATEGORY, 1);
     	}
-    	if (window == 3 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH)) {
+    	if (!hitpause && window == 3 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH)) {
     		num_loops--;
     		if (num_loops > 0 && !loop_cancelled) {
     			attack_end();
 	    		window = 2;
 	    		window_timer = 999; // jump to window 3
+    		} else {
+    			set_attack_value(attack, AG_CATEGORY, 1);
     		}
     		sound_play(get_window_value(attack, window, AG_WINDOW_SFX)); // differs based on if a loop occurred
     	}
     	
     	// Landing hitbox handling
     	if (window == 2 && window_timer == 1) set_attack_value(attack, AG_CATEGORY, 2);
-        else if (window == 4 && window_timer == 1) set_attack_value(attack, AG_CATEGORY, 1);
         
-        if (!free && window < 5 && get_attack_value(attack, AG_CATEGORY) == 2) {
+        if (!hitpause && window < 5 && !free && get_attack_value(attack, AG_CATEGORY) == 2) {
         	set_attack_value(attack, AG_NUM_WINDOWS, 7);
         	destroy_hitboxes();
         	window = 5;
     		window_timer = 999; // jump to window 6
     		sound_play(asset_get("sfx_swipe_medium2"));
         }
+        
+        print_debug(window);
+        print_debug(window_timer);
+        print_debug(get_attack_value(attack, AG_CATEGORY));
         
         break;
     //#endregion
@@ -308,22 +314,28 @@ switch(attack) {
     case AT_DSPECIAL:
         can_fast_fall = false;
         can_move = false;
+        if (window == 1 && window_timer == 1) {
+        	call_sfx_instance = sound_play(s_tap);
+        }
         if (window != 3) {
             hsp = lerp(hsp, 0, .1)
             if vsp > 0 vsp = lerp(vsp, 0, .3)
         }
-        else if (window_timer == 1) {
-        	if (instance_exists(chest_obj)) {
-        		if (chest_obj.state == 01) {
-        			chest_obj.state = 10;
-        			chest_obj.state_timer = 0;
-        		}
-        		else if (chest_obj.state == 02) {
-        			chest_obj.state = 20;
-        			chest_obj.state_timer = 0;
-        		}
-        	}
-        	else chest_obj = instance_create(x, y-20, "obj_article1");
+        if (window == 2 && window_timer == 10 && instance_exists(chest_obj)) {
+    		if (chest_obj.state == 01) {
+    			chest_obj.state = 10;
+    			chest_obj.state_timer = 0;
+    		}
+    		else if (chest_obj.state == 02) {
+    			chest_obj.state = 20;
+    			chest_obj.state_timer = 0;
+    		}
+    		window = 3;
+    		window_timer = 1;
+    		sound_stop(call_sfx_instance);
+    	}
+        else if (window == 3 && window_timer == 1) {
+        	chest_obj = instance_create(x, y-20, "obj_article1");
         }
         break;
     case AT_DSPECIAL_2:
