@@ -24,7 +24,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_weak1"));
 //set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
@@ -34,7 +34,7 @@ window_num++;
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //gunshot multihit - 2 active 4 endlag
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 6);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 5);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_medium2"));
 // set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true); // handled manually
@@ -45,15 +45,15 @@ window_num++;
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //active gunshot final
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 2);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 7);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 8);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //endlag
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 14);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 8);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 9);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
 window_num++;
 
@@ -62,15 +62,15 @@ window_num++;
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //active gunshot final
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 2);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 7);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 11);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //endlag
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 14);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 6);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 8);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 12);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
 window_num++;
 
@@ -86,11 +86,11 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , -1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 3);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -45);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -60);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -44);
 set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 67);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 69);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 72);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 60);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 1);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);
@@ -116,11 +116,11 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , -1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 4);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -45);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -60);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -44);
 set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 72);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 74);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 90);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 60);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 3);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);
@@ -142,11 +142,11 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , -1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 6);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 2);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -45);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -44);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -60);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -36);
 set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 72);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 74);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 90);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 60);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 3);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);
