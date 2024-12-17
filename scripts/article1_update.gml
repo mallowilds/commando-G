@@ -247,7 +247,18 @@ switch(state) { // use this one for doing actual article behavior
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
         if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_SCHEST_RADIUS) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
         else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
+        if (player_id.state != PS_ATTACK_AIR && player_id.state != PS_ATTACK_GROUND) trishop_vis_timer = -1;
         if (trishop_vis_timer >= 0) trishop_vis_timer++;
+        for (var i = 0; i < 3; i++) {
+        	if (i == trishop_selection) {
+        		if (trishop_vis_flashing) {
+        			trishop_vis_opacities[i] = clamp(trishop_vis_opacities[i]+0.1, 0.1, 0.6);
+        			if (trishop_vis_opacities[i] == 0.6) trishop_vis_flashing = false;
+        		} else trishop_vis_opacities[i] = clamp(trishop_vis_opacities[i]-0.05, 0.4, 0.6);
+        	} else {
+        		trishop_vis_opacities[i] = clamp(trishop_vis_opacities[i]-0.06, 0.1, 0.4);
+        	}
+        }
         break;
     case 33: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;

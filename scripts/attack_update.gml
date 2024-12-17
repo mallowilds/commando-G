@@ -348,7 +348,7 @@ switch(attack) {
 	    			set_window_value(attack, window, AG_WINDOW_SFX_FRAME, 7);
 	    			
 	    			chest_obj.trishop_vis_timer = 0;
-	    			chest_obj.trishop_vis_flashing = [0, 0, 0];
+	    			chest_obj.trishop_vis_flashing = 1;
 	    			chest_obj.trishop_vis_opacities = [0.1, 0.1, 0.1];
 				}
 				
@@ -357,6 +357,7 @@ switch(attack) {
 				}
 				
 				if (select_for_trishop) {
+					var new_trishop_selection = -1;
 					if (joy_pad_idle && chest_obj.trishop_selection != -1) {
 						chest_obj.state = 33;
 						chest_obj.state_timer = 0;
@@ -366,17 +367,13 @@ switch(attack) {
 						chest_obj.trishop_selection = -1;
 						select_for_trishop = false;
 					}
-					else if (joy_dir > 130) {
-						chest_obj.trishop_selection = 0;
-						chest_obj.trishop_vis_opacities = [0.2, 0.1, 0.1];
-					}
-					else if (joy_dir >= 50) {
-						chest_obj.trishop_selection = 1;
-						chest_obj.trishop_vis_opacities = [0.1, 0.2, 0.1];
-					}
-					else {
-						chest_obj.trishop_selection = 2;
-						chest_obj.trishop_vis_opacities = [0.1, 0.1, 0.2];
+					else if (joy_dir > 130) new_trishop_selection = 0;
+					else if (joy_dir >= 50) new_trishop_selection = 1;
+					else new_trishop_selection = 2;
+					
+					if (new_trishop_selection != -1 && new_trishop_selection != chest_obj.trishop_selection) {
+						chest_obj.trishop_selection = new_trishop_selection;
+						chest_obj.trishop_vis_flashing = 1;
 					}
 				}
 				window_timer--; // force freeze until selection is made
