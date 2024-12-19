@@ -8,6 +8,8 @@ if (attack == AT_TAUNT) {
     else attack = ntaunt_index;
 }
 
+if (attack == AT_FSTRONG) attack = fstrong_index;
+
 if (attack == AT_USTRONG) attack = ustrong_index;
 
 if (attack == AT_FSPECIAL && (free || state == PS_JUMPSQUAT)) attack = AT_FSPECIAL_AIR;

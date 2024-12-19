@@ -154,7 +154,7 @@ item_grid = [
     ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, noone,            0, noone, "Gain attack speed the more you're damaged.", noone], // 50 | user_event0.gml, update.gml
     ["Shipping Request Form",   RTY_UNCOMMON,   ITP_META,         noone,            0, noone, "Increases the odds of calling down a Tri-Shop.", noone], // 51 | user_event0.gml
     ["Fire Shield",             RTY_COMMON,     ITP_DAMAGE,       ITP_BURNING,      0, noone, "Set opponents on fire when dodging or parrying attacks.", noone], // 52 | user_event0.gml, parry.gml, update.gml
-    ["Trophy Hunter's Tricorn", RTY_RARE,       ITP_META,         ITP_DAMAGE,       0, noone, "Claim a trophy from the opponent with FStrong. Only has one shot.", noone], // 53 | Unimplemented
+    ["Trophy Hunter's Tricorn", RTY_RARE,       ITP_META,         ITP_DAMAGE,       0, noone, "Claim a trophy from the opponent with FStrong. Only has one shot.", noone], // 53 | user_event0.gml, fstrong_2.gml, attack_update.gml, update.gml, hit_player.gml, article3
     ["Trophy Hunter's Relic",   RTY_VOID,       ITP_META,         ITP_DAMAGE,       0, noone, "Looks kinda cool, but that's about it. ", noone], // 54 | N/A
     ["Fireworks",               RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Launch fireworks when opening chests.", noone], // 55 | Unimplemented
     ["Snake Eyes",              RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Consecutive critical hits become stronger.", noone], // 56 | Unimplemented
@@ -346,6 +346,7 @@ ntaunt_index = AT_TAUNT; // taunts altered by Ukelele/Warbanner
 utaunt_index = AT_TAUNT;
 dtaunt_index = get_match_setting(SET_PRACTICE) ? AT_EXTRA_3 : AT_TAUNT;
 ustrong_index = AT_USTRONG; // altered by Ukelele
+fstrong_index = AT_FSTRONG; // altered by Tricorn
 
 // Multipliers and fractional damage (see also: other_init.gml)
 u_mult_damage_buffer = 0;
@@ -449,6 +450,8 @@ filial_double_outline = [120, 31, 150];
 
 fshield_damage = 0;
 fshield_triggered = 0;
+
+do_tricorn_remove = 0;
 
 nectar_mult = 1;
 

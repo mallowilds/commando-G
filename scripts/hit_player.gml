@@ -334,6 +334,24 @@ switch(my_hitboxID.attack) {
     	var dir_fx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_blast);
     	dir_fx.draw_angle = 10 * spr_dir;
     	break;
+    case AT_FSTRONG_2: // Tricorn FStrong
+    	var dir_fx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_blast);
+    	dir_fx.draw_angle = 10 * spr_dir;
+    	
+    	if (!hit_player_obj.clone) {
+	    	var trophy = instance_create(hit_player_obj.x-8, hit_player_obj.y-30, "obj_article3");
+	    	trophy.state = 55;
+	    	if (hit_player_obj.custom) {
+	    		trophy.icon = get_char_info(hit_player_obj.player, INFO_ICON);
+	    		trophy.icon_index = 0;
+	    		trophy.icon_scale = 2;
+	    	} else {
+	    		trophy.icon = sprite_get("bc_icons");
+	    		trophy.icon_index = other.url;
+	    		trophy.icon_scale = 1;
+	    	}
+    	}
+    	break;
     case AT_USTRONG:
     	//a
     	break;

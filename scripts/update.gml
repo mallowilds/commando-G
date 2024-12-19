@@ -743,6 +743,16 @@ if (fshield_damage != 0) {
 	}
 }
 
+// Trophy Hunter's Tricorn
+if (state != PS_ATTACK_GROUND && do_tricorn_remove) {
+	do_tricorn_remove = false;
+	new_item_id = ITEM_TRICORN;
+	ue1_command = UE1_REVOKE;
+	user_event(1);
+	new_item_id = ITEM_TRICORN_SPENT;
+	ue1_command = UE1_GRANT;
+	user_event(1);
+}
 
 
 //#endregion

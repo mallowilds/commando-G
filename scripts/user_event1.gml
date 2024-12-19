@@ -161,6 +161,8 @@ return false;
 	var itp = item_grid[item_id][IG_TYPE];
 	var rarity = item_grid[item_id][IG_RARITY];
 	
+	if (rarity < 0 || 2 < rarity) return;
+	
 	// Reduce for a legendary item
 	if (itp == ITP_LEGENDARY) {
 		legendary_pool_size[rarity]--;

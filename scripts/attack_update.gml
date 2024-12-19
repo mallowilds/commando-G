@@ -79,9 +79,18 @@ switch(attack) {
         break;
     
     case AT_FSTRONG: 
-        if window == 2 && window_timer == window_length-1 {
+        if (window == 2 && window_timer == window_length-1) {
             sound_stop(s_reload)
             sound_play(s_shotty, 0, noone, 3, .95)
+        }
+        break;
+    
+    // Tricorn
+    case AT_FSTRONG_2:
+        if (window == 2 && window_timer == window_length-1) {
+            sound_stop(s_reload)
+            sound_play(s_shotty, 0, noone, 3, .95)
+            do_tricorn_remove = 1;
         }
         break;
     

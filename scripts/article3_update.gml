@@ -42,10 +42,16 @@ precondition: upon spawning, spawn_num = item_grid[ITEM_FILIAL][IG_NUM_HELD]
 - 47: Taunt
 - 48: Despawn
 
-FILIIAL IMPRINTING ~ buff drop
+FILIAL IMPRINTING ~ buff drop
 precondition: buff_type = (0 or 1)
 - 50: Initialization
 - 51: Idle
+
+TRICORN ~ trophy
+precondition: icon variables should be set externally
+- 55: Initialization
+- 56: Rise
+- 57: Float
 
 */
 
@@ -633,6 +639,49 @@ switch state {
     
     //#endregion
     
+    //#region Tricorn ~ trophy
+    
+    // Init
+    case 55:
+    	
+    	ignores_walls = false;
+    	can_be_grounded = false;
+    	vsp = 0;
+    	
+    	if (!player_id.hitpause) {
+    		vsp = -9;
+    		state = 56;
+    		state_timer = 0;
+    	}
+    	
+    	break;
+    
+    // Rise
+    case 56:
+		vsp += 0.5;
+		if (vsp == 0.5) {
+			state = 57;
+			state_timer = 0;
+		}
+    	break;
+    
+    // Float
+    case 57:
+    	vsp = 0.5*cos(state_timer*pi/45);
+    	
+    	if (state_timer >= 180) {
+    		spawn_hit_fx(x+8, y+8, HFX_GEN_OMNI);
+    		instance_destroy();
+    		exit;
+    	} else if (state_timer % 60 == 1) {
+    		var item = instance_create(x+8, y+8, "obj_article3");
+    		item.state = 20;
+    		item.rarity = (player_id.uncommon_pool_size < 1) ? 0 : 1;
+    	}
+    	
+    	break;
+    
+    //#endregion
     
     //#region Failed initialization
     default:

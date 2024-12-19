@@ -158,7 +158,11 @@ switch new_item_id {
         break;
         
     // Fire Shield moved to bottom for a small control flow improvement
-        
+    
+    case 53: // Trophy Hunter's Tricorn
+        fstrong_index = item_grid[53][IG_NUM_HELD] > 0 ? AT_FSTRONG_2 : AT_FSTRONG;
+        break;
+    
     case 58: // Growth Nectar
         nectar_mult = 1 + item_grid[58][IG_NUM_HELD];
         update_attack_speed();
