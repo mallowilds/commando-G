@@ -77,8 +77,6 @@ switch state {
                 burnt_id = other.player_id;
                 burn_timer = 150 - 30*other.player_id.FIREBOOTS_DAMAGE;
                 burned_color = 0;
-                other.player_id.enemy_burnID = self;
-                other.player_id.other_burned = true;
                 init_shader();
                 sound_play(asset_get("sfx_burnapplied"));
             }

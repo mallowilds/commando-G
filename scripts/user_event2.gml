@@ -381,6 +381,12 @@ FILIAL_HEAL_AMOUNT = 4;
 
 // Energy Cell
 CELL_THRESHOLD_BASE = 40;
-CELL_THRESHOLD_SCALE = -5; // Note that this scaling causes problems at non-positive values! The standard uncommon limit prevents this.
+CELL_THRESHOLD_SCALE = -5; // Note that this scaling causes problems upon reaching non-positive values! The standard uncommon limit prevents this.
+
+// Fire Shield
+FSHIELD_DAMAGE_BASE = 4;
+FSHIELD_DAMAGE_SCALE = 2;
+FSHIELD_RADIUS = 100; // for collision on proc
+FSHIELD_DODGE_RADIUS = 60; // strictly for activation on dodges
 
 //#endregion

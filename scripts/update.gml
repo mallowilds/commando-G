@@ -72,29 +72,6 @@ if (debug_display_opened) {
 	
 }
 
-// Debug: spawn item on parry
-// (This can and will cause excess spawns per item rarity. Since this is strictly a debug util and the error is handled externally, this needn't be fixed).
-if (get_gameplay_time() % 1 == 9) || (get_match_setting(SET_PRACTICE) && !debug_display_opened && state == PS_PARRY && state_timer == 0) {
-	
-	//if ("debug_pgrant_results" not in self) debug_pgrant_results = [0, 0, 0];
-	
-	var rarity_weights = [SCHEST_C_WEIGHT, SCHEST_U_WEIGHT, SCHEST_R_WEIGHT];
-    if (uncommon_pool_size <= 0) rarity_weights[1] = 0;
-    if (rares_remaining <= 0) rarity_weights[2] = 0;
-    grant_rarity = random_weighted_roll(item_seed, rarity_weights);
-    item_seed = (item_seed + 1) % 200;
-	
-	var item = instance_create(get_stage_data(SD_X_POS) + floor(get_stage_data(SD_WIDTH)/2), get_stage_data(SD_Y_POS)-10, "obj_article3");
-    item.state = 20;
-    item.rarity = grant_rarity;
-    
-    //debug_pgrant_results[grant_rarity]++;
-    //print_debug(debug_pgrant_results);
-	
-}
-
-
-
 // reset idle_air_looping if the character isn't in air idle anymore
 if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
 	idle_air_looping = false;
@@ -675,6 +652,32 @@ if (filial_outline_type != 0) {
 	if (!array_equals(filial_outline, outline_color)) {
 		outline_color = filial_outline;
 		init_shader();
+	}
+}
+
+// Fire Shield
+if (fshield_damage != 0) {
+	if (!hurtboxID.dodging) fshield_triggered = false;
+	else if (!fshield_triggered) {
+		var _y = y-10;
+		with (pHitBox) {
+			var can_hit = !other.fshield_triggered && (get_match_setting(SET_TEAMATTACK) ? self.player != other.player : get_player_team(player) != get_player_team(other.player));
+			if (can_hit && collision_circle(other.x, _y, other.FSHIELD_DODGE_RADIUS, self, true, false)) other.fshield_triggered = true;
+		}
+		if (fshield_triggered) {
+		    spawn_hit_fx(x, _y, HFX_ZET_SHINE_BIG_FG);
+		    sound_play(asset_get("sfx_burnapplied"));
+		    with oPlayer {
+		        var can_hit = get_match_setting(SET_TEAMATTACK) ? self != other : get_player_team(player) != get_player_team(other.player);
+		        if (can_hit && collision_circle(other.x, _y, other.FSHIELD_RADIUS, hurtboxID, true, false)) {
+		            burned = true;
+		            burnt_id = other;
+		            burn_timer = 150 - 30*other.fshield_damage;
+		            burned_color = 0;
+		            init_shader();
+		        }
+		    }
+		}
 	}
 }
 

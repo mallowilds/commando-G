@@ -1,5 +1,5 @@
 
-if ("commando_status_state" not in self || !instance_exists(other_player_id) || "ST_BLEED" not in other_player_id) exit;
+if ("other_player_id" not in self || "commando_status_state" not in self || "init_complete" not in other_player_id) exit;
 
 // Sticky Bomb
 if (commando_status_state[other_player_id.ST_STICKY] > 0) {

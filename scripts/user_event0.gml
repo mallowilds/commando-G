@@ -152,6 +152,11 @@ switch new_item_id {
         var odds = TRISHOP_ODDS;
         trishop_odds = odds[item_grid[51][IG_NUM_HELD]]
         break;
+        
+    case 52: // Fire Shield
+        if (item_grid[52][IG_NUM_HELD] == 0) fshield_damage = 0;
+        else fshield_damage = FSHIELD_DAMAGE_BASE + FSHIELD_DAMAGE_SCALE*item_grid[52][IG_NUM_HELD];
+        break;
     
 }
 
