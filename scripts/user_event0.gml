@@ -132,6 +132,9 @@ switch new_item_id {
             behemoth_odds_applied = true;
         }
         break;
+        
+    case 46: // 57 Leaf Clover
+        clover_active = item_grid[46][IG_NUM_HELD] != 0;
     
     case 49: // Filial Imprinting
         if (filial_num_spawned < item_grid[49][IG_NUM_HELD]) {

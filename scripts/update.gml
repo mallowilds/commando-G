@@ -579,6 +579,67 @@ else if (dios_revive_timer > -30) {
 	}
 }
 
+// 57-Leaf Clover
+if (clover_test) {
+	if (activated_kill_effect) {
+		clover_timer = CLOVER_RUNTIME;
+		clover_active = false;
+	}
+	clover_test = false;
+}
+
+if (clover_timer == CLOVER_RUNTIME) {
+	clover_caught = [];
+	var _y = y + CLOVER_Y;
+	with oPlayer {
+        if (collision_circle(other.x, _y, other.CLOVER_RADIUS, hurtboxID, true, false)) {
+            array_push(other.clover_caught, self);
+            hitpause = true;
+            hitstop = 2;
+            hitstop_full = 2;
+            invincible = true;
+            invince_time = 2;
+        }
+	}
+	spawn_hit_fx(x, _y, HFX_MAY_LEAF_HUGE);
+	sound_play(asset_get("sfx_abyss_hazard_start"));
+	clover_timer--;
+}
+else if (clover_timer > 1) {
+	for (var i = 0; i < array_length(clover_caught); i++) {
+		with clover_caught[i] {
+			hitstop = 2;
+            hitstop_full = 2;
+            invincible = true;
+            invince_time = 2;
+		}
+	}
+	clover_timer--;
+}
+else if (clover_timer == 1) {
+	for (var i = 0; i < array_length(clover_caught); i++) {
+		with clover_caught[i] {
+            hitpause = false;
+            hitstop = 0;
+            hitstop_full = 0;
+            if (state_cat == SC_HITSTUN) {
+				invincible = true;
+				invince_time = 10;
+				hsp = 0;
+				vsp = -6;
+				set_state(PS_IDLE_AIR);
+			} else {
+	            invincible = true;
+	            invince_time = 2;
+			}
+		}
+	}
+	spawn_hit_fx(x, y+CLOVER_Y, HFX_MAY_LEAF_HUGE);
+	sound_play(asset_get("sfx_oly_flashstun"));
+	clover_caught = [];
+	clover_timer--;
+}
+
 // Wax Quail
 if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 	var attack_dashing = (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR) && ((attack == AT_DATTACK && has_hit) || attack == AT_FSPECIAL);

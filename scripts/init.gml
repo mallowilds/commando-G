@@ -146,7 +146,7 @@ item_grid = [
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!", noone], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml, user_event0
     ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      noone,            0, noone, "Cheat death.", noone], // 44 | update.gml, death.gml
     ["Withered Best Friend",    RTY_VOID,       ITP_HEALING,      noone,            0, noone, "A spent item with no remaining power.", noone], // 45 | N/A
-    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    noone,            0, noone, "Luck is on your side.", noone], // 46 | Unimplemented
+    ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    noone,            0, noone, "Luck is on your side.", noone], // 46 | article1_update.gml, got_hit.gml, update.gml, death.gml, user_event0
     
     ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      noone,            0, noone, "Enemies that get launched hard enough spawn healing orbs.", noone], // 47 | hit_player.gml, article3
     ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Jumping while dashing boosts you forward.", noone], // 48 | update.gml
@@ -429,6 +429,11 @@ pjetpack_sound = noone;
 
 dios_revive_timer = -999;
 dios_stored_damage = 0;
+
+clover_active = false;
+clover_test = false;
+clover_timer = 0;
+clover_caught = [];
 
 tooth_awaiting_spawn = array_create(20, -1);
 

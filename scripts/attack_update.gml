@@ -401,6 +401,7 @@ switch(attack) {
 	    		hsp = 0;
 	    		spr_dir = (x < chest_obj.x) ? 1 : -1;
 			}
+			if (item_grid[ITEM_CLOVER][IG_NUM_HELD] > 0 && dspec_cooldown_hits > DSPEC_CLOVER_HITS) dspec_cooldown_hits = DSPEC_CLOVER_HITS;
     	}
     	if (window < 3) {
     		can_move = false;

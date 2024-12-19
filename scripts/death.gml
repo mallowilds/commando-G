@@ -41,6 +41,10 @@ if (item_grid[44][IG_NUM_HELD] > 0) {
     
 }
 
+// Clover
+clover_active = item_grid[46][IG_NUM_HELD] != 0;
+clover_timer = 0;
+
 // Filial Imprinting
 if (filial_aspeed_timer > 0) filial_aspeed_timer = 1;
 if (filial_speed_timer > 0) filial_speed_timer = 1;
