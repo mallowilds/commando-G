@@ -64,7 +64,7 @@ switch tmu_state {
         if (attack_pressed && item_grid[tmu_item_id][IG_NUM_HELD] < 10) {
             clear_button_buffer(PC_ATTACK_PRESSED);
             new_item_id = tmu_item_id;
-            force_grant_item = true;
+            ue1_command = UE1_GRANT;
             item_silenced = true;
             user_event(1);
         }
@@ -72,7 +72,7 @@ switch tmu_state {
         else if (special_pressed) {
             clear_button_buffer(PC_SPECIAL_PRESSED);
             new_item_id = tmu_item_id;
-            force_remove_item = true;
+            ue1_command = UE1_REVOKE;
             user_event(1);
         }
         

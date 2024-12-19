@@ -52,14 +52,15 @@ if (debug_display_opened) {
 	else if (debug_display_type == 3) {
 		if (item_id_ordering[debug_display_index] == noone) debug_display_index++;
 		if (taunt_down && special_pressed || special_down && taunt_pressed) {
-			force_grant_item = 1;
+			ue1_command = UE1_GRANT;
+			item_silenced = true;
 			new_item_id = item_id_ordering[debug_display_index];
 			user_event(1);
 			clear_button_buffer(PC_SPECIAL_PRESSED);
 			clear_button_buffer(PC_TAUNT_PRESSED);
 		}
 		else if (taunt_down && shield_pressed || shield_down && taunt_pressed) {
-			force_remove_item = 1;
+			ue1_command = UE1_REVOKE;
 			new_item_id = item_id_ordering[debug_display_index];
 			user_event(1);
 			clear_button_buffer(PC_SHIELD_PRESSED);
