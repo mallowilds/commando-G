@@ -285,7 +285,7 @@ switch state {
     	spr_dir = 1; // temp
     	radius_y_offset = -54;
     	
-    	warbanner_strength = player_id.item_grid[player_id.ITEM_WARBANNER][player_id.IG_NUM_HELD];
+    	warbanner_strength = player_id.item_grid[player_id.ITEM_WARBANNER][player_id.IG_NUM_HELD]*player_id.nectar_mult;
     	warbanner_max_radius = player_id.WARBANNER_RADIUS_BASE + warbanner_strength * player_id.WARBANNER_RADIUS_SCALE;
     	warbanner_radius = 0;
     	warbanner_radius_speed = warbanner_max_radius / 20;
