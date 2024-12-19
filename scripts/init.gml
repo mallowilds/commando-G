@@ -140,7 +140,7 @@ item_grid = [
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        noone,            0, 38,    "No hands!", noone], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | update.gml, user_event0.gml, attack_update (temp)
-    ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, user_event0.gml, melee hitbox update (for ignition tank effects)
+    ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, user_event0.gml, melee hitbox update (for ignition tank effects) (subject to refactor)
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge laser blast.", noone], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | user_event0, integrated into the healing-applying function (and general barrier utils)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!", noone], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml, user_event0
@@ -152,15 +152,14 @@ item_grid = [
     ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Jumping while dashing boosts you forward.", noone], // 48 | update.gml
     ["Filial Imprinting",       RTY_UNCOMMON,   ITP_ATTACK_SPEED, ITP_SPEED,        0, noone, "Hatch a strange creature who drops buffs every 15 seconds.", noone], // 49 | Unimplemented
     ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, noone,            0, noone, "Gain attack speed the more you're damaged.", noone], // 50 | user_event0.gml, update.gml
-    ["Shipping Request Form",   RTY_UNCOMMON,   ITP_META,         noone,            0, noone, "Increases the odds of calling down a Tri-Shop.", noone], // 51 | Unimplemented, tentative
+    ["Shipping Request Form",   RTY_UNCOMMON,   ITP_META,         noone,            0, noone, "Increases the odds of calling down a Tri-Shop.", noone], // 51 | user_event0.gml
+    ["Fire Shield",             RTY_COMMON,     ITP_DAMAGE,       ITP_BURNING,      0, noone, "Set opponents on fire when dodging or parrying attacks.", noone], // 52 | Unimplemented
+    ["Trophy Hunter's Tricorn", RTY_RARE,       ITP_META,         ITP_DAMAGE,       0, noone, "Claim a trophy from the opponent with FStrong. Only has one shot.", noone], // 53 | Unimplemented
+    ["Trophy Hunter's Relic",   RTY_VOID,       ITP_META,         ITP_DAMAGE,       0, noone, "Looks kinda cool, but that's about it. ", noone], // 54 | N/A
+    ["Fireworks",               RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Launch fireworks when opening chests.", noone], // 55 | Unimplemented
+    ["Snake Eyes",              RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Consecutive critical hits become stronger.", noone], // 56 | Unimplemented
+    ["Ceremonial Dagger",       RTY_RARE,       ITP_CRITICAL,     noone,            0, noone, "Critical hits summon daggers to chase down opponents.", noone], // 57 | Unimplemented
     
-    /*
-    ["Growth Nectar",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, noone, "Upon gaining 5+ common items, become even stronger.", noone], // 52 | Unimplemented, tentative
-    ["Luminous Shot",           RTY_UNCOMMON,   ITP_KNOCKBACK,    noone,            0, noone, "Using a special briefly charges your next normal attack.", noone], // 53 | Unimplemented, tentative
-    ["Bolstering Lantern",      RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Deal more damage after reaching 120%."],  // 54 | Unimplemented, tentative
-    ["Trophy Hunter's Tricorn", RTY_RARE,       ITP_META,         noone,            0, noone, "Claim a trophy from the opponent with FStrong. Only has one shot.", noone], // 44 | update.gml, death.gml
-    ["Trophy Hunter's Relic",   RTY_VOID,       ITP_HEALING,      noone,            0, noone, "Looks kinda cool, but that's about it. ", noone], // 45 | N/A
-    */
 ]
 
 // Ordering for in-game utilities (debug displays and practice mode)
@@ -183,45 +182,50 @@ item_id_ordering = [
     ITEM_MOCHA,         // 15
     ITEM_STICKYBOMB,
     ITEM_GASOLINE,
-    noone, // category delimiter
-    ITEM_FIREBAND,      // 19
-    ITEM_ICEBAND,       // 20
+    ITEM_FSHIELD,
+    ITEM_FIREWORKS,     // 19
+    noone, // category delimiter // 20
+    ITEM_FIREBAND,      // 21
+    ITEM_ICEBAND,       
     ITEM_UKELELE,
     ITEM_RJETPACK,
-    ITEM_QUAIL,
+    ITEM_QUAIL,         // 25
     ITEM_FEATHER,
-    ITEM_HEART,         // 25
+    ITEM_HEART,
     ITEM_JEWEL,
     ITEM_FILIAL,
+    ITEM_SNAKEEYES,     // 30
     ITEM_SCYTHE,
     ITEM_IGNITION,
-    ITEM_INSTINCTS,     // 30
+    ITEM_INSTINCTS,
     ITEM_SHIPPING,
-    ITEM_CELL,
+    ITEM_CELL,          // 35
     ITEM_STUNGRENADE,
     ITEM_ATG1,
-    noone,              // 35
+    noone,              // 38
     ITEM_SCEPTER,
+    ITEM_TRICORN,       // 40
     ITEM_FIREBOOTS,
     ITEM_ATG2,
     ITEM_LOPPER,
-    ITEM_SHATTERING,    // 40
-    ITEM_CODES,
+    ITEM_SHATTERING,
+    ITEM_CODES,         // 45
     ITEM_PJETPACK,
     ITEM_HEADSET,
     ITEM_AFTERBURNER,
-    ITEM_SCOPE,         // 45
+    ITEM_CRITDAGGER,
+    ITEM_SCOPE,         // 50
     ITEM_TURBINE,
     ITEM_AEGIS,
     ITEM_BEHEMOTH,
     ITEM_DIOS,
-    noone,              // 50
+    noone,              // 55
     ITEM_TTIMES,
     ITEM_SPARK,
     ITEM_CLOVER,
 ];
 
-ordering_start_indices = [0, 19, 36, 51];
+ordering_start_indices = [0, 21, 39, 56];
 
 // If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;

@@ -102,6 +102,12 @@ ITEM_QUAIL          = 48;
 ITEM_FILIAL         = 49;
 ITEM_CELL           = 50;
 ITEM_SHIPPING       = 51;
+ITEM_FSHIELD        = 52;
+ITEM_TRICORN        = 53;
+ITEM_TRICORN_SPENT  = 54;
+ITEM_FIREWORKS      = 55;
+ITEM_SNAKEEYES      = 56;
+ITEM_CRITDAGGER     = 57;
 
 // ST -> Statuses
 ST_STICKY = 0;
