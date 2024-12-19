@@ -44,7 +44,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG
 window_num++;
 
 //                        --attack hitboxes--                                 //
-set_num_hitboxes(atk, 2);
+set_num_hitboxes(atk, 3);
 var hbox_num = 1;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -96,3 +96,29 @@ set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blo
 set_hitbox_value(atk, hbox_num, HG_HIT_LOCKOUT              , 6);
 //set_hitbox_value(atk, hbox_num, HG_STRONG_FINISHER          , 1);
 //set_hitbox_value(atk, hbox_num, HG_IS_BLAST                 , 1);
+
+var hbox_num = 3;
+
+set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 3);
+set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
+set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 240);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -10);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -70);
+set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 0);
+set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 0);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 0);
+set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 0);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 0);
+set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , -1);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("tricorn_hat"));
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_ANIM_SPEED    , 0.3);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_HSPEED        , -11);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_VSPEED        , -4);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_GRAVITY       , 0.5);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_GROUND_BEHAVIOR, -1);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_WALL_BEHAVIOR , 0);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_UNBASHABLE    , 1);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DESTROY_EFFECT, HFX_GEN_OMNI);

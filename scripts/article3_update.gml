@@ -670,13 +670,14 @@ switch state {
     	vsp = 0.5*cos(state_timer*pi/45);
     	
     	if (state_timer >= 180) {
-    		spawn_hit_fx(x+8, y+8, HFX_GEN_OMNI);
+    		spawn_hit_fx(x+16, y+16, HFX_GEN_OMNI);
     		instance_destroy();
     		exit;
     	} else if (state_timer % 60 == 1) {
-    		var item = instance_create(x+8, y+8, "obj_article3");
+    		var item = instance_create(x+16, y+16, "obj_article3");
     		item.state = 20;
     		item.rarity = (player_id.uncommon_pool_size < 1) ? 0 : 1;
+    		sound_play(asset_get("mfx_star"));
     	}
     	
     	break;

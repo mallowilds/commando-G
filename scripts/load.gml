@@ -98,6 +98,7 @@ sprite_change_offset("vfx_bleed_2"              , 8, 10);
 sprite_change_offset("vfx_sucker_buff_red"      , 6, 22);
 sprite_change_offset("vfx_sucker_buff_blue"     , 6, 22);
 
+sprite_change_offset("tricorn_hat"              , 16, 16);
 
 sprite_change_offset("nspecial_proj"            , 68, 68);
 
