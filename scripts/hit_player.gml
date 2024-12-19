@@ -47,7 +47,7 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	}
 	
 	if (item_grid[ITEM_BLEEDDAGGER][IG_NUM_HELD] > 0) {
-		var bleed_damage = BLEEDDAGGER_DAMAGE_BASE + item_grid[ITEM_BLEEDDAGGER][IG_NUM_HELD] * BLEEDDAGGER_DAMAGE_SCALE;
+		var bleed_damage = BLEEDDAGGER_DAMAGE_BASE + item_grid[ITEM_BLEEDDAGGER][IG_NUM_HELD] * BLEEDDAGGER_DAMAGE_SCALE * nectar_mult;
 		hit_player_obj.commando_status_owner[ST_BLEED] = player;
 		if (hit_player_obj.commando_status_state[ST_BLEED] < bleed_damage) hit_player_obj.commando_status_state[ST_BLEED] = bleed_damage;
 		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_crit_blood);
@@ -56,7 +56,7 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	if (item_grid[ITEM_TASER][IG_NUM_HELD] > 0) {
 		var stun_type = (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] == 0 && hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] == 0) ? 1 : 2;
 		hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] = stun_type;
-		hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = TASER_STUN_BASE + item_grid[ITEM_TASER][IG_NUM_HELD] * TASER_STUN_SCALE;
+		hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = TASER_STUN_BASE + item_grid[ITEM_TASER][IG_NUM_HELD] * TASER_STUN_SCALE * nectar_mult;
 		hit_player_obj.commando_status_owner[ST_STUN_ELECTRIC] = player;
 		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), (stun_type == 1) ? fx_crit_shock_long : fx_crit_shock);
 	}
@@ -98,7 +98,7 @@ if (my_hitboxID.cmd_is_explosive == 1) {
 	
 	// Gasoline
 	if (item_grid[ITEM_GASOLINE][IG_NUM_HELD] > 0) {
-		var gas_damage = GASOLINE_DAMAGE_BASE + item_grid[ITEM_GASOLINE][IG_NUM_HELD] * GASOLINE_DAMAGE_SCALE;
+		var gas_damage = GASOLINE_DAMAGE_BASE + item_grid[ITEM_GASOLINE][IG_NUM_HELD] * GASOLINE_DAMAGE_SCALE * nectar_mult;
 		apply_burn(hit_player_obj, gas_damage);
 	}
 	
@@ -141,8 +141,8 @@ if (my_hitboxID.attack == AT_FAIR) take_damage(hit_player_obj.player, player, fl
 var crowbar_mult_add = 0;
 if (get_player_damage(hit_player_obj.player) - my_hitboxID.damage <= 50 && item_grid[0][IG_NUM_HELD] > 0) {
 	sound_play(s_cbar, 0, noone, 1, 0.95 + 0.1*random_func(player, 1, false));
-	crowbar_mult_add = CROWBAR_MULT_BASE + CROWBAR_MULT_SCALE*item_grid[0][IG_NUM_HELD];
-	hit_player_obj.orig_knock += CROWBAR_KB_ADD_SCALE * my_hitboxID.kb_scale * 0.12 * hit_player_obj.knockback_adj * item_grid[0][IG_NUM_HELD];
+	crowbar_mult_add = CROWBAR_MULT_BASE + CROWBAR_MULT_SCALE*item_grid[0][IG_NUM_HELD]*nectar_mult;
+	hit_player_obj.orig_knock += CROWBAR_KB_ADD_SCALE * my_hitboxID.kb_scale * 0.12 * hit_player_obj.knockback_adj * item_grid[0][IG_NUM_HELD] * nectar_mult;
 	// Note that this kb increase could result in scenarios where galaxies don't properly trigger. However, given that it only applies at low percents, this is unlikely to occur outside of practice mode.
 }
 

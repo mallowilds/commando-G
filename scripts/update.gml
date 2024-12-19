@@ -1,5 +1,4 @@
 
-
 // Debug: manage debug display
 if (debug_display_opened) {
 	
@@ -113,6 +112,7 @@ for (var i = 0; i < ds_list_size(lfx_list); i++) {
 with oPlayer {
 	
 	var update_outline = false;
+	var nectar_mult = other.nectar_mult;
 	
 	if (state == PS_DEAD || state == PS_RESPAWN) {
 		if (commando_status_owner[other.ST_BLEED] == other.player && commando_status_state[other.ST_BLEED] > 0) {
@@ -136,7 +136,7 @@ with oPlayer {
 			var _y = floor(y - (char_height*0.7));
 			with (other) {
 				var hbox = create_hitbox(AT_EXTRA_1, 3, _x, _y);
-				hbox.damage += (STICKY_DAMAGE_SCALE) * (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD] - 1);
+				hbox.damage += (STICKY_DAMAGE_SCALE) * (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD]*nectar_mult - 1);
 				spawn_hit_fx(_x, _y, HFX_MOL_EXPLODE_HIT);
 				sound_play(asset_get("sfx_mol_flare_shoot"));
 			}
@@ -319,7 +319,7 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 		
 		// On kill and/or object ceases to exist
 		if (!instance_exists(recently_hit[i]) || recently_hit[i].state == PS_DEAD || recently_hit[i].state == PS_RESPAWN) {
-			brooch_barrier += BROOCH_BARRIER_SCALE * item_grid[9][IG_NUM_HELD]; // Topaz Brooch
+			brooch_barrier += BROOCH_BARRIER_SCALE * item_grid[9][IG_NUM_HELD] * nectar_mult; // Topaz Brooch
 			recently_hit[i] = noone;
 		}
 		
@@ -333,7 +333,7 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 			// Monster Tooth
 			if (tooth_awaiting_spawn[i] != -1) {
 				var temp_angle = tooth_awaiting_spawn[i];
-				for (var j = 0; j < item_grid[47][IG_NUM_HELD]; j++) {
+				for (var j = 0; j < item_grid[47][IG_NUM_HELD]*nectar_mult; j++) {
 					var orb = instance_create(recently_hit[i].x, recently_hit[i].y-4, "obj_article3");
 					orb.state = 10;
 					var orb_angle = temp_angle - 5 + random_func_2((player*j + 3*j)%200, 10, false);
@@ -393,7 +393,7 @@ if (item_grid[ITEM_BUNGUS][IG_NUM_HELD] != 0) {
 			bungus_timer = 0;
 			bungus_vis_timer = 0;
 		}
-		if (bungus_active && bungus_timer > floor(BUNGUS_TICK_TIME/item_grid[4][IG_NUM_HELD])) {
+		if (bungus_active && bungus_timer > floor(BUNGUS_TICK_TIME/nectar_mult/item_grid[4][IG_NUM_HELD])) {
 			bungus_timer = 0;
 			do_healing(1);
 			spawn_lfx(sprite_get("vfx_item_u_heal"), x-45+random_func_2(player*1, 30, false), y-50+random_func_2(player*2, 40, false), 39+random_func_2(player*3, 7, true), 1, 1, 0, -1);
@@ -789,6 +789,7 @@ if (barrier > 0) {
 
 //#region hitbox_update (for the sake of melee hitboxes)
 with pHitBox if (player_id == other) {
+	var nectar_mult = player_id.nectar_mult;
 	// Init
 	if (hitbox_timer == 0) {
 		with (other) {
@@ -799,14 +800,14 @@ with pHitBox if (player_id == other) {
 		}
 		if (cmd_is_critical) {
 			if (player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD] > 0) { // Lens Maker's Glasses
-				damage += player_id.GLASSES_DAMAGE_BASE + player_id.GLASSES_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD];
+				damage += player_id.GLASSES_DAMAGE_BASE + player_id.GLASSES_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD] * nectar_mult;
 			}
 		}
 		if (cmd_strong_finisher) {
 			if (player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD] > 0) { // Armor-Piercing Rounds
-				damage += player_id.APROUNDS_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
-				kb_value += player_id.APROUNDS_BKB_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
-				kb_scale += player_id.APROUNDS_KBS_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD];
+				damage += player_id.APROUNDS_DAMAGE_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD] * nectar_mult;
+				kb_value += player_id.APROUNDS_BKB_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD] * nectar_mult;
+				kb_scale += player_id.APROUNDS_KBS_SCALE * player_id.item_grid[player_id.ITEM_APROUNDS][player_id.IG_NUM_HELD] * nectar_mult;
 			}
 			if (player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD] > 0) { // Runald's Band
 				kb_scale += player_id.ICEBAND_KBS_SCALE * player_id.item_grid[player_id.ITEM_ICEBAND][player_id.IG_NUM_HELD];
@@ -824,7 +825,7 @@ with pHitBox if (player_id == other) {
 		}
 		if (attack == AT_EXTRA_1 && 4 <= hbox_num && hbox_num <= 6) { // headstompers
 			// since damage scaling is non-integer, it has to be handled on-hit ~ see hit_player.gml
-			hitpause += player_id.STOMPERS_BHP_SCALE * player_id.item_grid[player_id.ITEM_STOMPERS][player_id.IG_NUM_HELD]
+			hitpause += player_id.STOMPERS_BHP_SCALE * player_id.item_grid[player_id.ITEM_STOMPERS][player_id.IG_NUM_HELD] * nectar_mult
 		}
 	}
 }

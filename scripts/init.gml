@@ -148,7 +148,7 @@ item_grid = [
     ["Withered Best Friend",    RTY_VOID,       ITP_HEALING,      noone,            0, noone, "A spent item with no remaining power.", noone], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    noone,            0, noone, "Luck is on your side.", noone], // 46 | article1_update.gml, got_hit.gml, update.gml, death.gml, user_event0
     
-    ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      noone,            0, noone, "Enemies that get launched hard enough spawn healing orbs.", noone], // 47 | hit_player.gml, article3
+    ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      noone,            0, noone, "Enemies that get launched hard enough spawn healing orbs.", noone], // 47 | hit_player.gml, update.gml, article3
     ["Wax Quail",               RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Jumping while dashing boosts you forward.", noone], // 48 | update.gml
     ["Filial Imprinting",       RTY_UNCOMMON,   ITP_ATTACK_SPEED, ITP_SPEED,        0, noone, "Hatch a strange creature who drops buffs every 15 seconds.", noone], // 49 | Unimplemented
     ["Energy Cell",             RTY_UNCOMMON,   ITP_ATTACK_SPEED, noone,            0, noone, "Gain attack speed the more you're damaged.", noone], // 50 | user_event0.gml, update.gml
@@ -449,6 +449,8 @@ filial_double_outline = [120, 31, 150];
 
 fshield_damage = 0;
 fshield_triggered = 0;
+
+nectar_mult = 1;
 
 
 // Training mode utility

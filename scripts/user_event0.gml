@@ -38,7 +38,7 @@ switch new_item_id {
         break;
     
     case 8: // Hermit Scarf
-        dodge_duration_add = SCARF_FRAMES_BASE + SCARF_FRAMES_SCALE*item_grid[8][IG_NUM_HELD];
+        dodge_duration_add = SCARF_FRAMES_BASE + SCARF_FRAMES_SCALE*item_grid[8][IG_NUM_HELD]*nectar_mult; // mirrored under growth nectar
         break;
     
     case 13: // Soldier's Syringe
@@ -51,6 +51,7 @@ switch new_item_id {
         break;
     
     case 17: // Tough Times
+        // Tough Times ignores Growth Nectar, given the sheer power of kb adj scaling
         knockback_adj = (item_grid[17][IG_NUM_HELD] > 0) ? power(TTIMES_KBADJ_EXP_SET, item_grid[17][IG_NUM_HELD]) : knockback_adj_base;
         break;
     
@@ -156,9 +157,19 @@ switch new_item_id {
         trishop_odds = odds[item_grid[51][IG_NUM_HELD]]
         break;
         
+    // Fire Shield moved to bottom for a small control flow improvement
+        
+    case 58: // Growth Nectar
+        nectar_mult = 1 + item_grid[58][IG_NUM_HELD];
+        update_attack_speed();
+        update_horizontal_movement();
+        // No common items affect vertical movement
+        dodge_duration_add = SCARF_FRAMES_BASE + SCARF_FRAMES_SCALE*item_grid[8][IG_NUM_HELD]*nectar_mult;
+        // No break - continue to Fire Shield
+    
     case 52: // Fire Shield
         if (item_grid[52][IG_NUM_HELD] == 0) fshield_damage = 0;
-        else fshield_damage = FSHIELD_DAMAGE_BASE + FSHIELD_DAMAGE_SCALE*item_grid[52][IG_NUM_HELD];
+        else fshield_damage = FSHIELD_DAMAGE_BASE + FSHIELD_DAMAGE_SCALE*item_grid[52][IG_NUM_HELD]*nectar_mult;
         break;
     
 }
@@ -179,9 +190,9 @@ switch new_item_id {
 #define update_attack_speed
     
     attack_speed = 1
-                 + ((commando_warbanner_strength > 0) ? (WARBANNER_ASPEED_BASE + WARBANNER_ASPEED_SCALE*commando_warbanner_strength) : 0) // Warbanner
-                 + (SYRINGE_ASPEED_SCALE * item_grid[ITEM_SYRINGE][IG_NUM_HELD]) // Soldier's Syringe
-                 + (MOCHA_ASPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD]) // Mocha
+                 + ((commando_warbanner_strength > 0) ? (WARBANNER_ASPEED_BASE + WARBANNER_ASPEED_SCALE*commando_warbanner_strength * nectar_mult) : 0) // Warbanner
+                 + (SYRINGE_ASPEED_SCALE * item_grid[ITEM_SYRINGE][IG_NUM_HELD] * nectar_mult) // Soldier's Syringe
+                 + (MOCHA_ASPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD] * nectar_mult) // Mocha
                  + ((instincts_timer > 0) ? (INSTINCTS_ASPEED_BASE + INSTINCTS_ASPEED_SCALE*item_grid[ITEM_INSTINCTS][IG_NUM_HELD]) : 0) // Predatory Instincts
                  + ((filial_aspeed_timer > 0) ? FILIAL_ASPEED_STACKS : 0) // Filial Imprinting
                  + ((item_grid[ITEM_CELL][IG_NUM_HELD] > 0) ? floor(get_player_damage(player) / (CELL_THRESHOLD_BASE + CELL_THRESHOLD_SCALE*item_grid[ITEM_CELL][IG_NUM_HELD])) : 0); // Energy Cell
@@ -190,21 +201,21 @@ switch new_item_id {
     
 #define update_horizontal_movement
     
-    move_speed = ((commando_warbanner_strength > 0) ? (WARBANNER_SPEED_BASE + WARBANNER_SPEED_SCALE*commando_warbanner_strength) : 0) // Warbanner
-               + (HOOF_SPEED_SCALE * item_grid[ITEM_HOOF][IG_NUM_HELD]) // Paul's Goat Hoof
-               + (get_player_damage(player) >= BLADES_THRESHOLD ? BLADES_SPEED_SCALE * item_grid[ITEM_BLADES][IG_NUM_HELD] : 0) // Arcane Blades
-               + (MOCHA_SPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD]) // Mocha
+    move_speed = ((commando_warbanner_strength > 0) ? (WARBANNER_SPEED_BASE + WARBANNER_SPEED_SCALE*commando_warbanner_strength*nectar_mult) : 0) // Warbanner
+               + (HOOF_SPEED_SCALE * item_grid[ITEM_HOOF][IG_NUM_HELD] * nectar_mult) // Paul's Goat Hoof
+               + (get_player_damage(player) >= BLADES_THRESHOLD ? BLADES_SPEED_SCALE * item_grid[ITEM_BLADES][IG_NUM_HELD] * nectar_mult : 0) // Arcane Blades
+               + (MOCHA_SPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD] * nectar_mult) // Mocha
                + ((jewel_barrier_timer > 0) ? JEWEL_SPEED_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD] : 0) // Locked Jewel
                + ((filial_speed_timer > 0) ? FILIAL_SPEED_STACKS : 0) // Filial Imprinting
     
     walk_anim_speed = walk_anim_speed_base + (MSPEED_WALK_ANIM_SCALE * move_speed);
-    dash_anim_speed = dash_anim_speed_base + (MSPEED_DASH_ANIM_SCALE * move_speed) + (EDRINK_DASH_ANIM_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD]);
+    dash_anim_speed = dash_anim_speed_base + (MSPEED_DASH_ANIM_SCALE * move_speed) + (EDRINK_DASH_ANIM_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD] * nectar_mult);
     
     walk_speed = walk_speed_base + (MSPEED_WALK_SPEED_SCALE * move_speed);
     walk_accel = walk_accel_base + (MSPEED_WALK_ACCEL_SCALE * move_speed);
-    dash_speed = dash_speed_base + (MSPEED_DASH_SPEED_SCALE * move_speed) + (EDRINK_DASH_SPEED_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD]);
-    initial_dash_speed = initial_dash_speed_base + (MSPEED_IDASH_SPEED_SCALE * move_speed) + (EDRINK_IDASH_SPEED_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD]);
-    moonwalk_accel = moonwalk_accel_base + (MSPEED_MOONWALK_ACCEL_SCALE * move_speed) + (EDRINK_MOONWALK_ACCEL_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD]);
+    dash_speed = dash_speed_base + (MSPEED_DASH_SPEED_SCALE * move_speed) + (EDRINK_DASH_SPEED_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD] * nectar_mult);
+    initial_dash_speed = initial_dash_speed_base + (MSPEED_IDASH_SPEED_SCALE * move_speed) + (EDRINK_IDASH_SPEED_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD] * nectar_mult);
+    moonwalk_accel = moonwalk_accel_base + (MSPEED_MOONWALK_ACCEL_SCALE * move_speed) + (EDRINK_MOONWALK_ACCEL_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD] * nectar_mult);
     
     max_jump_hsp = max_jump_hsp_base + (MSPEED_MAX_JUMP_HSP_SCALE * move_speed);
     air_max_speed = air_max_speed_base + (MSPEED_AIR_MAX_HSP_SCALE * move_speed);
