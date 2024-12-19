@@ -255,12 +255,15 @@ switch state {
     		
     		if ("forced_index") in self {
     			player_id.new_item_id = forced_index;
-        		player_id.force_grant_item = true;
-        		player_id.force_remove_item = false;
-        		player_id.item_silenced = false;
+    		} else {
+    			player_id.ue1_command = player_id.UE1_GENERATE;
+    			user_event(1);
     		}
     		
+    		player_id.ue1_command = player_id.UE1_GRANT;
+        	player_id.item_silenced = false;
     		user_event(1);
+    		
     	}
     	
     	break;

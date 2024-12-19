@@ -159,6 +159,7 @@ item_grid = [
     ["Fireworks",               RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Launch fireworks when opening chests.", noone], // 55 | Unimplemented
     ["Snake Eyes",              RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Consecutive critical hits become stronger.", noone], // 56 | Unimplemented
     ["Ceremonial Dagger",       RTY_RARE,       ITP_CRITICAL,     noone,            0, noone, "Critical hits summon daggers to chase down opponents.", noone], // 57 | Unimplemented
+    ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Gain even more power from Common items.", noone], // 58 | Unimplemented
     
 ]
 
@@ -184,7 +185,7 @@ item_id_ordering = [
     ITEM_GASOLINE,
     ITEM_FSHIELD,
     ITEM_FIREWORKS,     // 19
-    noone, // category delimiter // 20
+    noone, // category delimiter
     ITEM_FIREBAND,      // 21
     ITEM_ICEBAND,       
     ITEM_UKELELE,
@@ -202,8 +203,8 @@ item_id_ordering = [
     ITEM_CELL,          // 35
     ITEM_STUNGRENADE,
     ITEM_ATG1,
-    noone,              // 38
-    ITEM_SCEPTER,
+    noone,
+    ITEM_SCEPTER,       // 39
     ITEM_TRICORN,       // 40
     ITEM_FIREBOOTS,
     ITEM_ATG2,
@@ -218,14 +219,15 @@ item_id_ordering = [
     ITEM_TURBINE,
     ITEM_AEGIS,
     ITEM_BEHEMOTH,
-    ITEM_DIOS,
-    noone,              // 55
-    ITEM_TTIMES,
+    ITEM_NECTAR,
+    ITEM_DIOS,          // 55
+    noone,
+    ITEM_TTIMES,        // 57
     ITEM_SPARK,
     ITEM_CLOVER,
 ];
 
-ordering_start_indices = [0, 21, 39, 56];
+ordering_start_indices = [0, 21, 39, 57];
 
 // If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
@@ -245,12 +247,9 @@ inventory_list = [];
 // For use by item init (user_event0)
 new_item_id = noone;
 
-// For use by user_event1 (These should never be true outside of training mode)
-// If these are both true, an error will be thrown and nothing will happen
-force_grant_item = false;
-force_remove_item = false;
-// Flag that silences the next item-get pop-up. No conflicts on this one
-item_silenced = false;
+// For use by user_event1
+ue1_command = 0;
+item_silenced = false; // Flag that silences the next item-get pop-up. Reset on every UE1 call
 
 
 // Randomizer properties

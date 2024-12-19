@@ -236,7 +236,10 @@ switch(state) { // use this one for doing actual article behavior
             sound_play(player_id.s_cland);
             
             // This is a good time to roll for Tri-shop loot.
-            trishop_loot = choose_three_items(trishop_rarity);
+            player_id.grant_rarity = trishop_rarity;
+            player_id.ue1_command = player_id.UE1_GEN_THREE;
+            user_event(1);
+            trishop_loot = player_id.trishop_next;
         }
         else if (instance_exists(hbox)) {
             hbox.hitbox_timer--;
@@ -441,99 +444,3 @@ for (var i = 0; i < array_len; i++) {
 	}
 	rand_int -= weight_array[i];
 }
-
-#define choose_three_items(rarity)
-
-var items = [];
-
-if (rarity < 0 || rarity > 2) {
-	print_debug("article1_update error: bad rarity value");
-	exit;
-}
-
-while (array_length(items) < 3) {
-
-	// Attempt to generate a legendary item
-	var rnd_legendary = random_func_2(player_id.item_seed, 1, false);
-	player_id.item_seed = (player_id.item_seed + 1) % 200;
-	var odds = has_rune("O") ? player_id.LEGENDARY_ABYSS_ODDS : player_id.LEGENDARY_ODDS;
-	if (rnd_legendary <= odds && player_id.legendary_pool_size[rarity] > 0) {
-		
-		var weight_array =player_id. p_legendary_available[rarity];
-		var access_index = random_weighted_roll(player_id.item_seed, weight_array);
-		player_id.item_seed = (player_id.item_seed + 1) % 200;
-		var item_id =player_id. p_legendary_ids[rarity][access_index];
-		
-	}
-	
-	// Generate a standard item
-	else {
-		
-		var weight_array = player_id.p_item_weights[rarity];
-		var access_index = random_weighted_roll(player_id.item_seed, weight_array);
-		player_id.item_seed = (player_id.item_seed + 1) % 200;
-		var item_id = player_id.p_item_ids[rarity][access_index];
-		
-	}
-	
-	temp_reduce_item_probability(item_id);
-	array_push(items, item_id);
-
-}
-
-for (var i = 0; i < 3; i++) {
-	temp_restore_item_probability(items[i]);
-}
-
-return items;
-
-#define temp_reduce_item_probability(item_id)
-	with player_id {
-		var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
-		var itp = item_grid[item_id][IG_TYPE];
-		var rarity = item_grid[item_id][IG_RARITY];
-		
-		// Reduce for a legendary item
-		if (itp == ITP_LEGENDARY) {
-			legendary_pool_size[rarity]--;
-			p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] - 1;
-			p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] - 1;
-			// Don't decrement the uncommon pool! Legendaries aren't a part of it
-			//if (rarity == RTY_RARE) rares_remaining--;
-		}
-		
-		// Reduce for a standard item
-		else {
-			var remaining = p_item_remaining[rarity][access_index];
-			var value = p_item_values[rarity][access_index];
-			p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] - 1;
-			p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] - value;
-			if (rarity == RTY_UNCOMMON) uncommon_pool_size--;
-			//if (rarity == RTY_RARE) rares_remaining--;
-		}
-	}
-
-#define temp_restore_item_probability(item_id)
-	with player_id {
-		var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
-		var itp = item_grid[item_id][IG_TYPE];
-		var rarity = item_grid[item_id][IG_RARITY];
-		
-		// Increase for a legendary item
-		if (itp == ITP_LEGENDARY) {
-			legendary_pool_size[rarity]++;
-			p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] + 1;
-			p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] + 1;
-			//if (rarity == RTY_RARE) rares_remaining++;
-		}
-		
-		// Increase for a standard item
-		else {
-			var remaining = p_item_remaining[rarity][access_index];
-			var value = p_item_values[rarity][access_index];
-			p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] + 1;
-			p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] + value;
-			if (rarity == RTY_UNCOMMON) uncommon_pool_size++;
-			//if (rarity == RTY_RARE) rares_remaining++;
-		}
-	}

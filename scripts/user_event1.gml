@@ -14,34 +14,29 @@ else {
 
 // This is in a define in order to accomodate the object perspective-switching above.
 #define do_user_event1
-var command_type = force_grant_item + 2*force_remove_item
-switch command_type {
-	case 0: // grant a random item
-		var iid = generate_item(grant_rarity);
-	    if (!item_silenced) {
-	    	var popup = instance_create(x-172, y-110, "obj_article2");
-	    	popup.item_id = iid;	
-	    } else item_silenced = false;
+switch ue1_command {
+	case 0: // generate a random item to grant
+		new_item_id = generate_item(grant_rarity);
 		break;
 	case 1: // grant a copy of the item at new_item_id, if possible
 		apply_item(new_item_id);
-		force_grant_item = false;
 		if (!item_silenced) {
 	    	var popup = instance_create(x-172, y-110, "obj_article2");
 	    	popup.item_id = new_item_id;	
-	    } else item_silenced = false;
+	    }
 		break;
 	case 2: // remove a copy of the item at new_item_id, if possible
 		remove_item(new_item_id);
-		force_remove_item = false;
+		break;
+	case 3: // generate three random items, store them to trishop_next
+		trishop_next = choose_three_items(grant_rarity);
 		break;
 	default: // undefined case
-		print_debug("user_event1 error: parameter conflict. resetting parameters")
-		force_grant_item = false;
-		force_remove_item = false;
-		item_silenced = false;
+		print_debug("user_event1 error: unknown command. resetting parameters")
 		break;
 }
+ue1_command = 0;
+item_silenced = false;
 
 
 #define random_weighted_roll(seed, weight_array)
@@ -68,7 +63,7 @@ for (var i = 0; i < array_len; i++) {
 
 var rarity = grant_rarity;
 if (rarity < 0 || rarity > 2) {
-	print_debug("user_event1 error: bad rarity value");
+	print_debug("user_event1 error: bad rarity value " + string(rarity));
 	exit;
 }
 
@@ -94,10 +89,6 @@ else {
 	var item_id = p_item_ids[rarity][access_index];
 	
 }
-
-// Apply item
-var item_applied = apply_item(item_id);
-// if (!item_applied) print_debug("user_event1 error: unknown item conflict")
 
 return item_id;
 
@@ -149,7 +140,7 @@ if (is_valid_index && !is_incompatible && !is_excess_uncommon && !is_excess_rare
 	}
 	
 	// Update probabilities
-	if (rarity != RTY_COMMON) reduce_item_probability(item_id);
+	if (rarity != RTY_COMMON) reduce_item_probability(item_id, false);
 	
 	return true;
 	
@@ -165,7 +156,7 @@ else print_debug("user_event1 error: unknown item conflict");
 
 return false;
 
-#define reduce_item_probability(item_id)
+#define reduce_item_probability(item_id, is_temp)
 	var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
 	var itp = item_grid[item_id][IG_TYPE];
 	var rarity = item_grid[item_id][IG_RARITY];
@@ -176,7 +167,7 @@ return false;
 		p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] - 1;
 		p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] - 1;
 		// Don't decrement the uncommon pool! Legendaries aren't a part of it
-		if (rarity == RTY_RARE) rares_remaining--;
+		if (!is_temp && rarity == RTY_RARE) rares_remaining--;
 	}
 	
 	// Reduce for a standard item
@@ -186,7 +177,7 @@ return false;
 		p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] - 1;
 		p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] - value;
 		if (rarity == RTY_UNCOMMON) uncommon_pool_size--;
-		if (rarity == RTY_RARE) rares_remaining--;
+		if (!is_temp && rarity == RTY_RARE) rares_remaining--;
 	}
 
 // Returns true if the item was applied successfully, false if there was no item to remove.
@@ -241,30 +232,55 @@ if (item_grid[item_id][IG_NUM_HELD] <= 0) {
 }
 
 // increase item probability
-if (item_grid[item_id][IG_RARITY] != RTY_COMMON) increase_item_probability(item_id);
+if (item_grid[item_id][IG_RARITY] != RTY_COMMON) increase_item_probability(item_id, false);
 
 return true;
 
-#define increase_item_probability(item_id)
-	var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
-	var itp = item_grid[item_id][IG_TYPE];
-	var rarity = item_grid[item_id][IG_RARITY];
-	
-	// Increase for a legendary item
-	if (itp == ITP_LEGENDARY) {
-		legendary_pool_size[rarity]++;
-		p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] + 1;
-		p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] + 1;
-		if (rarity == RTY_RARE) rares_remaining++;
-	}
-	
-	// Increase for a standard item
-	else {
-		var remaining = p_item_remaining[rarity][access_index];
-		var value = p_item_values[rarity][access_index];
-		p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] + 1;
-		p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] + value;
-		if (rarity == RTY_UNCOMMON) uncommon_pool_size++;
-		if (rarity == RTY_RARE) rares_remaining++;
-	}
+#define increase_item_probability(item_id, is_temp)
+var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
+var itp = item_grid[item_id][IG_TYPE];
+var rarity = item_grid[item_id][IG_RARITY];
 
+// Increase for a legendary item
+if (itp == ITP_LEGENDARY) {
+	legendary_pool_size[rarity]++;
+	p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] + 1;
+	p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] + 1;
+	if (!is_temp && rarity == RTY_RARE) rares_remaining++;
+}
+
+// Increase for a standard item
+else {
+	var remaining = p_item_remaining[rarity][access_index];
+	var value = p_item_values[rarity][access_index];
+	p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] + 1;
+	p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] + value;
+	if (rarity == RTY_UNCOMMON) uncommon_pool_size++;
+	if (!is_temp && rarity == RTY_RARE) rares_remaining++;
+}
+
+#define choose_three_items(rarity)
+
+var items = [];
+
+if (rarity < 0 || rarity > 2) {
+	print_debug("user_event1 error: bad rarity value " + string(rarity));
+	exit;
+}
+if (rarity == 1 && uncommon_pool_size < 3) {
+	print_debug("user_event1 error: not enough uncommons for a pool of three items");
+	exit;
+}
+
+while (array_length(items) < 3) {
+	// Attempt to generate a legendary item
+	var item_id = generate_item(rarity);
+	reduce_item_probability(item_id, true);
+	array_push(items, item_id);
+}
+
+for (var i = 0; i < 3; i++) {
+	increase_item_probability(items[i], true);
+}
+
+return items;

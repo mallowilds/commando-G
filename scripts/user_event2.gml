@@ -4,6 +4,12 @@
 
 //#region Custom Indexes
 
+// UE1 -> user_event1 commands
+UE1_GENERATE = 0;
+UE1_GRANT = 1;
+UE1_REVOKE = 2;
+UE1_GEN_THREE = 3;
+
 // RTY -> Rarity
 RTY_VOID = -2; // for items that cannot drop under normal circumstances
 RTY_DUMMY = -1; // for if an item needs to be dummied out
@@ -108,6 +114,7 @@ ITEM_TRICORN_SPENT  = 54;
 ITEM_FIREWORKS      = 55;
 ITEM_SNAKEEYES      = 56;
 ITEM_CRITDAGGER     = 57;
+ITEM_NECTAR         = 58;
 
 // ST -> Statuses
 ST_STICKY = 0;

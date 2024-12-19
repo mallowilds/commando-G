@@ -48,9 +48,9 @@ switch(state) { // use this one for changing sprites and animating
             draw_sprite_ext(sprite_get("trishop_bg_centerfill"), 0, x, y-22, 2, 2, 0, c_white, trishop_vis_opacities[1]*progress);
             draw_sprite_ext(sprite_get("trishop_bg_sidefill"), 0, x, y-22, -2, 2, 0, c_white, trishop_vis_opacities[2]*progress);
             
-            draw_sprite_ext(sprite_get("item"), trishop_loot[0], x-22-(60*progress), y-20-(76*progress), 2*progress, 2, 0, c_white, 1);
+            draw_sprite_ext(sprite_get("item"), trishop_loot[0], x-22-(64*progress), y-20-(76*progress), 2*progress, 2, 0, c_white, 1);
             draw_sprite_ext(sprite_get("item"), trishop_loot[1], x-22,               y-20-(90*progress), 2*progress, 2, 0, c_white, 1);
-            draw_sprite_ext(sprite_get("item"), trishop_loot[2], x-22+(60*progress), y-20-(76*progress), 2*progress, 2, 0, c_white, 1);
+            draw_sprite_ext(sprite_get("item"), trishop_loot[2], x-22+(64*progress), y-20-(76*progress), 2*progress, 2, 0, c_white, 1);
         }
     case 33: // Opening
     case 34: // Despawning
