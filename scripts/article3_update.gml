@@ -62,6 +62,10 @@ precondition: target_obj and stored hitbox data should be set externally
 ~ 63: init
 ~ 64: activate
 
+FIREWORKS ~ factory
+~ 66: init
+~ 67: activate
+
 */
 
 
@@ -703,18 +707,21 @@ switch state {
     	up.target_obj = target_obj;
     	up.delay = 20;
     	up.spr_dir = 1;
+    	up.is_fake_hit = true;
 
     	var left = create_hitbox(AT_EXTRA_1, 7, x, y);
     	left.proj_angle = 210;
     	left.target_obj = target_obj;
     	left.delay = 25;
-    	up.spr_dir = 1;
+    	left.spr_dir = 1;
+    	left.is_fake_hit = true;
 
     	var right = create_hitbox(AT_EXTRA_1, 7, x, y);
     	right.proj_angle = 330;
     	right.target_obj = target_obj;
     	right.delay = 30;
-    	up.spr_dir = 1;
+    	right.spr_dir = 1;
+    	right.is_fake_hit = true;
 
 		instance_destroy();
     	exit;
@@ -744,9 +751,94 @@ switch state {
     		hbox.angle = angle;
     		hbox.hitpause = floor(bhp/2);
     		hbox.hitpause_growth = hsp/2;
+    		hbox.is_fake_hit = true;
     		
     		num_missiles--;
     		if (num_missiles == 0) {
+    			instance_destroy();
+    			exit;
+    		}
+    		state_timer = 0;
+    	}
+    	break;
+    
+    //#endregion
+    
+    //#region Fireworks
+    
+    // Init
+    case 66:
+    	if (state_timer == 0) {
+	    	num_fireworks = player_id.fireworks_freq;
+	    	was_parried = false;
+	    	parry_owner = player;
+	    	target_index = 0;
+	    	target_array = [];
+	    	var dist_array = [];
+	    	with oPlayer { // Get list of targettable players, sorted by distance
+	    		var can_hit = get_match_setting(SET_TEAMATTACK) ? player != other.player : get_player_team(player) != get_player_team(other.player);
+	    		can_hit = can_hit && state != PS_RESPAWN && state != PS_DEAD;
+	    		if (can_hit) {
+	    			var dist = point_distance(x, y-20, other.x, other.y);
+	    			var added = false;
+	    			var len = array_length(dist_array);
+	    			for (var i = 0; i < len && !added; i++) {
+	    				if (dist < dist_array[i]) {
+	    					array_push(other.target_array, other.target_array[len-1]);
+	    					array_push(dist_array, dist_array[len-1]);
+	    					for (var j = len-1; j > i; j--) {
+	    						other.target_array[j] = other.target_array[j-1];
+	    						dist_array[j] = dist_array[j-1];
+	    					}
+	    					other.target_array[i] = self;
+	    					dist_array[i] = dist;
+	    					added = true;
+	    				}
+	    			}
+	    			if (!added) {
+	    				array_push(other.target_array, self);
+	    				array_push(dist_array, dist);
+	    			}
+	    		}
+	    	}
+    	}
+    	if (!player_id.hitpause) {
+    		state = 67;
+    		state_timer = 0;
+    	}
+		break;
+    
+    // Activate
+    case 67:
+    	if (state_timer == 5) {
+    		if (target_array == []) {
+    			var hbox = create_hitbox(AT_EXTRA_1, 9, x, y);
+    			hbox.vsp = -16;
+    			hbox.proj_angle = 90;
+    			hbox.parent_obj = self;
+    			hbox.is_fake_hit = true;
+    		}
+    		
+    		else {
+	    		var hbox = create_hitbox(AT_EXTRA_1, 9, x, y);
+	    		hbox.proj_angle = 90;
+	    		hbox.target_obj = target_array[target_index];
+	    		hbox.homing = true;
+	    		hbox.parent_obj = self;
+	    		hbox.is_fake_hit = true;
+	    		target_index += 1;
+	    		target_index %= array_length(target_array);
+    		}
+    		
+    		if (was_parried) {
+    			hbox.target_obj = player_id;
+    			hbox.player = parry_owner;
+    			hbox.was_parried = true;
+    			hbox.was_reflected = true;
+    		}
+    		
+    		num_fireworks--;
+    		if (num_fireworks == 0) {
     			instance_destroy();
     			exit;
     		}

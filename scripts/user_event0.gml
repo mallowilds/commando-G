@@ -150,6 +150,10 @@ switch new_item_id {
     case 53: // Trophy Hunter's Tricorn
         fstrong_index = item_grid[53][IG_NUM_HELD] > 0 ? AT_FSTRONG_2 : AT_FSTRONG;
         break;
+    
+    case 55: // Fireworks
+        fireworks_freq = item_grid[55][IG_NUM_HELD] * 3;
+        break;
         
     case 56: // Snake Eyes
         if (item_grid[56][IG_NUM_HELD] <= 0) snakeeyes_active = 0;

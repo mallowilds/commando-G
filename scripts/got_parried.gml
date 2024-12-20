@@ -11,3 +11,47 @@ if (fireboots_lockout < FIREBOOTS_PARRY_LOCKOUT && item_grid[ITEM_FIREBOOTS][IG_
 // Filial Imprinting
 if (filial_aspeed_timer > 0) filial_aspeed_timer = 1;
 if (filial_speed_timer > 0) filial_speed_timer = 1;
+
+// Fireworks
+if (my_hitboxID.attack == AT_EXTRA_1 && my_hitboxID.hbox_num == 9) {
+    if (hit_player != player) {
+        with pHitBox {
+            if (orig_player == other.player && attack == AT_EXTRA_1 && hbox_num == 9) {
+                was_parried = true;
+                reflected = true;
+                player = other.hit_player;
+                proj_angle = point_direction(x, y, other.x, other.y);
+                hbox_timer = 2;
+                delay = 0;
+                does_not_reflect = true;
+                homing = true;
+                target_obj = other;
+                walls = 1;
+                grounds = 1;
+            }
+        }
+        
+        if (instance_exists(my_hitboxID.parent_obj)) {
+            my_hitboxID.parent_obj.was_parried = true;
+            my_hitboxID.parent_obj.parry_owner = hit_player;
+            my_hitboxID.target_list = [self];
+            my_hitboxID.target_index = 0;
+        }
+    } else {
+        with pHitBox {
+            if (orig_player == other.player && attack == AT_EXTRA_1 && hbox_num == 9) {
+                homing = false;
+                walls = 0;
+                grounds = -1;
+            }
+        }
+        
+        if (instance_exists(my_hitboxID.parent_obj)) {
+            my_hitboxID.parent_obj.was_parried = false;
+            my_hitboxID.parent_obj.parry_owner = player;
+            my_hitboxID.target_list = [];
+        }
+    }
+    
+    
+}

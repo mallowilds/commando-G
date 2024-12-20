@@ -138,6 +138,8 @@ switch(state) { // use this one for doing actual article behavior
             var item = instance_create(x, y-10, "obj_article3");
             item.state = 20;
             item.rarity = rarity;
+            
+            do_fireworks();
         }
         if (state_timer >= 35) set_state(14);
         break;
@@ -209,6 +211,8 @@ switch(state) { // use this one for doing actual article behavior
             var item = instance_create(x, y-10, "obj_article3");
             item.state = 20;
             item.rarity = rarity;
+            
+            do_fireworks();
         }
         if (state_timer >= 54) set_state(24);
         break;
@@ -271,6 +275,7 @@ switch(state) { // use this one for doing actual article behavior
             item.state = 20;
             item.rarity = trishop_rarity;
             item.forced_index = trishop_loot[trishop_selection];
+            do_fireworks();
         }
         if (state_timer >= 35) set_state(34);
         break;
@@ -307,6 +312,9 @@ switch(state) { // use this one for doing actual article behavior
             var explode_hbox = create_hitbox(AT_DSPECIAL, 6, x, y-50);
             explode_hbox.owner_chest = self;
             sound_play(asset_get("sfx_mol_huge_explode"));
+            
+            // Fireworks can spawn too. As a treat. :3
+            do_fireworks();
         }
         else {
             hbox.hitbox_timer--;
@@ -443,4 +451,11 @@ for (var i = 0; i < array_len; i++) {
 		return i;
 	}
 	rand_int -= weight_array[i];
+}
+
+
+#define do_fireworks
+if (player_id.fireworks_freq > 0) {
+	var factory = instance_create(x, y-16, "obj_article3");
+	factory.state = 66;
 }

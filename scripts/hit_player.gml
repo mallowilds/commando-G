@@ -1,7 +1,9 @@
 //                           --hit stuff--                                    //
-var chbox = my_hitboxID.hbox_num 
+
+var hbox_num = my_hitboxID.hbox_num;
+
 //#region DSpec cooldown handling
-if (!first_hit || (my_hitboxID.type == 2 && ("is_fake_hit" not in my_hitboxID || !my_hitboxID.is_fake_hit) && (my_hitboxID.orig_player != player || my_hitboxID.attack != AT_EXTRA_1))) {
+if ((my_hitboxID.type == 1 && !first_hit) || (my_hitboxID.type == 2 && ("is_fake_hit" not in my_hitboxID || !my_hitboxID.is_fake_hit) && (my_hitboxID.orig_player != player || my_hitboxID.attack != AT_EXTRA_1))) {
 	if (dspec_cooldown_hits == 1) sound_play(s_cd)
 	if (dspec_cooldown_hits > 0) dspec_cooldown_hits--;
 }
@@ -162,7 +164,7 @@ if (commando_warbanner_strength > 0) warbanner_mult_add = WARBANNER_MULT_BASE + 
 
 // Headstompers handling
 var stompers_extra_damage = 0;
-if (my_hitboxID.type == 1 && my_hitboxID.attack == AT_EXTRA_1 && 4 <= my_hitboxID.hbox_num && my_hitboxID.hbox_num <= 6) {
+if (my_hitboxID.type == 1 && my_hitboxID.attack == AT_EXTRA_1 && 4 <= hbox_num && hbox_num <= 6) {
 	stompers_extra_damage = STOMPERS_DAMAGE_SCALE * (item_grid[ITEM_STOMPERS][IG_NUM_HELD] - 1);
 }
 
@@ -236,7 +238,7 @@ if (my_hitboxID.cmd_strong_finisher && atg_freq > 0) {
 
 //#region Ceremonial Dagger
 
-if (my_hitboxID.attack == AT_EXTRA_1 && my_hitboxID.hbox_num == 7) {
+if (my_hitboxID.attack == AT_EXTRA_1 && hbox_num == 7) {
     
     sound_play(my_hitboxID.sound_effect);
     if (!hit_player_obj.hitpause) {
@@ -253,18 +255,18 @@ if (my_hitboxID.attack == AT_EXTRA_1 && my_hitboxID.hbox_num == 7) {
 
 
 // hitbox lerp code
-if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_LERP) == true) {
+if (get_hitbox_value(my_hitboxID.attack, hbox_num, HG_HAS_LERP) == true) {
 	if (my_hitboxID.type == 1) { //if physical, pull relative to player
-		hit_player_obj.x = lerp(hit_player_obj.x, x + get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_LERP_POS_X)*spr_dir, get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_LERP_PERCENT));
-		hit_player_obj.y = lerp(hit_player_obj.y, y + get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_LERP_POS_Y), get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_LERP_PERCENT));
+		hit_player_obj.x = lerp(hit_player_obj.x, x + get_hitbox_value(my_hitboxID.attack, hbox_num, HG_LERP_POS_X)*spr_dir, get_hitbox_value(my_hitboxID.attack, hbox_num, HG_LERP_PERCENT));
+		hit_player_obj.y = lerp(hit_player_obj.y, y + get_hitbox_value(my_hitboxID.attack, hbox_num, HG_LERP_POS_Y), get_hitbox_value(my_hitboxID.attack, hbox_num, HG_LERP_PERCENT));
 	} else if (my_hitboxID.type == 2) { // otherwise pull relative to hitbox
-		hit_player_obj.x = lerp(hit_player_obj.x, my_hitboxID.x + get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_LERP_POS_X)*spr_dir, get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_LERP_PERCENT));
-		hit_player_obj.y = lerp(hit_player_obj.y, my_hitboxID.y + get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_LERP_POS_Y), get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_LERP_PERCENT));
+		hit_player_obj.x = lerp(hit_player_obj.x, my_hitboxID.x + get_hitbox_value(my_hitboxID.attack, hbox_num, HG_LERP_POS_X)*spr_dir, get_hitbox_value(my_hitboxID.attack, hbox_num, HG_LERP_PERCENT));
+		hit_player_obj.y = lerp(hit_player_obj.y, my_hitboxID.y + get_hitbox_value(my_hitboxID.attack, hbox_num, HG_LERP_POS_Y), get_hitbox_value(my_hitboxID.attack, hbox_num, HG_LERP_PERCENT));
 	}
 }
 
 // command grab code
-if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_GRAB) == true) {
+if (get_hitbox_value(my_hitboxID.attack, hbox_num, HG_HAS_GRAB) == true) {
 	
 	//Before grabbing the opponent, first make sure that:
 	//-The player is in an attack animation
@@ -278,16 +280,16 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_GRAB) == t
 	  && hit_player_obj.clone == false) {
 		
 		//transition to the 'throw' part of the attack.
-		if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_GRAB_WINDOW_GOTO) != -1) {
+		if (get_hitbox_value(my_hitboxID.attack, hbox_num, HG_GRAB_WINDOW_GOTO) != -1) {
 			destroy_hitboxes();
 			attack_end();
-			window = get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_GRAB_WINDOW_GOTO);
+			window = get_hitbox_value(my_hitboxID.attack, hbox_num, HG_GRAB_WINDOW_GOTO);
 			window_timer = 0;
 			old_hsp = get_window_value(my_hitboxID.attack, window, AG_WINDOW_HSPEED);
 			old_vsp = get_window_value(my_hitboxID.attack, window, AG_WINDOW_VSPEED);
 			
-			if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_GRAB_WINDOWS_NUM) != -1) {
-				set_attack_value(attack,AG_NUM_WINDOWS,get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_GRAB_WINDOWS_NUM));
+			if (get_hitbox_value(my_hitboxID.attack, hbox_num, HG_GRAB_WINDOWS_NUM) != -1) {
+				set_attack_value(attack,AG_NUM_WINDOWS,get_hitbox_value(my_hitboxID.attack, hbox_num, HG_GRAB_WINDOWS_NUM));
 			}
 		}
 		
@@ -307,12 +309,12 @@ if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_HAS_GRAB) == t
 }
 
 // break grab
-if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_BREAKS_GRAB) == true && instance_exists(grabbed_player_obj)) {
+if (get_hitbox_value(my_hitboxID.attack, hbox_num, HG_BREAKS_GRAB) == true && instance_exists(grabbed_player_obj)) {
 	grabbed_player_obj = noone;
 }
 
 // multihit projectile code
-if (get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_PROJECTILE_MULTIHIT) == true) {
+if (get_hitbox_value(my_hitboxID.attack, hbox_num, HG_PROJECTILE_MULTIHIT) == true) {
 	if (!my_hitboxID.proj_hitpause) {
 		my_hitboxID.proj_old_hsp = my_hitboxID.hsp;
 		my_hitboxID.proj_old_vsp = my_hitboxID.vsp;
@@ -351,7 +353,7 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_BAIR:
-    	if chbox = 1 {
+    	if (hbox_num = 1) {
         	hit_player_obj.x = lerp(floor(hit_player_obj.x), x-20 * spr_dir, .2)
 			hit_player_obj.y = lerp(floor(hit_player_obj.y), y-5, .2)
 			sound_play(asset_get("sfx_mol_flare_shoot"), 0, noone, 1, 1.03)
@@ -394,10 +396,10 @@ switch(my_hitboxID.attack) {
     	//a
     	break;
     case AT_DSTRONG:
-    	if chbox < 4 && chbox != 1 {
+    	if (hbox_num < 4 && hbox_num != 1) {
     		sound_play(asset_get("sfx_mol_flare_shoot"), 0, noone, 1, 1.03)
     	}
-    	if chbox > 3 {
+    	if (hbox_num > 3) {
     		sound_play(asset_get("sfx_mol_bat_bombhit"), 0, noone, .3, 1.3)
     	}
     	break;
@@ -417,7 +419,7 @@ switch(my_hitboxID.attack) {
         break;
        
     case AT_EXTRA_1:
-    	if (my_hitboxID.orig_player == player && my_hitboxID.hbox_num == 1) { // Brilliant Behemoth
+    	if (my_hitboxID.orig_player == player && hbox_num == 1) { // Brilliant Behemoth
     		behemoth_hfx_hitstop = max(0, hit_player_obj.hitstop);
     	}
     	break;
@@ -443,11 +445,11 @@ aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD] * amount;
 
 #define get_effect_offset_x
 
-return (hit_player_obj.x + my_hitboxID.x) * 0.5 + get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_VISUAL_EFFECT_X_OFFSET) * spr_dir;
+return (hit_player_obj.x + my_hitboxID.x) * 0.5 + get_hitbox_value(my_hitboxID.attack, hbox_num, HG_VISUAL_EFFECT_X_OFFSET) * spr_dir;
 
 #define get_effect_offset_y
 
-return (hit_player_obj.y + my_hitboxID.y)*0.5 + get_hitbox_value(my_hitboxID.attack,my_hitboxID.hbox_num,HG_VISUAL_EFFECT_Y_OFFSET) - 25;
+return (hit_player_obj.y + my_hitboxID.y)*0.5 + get_hitbox_value(my_hitboxID.attack,hbox_num,HG_VISUAL_EFFECT_Y_OFFSET) - 25;
 
 #define spawn_base_dust // written by supersonic
 /// spawn_base_dust(x, y, name, dir = 0)

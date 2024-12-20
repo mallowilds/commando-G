@@ -156,7 +156,7 @@ item_grid = [
     ["Fire Shield",             RTY_COMMON,     ITP_DAMAGE,       ITP_BURNING,      0, noone, "Set opponents on fire when dodging or parrying attacks.", noone], // 52 | user_event0.gml, parry.gml, update.gml
     ["Trophy Hunter's Tricorn", RTY_RARE,       ITP_META,         ITP_DAMAGE,       0, noone, "Claim a trophy from the opponent with FStrong. Only has one shot.", noone], // 53 | user_event0.gml, fstrong_2.gml, attack_update.gml, update.gml, hit_player.gml, article3
     ["Trophy Hunter's Relic",   RTY_VOID,       ITP_META,         ITP_DAMAGE,       0, noone, "Looks kinda cool, but that's about it. ", noone], // 54 | N/A
-    ["Fireworks",               RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Launch fireworks when opening chests.", noone], // 55 | Unimplemented
+    ["Fireworks",               RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Launch fireworks when opening chests.", noone], // 55 | user_event0, article1_update.gml, article3, AT_EXTRA1, hitbox_update.gml, got_parried.gml
     ["Snake Eyes",              RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Consecutive critical hits become stronger.", noone], // 56 | set_attack.gml, hit_player.gml, user_event0.gml
     ["Ceremonial Dagger",       RTY_RARE,       ITP_CRITICAL,     noone,            0, noone, "Critical hits summon daggers to chase down opponents.", noone], // 57 | hit_player.gml, article3, AT_EXTRA1, hitbox_update.gml
     ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Gain even more power from Common items.", noone], // 58 | Anywhere common items are implemented
@@ -451,6 +451,8 @@ fshield_damage = 0;
 fshield_triggered = 0;
 
 do_tricorn_remove = 0;
+
+fireworks_freq = 0;
 
 snakeeyes_active = 0;
 

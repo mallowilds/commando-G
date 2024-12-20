@@ -7,9 +7,6 @@
 
 --> Items
     
-    Next on the docket
-        AtG/Ceremonial Dagger/Fireworks
-    
     Time-consuming
         Ancient Scepter
     
@@ -37,6 +34,7 @@ Concussion Grenade: some form of visual idk
 The Ol' Lopper: Visual
 Shattering Justice: Visual
 Classified Access Codes: bomb. also probably needs a new explosion, given that the mollo bomb has the symbol
+
 
 
 
