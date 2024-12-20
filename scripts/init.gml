@@ -127,13 +127,13 @@ item_grid = [
     ["Ignition Tank",           RTY_UNCOMMON,   ITP_CRITICAL,     ITP_BURNING,      0, noone, "Critical Strikes deal extra knockback to enemies on fire.", noone], // 25 | Crit attacks, user_event0.gml, hit_player.gml, attack_update.gml, got_hit.gml, death.gml
     ["Predatory Instincts",     RTY_UNCOMMON,   ITP_CRITICAL,     ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed.", noone], // 26 | update.gml, hit_player.gml, user_event0.gml
     ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    noone,            0, noone, "Blast attacks stun enemies briefly.", noone], // 27 | hit_player.gml, update.gml
-    ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_DAMAGE,       noone,            0, noone, "Strongs fire a missile.", noone], // 28 | Unimplemented
+    ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_DAMAGE,       noone,            0, noone, "Strongs fire a missile.", noone], // 28 | user_event0.gml, hit_player.gml, article3, AT_EXTRA1
     ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Increase jump height and reduce gravity.", noone], // 29 | user_event0.gml
     ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    noone,            0, noone, "Smite them. Smite them all.", noone], // 30 | Unimplemented
     
     ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Upgrade your Neutral Special.", noone], // 31 | Unimplemented
     ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Fight fire with fire...", noone], // 32 | update.gml, article3, user_event0.gml
-    ["AtG Missile Mk. 2",       RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hooah.", noone], // 33 | Unimplemented
+    ["AtG Missile Mk. 2",       RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hooah.", noone], // 33 | user_event0.gml, hit_player.gml, article3, AT_EXTRA1
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 35,    "Enemies above 120% take massive knockback.", noone], // 34 | update.gml, hit_player.gml, other_post_draw.gml
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 34,    "Enemies above 100% have their Armor shattered.", noone], // 35 | update.gml, hit_player.gml, other_post_draw.gml
     ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Down Special requests extreme reinforcements after 15 seconds.", noone], // 36 | article1_update.gml
@@ -234,8 +234,6 @@ ordering_start_indices = [0, 21, 39, 57];
 // v BETA REMOVALS v
 if (!get_match_setting(SET_PRACTICE)) {
     item_grid[@ ITEM_UKELELE][@ IG_RARITY] = RTY_VOID;
-    item_grid[@ ITEM_ATG1][@ IG_RARITY] = RTY_VOID;
-    item_grid[@ ITEM_ATG2][@ IG_RARITY] = RTY_VOID;
     item_grid[@ ITEM_SCEPTER][@ IG_RARITY] = RTY_VOID;
     item_grid[@ ITEM_TURBINE][@ IG_RARITY] = RTY_VOID;
 }
@@ -358,7 +356,6 @@ hbox_stored_kbg = 0;
 hbox_stored_angle = 0; // this one should actually grab the opponent's launch angle
 hbox_stored_bhp = 0; // hitpause
 hbox_stored_hps = 0;
-hbox_stored_lockout = 0; // hit lockout
 
 // Status (see also: other_init.gml; user_event2.gml for indices)
 commando_status_state = array_create(7);
@@ -408,6 +405,8 @@ instincts_timer = 0; // Predatory Instincts
 
 do_ignite_hbox = 0; // Ignition Tank
 ignition_odds_applied = 0; // Flag for buffing burn item odds
+
+atg_freq = 0;
 
 h3ad_lockout_timer = 0; // H3AD-5T, used for fast falling
 h3ad_was_fast_falling = false;

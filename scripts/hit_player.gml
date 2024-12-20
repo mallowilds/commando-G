@@ -215,11 +215,21 @@ if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied) {
 	hbox_stored_angle = point_direction(0, 0, hit_player_obj.hsp, hit_player_obj.vsp); // as an aside, behemoth/atg hitboxes should have spr_dir fixed at 1
 	hbox_stored_bhp = my_hitboxID.hitpause;
 	hbox_stored_hps = my_hitboxID.hitpause_growth;
-	hbox_stored_lockout = my_hitboxID.orig_lockout;
 }
 
 if (my_hitboxID.cmd_behemoth_applied && item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) {
 	do_behemoth_hbox = 1;
+}
+
+if (my_hitboxID.cmd_strong_finisher && atg_freq > 0) {
+	var factory = instance_create(x, y, "obj_article3");
+	factory.state = 63;
+	factory.target_obj = hit_player_obj;
+	factory.bkb = hbox_stored_bkb;
+	factory.kbg = hbox_stored_kbg;
+	factory.angle = hbox_stored_angle;
+	factory.bhp = hbox_stored_bhp;
+	factory.hps = hbox_stored_hps;
 }
 
 //#endregion

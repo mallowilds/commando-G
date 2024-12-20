@@ -81,6 +81,11 @@ switch new_item_id {
     case 26: // Predatory Instincts
         update_attack_speed();
         break;
+        
+    case 28: // ATG Mk I
+    case 33: // ATG Mk II
+        atg_freq = item_grid[28][IG_NUM_HELD] + 3*item_grid[33][IG_NUM_HELD];
+        break;
     
     case 29: // Rusty Jetpack
         update_vertical_movement();

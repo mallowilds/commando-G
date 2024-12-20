@@ -57,6 +57,11 @@ CEREMONIAL DAGGER ~ factory
 precondition: target_obj variable should be set externally
 ~ 60: activate
 
+ATG MK # ~ factory
+precondition: target_obj and stored hitbox data should be set externally
+~ 63: init
+~ 64: activate
+
 */
 
 
@@ -697,19 +702,57 @@ switch state {
     	up.proj_angle = 90;
     	up.target_obj = target_obj;
     	up.delay = 20;
+    	up.spr_dir = 1;
 
     	var left = create_hitbox(AT_EXTRA_1, 7, x, y);
     	left.proj_angle = 210;
     	left.target_obj = target_obj;
     	left.delay = 25;
+    	up.spr_dir = 1;
 
     	var right = create_hitbox(AT_EXTRA_1, 7, x, y);
     	right.proj_angle = 330;
     	right.target_obj = target_obj;
     	right.delay = 30;
+    	up.spr_dir = 1;
 
 		instance_destroy();
     	exit;
+    
+    //#endregion
+    
+    //#region ATG Mk # ~ factory
+    
+    // Init
+    case 63:
+    	num_missiles = player_id.atg_freq;
+    	if (!player_id.hitpause) {
+    		state = 64;
+    		state_timer = 0;
+    	}
+		break;
+    
+    // Activate
+    case 64:
+    	if (state_timer == 5) {
+    		var hbox = create_hitbox(AT_EXTRA_1, 8, player_id.x, player_id.y-30);
+    		hbox.target_obj = target_obj;
+    		hbox.homing = true;
+    		hbox.kb_value = bkb*0.6;
+    		hbox.kb_scale = kbg*0.8;
+    		hbox.spr_dir = 1;
+    		hbox.angle = angle;
+    		hbox.hitpause = floor(bhp/2);
+    		hbox.hitpause_growth = hsp/2;
+    		
+    		num_missiles--;
+    		if (num_missiles == 0) {
+    			instance_destroy();
+    			exit;
+    		}
+    		state_timer = 0;
+    	}
+    	break;
     
     //#endregion
     
