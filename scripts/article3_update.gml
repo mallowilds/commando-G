@@ -722,6 +722,8 @@ switch state {
     	right.delay = 30;
     	right.spr_dir = 1;
     	right.is_fake_hit = true;
+    	
+    	sound_play(sound_get("cm_dagger_swing"), false, noone, 1.2, 0.6);
 
 		instance_destroy();
     	exit;
@@ -752,6 +754,10 @@ switch state {
     		hbox.hitpause = floor(bhp/2);
     		hbox.hitpause_growth = hsp/2;
     		hbox.is_fake_hit = true;
+    		
+    		if (num_missiles <= 3 && player_id.item_grid[player_id.ITEM_ATG2][player_id.IG_NUM_HELD] >= 1) {
+    			hbox.sprite_index = sprite_get("proj_missile2");
+    		}
     		
     		num_missiles--;
     		if (num_missiles == 0) {
@@ -826,8 +832,10 @@ switch state {
 	    		hbox.homing = true;
 	    		hbox.parent_obj = self;
 	    		hbox.is_fake_hit = true;
+	    		hbox.image_index = random_func(5, 4, true);
 	    		target_index += 1;
 	    		target_index %= array_length(target_array);
+	    		sound_play(sound_get("cm_item_firework"), false, noone, 1, 0.9 + 0.3*random_func(11, 1, false));
     		}
     		
     		if (was_parried) {

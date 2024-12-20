@@ -101,6 +101,11 @@ sprite_change_offset("vfx_sucker_buff_blue"     , 6, 22);
 sprite_change_offset("tricorn_hat"              , 16, 16);
 
 sprite_change_offset("proj_aimable_temp"        , 30, 12);
+sprite_change_offset("proj_missile1"            , 30, 12);
+sprite_change_offset("proj_missile2"            , 30, 12);
+sprite_change_offset("proj_firework"            , 30, 12);
+sprite_change_offset("proj_dagger"              , 30, 12);
+
 
 sprite_change_offset("fx_small_circle1"         , 174, 168);
 sprite_change_offset("fx_small_circle2"         , 174, 168);

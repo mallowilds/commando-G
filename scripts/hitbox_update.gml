@@ -14,7 +14,7 @@ if (attack == AT_EXTRA_1) {
             hsp = lengthdir_x(sp, proj_angle);
             vsp = lengthdir_y(sp, proj_angle);
             if (hitbox_timer+2 == delay) {
-                sound_play(asset_get("sfx_swipe_medium1"));
+                sound_play(sound_get("cm_dagger_swing"));
                 spawn_hit_fx(x, y, HFX_CLA_PLASMA_PLUS);
             }
         } else if (homing) {

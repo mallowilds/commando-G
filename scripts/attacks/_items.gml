@@ -188,8 +188,8 @@ set_hitbox_value(atk, hbox_num, HG_EFFECT                   , 0);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
 set_hitbox_value(atk, hbox_num, HG_EXTRA_HITPAUSE           , 10); // applied manually
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_icehit_medium1")); // played manually
-set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("proj_aimable_temp"));
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , sound_get("sfx_knifehit_m")); // played manually
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("proj_dagger"));
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_MASK          , -1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DESTROY_EFFECT, 1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_WALL_BEHAVIOR , 1);
@@ -216,7 +216,8 @@ set_hitbox_value(atk, hbox_num, HG_EFFECT                   , 0);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_mol_norm_explode"));
-set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("proj_aimable_temp"));
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("proj_missile1"));
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_ANIM_SPEED    , 0.4);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_MASK          , -1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DESTROY_EFFECT, 1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_WALL_BEHAVIOR , 1);
@@ -247,7 +248,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 4);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_MOL_BOOM_SPARKLE);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_mol_norm_explode"));
-set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("proj_aimable_temp"));
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("proj_firework"));
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_MASK          , -1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DESTROY_EFFECT, 1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_WALL_BEHAVIOR , 1);
