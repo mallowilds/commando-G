@@ -825,10 +825,6 @@ with pHitBox if (player_id == other) {
 				extra_hitpause += player_id.ICEBAND_EXTRA_HITPAUSE;
 			}
 		}
-		if (effect == 2 && player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD] > 0) { // Ignition Tank
-			kb_scale += player_id.IGNITION_KBS_SCALE * player_id.item_grid[player_id.ITEM_IGNITION][player_id.IG_NUM_HELD];
-			if (player_id.item_grid[player_id.ITEM_SCOPE][player_id.IG_NUM_HELD] > 0) kb_scale += player_id.IGNITION_SCOPE_KBS_ADD; // Laser Scope adjustment
-		}
 		if (cmd_strong_finisher || cmd_behemoth_applied) {
 			orig_lockout = no_other_hit;
 			if (cmd_behemoth_applied) no_other_hit = 0; // ATG should also trigger this eventually

@@ -29,3 +29,62 @@ if (attack == AT_DSPECIAL) {
 }
 
 if (attack != AT_TAUNT && debug_display_opened && debug_display_type == 3 && move_cooldown[attack] < 2) move_cooldown[attack] = 2;
+
+// Crit handling
+if (attack == AT_DTILT || attack == AT_UAIR) {
+    
+    var do_enhanced_crits = snakeeyes_active || item_grid[40][IG_NUM_HELD] > 0;
+    
+    if (do_enhanced_crits) enable_enhanced_crit(attack, 2, 3, 4);
+    else enable_basic_crit(attack, 2, 3, 4);
+    
+}
+snakeeyes_active = false;
+
+#define enable_enhanced_crit(atk, normal, enhanced, ignition)
+set_hitbox_value(atk, normal, HG_WINDOW, 0);
+reset_hitbox_value(atk, enhanced, HG_WINDOW);
+
+reset_hitbox_value(atk, enhanced, HG_DAMAGE);
+reset_hitbox_value(atk, enhanced, HG_KNOCKBACK_SCALING);
+if (snakeeyes_active) {
+    var enhanced_dmg = get_hitbox_value(atk, enhanced, HG_DAMAGE);
+    var enhanced_kbs = get_hitbox_value(atk, enhanced, HG_KNOCKBACK_SCALING);
+    if (item_grid[ITEM_SNAKEEYES][IG_NUM_HELD] > 1) {
+        var mult = item_grid[ITEM_SNAKEEYES][IG_NUM_HELD]-1;
+        enhanced_dmg += SCOPE_DAMAGE_ADD * mult;
+        enhanced_kbs += SCOPE_KBS_ADD * mult;
+    }
+    if (item_grid[ITEM_SCOPE][IG_NUM_HELD] > 0) {
+    	enhanced_dmg += SCOPE_DAMAGE_ADD;
+    	enhanced_kbs += SCOPE_KBS_ADD;
+    }
+    set_hitbox_value(atk, enhanced, HG_DAMAGE, enhanced_dmg);
+    set_hitbox_value(atk, enhanced, HG_KNOCKBACK_SCALING, enhanced_kbs);
+}
+
+if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0) {
+    reset_hitbox_value(atk, ignition, HG_DAMAGE);
+    reset_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING);
+    var ignition_dmg = get_hitbox_value(atk, ignition, HG_DAMAGE);
+    var ignition_kbs = get_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING);
+    if (snakeeyes_active) {
+        var mult = item_grid[ITEM_SNAKEEYES][IG_NUM_HELD];
+        ignition_dmg += SCOPE_DAMAGE_ADD * mult;
+        ignition_kbs += SCOPE_KBS_ADD * mult;
+    }
+    if (item_grid[ITEM_SCOPE][IG_NUM_HELD] > 0) {
+    	ignition_dmg += SCOPE_DAMAGE_ADD * (1+snakeeyes_active);
+    	ignition_kbs += SCOPE_KBS_ADD * (1+snakeeyes_active);
+    }
+    set_hitbox_value(atk, ignition, HG_DAMAGE, ignition_dmg);
+    set_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING, ignition_kbs);
+}
+
+
+#define enable_basic_crit(atk, normal, enhanced, ignition)
+reset_hitbox_value(atk, normal, HG_WINDOW);
+set_hitbox_value(atk, enhanced, HG_WINDOW, 0);
+
+reset_hitbox_value(atk, ignition, HG_DAMAGE);
+reset_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING);

@@ -34,7 +34,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG
 window_num++;
 
 //                        --attack hitboxes--                                 //
-set_num_hitboxes(atk, 2); 
+set_num_hitboxes(atk, 3); 
 var hbox_num = 1;//Sour
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -86,7 +86,7 @@ set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(a
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 96);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -2);
 set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 30);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 20); //Slightly larger:)
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 20); //Slightly larger :)
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 9);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);

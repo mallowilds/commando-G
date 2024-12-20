@@ -140,7 +140,7 @@ item_grid = [
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        noone,            0, 38,    "No hands!", noone], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | update.gml, user_event0.gml, attack_update (temp)
-    ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, user_event0.gml, melee hitbox update (for ignition tank effects) (subject to refactor)
+    ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, set_attack.gml
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge laser blast.", noone], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | user_event0, integrated into the healing-applying function (and general barrier utils)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!", noone], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml, user_event0
@@ -157,7 +157,7 @@ item_grid = [
     ["Trophy Hunter's Tricorn", RTY_RARE,       ITP_META,         ITP_DAMAGE,       0, noone, "Claim a trophy from the opponent with FStrong. Only has one shot.", noone], // 53 | user_event0.gml, fstrong_2.gml, attack_update.gml, update.gml, hit_player.gml, article3
     ["Trophy Hunter's Relic",   RTY_VOID,       ITP_META,         ITP_DAMAGE,       0, noone, "Looks kinda cool, but that's about it. ", noone], // 54 | N/A
     ["Fireworks",               RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Launch fireworks when opening chests.", noone], // 55 | Unimplemented
-    ["Snake Eyes",              RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Consecutive critical hits become stronger.", noone], // 56 | Unimplemented
+    ["Snake Eyes",              RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Consecutive critical hits become stronger.", noone], // 56 | set_attack.gml, hit_player.gml, user_event0.gml
     ["Ceremonial Dagger",       RTY_RARE,       ITP_CRITICAL,     noone,            0, noone, "Critical hits summon daggers to chase down opponents.", noone], // 57 | Unimplemented
     ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Gain even more power from Common items.", noone], // 58 | Unimplemented
     
@@ -452,6 +452,8 @@ fshield_damage = 0;
 fshield_triggered = 0;
 
 do_tricorn_remove = 0;
+
+snakeeyes_active = 0;
 
 nectar_mult = 1;
 

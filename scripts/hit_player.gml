@@ -65,6 +65,10 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 		do_ignite_hbox = true;
 	}
 	
+	if (item_grid[ITEM_SNAKEEYES][IG_NUM_HELD] > 0) {
+		snakeeyes_active = true;
+	}
+	
 }
 
 else if (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] != 0) {

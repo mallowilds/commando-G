@@ -102,23 +102,6 @@ switch new_item_id {
         set_num_hitboxes(AT_FSPECIAL, (item_grid[39][IG_NUM_HELD] > 0)); // enable fspec hitbox if afterburner is present
         break;
     
-    case 40: // Laser Scope
-        // Manually disables the default crit hitboxes and enables the buffed ones.
-        // Not sure there's a more elegant way to handle this efficiently, unfortunately
-        
-        if (item_grid[40][IG_NUM_HELD] > 0) {
-            // DTilt
-            set_num_hitboxes(AT_DTILT, 3);
-            set_hitbox_value(AT_DTILT, 2, HG_WINDOW, 0);
-        }
-        
-        else { // TODO: ensure this works
-            reset_num_hitboxes(AT_DTILT);
-            reset_hitbox_value(AT_DTILT, 2, HG_WINDOW);
-        }
-        
-        break;
-    
     case 42: // Aegis
         aegis_ratio = AEGIS_RATIO_BASE + AEGIS_RATIO_SCALE*item_grid[42][IG_NUM_HELD]
         if (!aegis_odds_applied) {
@@ -161,6 +144,10 @@ switch new_item_id {
     
     case 53: // Trophy Hunter's Tricorn
         fstrong_index = item_grid[53][IG_NUM_HELD] > 0 ? AT_FSTRONG_2 : AT_FSTRONG;
+        break;
+        
+    case 56: // Snake Eyes
+        if (item_grid[56][IG_NUM_HELD] <= 0) snakeeyes_active = 0;
         break;
     
     case 58: // Growth Nectar

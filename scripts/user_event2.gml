@@ -309,7 +309,6 @@ SCYTHE_HEAL_SCALE = 0.166666667;
 
 // Ignition Tank
 IGNITION_KBS_SCALE = 0.05;
-IGNITION_SCOPE_KBS_ADD = 0.1; // Applied if Laser Scope is also active
 
 // Predatory Instincts
 INSTINCTS_DURATION = 300;
@@ -361,6 +360,10 @@ HEADSET_FAST_FALL_SCALE = 6;
 AEGIS_RATIO_BASE = 0.5;
 AEGIS_RATIO_SCALE = 0.25;
 
+// Laser Scope
+SCOPE_KBS_ADD = 0.1; // Applied on ignition hitboxes, or if Snake Eyes is active
+SCOPE_DAMAGE_ADD = 2; // Ditto
+
 // Brilliant Behemoth
 BEHEMOTH_AWAIT_MULT = 0.67; // As a percentage of enemy hitpause to wait through before exploding
 BEHEMOTH_HITPAUSE_MULT = 0.67;
@@ -401,5 +404,9 @@ FSHIELD_DAMAGE_BASE = 4;
 FSHIELD_DAMAGE_SCALE = 2;
 FSHIELD_RADIUS = 100; // for collision on proc
 FSHIELD_DODGE_RADIUS = 60; // strictly for activation on dodges
+
+// Snake Eyes
+SNAKEEYES_KBS_ADD = 0.5; // Added once for each Snake Eyes over the baseline
+SNAKEEYES_DAMAGE_ADD = 1; // Ditto
 
 //#endregion
