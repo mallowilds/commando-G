@@ -341,6 +341,7 @@ switch(my_hitboxID.attack) {
     case AT_FSTRONG_2: // Tricorn FStrong
     	var dir_fx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_blast);
     	dir_fx.draw_angle = 10 * spr_dir;
+    	sound_play(sound_get("c_tricorn_get")) //too lazy to init this one lol
     	
     	if (!hit_player_obj.clone) {
 	    	var trophy = instance_create(hit_player_obj.x-8, hit_player_obj.y-30, "obj_article3");

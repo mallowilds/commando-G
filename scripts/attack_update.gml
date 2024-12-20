@@ -87,9 +87,13 @@ switch(attack) {
     
     // Tricorn
     case AT_FSTRONG_2:
+	    if window == 1 && window_timer == 5 {
+	    	sound_play(sound_get("cm_tricorn_charge"), 0, noone, .3, 1.05)
+	    }
         if (window == 2 && window_timer == window_length-1) {
             sound_stop(s_reload)
-            sound_play(s_shotty, 0, noone, 3, .95)
+            sound_stop(sound_get("cm_tricorn_charge"))
+            sound_play(s_tricorn, 0, noone, 1.5)
             do_tricorn_remove = 1;
         }
         break;
