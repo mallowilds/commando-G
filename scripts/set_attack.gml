@@ -41,6 +41,8 @@ if (attack == AT_DTILT || attack == AT_UAIR) {
 }
 snakeeyes_active = false;
 
+
+
 #define enable_enhanced_crit(atk, normal, enhanced, ignition)
 set_hitbox_value(atk, normal, HG_WINDOW, 0);
 reset_hitbox_value(atk, enhanced, HG_WINDOW);

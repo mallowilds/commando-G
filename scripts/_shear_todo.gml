@@ -1,23 +1,27 @@
 /* TODO LIST
 
+--> General
+    
+    Remove stompers hitstun
+    Jab attack speed scaling (how?)
+
 --> Items
     
-    Very easy, just time-consuming
+    Next on the docket
+        AtG/Ceremonial Dagger/Fireworks
+    
+    Time-consuming
         Ancient Scepter
     
-    Still time-consuming, but less easy
-        AtG
-    
     Need to get a better understanding of this one
-        Laser Turbine  
+        Laser Turbine 
     
     Needs more moves added
         Ukelele
     
     Needs planning
         Legendary Spark
-        57-Leaf Clover
-        
+
     
     
 * Should Aegis have a lockout similar to Ignition Tank?

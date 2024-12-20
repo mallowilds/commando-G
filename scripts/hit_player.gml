@@ -69,6 +69,12 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 		snakeeyes_active = true;
 	}
 	
+	if (item_grid[ITEM_CRITDAGGER][IG_NUM_HELD] > 0) {
+		var factory = instance_create(x, y-30, "obj_article3");
+		factory.state = 60;
+		factory.target_obj = hit_player_obj;
+	}
+	
 }
 
 else if (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] != 0) {
@@ -214,6 +220,23 @@ if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied) {
 
 if (my_hitboxID.cmd_behemoth_applied && item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) {
 	do_behemoth_hbox = 1;
+}
+
+//#endregion
+
+//#region Ceremonial Dagger
+
+if (my_hitboxID.attack == AT_EXTRA_1 && my_hitboxID.hbox_num == 7) {
+    
+    sound_play(my_hitboxID.sound_effect);
+    if (!hit_player_obj.hitpause) {
+	    hit_player_obj.old_hsp = hit_player_obj.hsp;
+	    hit_player_obj.old_vsp = hit_player_obj.vsp;
+    }
+    hit_player_obj.hitpause = true;
+    hit_player_obj.hitstop += my_hitboxID.extra_hitpause;
+    hit_player_obj.hitstop_full = hit_player_obj.hitstop;
+    
 }
 
 //#endregion

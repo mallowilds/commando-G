@@ -48,7 +48,6 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_IS_TRANSCENDENT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , true);
 set_hitbox_value(atk, hbox_num, HG_IS_BLAST                 , true);
 
-
 // Ol' Lopper hitbox
 var hbox_num = 2;
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 2);
@@ -197,3 +196,31 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
 set_hitbox_value(atk, hbox_num, HG_GROUNDEDNESS             , 1);
 set_hitbox_value(atk, hbox_num, HG_EFFECT                   , 12); // crouch armor
 set_hitbox_value(atk, hbox_num, HG_HITSTUN_MULTIPLIER       , 0.5);
+
+// Ceremonial Dagger
+var hbox_num = 7;
+set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 1);
+set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 1);
+set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 80);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , 0);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 16);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 16);
+set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
+set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 2);
+set_hitbox_value(atk, hbox_num, HG_EFFECT                   , 0);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
+set_hitbox_value(atk, hbox_num, HG_EXTRA_HITPAUSE           , 10); // applied manually
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_icehit_medium1")); // played manually
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_SPRITE        , sprite_get("proj_aimable_temp"));
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_MASK          , -1);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DESTROY_EFFECT, 1);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_WALL_BEHAVIOR , 1);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_ENEMY_BEHAVIOR, 0);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , true);
+set_hitbox_value(atk, hbox_num, HG_EXTENDED_PARRY_STUN      , true);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);

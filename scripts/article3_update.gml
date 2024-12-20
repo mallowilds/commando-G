@@ -53,6 +53,10 @@ precondition: icon variables should be set externally
 - 56: Rise
 - 57: Float
 
+CEREMONIAL DAGGER ~ factory
+precondition: target_obj variable should be set externally
+~ 60: activate
+
 */
 
 
@@ -681,6 +685,31 @@ switch state {
     	}
     	
     	break;
+    
+    //#endregion
+    
+    //#region Ceremonial Dagger ~ factory
+    
+    // Activate
+    case 60:
+
+    	var up = create_hitbox(AT_EXTRA_1, 7, x, y);
+    	up.proj_angle = 90;
+    	up.target_obj = target_obj;
+    	up.delay = 20;
+
+    	var left = create_hitbox(AT_EXTRA_1, 7, x, y);
+    	left.proj_angle = 210;
+    	left.target_obj = target_obj;
+    	left.delay = 25;
+
+    	var right = create_hitbox(AT_EXTRA_1, 7, x, y);
+    	right.proj_angle = 330;
+    	right.target_obj = target_obj;
+    	right.delay = 30;
+
+		instance_destroy();
+    	exit;
     
     //#endregion
     
