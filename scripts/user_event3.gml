@@ -10,14 +10,20 @@ switch tmu_state {
     case 0: // TMU_OPENING
         fill_panel_contents(tmu_item_panel);
         set_tmu_state(TMU_ITEM);
+        tmu_y_offset = tmu_y_offscreen;
         break;
     
     case 1: // TMU_ITEM
+        
+        if (tmu_timer < 12) tmu_y_offset = floor(ease_backOut(tmu_y_offscreen, 0, tmu_timer, 12, 1))
+        else tmu_y_offset = 0;
         
         var panel_size = array_length(tmu_item_panel_contents);
         
         tmu_row += (down_pressed - up_pressed);
         tmu_column += (right_pressed - left_pressed);
+        
+        if (abs(down_pressed - up_pressed) || abs(right_pressed - left_pressed)) sound_play(asset_get("mfx_hover"));
         
         // Rows: stop at either end
         if (tmu_row < 0) {
@@ -69,28 +75,23 @@ switch tmu_state {
             user_event(1);
         }
         
-        else if (special_pressed) {
+        else if (special_pressed && item_grid[tmu_item_id][IG_NUM_HELD] > 0) {
             clear_button_buffer(PC_SPECIAL_PRESSED);
             new_item_id = tmu_item_id;
             ue1_command = UE1_REVOKE;
             user_event(1);
+            sound_play(asset_get("mfx_input_back"));
         }
         
-        else if (shield_pressed) {
-            // change to info panel
-        }
-        
-        else if (taunt_pressed) {
+        else if (taunt_pressed || state != PS_ATTACK_GROUND) {
             set_state(TMU_ITEM_CLOSING);
         }
-        
-        
         
         break;
     
     case 2: // TMU_ITEM_CLOSING
-        
-        set_tmu_state(TMU_INACTIVE);
+        tmu_y_offset = floor(ease_backIn(0, tmu_y_offscreen, tmu_timer, 10, 1))
+        if (tmu_y_offset <= tmu_y_offscreen) set_tmu_state(TMU_INACTIVE);
         break;
     
 }

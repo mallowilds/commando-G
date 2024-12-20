@@ -253,6 +253,7 @@ item_silenced = false; // Flag that silences the next item-get pop-up. Reset on 
 // Randomizer properties
 legendary_pool_size = array_create(3, 0); // to be initialized
 rares_remaining = 3; // manual limit, assumes that at least 3 rares exist
+uncommon_limit = UNCOMMON_LIMIT;
 uncommon_pool_size = 0; // to be initialized
 item_seed = player * 5; // max 200, this should hold within the rivals engine
 common_count = 0; // Not actually used by the randomizer, but still handled in the same places.
@@ -288,7 +289,7 @@ for (var i = 0; i < num_items; i++) {
     var itp = item_grid[i][IG_TYPE];
     
     if (rty < RTY_COMMON || RTY_RARE < rty) continue;
-    var quantity = (rty == RTY_UNCOMMON) ? UNCOMMON_LIMIT : 1;
+    var quantity = (rty == RTY_UNCOMMON) ? uncommon_limit : 1;
     
     if (itp == ITP_LEGENDARY) {
         item_grid[@ i][@ IG_RANDOMIZER_INDEX] = array_length(p_legendary_ids[rty]);
@@ -480,6 +481,9 @@ if (get_match_setting(SET_PRACTICE)) {
     tmu_item_id = 0;
     tmu_signal_add_item = false;
     tmu_signal_remove_item = false;
+    
+    tmu_y_offscreen = -200;
+    tmu_y_offset = tmu_y_offscreen;
     
 }
 

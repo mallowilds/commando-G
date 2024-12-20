@@ -99,7 +99,7 @@ var rarity = item_grid[item_id][IG_RARITY];
 var incompat_index = item_grid[item_id][IG_INCOMPATIBLE]
 var is_valid_index = (item_id == clamp(item_id, 0, array_length(item_grid)-1));
 var is_incompatible = (incompat_index != noone && item_grid[incompat_index][IG_NUM_HELD] >= 1);
-var is_excess_uncommon = (rarity == RTY_UNCOMMON && item_grid[item_id][IG_NUM_HELD] >= UNCOMMON_LIMIT);
+var is_excess_uncommon = (rarity == RTY_UNCOMMON && item_grid[item_id][IG_NUM_HELD] >= uncommon_limit);
 var is_excess_rare = (rarity == RTY_RARE && (rares_remaining <= 0 || item_grid[item_id][IG_NUM_HELD] >= 1));
 
 // Successful item grant

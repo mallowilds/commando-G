@@ -494,6 +494,7 @@ switch(attack) {
 	    		if (tmu_state != TMU_INACTIVE) {
     				tmu_state = TMU_ITEM_CLOSING;
     				tmu_timer = 0;
+    				sound_play(asset_get("mfx_unstar"), false, noone, 0.7, 0.7);
     			}
     		}
     		else if (window_timer == window_length) {

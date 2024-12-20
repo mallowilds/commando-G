@@ -80,7 +80,6 @@ if (tmu_state != TMU_INACTIVE) user_event(4);
 
 
 
-
 //#region Item info display
 
 if (debug_display_opened) {
