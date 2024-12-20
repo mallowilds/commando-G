@@ -159,7 +159,7 @@ item_grid = [
     ["Fireworks",               RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Launch fireworks when opening chests.", noone], // 55 | user_event0, article1_update.gml, article3, AT_EXTRA1, hitbox_update.gml, got_parried.gml
     ["Snake Eyes",              RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Consecutive critical hits become stronger.", noone], // 56 | set_attack.gml, hit_player.gml, user_event0.gml
     ["Ceremonial Dagger",       RTY_RARE,       ITP_CRITICAL,     noone,            0, noone, "Critical hits summon daggers to chase down opponents.", noone], // 57 | hit_player.gml, article3, AT_EXTRA1, hitbox_update.gml
-    ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Gain even more power from Common items.", noone], // 58 | Anywhere common items are implemented
+    ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Gain even more power from Common items.", noone], // 58 | user_event0.gml, animation.gml, anywhere common items are implemented
     
 ]
 
@@ -255,6 +255,7 @@ legendary_pool_size = array_create(3, 0); // to be initialized
 rares_remaining = 3; // manual limit, assumes that at least 3 rares exist
 uncommon_pool_size = 0; // to be initialized
 item_seed = player * 5; // max 200, this should hold within the rivals engine
+common_count = 0; // Not actually used by the randomizer, but still handled in the same places.
 
 grant_rarity = noone; // for user_event(1). This default value throws an error as a sanity check
 
@@ -457,6 +458,7 @@ fireworks_freq = 0;
 snakeeyes_active = 0;
 
 nectar_mult = 1;
+nectar_prev_outline = [0, 0, 0];
 
 
 // Training mode utility

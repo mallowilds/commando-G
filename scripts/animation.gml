@@ -1,21 +1,18 @@
-//a
+
+// Growth Nectar outline
+if (nectar_mult > 1 && common_count > 0) {
+    if (array_equals(outline_color, [0, 0, 0]) || array_equals(outline_color, nectar_prev_outline)) {
+        var vibrancy = clamp(common_count/15, 0, 0.5);
+        vibrancy += (sin(get_gameplay_time()*pi/60)+1)*0.1;
+        outline_color = [201*vibrancy, 158*vibrancy, 30*vibrancy];
+        nectar_prev_outline = outline_color;
+        init_shader();
+    }
+    else nectar_prev_outline = [0, 0, 0];
+}
+
+
 switch(state) {
-    // grounded movement
-    case PS_IDLE:
-        
-        break;
-    case PS_CROUCH:
-        
-        break;
-    case PS_WALK:
-        
-        break;
-    case PS_WALK_TURN:
-        
-        break;
-    case PS_DASH:
-        
-        break;
     case PS_DASH_START:
         // 'moonwalk' (dashing backwards) animation
         if (dash_moonwalks) {
@@ -24,30 +21,6 @@ switch(state) {
             }
         }
         break;
-    case PS_DASH_TURN:
-        
-        break;
-    case PS_DASH_STOP:
-        
-        break;
-    
-    // jump + land
-    case PS_JUMPSQUAT:
-        
-        break;
-    case PS_LAND:
-        
-        break;
-    case PS_LANDING_LAG:
-        
-        break;
-    case PS_WAVELAND:
-        
-        break;
-    case PS_PRATLAND:
-        
-        break;
-    
     // air movement
     case PS_FIRST_JUMP:
         // idle air loop
@@ -103,28 +76,8 @@ switch(state) {
         if state_timer == 0 {
             sound_play(asset_get("sfx_ell_small_missile_ground"), 0, noone, 0.7, 1.1)
         }
-        
         break;
-    case PS_WALL_JUMP:
-        
-        break;
-    case PS_PRATFALL:
-        
-        break;
-    
-    // shield actions
-    case PS_PARRY:
-        
-        break;
-    case PS_PARRY_START:
-        
-        break;
-    case PS_ROLL_FORWARD:
-        
-        break;
-    case PS_ROLL_BACKWARD:
-        
-        break;
+
     
     // attacks
     case PS_ATTACK_GROUND:

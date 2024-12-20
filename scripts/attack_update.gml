@@ -15,12 +15,34 @@ switch(attack) {
 	//#region Standard normals
 	
     case AT_JAB:
-
-        // clear attack so jab2 doesn't automatically happen
+        
+        // num_loops is set in set_attack
+        
     	if (window == 1 && window_timer == 1) {
+    		attack_end();
 			clear_button_buffer(PC_ATTACK_PRESSED);
-			//death_message_pick = death_messages[random_func_2( 0, array_length(death_messages), 1 )] //debug
+			num_loops--;
+			if (num_loops == 0) {
+				set_window_value(attack, 3, AG_WINDOW_GOTO, 7);
+				set_window_value(attack, 7, AG_WINDOW_ANIM_FRAME_START, 3);
+				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 4);
+				set_window_value(attack, 9, AG_WINDOW_ANIM_FRAME_START, 5);
+			}
+			else set_window_value(attack, 3, AG_WINDOW_GOTO, 0);
 		}
+		
+		else if (window == 4 && window_timer == 1) {
+			clear_button_buffer(PC_ATTACK_PRESSED);
+			num_loops--;
+			if (num_loops == 0) {
+				set_window_value(attack, 6, AG_WINDOW_GOTO, 0);
+				set_window_value(attack, 7, AG_WINDOW_ANIM_FRAME_START, 0);
+				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 1);
+				set_window_value(attack, 9, AG_WINDOW_ANIM_FRAME_START, 2);
+			}
+			else set_window_value(attack, 6, AG_WINDOW_GOTO, 1);
+		}
+		
         break;
         
     case AT_FTILT:

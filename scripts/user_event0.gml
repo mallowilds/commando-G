@@ -153,6 +153,9 @@ switch new_item_id {
     
     case 55: // Fireworks
         fireworks_freq = item_grid[55][IG_NUM_HELD] * 3;
+        // Grant hit lockout to Classified Access Codes
+        if (fireworks_freq > 0) set_hitbox_value(AT_DSPECIAL, 6, HG_HIT_LOCKOUT, 12);
+        else set_hitbox_value(AT_DSPECIAL, 6, HG_HIT_LOCKOUT, 0);
         break;
         
     case 56: // Snake Eyes

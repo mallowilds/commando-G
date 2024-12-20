@@ -372,15 +372,15 @@ if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 			stompers_active = false;
 			if (instance_exists(stompers_hbox_air)) stompers_hbox_air.hitbox_timer = 999; // destroy
 			stompers_hbox_air = noone;
-			if (instance_exists(stompers_hbox_ground)) stompers_hbox_ground.hitbox_timer = 999; // destroy
-			stompers_hbox_ground = noone;
+			//if (instance_exists(stompers_hbox_ground)) stompers_hbox_ground.hitbox_timer = 999; // destroy
+			//stompers_hbox_ground = noone;
 		}
 	}
 	else if (fast_falling && !hitstop && state_cat != SC_HITSTUN) {
 		attack_end(AT_EXTRA_1);
 		stompers_active = true;
 		stompers_hbox_air = create_hitbox(AT_EXTRA_1, 4, x, y);
-		stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
+		//stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
 	}
 }
 

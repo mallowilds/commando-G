@@ -1,4 +1,13 @@
 
+// Headstompers
+if (my_hitboxID.attack == AT_EXTRA_1 && (4 <= my_hitboxID.hbox_num || my_hitboxID.hbox_num <= 6)) {
+    was_parried = true;
+    my_hitboxID.dodging = false;
+    invincible = false;
+    if (free) set_state(PS_PRATFALL);
+    else set_state(PS_PRATLAND);
+}
+
 // Ignition Tank
 do_ignite_hbox = 0;
 

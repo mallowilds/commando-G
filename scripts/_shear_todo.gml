@@ -1,10 +1,5 @@
 /* TODO LIST
 
---> General
-    
-    Remove stompers hitstun
-    Jab attack speed scaling (how?)
-
 --> Items
     
     Time-consuming
@@ -21,10 +16,9 @@
 
     
     
-* Should Aegis have a lockout similar to Ignition Tank?
-        
 
 --> List of missing assets on otherwise finished items
+Tri-shops: yep
 Headstompers: Needs vfx. (Would sfx be good too?)
 Lens' Maker's: Some sort of gamefeel tell might be appropriate
 Kjaro's Band: HFX
@@ -34,8 +28,10 @@ Concussion Grenade: some form of visual idk
 The Ol' Lopper: Visual
 Shattering Justice: Visual
 Classified Access Codes: bomb. also probably needs a new explosion, given that the mollo bomb has the symbol
-
-
+Ceremonial Dagger: daggers
+ATG Missiles: missiles
+Fireworks: fireworks (+ sfx)
+57-Leaf Clover: vfx
 
 
 

@@ -141,6 +141,7 @@ if (is_valid_index && !is_incompatible && !is_excess_uncommon && !is_excess_rare
 	
 	// Update probabilities
 	if (rarity != RTY_COMMON) reduce_item_probability(item_id, false);
+	else common_count++;
 	
 	return true;
 	
@@ -179,7 +180,7 @@ return false;
 		p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] - 1;
 		p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] - value;
 		if (rarity == RTY_UNCOMMON) uncommon_pool_size--;
-		if (!is_temp && rarity == RTY_RARE) rares_remaining--;
+		else if (!is_temp && rarity == RTY_RARE) rares_remaining--;
 	}
 
 // Returns true if the item was applied successfully, false if there was no item to remove.
@@ -235,6 +236,7 @@ if (item_grid[item_id][IG_NUM_HELD] <= 0) {
 
 // increase item probability
 if (item_grid[item_id][IG_RARITY] != RTY_COMMON) increase_item_probability(item_id, false);
+else common_count--;
 
 return true;
 
@@ -258,7 +260,7 @@ else {
 	p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] + 1;
 	p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] + value;
 	if (rarity == RTY_UNCOMMON) uncommon_pool_size++;
-	if (!is_temp && rarity == RTY_RARE) rares_remaining++;
+	else if (!is_temp && rarity == RTY_RARE) rares_remaining++;
 }
 
 #define choose_three_items(rarity)

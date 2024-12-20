@@ -2,6 +2,8 @@
 
 if (debug_display_opened && attack_pressed && taunt_pressed) attack = AT_TAUNT;
 
+if (attack == AT_JAB) num_loops = attack_speed;
+
 if (attack == AT_TAUNT) {
     if (up_down) attack = utaunt_index;
     else if (down_down) attack = dtaunt_index;
