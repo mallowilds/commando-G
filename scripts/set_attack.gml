@@ -46,7 +46,7 @@ snakeeyes_active = false;
 
 
 #define enable_enhanced_crit(atk, normal, enhanced, ignition)
-set_hitbox_value(atk, normal, HG_WINDOW, 0);
+set_hitbox_value(atk, normal, HG_WINDOW, 99);
 reset_hitbox_value(atk, enhanced, HG_WINDOW);
 
 reset_hitbox_value(atk, enhanced, HG_DAMAGE);
@@ -88,7 +88,7 @@ if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0) {
 
 #define enable_basic_crit(atk, normal, enhanced, ignition)
 reset_hitbox_value(atk, normal, HG_WINDOW);
-set_hitbox_value(atk, enhanced, HG_WINDOW, 0);
+set_hitbox_value(atk, enhanced, HG_WINDOW, 99);
 
 reset_hitbox_value(atk, ignition, HG_DAMAGE);
 reset_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING);

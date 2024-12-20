@@ -58,6 +58,7 @@ if (attack == AT_EXTRA_1) {
     // Fireworks (delayed homing, capped rotational speed)
     if (hbox_num == 9) {
         draw_xscale = 1;
+        hit_priority = (hitbox_timer >= 5);
         if (hitbox_timer == 1) {
             vsp = -16;
             delay = 6 + random_func(3, 10, true);
