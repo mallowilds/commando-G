@@ -79,8 +79,9 @@ sprite_change_offset("item_sucker_walk"         , 20, 40);
 sprite_change_offset("item_sucker_buff"         , 20, 40);
 sprite_change_offset("item_sucker_taunt"        , 20, 40);
 sprite_change_offset("item_sucker_mask"         , 16, 24);
-sprite_change_offset("item_suckerdrop_red"      , 8, 16);
-sprite_change_offset("item_suckerdrop_blue"     , 8, 16);
+sprite_change_offset("item_suckerdrop_red"      , 10, 18);
+sprite_change_offset("item_suckerdrop_blue"     , 10, 18);
+sprite_change_offset("item_suckerdrop_mask"     , 10, 18);
 
 
 sprite_change_offset("vfx_item_orb_c"           , 24, 24);

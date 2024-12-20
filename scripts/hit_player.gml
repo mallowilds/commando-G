@@ -467,11 +467,11 @@ aegis_barrier += aegis_ratio * item_grid[42][IG_NUM_HELD] * amount;
 
 #define get_effect_offset_x
 
-return (hit_player_obj.x + my_hitboxID.x) * 0.5 + get_hitbox_value(my_hitboxID.attack, hbox_num, HG_VISUAL_EFFECT_X_OFFSET) * spr_dir;
+return (hit_player_obj.x + my_hitboxID.x) * 0.5 + get_hitbox_value(my_hitboxID.attack,my_hitboxID.hbox_num, HG_VISUAL_EFFECT_X_OFFSET) * spr_dir;
 
 #define get_effect_offset_y
 
-return (hit_player_obj.y + my_hitboxID.y)*0.5 + get_hitbox_value(my_hitboxID.attack,hbox_num,HG_VISUAL_EFFECT_Y_OFFSET) - 25;
+return (hit_player_obj.y + my_hitboxID.y)*0.5 + get_hitbox_value(my_hitboxID.attack,my_hitboxID.hbox_num,HG_VISUAL_EFFECT_Y_OFFSET) - 25;
 
 #define spawn_base_dust // written by supersonic
 /// spawn_base_dust(x, y, name, dir = 0)

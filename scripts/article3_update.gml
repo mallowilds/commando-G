@@ -617,6 +617,7 @@ switch state {
     // Init
     case 50:
     	sprite_index = buff_type ? sprite_get("item_suckerdrop_red") : sprite_get("item_suckerdrop_blue");
+    	mask_index = sprite_get("item_suckerdrop_mask");
     	image_index = 0;
     	
     	ignores_walls = false;
