@@ -362,7 +362,7 @@ AEGIS_RATIO_SCALE = 0.25;
 
 // Laser Scope
 SCOPE_KBS_ADD = 0.1; // Applied on ignition hitboxes, or if Snake Eyes is active
-SCOPE_DAMAGE_ADD = 2; // Ditto
+SCOPE_DAMAGE_ADD = 5; // Ditto (these will apply twice if both conditions are met)
 
 // Brilliant Behemoth
 BEHEMOTH_AWAIT_MULT = 0.67; // As a percentage of enemy hitpause to wait through before exploding
@@ -406,7 +406,7 @@ FSHIELD_RADIUS = 100; // for collision on proc
 FSHIELD_DODGE_RADIUS = 60; // strictly for activation on dodges
 
 // Snake Eyes
-SNAKEEYES_KBS_ADD = 0.5; // Added once for each Snake Eyes over the baseline
-SNAKEEYES_DAMAGE_ADD = 1; // Ditto
+SNAKEEYES_KBS_ADD = 0.05; // Added once for each Snake Eyes over the baseline
+SNAKEEYES_DAMAGE_ADD = 3; // Ditto
 
 //#endregion
