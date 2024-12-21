@@ -25,7 +25,7 @@ for (var i = 0; i < array_length(inventory_list); i++) {
 
 var barrier = floor(brooch_barrier + heart_barrier + jewel_barrier + aegis_barrier);
 
-if (barrier > 0 && get_local_setting(SET_HUD_SIZE) != 0) {
+if (barrier > 0) {
 	
 	draw_set_alpha(hud_barrier_fade_alpha);
 	draw_sprite(sprite_get("hud_barrier_fade"), 0, temp_x+74, temp_y+8);

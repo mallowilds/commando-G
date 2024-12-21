@@ -702,25 +702,27 @@ switch state {
     
     // Activate
     case 60:
+		
+		var taser_delay = player_id.TASER_STUN_SCALE * player_id.item_grid[player_id.ITEM_TASER][player_id.IG_NUM_HELD];
 
     	var up = create_hitbox(AT_EXTRA_1, 7, x, y);
     	up.proj_angle = 90;
     	up.target_obj = target_obj;
-    	up.delay = 20;
+    	up.delay = 20 + taser_delay;
     	up.spr_dir = 1;
     	up.is_fake_hit = true;
 
     	var left = create_hitbox(AT_EXTRA_1, 7, x, y);
     	left.proj_angle = 210;
     	left.target_obj = target_obj;
-    	left.delay = 25;
+    	left.delay = 25 + taser_delay;
     	left.spr_dir = 1;
     	left.is_fake_hit = true;
 
     	var right = create_hitbox(AT_EXTRA_1, 7, x, y);
     	right.proj_angle = 330;
     	right.target_obj = target_obj;
-    	right.delay = 30;
+    	right.delay = 30 + taser_delay;
     	right.spr_dir = 1;
     	right.is_fake_hit = true;
     	

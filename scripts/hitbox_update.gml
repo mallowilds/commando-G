@@ -7,6 +7,7 @@ if (attack == AT_EXTRA_1) {
     if (hbox_num == 7) {
         if (bashed || target_obj.state == PS_DEAD || target_obj.state == PS_RESPAWN) homing = false;
         if (hitbox_timer < delay) {
+            hit_priority = 0;
             homing = true;
             depth = player_id.depth+1;
             draw_xscale = 1;
@@ -18,6 +19,7 @@ if (attack == AT_EXTRA_1) {
                 spawn_hit_fx(x, y, HFX_CLA_PLASMA_PLUS);
             }
         } else if (homing) {
+            hit_priority = 1;
             var target_y = target_obj.y - floor(target_obj.char_height/2);
             var dist = point_distance(x, y, target_obj.x, target_y);
             var sp = min(20, dist);

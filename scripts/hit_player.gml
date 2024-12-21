@@ -2,6 +2,9 @@
 
 var hbox_num = my_hitboxID.hbox_num;
 
+// Kragg rock shards
+if (my_hitboxID.attack == AT_NSPECIAL && my_hitboxID.type == 2) exit;
+
 //#region DSpec cooldown handling
 if ((my_hitboxID.type == 1 && !first_hit) || (my_hitboxID.type == 2 && ("is_fake_hit" not in my_hitboxID || !my_hitboxID.is_fake_hit) && (my_hitboxID.orig_player != player || my_hitboxID.attack != AT_EXTRA_1))) {
 	if (dspec_cooldown_hits == 1) sound_play(s_cd)
@@ -239,6 +242,7 @@ if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied) {
 	hbox_stored_angle = point_direction(0, 0, hit_player_obj.hsp, hit_player_obj.vsp); // as an aside, behemoth/atg hitboxes should have spr_dir fixed at 1
 	hbox_stored_bhp = my_hitboxID.hitpause;
 	hbox_stored_hps = my_hitboxID.hitpause_growth;
+	hbox_stored_lockout = my_hitboxID.no_other_hit;
 }
 
 if (my_hitboxID.cmd_behemoth_applied && item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) {

@@ -40,7 +40,13 @@ switch(attack) {
 				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 1);
 				set_window_value(attack, 9, AG_WINDOW_ANIM_FRAME_START, 2);
 			}
-			else set_window_value(attack, 6, AG_WINDOW_GOTO, 1);
+			else {
+				set_window_value(attack, 6, AG_WINDOW_GOTO, 1);
+				set_hitbox_value(attack, 1, HG_HITSTUN_MULTIPLIER, 0.7);
+    			set_hitbox_value(attack, 2, HG_HITSTUN_MULTIPLIER, 0.7);
+    			set_hitbox_value(attack, 3, HG_HITSTUN_MULTIPLIER, 0.7);
+    			set_hitbox_value(attack, 4, HG_HITSTUN_MULTIPLIER, 0.7);
+			}
 		}
 		
         break;
@@ -374,6 +380,12 @@ switch(attack) {
         break;
     case AT_DSPECIAL_2:
     	if (window == 1 && window_timer == 1) {
+    		if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
+				jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
+				jewel_barrier_timer = JEWEL_DURATION;
+				new_item_id = ITEM_JEWEL;
+				user_event(0); // for ms buff
+			}
     		if (chest_obj.state == 32) { // trishop
 				if (!halt_for_trishop) {
 					halt_for_trishop = true;
@@ -423,13 +435,7 @@ switch(attack) {
 					chest_obj.state_timer = 0;
 					dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
 				}
-
-				if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
-					jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
-					jewel_barrier_timer = JEWEL_DURATION;
-					new_item_id = ITEM_JEWEL;
-					user_event(0); // for ms buff
-				}
+				
 	    		var window_length = (chest_obj.state < 20) ? 8 : 28;
 	    		set_window_value(attack, window, AG_WINDOW_LENGTH, window_length)
 	    		set_window_value(attack, window, AG_WINDOW_SFX_FRAME, window_length-1);
@@ -538,7 +544,7 @@ if (do_behemoth_hbox && hit_player_obj.hitstop < hit_player_obj.hitstop_full * (
 	hbox.kb_angle = hbox_stored_angle;
 	hbox.hitpause = hbox_stored_bhp * BEHEMOTH_HITPAUSE_MULT;
 	hbox.hitpause_growth = hbox_stored_hps * BEHEMOTH_HITPAUSE_MULT;
-	hbox.do_not_hit = hbox_stored_lockout;
+	hbox.no_other_hit = hbox_stored_lockout;
 	do_behemoth_hbox = false;
 	behemoth_hfx = spawn_hit_fx(_x, _y, HFX_ELL_BOOM_BIG);
 	behemoth_hfx.depth = hit_player_obj.depth+1;

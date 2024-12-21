@@ -2,7 +2,13 @@
 
 if (debug_display_opened && attack_pressed && taunt_pressed) attack = AT_TAUNT;
 
-if (attack == AT_JAB) num_loops = attack_speed;
+if (attack == AT_JAB) {
+    num_loops = attack_speed;
+    set_hitbox_value(AT_JAB, 1, HG_HITSTUN_MULTIPLIER, 1);
+    set_hitbox_value(AT_JAB, 2, HG_HITSTUN_MULTIPLIER, 1);
+    set_hitbox_value(AT_JAB, 3, HG_HITSTUN_MULTIPLIER, 1);
+    set_hitbox_value(AT_JAB, 4, HG_HITSTUN_MULTIPLIER, 1);
+}
 
 if (attack == AT_TAUNT) {
     if (up_down) attack = utaunt_index;
