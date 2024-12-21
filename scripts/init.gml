@@ -40,6 +40,7 @@ chest_obj = noone;
 dspec_cooldown_hits = DSPEC_INIT_CD_HITS; // Hits on the opponent remaining until DSpec goes off cooldown.
 first_hit = false; // Mirrors has_hit, but is accessible from hit_player to track the first hit applied.
 trishop_odds = TRISHOP_ODDS[0];
+call_sfx_instance = noone;
 
 //Death Messages
 var death_messages = [
