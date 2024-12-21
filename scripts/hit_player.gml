@@ -72,6 +72,7 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	
 	if (item_grid[ITEM_SNAKEEYES][IG_NUM_HELD] > 0) {
 		snakeeyes_active = true;
+		sound_play(sound_get("cm_snakeyes_proc"))
 	}
 	
 	if (item_grid[ITEM_CRITDAGGER][IG_NUM_HELD] > 0) {
