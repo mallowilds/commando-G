@@ -49,6 +49,7 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 		instincts_timer = INSTINCTS_DURATION;
 		new_item_id = 26;
 		user_event(0); // refresh stats
+		sound_play(sound_get("cm_instincts"))
 	}
 	
 	if (item_grid[ITEM_BLEEDDAGGER][IG_NUM_HELD] > 0) {
