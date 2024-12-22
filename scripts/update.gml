@@ -8,7 +8,7 @@ if (init_prompt_active) {
 } else if (init_prompt_timer > 0) init_prompt_timer--;
 
 // Utility menu subroutines
-if (tmu_state != TMU_INACTIVE) user_event(3)
+if (tmu_state != TMU_INACTIVE) user_event(3);
 if (debug_display_opened) user_event(5);
 
 // reset idle_air_looping if the character isn't in air idle anymore
