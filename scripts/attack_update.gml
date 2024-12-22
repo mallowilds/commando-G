@@ -520,7 +520,6 @@ switch(attack) {
     		}
     	}
     	
-    	if (tmu_state != TMU_INACTIVE) user_event(3)
     	break;
     
     //#endregion

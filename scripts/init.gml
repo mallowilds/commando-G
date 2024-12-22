@@ -465,9 +465,10 @@ nectar_prev_outline = [0, 0, 0];
 
 // Training mode utility
 tmu_state = TMU_INACTIVE;
-init_prompt_active = get_match_setting(SET_PRACTICE);
+tmu_exists = get_match_setting(SET_PRACTICE);
+init_prompt_active = tmu_exists;
 init_prompt_timer = 0;
-if (get_match_setting(SET_PRACTICE)) {
+if (tmu_exists) {
     
     tmu_timer = 0;
     

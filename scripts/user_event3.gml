@@ -87,7 +87,7 @@ switch tmu_state {
         }
         
         else if (taunt_pressed || state != PS_ATTACK_GROUND) {
-            set_state(TMU_ITEM_CLOSING);
+            set_tmu_state(TMU_ITEM_CLOSING);
         }
         
         else if (shield_pressed) {
