@@ -118,6 +118,13 @@ if (instance_exists(tmu_infowindow)) with tmu_infowindow {
     
 }
 
+if (init_prompt_active) {
+	draw_sprite_ext(sprite_get("_tmu_prompt_init"), 0, temp_x-10, temp_y-68, 2, 2, 0, c_white, 1);
+} else if (init_prompt_timer > 0) {
+	var h = ease_backIn(68, 0, 20-init_prompt_timer, 20, 1);
+	draw_sprite_part_ext(sprite_get("_tmu_prompt_init"), 0, 0, 0, 228, ceil(clamp(h/2, 0, 35)), temp_x-10, temp_y-h, 2, 2, c_white, 1);
+}
+
 //#endregion
 
 

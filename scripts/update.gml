@@ -1,4 +1,12 @@
 
+if (init_prompt_active) {
+	if (attack == AT_EXTRA_3 || attack == AT_DSPECIAL || debug_display_opened || init_prompt_timer > 360) {
+		init_prompt_active = false;
+		init_prompt_timer = 20;
+	}
+	init_prompt_timer++;
+} else if (init_prompt_timer > 0) init_prompt_timer--;
+
 // Debug: manage debug display
 if (debug_display_opened) {
 	
