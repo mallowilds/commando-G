@@ -23,6 +23,8 @@ precondition: rarity = (0, 1, 2)
 - 21: Rising
 - 22: Homing
 - 23: Despawn
+- 24: Hover
+- 25: Fly away
 
 WARBANNER
 - 30: Initialization
@@ -218,12 +220,15 @@ switch state {
     	switch rarity {
     		case 2:
     			sprite_index = sprite_get("vfx_item_orb_r");
+    			trail_color = make_color_rgb(252, 204, 212);
     			break;
     		case 1:
     			sprite_index = sprite_get("vfx_item_orb_u");
+    			trail_color = make_color_rgb(231, 252, 220);
     			break;
     		default:
     			sprite_index = sprite_get("vfx_item_orb_c");
+    			trail_color = c_white;
     			break;
     	}
         
@@ -234,6 +239,8 @@ switch state {
         state = 21;
         state_timer = 0;
         if ("item_type" not in self) item_type = -1;
+        init_position_history();
+        
         break;
        
     // rise
@@ -245,10 +252,25 @@ switch state {
         	state = 22;
         	state_timer = 0;
         }
+        update_position_history();
         break;
     
     // home in
     case 22:
+    
+    	if (player_id.state == PS_RESPAWN) {
+    		state = 24;
+    		state_timer = 0;
+			update_position_history();
+    		break;
+    	}
+    	else if (player_id.state == PS_DEAD) {
+    		state = 25;
+    		state_timer = 0;
+    		update_position_history();
+    		break;
+    	}
+    
     	var target_x = player_id.x;
     	var target_y = player_id.y - floor(player_id.char_height/2);
     	var target_dist = point_distance(x, y, target_x, target_y);
@@ -269,7 +291,6 @@ switch state {
     	} else {
     		state = 23;
     		state_timer = 0;
-    		sprite_index = sprite_get("null");
     		player_id.grant_rarity = rarity;
     		
     		if ("forced_index") in self {
@@ -282,15 +303,44 @@ switch state {
     		player_id.ue1_command = player_id.UE1_GRANT;
         	player_id.item_silenced = false;
     		user_event(1);
-    		
     	}
     	
+    	update_position_history();
     	break;
     
     // despawn
     case 23:
-        instance_destroy();
-        exit;
+		hsp = 0;
+		vsp = 0;
+    	update_position_history();
+    	image_index = state_timer/2;
+        if (state_timer >= 10) {
+        	instance_destroy();
+        	exit;
+        }
+        break;
+        
+    // hover
+    case 24:
+    	hsp *= 0.9;
+    	vsp *= 0.9;
+    	update_position_history();
+    	if (player_id.state != PS_RESPAWN) {
+    		vel = 1;
+        	dir = 90;
+    		state = 22;
+    		state_timer = 0;
+    	}
+    	break;
+    	
+    // fly away
+    case 25:
+    	hsp *= 0.9;
+    	vsp -= 1;
+    	update_position_history();
+    	if (y < get_stage_data(SD_TOP_BLASTZONE_Y)) state = 23;
+    	break;
+    	
         
     //#endregion
     
@@ -919,3 +969,16 @@ var new_lfx = {
     lfx_vsp : in_vsp,
 };
 ds_list_add(player_id.lfx_list, new_lfx);
+
+#define init_position_history
+history_index = 0;
+history_len = 12;
+x_history = array_create(history_len, x);
+y_history = array_create(history_len, y);
+dir_history = array_create(history_len, 90);
+
+#define update_position_history
+history_index = (history_index+1) % history_len;
+x_history[history_index] = x+hsp;
+y_history[history_index] = y+vsp;
+dir_history[history_index] = (hsp == 0 && vsp == 0) ? 90 : point_direction(0, 0, hsp, vsp);
