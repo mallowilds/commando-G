@@ -109,7 +109,7 @@ switch(state) { // use this one for doing actual article behavior
             set_state(12);
             land_vfx = spawn_hit_fx(x, y, player_id.fx_small_chest_land);
             land_vfx.depth = depth-1;
-            hbox.destroyed = true;
+            if (instance_exists(hbox)) hbox.destroyed = true;
             hbox = noone;
             var land_hbox = create_hitbox(AT_DSPECIAL, 2, x, y-16);
             land_hbox.owner_chest = self;

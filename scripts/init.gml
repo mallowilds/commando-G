@@ -486,6 +486,11 @@ if (get_match_setting(SET_PRACTICE)) {
     tmu_y_offscreen = -200;
     tmu_y_offset = tmu_y_offscreen;
     
+    tmu_infowindow = noone;
+    tmu_infowindow_active = false;
+    
+    orig_depth = depth;
+    
 }
 
 

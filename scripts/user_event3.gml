@@ -11,6 +11,8 @@ switch tmu_state {
         fill_panel_contents(tmu_item_panel);
         set_tmu_state(TMU_ITEM);
         tmu_y_offset = tmu_y_offscreen;
+        tmu_infowindow = noone;
+        tmu_infowindow_active = false;
         break;
     
     case 1: // TMU_ITEM
@@ -81,15 +83,38 @@ switch tmu_state {
             ue1_command = UE1_REVOKE;
             user_event(1);
             sound_play(asset_get("mfx_input_back"));
+            
         }
         
         else if (taunt_pressed || state != PS_ATTACK_GROUND) {
             set_state(TMU_ITEM_CLOSING);
         }
         
+        else if (shield_pressed) {
+            clear_button_buffer(PC_SHIELD_PRESSED);
+            if (!tmu_infowindow_active) {
+                tmu_infowindow_active = true;
+                tmu_infowindow = instance_create(x, y, "obj_article2");
+                tmu_infowindow.vsp = 0;
+                tmu_infowindow.is_hud_element = true;
+            } else {
+                tmu_infowindow.state_timer = 118;
+                tmu_infowindow_active = false;
+            }
+        }
+        
+        if (tmu_infowindow_active && instance_exists(tmu_infowindow)) {
+            tmu_infowindow.item_id = tmu_selected;
+            if (tmu_infowindow.state_timer > 118) tmu_infowindow.state_timer = 118;
+        }
+        
         break;
     
     case 2: // TMU_ITEM_CLOSING
+        if (tmu_infowindow_active) {
+            tmu_infowindow.state_timer = 118;
+            tmu_infowindow_active = false;
+        }
         tmu_y_offset = floor(ease_backIn(0, tmu_y_offscreen, tmu_timer, 10, 1))
         if (tmu_y_offset <= tmu_y_offscreen) set_tmu_state(TMU_INACTIVE);
         break;

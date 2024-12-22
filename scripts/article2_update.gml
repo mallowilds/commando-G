@@ -11,7 +11,6 @@ Item-get message box
 
 */
 
-
 switch state {
     
     // Item-get message box
@@ -21,7 +20,6 @@ switch state {
             instance_destroy();
             exit;
         }
-        vsp = -1;
         draw_flash = 1;
         state = 1;
     case 1:

@@ -9,9 +9,21 @@ if blocktimer > 0 {
     draw_sprite_ext(sprite_get("blocked"), 0, x - 60, y - 115 + (blocktimer/25), 1, 1, 0, c_white, blocktimer/100)
 }*/
 
+//#region Tri-shop selector
+if (instance_exists(chest_obj) && chest_obj.state == 32 && chest_obj.trishop_vis_timer >= 0) with chest_obj {
+    var progress = clamp(trishop_vis_timer / 5, 0, 1)
+    var _x = x;
+    var _y = other.y-28;
+    
+    draw_sprite_ext(sprite_get("trishop_bg_sidefill"), 0, _x, _y, 2, 2, 0, c_white, trishop_vis_opacities[0]*progress);
+    draw_sprite_ext(sprite_get("trishop_bg_centerfill"), 0, _x, _y, 2, 2, 0, c_white, trishop_vis_opacities[1]*progress);
+    draw_sprite_ext(sprite_get("trishop_bg_sidefill"), 0, _x, _y, -2, 2, 0, c_white, trishop_vis_opacities[2]*progress);
+}
+//#endregion
+
 //#region obj_article2 pre_draw
 // (because text draw functions are unstable in article code)
-with (obj_article2) if (other == player_id) {
+with (obj_article2) if (other == player_id && !is_hud_element) {
     
     switch state {
         

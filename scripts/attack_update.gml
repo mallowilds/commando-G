@@ -379,6 +379,8 @@ switch(attack) {
         }
         break;
     case AT_DSPECIAL_2:
+    	hsp = 0;
+    	vsp = 0;
     	if (window == 1 && window_timer == 1) {
     		if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
 				jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
@@ -394,6 +396,7 @@ switch(attack) {
 					set_window_value(attack, window, AG_WINDOW_LENGTH, 8)
 	    			set_window_value(attack, window, AG_WINDOW_SFX_FRAME, 7);
 	    			
+	    			chest_obj.trishop_selection = -1;
 	    			chest_obj.trishop_vis_timer = 0;
 	    			chest_obj.trishop_vis_flashing = 1;
 	    			chest_obj.trishop_vis_opacities = [0.1, 0.1, 0.1];
@@ -403,7 +406,12 @@ switch(attack) {
 					select_for_trishop = joy_dir <= 180;
 				}
 				
-				if (select_for_trishop) {
+				if (shield_pressed) {
+					clear_button_buffer(PC_SHIELD_PRESSED);
+					attack_end();
+					set_state(free ? PS_IDLE_AIR : PS_IDLE);
+				}
+				else if (select_for_trishop) {
 					var new_trishop_selection = -1;
 					if (joy_pad_idle && chest_obj.trishop_selection != -1) {
 						chest_obj.state = 33;

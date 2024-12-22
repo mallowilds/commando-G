@@ -15,7 +15,19 @@ if (state == clamp(state, PS_ATTACK_AIR, PS_ATTACK_GROUND) && attack == AT_NSPEC
 
 //#endregion
 
-
+//#region Tri-shop selector
+if (instance_exists(chest_obj) && chest_obj.state == 32 && chest_obj.trishop_vis_timer >= 0) with chest_obj {
+    var progress = clamp(trishop_vis_timer / 5, 0, 1)
+    var _x = x;
+    var _y = other.y-28;
+    
+    draw_sprite_ext(sprite_get("trishop_bg_lines"), 0, _x, _y, 2, 2, 0, c_white, progress);
+    
+    draw_sprite_ext(sprite_get("item"), trishop_loot[0], _x-22-(64*progress), _y-(74*progress), 2*progress, 2, 0, c_white, 1);
+    draw_sprite_ext(sprite_get("item"), trishop_loot[1], _x-22,               _y-(88*progress), 2*progress, 2, 0, c_white, 1);
+    draw_sprite_ext(sprite_get("item"), trishop_loot[2], _x-22+(64*progress), _y-(74*progress), 2*progress, 2, 0, c_white, 1);
+}
+//#endregion
 
 
 
