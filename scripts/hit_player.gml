@@ -31,10 +31,11 @@ if (my_hitboxID.cmd_strong_finisher) {
 
 //#region Crit handling
 // Critical active is only technically necessary for disabling the crit sound,
-// but avoiding the other checks is a small optimization boost anyway
+// but avoiding the other checks certainly doesn't hurt
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
+	//print_debug("crit!");
+	
 	// Play crit sound
-	print_debug("crit!");
 	sound_play(s_crit);
 	
 	if (item_grid[ITEM_SCYTHE][IG_NUM_HELD] > 0) {

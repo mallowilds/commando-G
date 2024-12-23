@@ -975,10 +975,18 @@ history_index = 0;
 history_len = 12;
 x_history = array_create(history_len, x);
 y_history = array_create(history_len, y);
-dir_history = array_create(history_len, 90);
+dx_history = array_create(history_len, 0);
+dy_history = array_create(history_len, 0);
 
 #define update_position_history
 history_index = (history_index+1) % history_len;
 x_history[history_index] = x+hsp;
 y_history[history_index] = y+vsp;
-dir_history[history_index] = (hsp == 0 && vsp == 0) ? 90 : point_direction(0, 0, hsp, vsp);
+if (hsp == 0 && vsp == 0) {
+	dx_history[history_index] = 0;
+	dy_history[history_index] = 0;
+} else {
+	var dir = point_direction(0, 0, hsp, vsp)+90;
+	dx_history[history_index] = lengthdir_x(1, dir);
+	dy_history[history_index] = lengthdir_y(1, dir);
+}
