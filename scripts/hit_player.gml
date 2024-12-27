@@ -265,6 +265,12 @@ if (my_hitboxID.cmd_strong_finisher && atg_freq > 0) {
 
 //#endregion
 
+//#region Laser Turbine
+if (my_hitboxID.cmd_is_gunshot) {
+	turbine_stored_charge += item_grid[ITEM_TURBINE][IG_NUM_HELD] * 0.5;
+}
+//#endregion
+
 //#region Ceremonial Dagger
 
 if (my_hitboxID.attack == AT_EXTRA_1 && hbox_num == 7) {

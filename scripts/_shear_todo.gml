@@ -2,19 +2,11 @@
 
 --> Fixes
     
+    NSpec visual work
     Center load.gml offset for items (for scaling reasons)
     Keep looking for unknown trishop failure
 
---> Moves
-
-    NSpec
-    UTilt
-
 --> Items
-    
-    Next up!
-        Ancient Scepter
-        Laser Turbine 
     
     Needs more moves added
         Ukelele
@@ -40,6 +32,7 @@ Ceremonial Dagger: daggers
 ATG Missiles: missiles
 Fireworks: fireworks (+ sfx)
 57-Leaf Clover: vfx
+Turbine: VFX
 
 
 

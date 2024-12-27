@@ -250,26 +250,73 @@ switch(attack) {
 
         if window != 1 && window != 5{ hud_offset = 30 }
         switch window {
-            case 1: //startup HSP lerp - feel free to change if theres a more natural way to halt HSP before the first acive frame.
-            	if (window_timer == 1) sound_play(asset_get("sfx_forsburn_cape_swipe"));
-                hsp = lerp(hsp, 0, .1)
-                vsp = lerp(vsp, 0, .1)
-                num_loops = attack_speed - 1;
+            case 1:
+            	if (window_timer == 1) {
+            		sound_play(asset_get("sfx_forsburn_cape_swipe"));
+            		nspec_charge_frames = 0; // TODO: hook in laser turbine
+            		nspec_charge_threshold = NSPEC_THRESHOLD_TIME * power(0.95, attack_speed-1);
+            		nspec_charge_level = floor(turbine_stored_charge);
+            		turbine_stored_charge = 0;
+            		num_loops = (item_grid[ITEM_SCEPTER][IG_NUM_HELD] >= 1) ? attack_speed-1 : 0;
+            		for (var i = 1; i <= 12; i++) set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW, 10);
+            	}
+                hsp *= 0.95;
+                vsp *= 0.95;
                 if (window_timer == window_length) {
-                	if (0 >= num_loops) {
-                		window = 2;
-		    			window_timer = 999; // jump to window 3
-		    			sound_play(s_gunh);
+                	if (special_down && nspec_charge_level < 3) {
+	            		window_timer--;
+	            		nspec_charge_frames++;
+	            		if (nspec_charge_frames >= nspec_charge_threshold) {
+	            			nspec_charge_frames = 0;
+	            			nspec_charge_level++;
+	            			// TODO: update sfx/vfx
+	            			spawn_hit_fx(x, y-30, HFX_CLA_TIP_BIG);
+	            		}
                 	}
-		    		else sound_play(s_gunf);
+            		else switch nspec_charge_level {
+        				case 0:
+        					nspec_proj_index = sprite_get("nspecproj_raw");
+        					set_hitbox_value(AT_NSPECIAL, 1, HG_WINDOW, 3);
+        					set_hitbox_value(AT_NSPECIAL, 2, HG_WINDOW, 4);
+        					break;
+        				case 1:
+        					nspec_proj_index = sprite_get("nspecproj_small");
+        					set_hitbox_value(AT_NSPECIAL, 3, HG_WINDOW, 3);
+        					set_hitbox_value(AT_NSPECIAL, 4, HG_WINDOW, 4);
+        					break;
+        				case 2:
+        					nspec_proj_index = sprite_get("nspecproj_med");
+        					set_hitbox_value(AT_NSPECIAL, 5, HG_WINDOW, 3);
+        					set_hitbox_value(AT_NSPECIAL, 6, HG_WINDOW, 3);
+        					set_hitbox_value(AT_NSPECIAL, 7, HG_WINDOW, 4);
+        					set_hitbox_value(AT_NSPECIAL, 8, HG_WINDOW, 4);
+        					break;
+        				case 3:
+        					nspec_proj_index = sprite_get("nspecproj_big");
+        					set_hitbox_value(AT_NSPECIAL,  9, HG_WINDOW, 3);
+        					set_hitbox_value(AT_NSPECIAL, 10, HG_WINDOW, 3);
+        					set_hitbox_value(AT_NSPECIAL, 11, HG_WINDOW, 4);
+        					set_hitbox_value(AT_NSPECIAL, 12, HG_WINDOW, 4);
+        					break;
+        			}
 		    	}
                 break;
-            case 2: //multihit windows
+            case 2: //postcharge frames
+            	if (window_timer == window_length && !hitpause) {
+	            	if (0 >= num_loops) {
+	            		window = 3;
+		    			window_timer = 999; // jump to window 4
+		    			sound_play(s_gunh);
+	            	}
+		    		else sound_play(s_gunf);
+            	}
+            	break;
+            case 3: //multihit windows
             	if (window_timer == window_length && !hitpause) {
             		num_loops--;
                 	if (0 < num_loops) {
-                		window = 1;
-		    			window_timer = 999; // jump to window 2
+                		window = 2;
+		    			window_timer = 999; // jump to window 3
 		    			sound_play(s_gunf);
 		    			attack_end();
                 	}
@@ -281,14 +328,14 @@ switch(attack) {
                 can_move = 0
                 if (window_timer == 1 && !hitpause) spawn_base_dust(x, y, "dash", spr_dir)
 		    	break;
-            case 3:
+            case 4:
                 hsp = 0;
                 vsp = 0;
                 can_fast_fall = 0
                 can_move = 0
                 if (window_timer == 1 && !hitpause) spawn_base_dust(x, y, "dash_start", spr_dir)
                 break;
-            case 4: //final window stuff
+            case 5: //final window stuff
                 can_fast_fall = 0
                 can_move = 0
                 if window_timer < 8 {
@@ -529,18 +576,6 @@ switch(attack) {
 }
 
 // Defines
-
-// Not currently configured for removing items or altering the probability set!!!
-#define set_debug_item(item_id, quantity)
-	new_item_id = item_id;
-	while (item_grid[item_id][IG_NUM_HELD] < quantity) {
-		force_grant_item = true;
-		user_event(1);
-	}
-	while (item_grid[item_id][IG_NUM_HELD] > quantity) {
-		force_remove_item = true;
-		user_event(1);
-	}
 
 #define attempt_behemoth_explosion
 if (do_behemoth_hbox && hit_player_obj.hitstop < hit_player_obj.hitstop_full * (1-BEHEMOTH_AWAIT_MULT)) {

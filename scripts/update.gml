@@ -258,7 +258,8 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 		
 		// On kill and/or object ceases to exist
 		if (!instance_exists(recently_hit[i]) || recently_hit[i].state == PS_DEAD || recently_hit[i].state == PS_RESPAWN) {
-			brooch_barrier += BROOCH_BARRIER_BASE + BROOCH_BARRIER_SCALE * item_grid[9][IG_NUM_HELD] * nectar_mult; // Topaz Brooch
+			var brooches = item_grid[9][IG_NUM_HELD];
+			if (brooches > 0) brooch_barrier += BROOCH_BARRIER_BASE + BROOCH_BARRIER_SCALE * brooches * nectar_mult; // Topaz Brooch
 			recently_hit[i] = noone;
 		}
 		
@@ -745,7 +746,8 @@ with pHitBox if (player_id == other) {
 			other.cmd_is_critical = get_hitbox_value(other.attack, other.hbox_num, HG_IS_CRITICAL);
 			other.cmd_strong_finisher = get_hitbox_value(other.attack, other.hbox_num, HG_STRONG_FINISHER);
 			other.cmd_is_explosive = get_hitbox_value(other.attack, other.hbox_num, HG_IS_BLAST);
-			other.cmd_behemoth_applied = (item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) && get_hitbox_value(other.attack, other.hbox_num, HG_IS_GUNSHOT);
+			other.cmd_is_gunshot = get_hitbox_value(other.attack, other.hbox_num, HG_IS_GUNSHOT);
+			other.cmd_behemoth_applied = (item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) && other.cmd_is_gunshot;
 		}
 		if (cmd_is_critical) {
 			if (player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD] > 0) { // Lens Maker's Glasses

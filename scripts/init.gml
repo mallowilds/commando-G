@@ -237,8 +237,6 @@ ordering_start_indices = [0, 21, 39, 57];
 // v BETA REMOVALS v
 if (!get_match_setting(SET_PRACTICE)) {
     item_grid[@ ITEM_UKELELE][@ IG_RARITY] = RTY_VOID;
-    item_grid[@ ITEM_SCEPTER][@ IG_RARITY] = RTY_VOID;
-    item_grid[@ ITEM_TURBINE][@ IG_RARITY] = RTY_VOID;
 }
 
 
@@ -431,6 +429,8 @@ pjetpack_available = 0;
 pjetpack_hud_alpha = 0;
 pjetpack_vis_fuel = 0;
 pjetpack_sound = noone;
+
+turbine_stored_charge = 0;
 
 dios_revive_timer = -999;
 dios_stored_damage = 0;
