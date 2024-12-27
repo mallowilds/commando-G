@@ -249,6 +249,7 @@ SCARF_FRAMES_BASE = 0; // Added invuln time in frames
 SCARF_FRAMES_SCALE = 2;
 
 // Topaz Brooch
+BROOCH_BARRIER_BASE = 5;
 BROOCH_BARRIER_SCALE = 5;
 
 // Lens Maker's Glasses
@@ -295,11 +296,11 @@ ICEBAND_KBS_SCALE = 0.1;
 // Guardian Heart
 HEART_ENDANGERED_TIME = 300; // Time in frames until heart barrier starts regenerating
 HEART_TICK_TIME = 60; // Time between regeneration ticks
-HEART_BARRIER_BASE = 2;
-HEART_BARRIER_SCALE = 2;
+HEART_BARRIER_BASE = 5;
+HEART_BARRIER_SCALE = 5;
 
 // Locked Jewel
-JEWEL_BARRIER_SCALE = 4;
+JEWEL_BARRIER_SCALE = 10;
 JEWEL_SPEED_SCALE = 2;
 JEWEL_DURATION = 300;
 

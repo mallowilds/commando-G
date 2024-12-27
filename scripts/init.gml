@@ -109,7 +109,7 @@ item_grid = [
     ["Energy Drink",            RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Dash faster.", noone], // 6 | user_event0.gml
     ["Arcane Blades",           RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Move faster after reaching 100%.", noone], // 7 | user_event0.gml, update.gml
     ["Hermit's Scarf",          RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Parry, rolls, and airdodges have more invulnerability.", noone], // 8 | user_event0.gml
-    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      noone,            0, noone, "Gain 5% barrier on kill.", noone], // 9 | update.gml, general barrier utils
+    ["Topaz Brooch",            RTY_COMMON,     ITP_BARRIER,      noone,            0, noone, "Gain a barrier on kill.", noone], // 9 | update.gml, general barrier utils
     ["Lens Maker's Glasses",    RTY_COMMON,     ITP_CRITICAL,     noone,            0, noone, "Critical Strikes deal more damage.", noone], // 10 | update.gml ~ melee hitbox update
     ["Tri-Tip Dagger",          RTY_COMMON,     ITP_CRITICAL,     noone,            0, noone, "Critical Strikes bleed opponents, dealing damage over time.", noone], // 11 | update.gml, hit_player.gml
     ["Taser",                   RTY_COMMON,     ITP_CRITICAL,     noone,            0, noone, "Critical Strikes briefly stun opponents.", noone], // 12 | hit_player.gml, update.gml
