@@ -23,9 +23,9 @@ if (instance_exists(chest_obj) && chest_obj.state == 32 && chest_obj.trishop_vis
     
     draw_sprite_ext(sprite_get("trishop_bg_lines"), 0, _x, _y, 2, 2, 0, c_white, progress);
     
-    draw_sprite_ext(sprite_get("item"), trishop_loot[0], _x-22-(64*progress), _y-(74*progress), 2*progress, 2, 0, c_white, 1);
-    draw_sprite_ext(sprite_get("item"), trishop_loot[1], _x-22,               _y-(88*progress), 2*progress, 2, 0, c_white, 1);
-    draw_sprite_ext(sprite_get("item"), trishop_loot[2], _x-22+(64*progress), _y-(74*progress), 2*progress, 2, 0, c_white, 1);
+    draw_sprite_ext(sprite_get("item"), trishop_loot[0], _x-(64*progress), _y-(52*progress), 2*progress, 2, 0, c_white, 1);
+    draw_sprite_ext(sprite_get("item"), trishop_loot[1], _x,               _y-(66*progress), 2*progress, 2, 0, c_white, 1);
+    draw_sprite_ext(sprite_get("item"), trishop_loot[2], _x+(64*progress), _y-(52*progress), 2*progress, 2, 0, c_white, 1);
 }
 //#endregion
 

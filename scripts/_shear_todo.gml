@@ -1,11 +1,19 @@
 /* TODO LIST
 
+--> Fixes
+    
+    Center load.gml offset for items (for scaling reasons)
+    Keep looking for unknown trishop failure
+
+--> Moves
+
+    NSpec
+    UTilt
+
 --> Items
     
-    Time-consuming
+    Next up!
         Ancient Scepter
-    
-    Need to get a better understanding of this one
         Laser Turbine 
     
     Needs more moves added
@@ -45,12 +53,8 @@ Incompatible with [item name]
 
 
 
-NSpec reqs
-provided requirements:
-    Normally, it just shoots a single beam, which acts as a large disjointed hitbox (projectile). It should be segmented into 2 hitboxes, with the further one having reduced power.
-    Attack Speed: Every stack of attack speed adds a multihit to it, using the 'multihit hold' window. The hits should be extremely fast and dont need to be segmented into 2 hitboxes, since they should just be weak and very low hitpause.
-    Ancient Scepter: The beam will get larger, and the final hit will have more knockback, along with not having KB falloff. It will also have 3 or so frames reduced startup (if needed? just think it'd be cool)
-    Laser Turbine: When you fill up the meter for Laser Turbine to activate, No matter your attack speed, it will be replaced with a single, large laser, that doesnt have falloff.
-personal notes:
-    Base implmentation is done at this point
-    Probably farm out ancient scepter/laser turbine procs to separate attack indices?
+NSpec rework
+Similar to R2 Clairen NSpec. Starts out short, but charging it increases its length in 3 phases (so 4 lengths).
+Attack speed increases the charge speed, reducing its duration by 0.95^n times.
+Obtaining Ancient Scepter gives NSpec standard Attack Speed properties, transforming it into a multihit.
+With Laser Turbine, hitting gunshots grants stored charge. Every 2 gunshots equates to one level of charge.

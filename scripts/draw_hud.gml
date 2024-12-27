@@ -11,7 +11,7 @@ var hud_y = temp_y - 48 - (y_spacing * floor((array_length(inventory_list)-1)/8)
 
 for (var i = 0; i < array_length(inventory_list); i++) {
 	var iid = inventory_list[i]
-	draw_sprite_ext(sprite_get("item"), iid, hud_x, hud_y+4, 2, 2, 0, c_white, 1);
+	draw_sprite_ext(sprite_get("item"), iid, hud_x+22, hud_y+26, 2, 2, 0, c_white, 1);
 	if (item_grid[iid][IG_NUM_HELD] > 1) draw_debug_text(hud_x, hud_y, string(item_grid[iid][IG_NUM_HELD]));
 	hud_x += x_spacing;
 	if (i % 8 == 7) {

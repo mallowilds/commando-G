@@ -182,8 +182,10 @@ switch(state) { // use this one for doing actual article behavior
             set_state(22);
             land_vfx = spawn_hit_fx(x, y, player_id.fx_large_chest_land);
             land_vfx.depth = depth-1;
-            hbox.destroyed = true;
-            hbox = noone;
+            if (instance_exists(hbox)) {
+            	hbox.destroyed = true;
+            	hbox = noone;
+            }
             var land_hbox = create_hitbox(AT_DSPECIAL, 4, x, y-16);
             land_hbox.owner_chest = self;
             sound_play(player_id.s_cland);
@@ -233,8 +235,10 @@ switch(state) { // use this one for doing actual article behavior
             set_state(32);
             land_vfx = spawn_hit_fx(x, y, is_large ? player_id.fx_large_chest_land : player_id.fx_small_chest_land);
             land_vfx.depth = depth-1;
-            hbox.destroyed = true;
-            hbox = noone;
+            if (instance_exists(hbox)) {
+            	hbox.destroyed = true;
+            	hbox = noone;
+            }
             var land_hbox = create_hitbox(AT_DSPECIAL, is_large ? 4 : 2, x, y-16);
             land_hbox.owner_chest = self;
             sound_play(player_id.s_cland);

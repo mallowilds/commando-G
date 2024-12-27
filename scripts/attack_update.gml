@@ -396,6 +396,8 @@ switch(attack) {
 					set_window_value(attack, window, AG_WINDOW_LENGTH, 8)
 	    			set_window_value(attack, window, AG_WINDOW_SFX_FRAME, 7);
 	    			
+	    			clear_button_buffer(PC_SPECIAL_PRESSED);
+	    			
 	    			chest_obj.trishop_selection = -1;
 	    			chest_obj.trishop_vis_timer = 0;
 	    			chest_obj.trishop_vis_flashing = 1;
@@ -413,7 +415,7 @@ switch(attack) {
 				}
 				else if (select_for_trishop) {
 					var new_trishop_selection = -1;
-					if (joy_pad_idle && chest_obj.trishop_selection != -1) {
+					if ((joy_pad_idle || special_pressed) && chest_obj.trishop_selection != -1) {
 						chest_obj.state = 33;
 						chest_obj.state_timer = 0;
 						window_timer++; // advance past freeze

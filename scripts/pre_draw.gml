@@ -37,8 +37,8 @@ with (obj_article2) if (other == player_id && !is_hud_element) {
                 draw_sprite(sprite_get("item_bgpanel_big"), 0, x - 52, y - 20)
             }
             
-            draw_sprite_ext(sprite_get("item"), item_id, x + 12, y - 18, 2, 2, 0, c_black, 0.5 * draw_alpha)
-            draw_sprite_ext(sprite_get("item"), item_id, x + 10, y - 22, 2, 2, 0, c_white, draw_alpha)
+            draw_sprite_ext(sprite_get("item"), item_id, x + 34, y + 4, 2, 2, 0, c_black, 0.5 * draw_alpha)
+            draw_sprite_ext(sprite_get("item"), item_id, x + 32, y + 0, 2, 2, 0, c_white, draw_alpha)
             
             draw_set_font( font_get("_rfont") );
             draw_set_halign( fa_center );

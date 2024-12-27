@@ -203,8 +203,8 @@ if (debug_display_type == 3) {
 	var item_id = item_id_ordering[debug_display_index];
 	if (item_id == noone) exit;
 	
-	var debug_x = 130;
-	var debug_y = 220;
+	var debug_x = 152;
+	var debug_y = 242;
 	draw_sprite_ext(sprite_get("item"), item_id, debug_x, debug_y, 2, 2, 0, c_white, 1);
 	
 	debug_x += 60;
@@ -219,8 +219,8 @@ if (debug_display_type == 3) {
 	
 	draw_set_alpha(0.7);
 	
-	debug_x = 144;
-	debug_y = 280;
+	debug_x = 154;
+	debug_y = 290;
 	var temp_display_index = debug_display_index;
 	for (var i = 1; i <= 3; i++) {
 		temp_display_index++;
@@ -230,8 +230,8 @@ if (debug_display_type == 3) {
 		debug_y += 30;
 	}
 	
-	debug_x = 144;
-	debug_y = 190;
+	debug_x = 154;
+	debug_y = 200;
 	var temp_display_index = debug_display_index;
 	for (var i = 1; i <= 3; i++) {
 		temp_display_index--;

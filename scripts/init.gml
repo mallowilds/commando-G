@@ -98,6 +98,7 @@ is_na = 0; // n/a compat
 // Do not reorder items without updating their indices (user_event2.gml)! If you need to remove an item, use RTY_DUMMY to disable it.
 // Legendary items must be correctly tagged in the primary type field, or they will be treated as normal items.
 // Critical items must be correctly tagged in either type field to enable their effects.
+//#RCFBEGINDEFORMAT
 item_grid = [
     ["Crowbar",                 RTY_COMMON,     ITP_KNOCKBACK,    ITP_DAMAGE,       0, noone, "Deal more damage & knockback to healthy enemies.", noone], // 0 | hit_player.gml
     ["Warbanner",               RTY_COMMON,     ITP_SPEED,        ITP_ATTACK_SPEED, 0, noone, "Taunt to place down a powerful buffing Warbanner.", noone], // 1 | other_init.gml, article3_update.gml, attack_update.gml, update.gml
@@ -142,7 +143,7 @@ item_grid = [
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | update.gml, user_event0.gml
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, set_attack.gml
-    ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge laser blast.", noone], // 41 | Unimplemented
+    ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge Neutral Special.", noone], // 41 | Unimplemented
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | user_event0, integrated into the healing-applying function (and general barrier utils)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!", noone], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml, user_event0
     ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      noone,            0, noone, "Cheat death.", noone], // 44 | update.gml, death.gml
@@ -163,6 +164,7 @@ item_grid = [
     ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Common items grow more powerful.", noone], // 58 | user_event0.gml, animation.gml, anywhere common items are implemented
     
 ]
+//#RCFENDDEFORMAT
 
 // Ordering for in-game utilities (debug displays and practice mode)
 item_id_ordering = [
@@ -504,32 +506,32 @@ s_dios = sound_get("cm_item_dios");
 s_shotty = sound_get("cm_shotgun_blast");
 s_reload = sound_get("cm_shotgun_load");
 
-s_gunf = sound_get("cm_shootfast") //fast, multihit
+s_gunf = sound_get("cm_shootfast"); //fast, multihit
 s_gunl = sound_get("cm_shootlight_1"); //light
 s_gunm = sound_get("cm_shootlight2"); //med
 s_gunh = sound_get("cm_shootmedwav"); //heavy //idk why it got named that lol
-s_tricorn = sound_get("c_tricorn_BOOM") 
-s_tap = sound_get("cm_dspec_taptaptap")
+s_tricorn = sound_get("c_tricorn_BOOM");
+s_tap = sound_get("cm_dspec_taptaptap");
 
-s_knifel = sound_get("sfx_knifehit_s")
-s_knifem = sound_get("sfx_knifehit_m")
-s_crit = sound_get("cm_crit")
-s_critheal = sound_get("cm_crit_heal")
+s_knifel = sound_get("sfx_knifehit_s");
+s_knifem = sound_get("sfx_knifehit_m");
+s_crit = sound_get("cm_crit");
+s_critheal = sound_get("cm_crit_heal");
 
-s_roll = sound_get("cm_roll")
-s_coin = sound_get("cm_shine")
-s_slide = sound_get("cm_slide")
+s_roll = sound_get("cm_roll");
+s_coin = sound_get("cm_shine");
+s_slide = sound_get("cm_slide");
 
-s_cd = sound_get("cm_cdend")
-s_cfall = sound_get("cm_chestfall")
-s_cland = sound_get("cm_chestland")
-s_itemw = sound_get("cm_item_white")
-s_itemg = sound_get("cm_item_green")
-s_itemr = sound_get("cm_item_red")
+s_cd = sound_get("cm_cdend");
+s_cfall = sound_get("cm_chestfall");
+s_cland = sound_get("cm_chestland");
+s_itemw = sound_get("cm_item_white");
+s_itemg = sound_get("cm_item_green");
+s_itemr = sound_get("cm_item_red");
 
-s_mortem = sound_get("death")
-s_jailed = sound_get("sentence")
-s_err = sound_get("cm_err")
+s_mortem = sound_get("death");
+s_jailed = sound_get("sentence");
+s_err = sound_get("cm_err");
 //
 
 
@@ -706,7 +708,7 @@ air_friction                    = 0.04;
 
 max_djumps                      = 1;
 double_jump_time                = 28;
-max_djumps_base                 = max_djumps
+max_djumps_base                 = max_djumps;
 
 walljump_hsp                    = 7;
 walljump_vsp                    = 8;
@@ -749,7 +751,7 @@ dodge_recovery_frames           = 2;
 tech_active_frames              = 3;
 tech_recovery_frames            = 1;
 
-techroll_startup_frames         = 2
+techroll_startup_frames         = 2;
 techroll_active_frames          = 2;
 techroll_recovery_frames        = 2;
 
@@ -787,6 +789,6 @@ bubble_x                        = 0;
 bubble_y                        = 8;
 
 //win stuff
-set_victory_portrait(sprite_get("portrait_base") ) 
+set_victory_portrait(sprite_get("portrait_base"));
 
 init_complete = true;
