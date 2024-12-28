@@ -33,6 +33,7 @@ lfx_list = ds_list_create();
 prev_attack = noone;
 
 // UTilt
+utilt_advance_frame = false;
 utilt_do_explosion = false;
 
 // NSpec

@@ -56,9 +56,18 @@ switch(attack) {
         break;
         
     case AT_UTILT:
-        if (window == 1 && window_timer == 1) utilt_do_explosion = false;
+        if (window == 1 && window_timer == 1) {
+        	utilt_do_explosion = false;
+        	utilt_advance_frame = false;
+        	set_attack_value(AT_UTILT, AG_NUM_WINDOWS, 3);
+        }
+        else if (window == 2 && hitpause && hitstop < 3) utilt_advance_frame = true;
         if (utilt_do_explosion && !hitpause) {
+        	destroy_hitboxes();
         	create_hitbox(AT_UTILT, 3, x, y)
+        	set_attack_value(AT_UTILT, AG_NUM_WINDOWS, 5);
+        	window = 4;
+        	window_timer = 0;
         	utilt_do_explosion = false;
         }
         break;

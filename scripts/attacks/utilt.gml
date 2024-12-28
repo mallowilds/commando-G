@@ -27,6 +27,17 @@ set_window_value(AT_UTILT, 3, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(AT_UTILT, 3, AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(AT_UTILT, 3, AG_WINDOW_HAS_WHIFFLAG, 1);
 
+//utilt recoil "active"
+set_window_value(AT_UTILT, 4, AG_WINDOW_LENGTH, 4);
+set_window_value(AT_UTILT, 4, AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(AT_UTILT, 4, AG_WINDOW_ANIM_FRAME_START, 5);
+
+//utilt recoil end
+set_window_value(AT_UTILT, 5, AG_WINDOW_LENGTH, 13);
+set_window_value(AT_UTILT, 5, AG_WINDOW_ANIM_FRAMES, 3);
+set_window_value(AT_UTILT, 5, AG_WINDOW_ANIM_FRAME_START, 6);
+set_window_value(AT_UTILT, 5, AG_WINDOW_HAS_WHIFFLAG, 1);
+
 set_num_hitboxes(AT_UTILT, 3);
 
 
@@ -44,8 +55,8 @@ set_hitbox_value(AT_UTILT, 1, HG_DAMAGE, 2);
 set_hitbox_value(AT_UTILT, 1, HG_ANGLE, 110);
 set_hitbox_value(AT_UTILT, 1, HG_BASE_KNOCKBACK, 10);
 set_hitbox_value(AT_UTILT, 1, HG_KNOCKBACK_SCALING, 0);
-set_hitbox_value(AT_UTILT, 1, HG_BASE_HITPAUSE, 10);
-set_hitbox_value(AT_UTILT, 1, HG_EXTRA_HITPAUSE, -3);
+set_hitbox_value(AT_UTILT, 1, HG_BASE_HITPAUSE, 11);
+set_hitbox_value(AT_UTILT, 1, HG_EXTRA_HITPAUSE, -4);
 set_hitbox_value(AT_UTILT, 1, HG_VISUAL_EFFECT, 303);
 set_hitbox_value(AT_UTILT, 1, HG_HIT_SFX, asset_get("sfx_blow_medium1"));
 
