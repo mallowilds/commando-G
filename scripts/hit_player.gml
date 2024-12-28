@@ -376,7 +376,7 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_UTILT:
-        //a
+        if (hbox_num == 2) utilt_do_explosion = true;
         break;
     case AT_DATTACK:
         //a

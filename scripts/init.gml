@@ -32,6 +32,9 @@ lfx_list = ds_list_create();
 // General utility
 prev_attack = noone;
 
+// UTilt
+utilt_do_explosion = false;
+
 // NSpec
 nspec_charge_threshold = NSPEC_THRESHOLD_TIME;
 nspec_charge_frames = 0;

@@ -56,7 +56,11 @@ switch(attack) {
         break;
         
     case AT_UTILT:
-        //a
+        if (window == 1 && window_timer == 1) utilt_do_explosion = false;
+        if (utilt_do_explosion && !hitpause) {
+        	create_hitbox(AT_UTILT, 3, x, y)
+        	utilt_do_explosion = false;
+        }
         break;
         
     case AT_DATTACK:
@@ -146,6 +150,10 @@ switch(attack) {
     	if window == 1 && window_timer == window_length - 1 {
     		sound_play(sound_get("cm_dagger_swing"), 0, noone, 1, .96)
     	}
+    	if (do_ignite_hbox && !hitpause) {
+        	create_hitbox(AT_UAIR, 4, x, y); // melee hitbox, position doesn't matter
+        	do_ignite_hbox = false;
+        }
     	break;
     //#endregion
     
