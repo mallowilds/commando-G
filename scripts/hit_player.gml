@@ -93,6 +93,9 @@ else if (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] != 0) {
 //#endregion
 
 //#region Explosive handling
+// UTilt
+if (my_hitboxID.attack == AT_UTILT && hbox_num == 2) utilt_do_explosion = true;
+
 if (my_hitboxID.cmd_is_explosive == 1) {
 	
 	// Concussion Grenade
@@ -376,7 +379,7 @@ switch(my_hitboxID.attack) {
         //a
         break;
     case AT_UTILT:
-        if (hbox_num == 2) utilt_do_explosion = true;
+    	//a
         break;
     case AT_DATTACK:
         //a
