@@ -2,9 +2,18 @@
 
 if (!init_complete) exit;
 
-//#region NSpecial beam
-
+//#region NSpecial
 if (state == clamp(state, PS_ATTACK_AIR, PS_ATTACK_GROUND) && attack == AT_NSPECIAL) {
+    // Flash
+    if (nspec_vis_timer < 20) {
+        var progress = nspec_vis_timer/20;
+        var alpha = 0.2*(1-progress)*nspec_vis_level
+        gpu_set_fog(true, c_white, 0, 99);
+        draw_sprite_ext(sprite_index, image_index, x, y, spr_dir, 1, 0, c_white, alpha);
+        gpu_set_fog(false, c_white, 0, 0);
+    }
+    
+    // Beam
     if (window == 3) {
         draw_sprite_ext(nspec_proj_index, (window_timer>=2) + 2*(num_loops%2), x-16*spr_dir, y-100, spr_dir, 1, 0, c_white, 1);
     }

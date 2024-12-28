@@ -63,6 +63,38 @@ with (obj_article2) if (other == player_id && !is_hud_element) {
 }
 //#endregion
 
+//#region NSpec charge visuals
+
+var progress = 1;
+if ((state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR) && attack == AT_NSPECIAL) {
+    if (nspec_vis_timer < 20) {
+        progress = nspec_vis_timer/20;
+        var alpha = 0.3*(1-progress)*nspec_vis_level
+        var col1 = make_color_rgb(10, 10, 140);
+        var col2 = make_color_rgb(120, 120, 255);
+        gpu_set_fog(true, col2, 0, 99);
+        draw_sprite_ext(sprite_index, image_index, x-(20+10*nspec_vis_level)*spr_dir*progress, y, spr_dir, 1, 0, c_white, alpha);
+        gpu_set_fog(true, col1, 0, 99);
+        draw_sprite_ext(sprite_index, image_index, x-(10+5*nspec_vis_level)*spr_dir*progress, y, spr_dir, 1, 0, c_white, alpha);
+        gpu_set_fog(false, c_white, 0, 0);
+    }
+}
+
+var nspec_charge = max(turbine_stored_charge, nspec_charge_level);
+if (nspec_charge > 0) {
+    var vibrancy = progress*nspec_charge/3;
+    var col1 = make_color_rgb(10, 10, 140);
+    var col2 = make_color_rgb(120, 120, 255);
+    var sin_val = sin(state_timer/15);
+    gpu_set_fog(true, col2, 0, 99);
+    draw_sprite_ext(sprite_index, image_index, x-(8-8*sin_val)*spr_dir*vibrancy, y, spr_dir, 1, 0, c_white, vibrancy*0.7);
+    gpu_set_fog(true, col1, 0, 99);
+    draw_sprite_ext(sprite_index, image_index, x-(8+8*sin_val)*spr_dir*vibrancy, y, spr_dir, 1, 0, c_white, vibrancy*0.7);
+    gpu_set_fog(false, c_white, 0, 0);
+}
+
+//#endregion
+
 //#region Lightweight particle drawing
 for (var i = 0; i < ds_list_size(lfx_list); i++) {
     var lfx = ds_list_find_value(lfx_list, i);

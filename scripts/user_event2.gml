@@ -185,6 +185,7 @@ DATTACK_SPEED_SCALE = 0.75;
 DATTACK_EDRINK_SCALE = 1.5;
 
 NSPEC_THRESHOLD_TIME = 60; // Looped three times for charge stages
+NSPEC_ASPEED_FACTOR = .95; // Applied exponentially
 
 DSPEC_SCHEST_RADIUS = 54;
 DSPEC_LCHEST_RADIUS = 54;

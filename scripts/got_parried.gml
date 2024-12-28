@@ -1,4 +1,6 @@
 
+nspec_charge_level = 0;
+
 // Headstompers
 if (my_hitboxID.attack == AT_EXTRA_1 && (4 <= my_hitboxID.hbox_num || my_hitboxID.hbox_num <= 6)) {
     was_parried = true;

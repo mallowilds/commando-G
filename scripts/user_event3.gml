@@ -92,19 +92,22 @@ switch tmu_state {
         
         else if (shield_pressed) {
             clear_button_buffer(PC_SHIELD_PRESSED);
+            
             if (!tmu_infowindow_active) {
+                sound_play(asset_get("mfx_star"));
                 tmu_infowindow_active = true;
                 tmu_infowindow = instance_create(x, y, "obj_article2");
                 tmu_infowindow.vsp = 0;
                 tmu_infowindow.is_hud_element = true;
             } else {
+                sound_play(asset_get("mfx_input_back"));
                 tmu_infowindow.state_timer = 118;
                 tmu_infowindow_active = false;
             }
         }
         
         if (tmu_infowindow_active && instance_exists(tmu_infowindow)) {
-            tmu_infowindow.item_id = tmu_selected;
+            tmu_infowindow.item_id = tmu_item_id;
             if (tmu_infowindow.state_timer > 118) tmu_infowindow.state_timer = 118;
         }
         

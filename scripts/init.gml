@@ -32,6 +32,14 @@ lfx_list = ds_list_create();
 // General utility
 prev_attack = noone;
 
+// NSpec
+nspec_charge_threshold = NSPEC_THRESHOLD_TIME;
+nspec_charge_frames = 0;
+nspec_charge_level = 0;
+nspec_vis_timer = 100;
+nspec_vis_level = 0;
+nspec_starting = false;
+
 // FSpec
 fspec_air_uses = 1;
 
@@ -462,7 +470,7 @@ fireworks_freq = 0;
 snakeeyes_active = 0;
 
 nectar_mult = 1;
-nectar_prev_outline = [0, 0, 0];
+self_prev_outline = [0, 0, 0];
 
 
 // Training mode utility

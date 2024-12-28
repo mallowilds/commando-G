@@ -1,6 +1,5 @@
 
-
-
+nspec_charge_level = 0;
 
 // Barriers
 jewel_barrier = 0;

@@ -1,4 +1,5 @@
 
+nspec_charge_level = 0;
 sound_stop(call_sfx_instance);
 
 // Heart Barrier

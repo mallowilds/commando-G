@@ -246,6 +246,7 @@ switch(attack) {
     
     //#region Neutral Special
     case AT_NSPECIAL:
+    	nspec_vis_timer++;
         move_cooldown[AT_NSPECIAL] = 36;
 
         if window != 1 && window != 5{ hud_offset = 30 }
@@ -253,9 +254,12 @@ switch(attack) {
             case 1:
             	if (window_timer == 1) {
             		sound_play(asset_get("sfx_forsburn_cape_swipe"));
-            		nspec_charge_frames = 0; // TODO: hook in laser turbine
-            		nspec_charge_threshold = NSPEC_THRESHOLD_TIME * power(0.95, attack_speed-1);
+            		nspec_charge_threshold = NSPEC_THRESHOLD_TIME * power(NSPEC_ASPEED_FACTOR, attack_speed-1);
+            		nspec_charge_frames = floor(nspec_charge_threshold * (turbine_stored_charge%1));
             		nspec_charge_level = floor(turbine_stored_charge);
+            		nspec_vis_timer = nspec_charge_threshold + 1;
+            		nspec_vis_level = nspec_charge_level;
+            		nspec_starting = nspec_charge_level >= 1;
             		turbine_stored_charge = 0;
             		num_loops = (item_grid[ITEM_SCEPTER][IG_NUM_HELD] >= 1) ? attack_speed-1 : 0;
             		for (var i = 1; i <= 12; i++) set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW, 10);
@@ -263,14 +267,23 @@ switch(attack) {
                 hsp *= 0.95;
                 vsp *= 0.95;
                 if (window_timer == window_length) {
+                	if (nspec_starting && nspec_charge_level >= 1) {
+                		nspec_vis_timer = 0;
+	            		nspec_vis_level++;
+                		sound_play(asset_get("sfx_frog_fspecial_charge_gained_1"), false, noone, 1, 0.875 + (nspec_charge_level/8));
+	            		spawn_hit_fx(x+(54*spr_dir), y-54, HFX_CLA_DSMASH_BREAK);
+	            		nspec_starting = false;
+                	}
                 	if (special_down && nspec_charge_level < 3) {
 	            		window_timer--;
 	            		nspec_charge_frames++;
 	            		if (nspec_charge_frames >= nspec_charge_threshold) {
 	            			nspec_charge_frames = 0;
 	            			nspec_charge_level++;
-	            			// TODO: update sfx/vfx
-	            			spawn_hit_fx(x, y-30, HFX_CLA_TIP_BIG);
+	            			nspec_vis_timer = 0;
+	            			nspec_vis_level++;
+	            			sound_play(asset_get("sfx_frog_fspecial_charge_gained_1"), false, noone, 1, 0.875 + (nspec_charge_level/8));
+	            			spawn_hit_fx(x+(54*spr_dir), y-54, HFX_CLA_DSMASH_BREAK);
 	            		}
                 	}
             		else switch nspec_charge_level {
@@ -302,6 +315,7 @@ switch(attack) {
 		    	}
                 break;
             case 2: //postcharge frames
+            	nspec_charge_level = 0;
             	if (window_timer == window_length && !hitpause) {
 	            	if (0 >= num_loops) {
 	            		window = 3;

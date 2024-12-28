@@ -1,14 +1,20 @@
 
 // Growth Nectar outline
 if (nectar_mult > 1 && common_count > 0) {
-    if (array_equals(outline_color, [0, 0, 0]) || array_equals(outline_color, nectar_prev_outline)) {
+    if (array_equals(outline_color, [0, 0, 0]) || array_equals(outline_color, self_prev_outline)) {
         var vibrancy = clamp(common_count/15, 0, 0.5);
         vibrancy += (sin(get_gameplay_time()*pi/60)+1)*0.1;
         outline_color = [201*vibrancy, 158*vibrancy, 30*vibrancy];
-        nectar_prev_outline = outline_color;
+        self_prev_outline = outline_color;
         init_shader();
     }
-    else nectar_prev_outline = [0, 0, 0];
+    else self_prev_outline = [0, 0, 0];
+}
+
+else if (!array_equals([0, 0, 0], self_prev_outline) && array_equals(outline_color, self_prev_outline)) {
+    outline_color = [0, 0, 0];
+    self_prev_outline = [0, 0, 0];
+    init_shader();
 }
 
 
