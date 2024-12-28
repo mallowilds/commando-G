@@ -50,6 +50,16 @@ for (var i = 0; i < ds_list_size(lfx_list); i++) {
 }
 //#endregion
 
+//#region Headstompers
+if (stompers_active) {
+    if (!free) draw_sprite_ext(sprite_get("vfx_item_stompers"), 4, x, y, 2, 2, 0, c_white, 1);
+    else if (stompers_timer <= 4) draw_sprite_ext(sprite_get("vfx_item_stompers"), 0, x, y, 2, 2, 0, c_white, 1);
+    else draw_sprite_ext(sprite_get("vfx_item_stompers"), 1+(stompers_timer/4)%3, x, y, 2, 2, 0, c_white, 1);
+}
+else if (stompers_timer < 9) {
+    draw_sprite_ext(sprite_get("vfx_item_stompers"), 4+(stompers_timer/3)%3, x, y, 2, 2, 0, c_white, 1);
+}
+//#endregion
 
 //#region Bustling Fungus
 

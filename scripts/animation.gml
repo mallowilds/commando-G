@@ -88,7 +88,7 @@ switch(state) {
     // attacks
     case PS_ATTACK_GROUND:
         // UTilt
-        if (utilt_advance_frame && window == 2) image_index = 2;
+        if (attack == AT_UTILT && utilt_advance_frame && window == 2) image_index = 2;
         // loop strong charge window, if the loop is set
         if (window == get_attack_value(attack,AG_STRONG_CHARGE_WINDOW) && get_window_value(attack,window,AG_WINDOW_HAS_CHARGE_LOOP) && strong_charge > 0) {
             image_index = get_window_value(attack,window,AG_WINDOW_CHARGE_FRAME_START) + (round(strong_charge * get_window_value(attack,window,AG_WINDOW_CHARGE_LOOP_SPEED)) mod get_window_value(attack,window,AG_WINDOW_CHARGE_FRAMES));

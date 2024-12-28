@@ -185,8 +185,10 @@ if (my_hitboxID.type == 1 && my_hitboxID.attack == AT_EXTRA_1 && 4 <= hbox_num &
 				old_vsp = vsp;
 			}
 			hitpause = true;
-			hitstop += my_hitboxID.hitpause;
-			hitstop_full = hitstop;
+			if (hitstop < my_hitboxID.hitpause) {
+				hitstop = my_hitboxID.hitpause;
+				hitstop_full = hitstop;
+			}
 		}
 		
 		if (!hit_player_obj.hitpause) {
@@ -194,8 +196,10 @@ if (my_hitboxID.type == 1 && my_hitboxID.attack == AT_EXTRA_1 && 4 <= hbox_num &
 			hit_player_obj.old_vsp = hit_player_obj.vsp;
 		}
 		hit_player_obj.hitpause = true;
-		hit_player_obj.hitstop += my_hitboxID.hitpause;
-		hit_player_obj.hitstop_full = hitstop;
+		if (hit_player_obj.hitstop < my_hitboxID.hitpause) {
+			hit_player_obj.hitstop = my_hitboxID.hitpause;
+			hit_player_obj.hitstop_full = hit_player_obj.hitstop;
+		}
 	}
 }
 

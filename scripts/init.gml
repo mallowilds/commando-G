@@ -405,6 +405,7 @@ commando_warbanner_strength = 0;
 commando_warbanner_updated = 0;
 
 stompers_active = 0;
+stompers_timer = 999; // for anims
 stompers_hbox_air = noone;
 stompers_hbox_ground = noone;
 
@@ -653,10 +654,14 @@ fx_item_res                 = hit_fx_create(sprite_get("vfx_item_res"), 160);
 fx_bleed                    = [hit_fx_create(sprite_get("vfx_bleed"), 15), hit_fx_create(sprite_get("vfx_bleed_2"), 15)];
 fx_sucker_buff_red          = hit_fx_create(sprite_get("vfx_sucker_buff_red"), 16);
 fx_sucker_buff_blue         = hit_fx_create(sprite_get("vfx_sucker_buff_blue"), 16);
+fx_lopper_active            = hit_fx_create(sprite_get("vfx_item_lopper_active"), 18);
 
 fx_small_chest_land         = hit_fx_create(sprite_get("dspec_smallchest_landvfx"), 16);
 fx_large_chest_land         = hit_fx_create(sprite_get("dspec_largechest_landvfx"), 16);
 
+
+spr_sticky                  = sprite_get("item_sticky");
+spr_lopper_start            = sprite_get("vfx_item_lopper_start");
 
 
 //=-(                      ~~//** BASE STATS **//~~                        )-=//

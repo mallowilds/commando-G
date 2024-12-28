@@ -183,10 +183,18 @@ with oPlayer {
 				if (commando_status_counter[other.ST_LOPPER] >= other.LOPPER_AWAIT_TIME) {
 					commando_status_state[other.ST_LOPPER] = 2;
 					commando_status_counter[other.ST_LOPPER] = 0;
-					with (other) create_hitbox(AT_EXTRA_1, 2, other.x, other.y+floor(char_height/2));
+					with (other) {
+						create_hitbox(AT_EXTRA_1, 2, other.x, other.y+floor(char_height/2));
+						other.commando_lop_fx = spawn_hit_fx(other.x, other.y+floor(other.char_height/3), fx_lopper_active);
+					}
+					commando_lop_fx.spr_dir = spr_dir;
+					commando_lop_fx.image_xscale = 2*spr_dir;
+					commando_lop_fx.image_yscale = 2;
+					commando_lop_fx.depth = depth-1;
 				}
 				break;
 			case 2:
+				if (hitpause) commando_lop_fx.step_timer--;
 				if (!hitpause) {
 					commando_status_state[other.ST_LOPPER] = 3;
 					commando_status_counter[other.ST_LOPPER] = 0;
@@ -304,6 +312,7 @@ if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 		if (!free) {
 			// Entering the land state automatically destroys melee hitboxes
 			stompers_active = false;
+			stompers_timer = 0;
 			stompers_hbox_air = noone;
 			stompers_hbox_ground = noone;
 			create_hitbox(AT_EXTRA_1, 6, x, y);
@@ -319,9 +328,11 @@ if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 	else if (fast_falling && !hitstop && state_cat != SC_HITSTUN) {
 		attack_end(AT_EXTRA_1);
 		stompers_active = true;
+		stompers_timer = 0;
 		stompers_hbox_air = create_hitbox(AT_EXTRA_1, 4, x, y);
 		//stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
 	}
+	stompers_timer++;
 }
 
 // Bustling Fungus
