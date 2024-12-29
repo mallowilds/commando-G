@@ -96,6 +96,7 @@ sprite_change_offset("vfx_item_stompers"        , 25, 30);
 sprite_change_offset("vfx_item_lopper_start"    , 36, 102);
 sprite_change_offset("vfx_item_lopper_active"   , 36, 102);
 sprite_change_offset("vfx_crit"                 , 144, 150);
+sprite_change_offset("vfx_crit_lens"            , 144, 150);
 sprite_change_offset("vfx_crit_blood"           , 144, 150);
 sprite_change_offset("vfx_crit_shock"           , 144, 150);
 sprite_change_offset("vfx_blast"                , 135, 150);
@@ -103,6 +104,8 @@ sprite_change_offset("vfx_bleed"                , 8, 10);
 sprite_change_offset("vfx_bleed_2"              , 8, 10);
 sprite_change_offset("vfx_sucker_buff_red"      , 6, 22);
 sprite_change_offset("vfx_sucker_buff_blue"     , 6, 22);
+sprite_change_offset("vfx_item_dashlines_0"     , 20, 30);
+sprite_change_offset("vfx_item_dashlines_1"     , 20, 30);
 
 sprite_change_offset("tricorn_hat"              , 16, 16);
 

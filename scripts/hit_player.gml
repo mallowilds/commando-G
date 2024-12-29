@@ -38,12 +38,21 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	// Play crit sound
 	sound_play(s_crit);
 	
+	if (item_grid[ITEM_GLASSES][IG_NUM_HELD] > 0) {
+		// damage applied in melee hitbox update
+		var lens_fx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_crit_lens);
+		lens_fx.depth = hit_player_obj.depth-1;
+	}
+	
 	if (item_grid[ITEM_SCYTHE][IG_NUM_HELD] > 0) {
-		sound_play(s_critheal) //tie this to harvesters scythe when u get a chance 
+		sound_play(s_critheal)
 		do_healing(floor(my_hitboxID.damage * (SCYTHE_HEAL_BASE + SCYTHE_HEAL_SCALE*item_grid[24][IG_NUM_HELD]))); // Harvester's Scythe
-		spawn_lfx(sprite_get("vfx_item_u_heal"), x-45+random_func_2(player*1, 30, false), y-60+random_func_2(player*2, 50, false), 39+random_func_2(player*3, 7, true), 1, 1, 0, -1);
-		spawn_lfx(sprite_get("vfx_item_u_heal"), x-15+random_func_2(player*4, 30, false), y-60+random_func_2(player*5, 50, false), 39+random_func_2(player*6, 7, true), 1, 1, 0, -1);
-		spawn_lfx(sprite_get("vfx_item_u_heal"), x+15+random_func_2(player*7, 30, false), y-60+random_func_2(player*8, 50, false), 39+random_func_2(player*9, 7, true), 1, 1, 0, -1);
+		for (var i = 0; i < 3; i++) {
+			var heal_fx = spawn_hit_fx(x-45+(30*i)+random_func_2(1+i*3, 30, true), y-60+random_func_2(2+i*3, 50, true), fx_item_heal);
+			heal_fx.depth = depth-1;
+			heal_fx.hit_length = 39+random_func_2(i*3, 7, true);
+			heal_fx.vsp = -1;
+		}
 	}
 	
 	if (item_grid[ITEM_INSTINCTS][IG_NUM_HELD] > 0) {
@@ -525,17 +534,3 @@ newdust.dust_color = dust_color; //set the dust color
 if dir != 0 newdust.spr_dir = dir; //set the spr_dir
 newdust.draw_angle = dfa;
 return newdust;
-
-#define spawn_lfx(in_sprite, _x, _y, in_lifetime, in_spr_dir, in_foreground, in_hsp, in_vsp)
-var new_lfx = {
-    lfx_x : _x,
-    lfx_y : _y,
-    lfx_sprite_index : in_sprite,
-    lfx_max_lifetime : in_lifetime,
-    lfx_lifetime : 0,
-    lfx_spr_dir : in_spr_dir,
-    lfx_foreground : in_foreground,
-    lfx_hsp : in_hsp,
-    lfx_vsp : in_vsp,
-};
-ds_list_add(lfx_list, new_lfx);

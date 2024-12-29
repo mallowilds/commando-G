@@ -645,16 +645,22 @@ dash_moonwalks                  = false; // if the character has a moonwalk anim
 
 //                           --visual effects--                               //
 fx_crit                     = hit_fx_create(sprite_get("vfx_crit"), 24);
+fx_crit_lens                = hit_fx_create(sprite_get("vfx_crit_lens"), 16);
 fx_crit_blood               = hit_fx_create(sprite_get("vfx_crit_blood"), 24);
 fx_crit_shock               = hit_fx_create(sprite_get("vfx_crit_shock"), 24);
 fx_crit_shock_long          = hit_fx_create(sprite_get("vfx_crit_shock"), 50);
 fx_blast                    = hit_fx_create(sprite_get("vfx_blast"), 17);
 
+//
+
+fx_item_heal                = hit_fx_create(sprite_get("vfx_item_u_heal"), 45);
 fx_item_res                 = hit_fx_create(sprite_get("vfx_item_res"), 160);
 fx_bleed                    = [hit_fx_create(sprite_get("vfx_bleed"), 15), hit_fx_create(sprite_get("vfx_bleed_2"), 15)];
 fx_sucker_buff_red          = hit_fx_create(sprite_get("vfx_sucker_buff_red"), 16);
 fx_sucker_buff_blue         = hit_fx_create(sprite_get("vfx_sucker_buff_blue"), 16);
 fx_lopper_active            = hit_fx_create(sprite_get("vfx_item_lopper_active"), 18);
+fx_tooth_despawn            = hit_fx_create(sprite_get("vfx_item_tooth_despawn"), 8);
+fx_jetpack_steam            = hit_fx_create(asset_get("mech_dstrong_steam"), 10);
 
 fx_small_chest_land         = hit_fx_create(sprite_get("dspec_smallchest_landvfx"), 16);
 fx_large_chest_land         = hit_fx_create(sprite_get("dspec_largechest_landvfx"), 16);

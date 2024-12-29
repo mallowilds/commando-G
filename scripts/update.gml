@@ -299,6 +299,14 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 
 //#region Item timers/states
 
+// Dashline effects (Arcane Blades, Energy Cell)
+if ((item_grid[ITEM_BLADES][IG_NUM_HELD] > 0 && get_player_damage(player) >= 100) || jewel_barrier_timer > 0) {
+	if (get_gameplay_time()%6 == 0) {
+		var spr_name = "vfx_item_dashlines_" + string(random_func(14, 2, true));
+		spawn_lfx(sprite_get(spr_name),x-(20*spr_dir), y-6, 30, spr_dir, false, (-3 + clamp(hsp*spr_dir, 0, 2))*spr_dir, 0);
+	}
+}
+
 // Warbanner
 if (commando_warbanner_updated) { 
 	commando_warbanner_updated = 0;
@@ -347,9 +355,12 @@ if (item_grid[ITEM_BUNGUS][IG_NUM_HELD] != 0) {
 		if (bungus_active && bungus_timer > floor(BUNGUS_TICK_TIME/nectar_mult/item_grid[4][IG_NUM_HELD])) {
 			bungus_timer = 0;
 			do_healing(1);
-			spawn_lfx(sprite_get("vfx_item_u_heal"), x-45+random_func_2(player*1, 30, false), y-50+random_func_2(player*2, 40, false), 39+random_func_2(player*3, 7, true), 1, 1, 0, -1);
-			spawn_lfx(sprite_get("vfx_item_u_heal"), x-15+random_func_2(player*4, 30, false), y-50+random_func_2(player*5, 40, false), 39+random_func_2(player*6, 7, true), 1, 1, 0, -1);
-			spawn_lfx(sprite_get("vfx_item_u_heal"), x+15+random_func_2(player*7, 30, false), y-50+random_func_2(player*8, 40, false), 39+random_func_2(player*9, 7, true), 1, 1, 0, -1);
+			for (var i = 0; i < 3; i++) {
+				var heal_fx = spawn_hit_fx(x-45+(30*i)+random_func_2(1+i*3, 30, true), y-50+random_func_2(2+i*3, 40, true), fx_item_heal);
+				heal_fx.depth = depth-1;
+				heal_fx.hit_length = 39+random_func_2(i*3, 7, true);
+				heal_fx.vsp = -1;
+			}
 		}
 		bungus_timer++;
 		bungus_vis_x = x;
@@ -431,9 +442,7 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 	if (!inactionable && jump_down && pjetpack_available && pjetpack_fuel > 0) {
 		pjetpack_fuel--;
 		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
-		if (get_gameplay_time() % 6 == 0) {
-			spawn_lfx(asset_get("mech_dstrong_steam"), x, y-10, 10, 1, 0, 0, 0)
-		}
+		if (get_gameplay_time() % 6 == 0) spawn_hit_fx(x, y-10, fx_jetpack_steam);
 		if (pjetpack_sound == noone) {
 			pjetpack_sound = sound_play(asset_get("sfx_ell_hover"), true, noone, 0.4, 1.4);
 		}
@@ -600,6 +609,10 @@ if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 	if (quail_do_boost) {
 		if (state == PS_FIRST_JUMP && state_timer == 0) {
 			hsp = spr_dir * (max_jump_hsp + QUAIL_JUMP_BASE + QUAIL_JUMP_SCALE*item_grid[ITEM_QUAIL][IG_NUM_HELD]);
+			spawn_base_dust(x, y, "dash_start");
+			var burst = spawn_base_dust(x-(14*spr_dir), y-42, "djump");
+			burst.draw_angle = -90*spr_dir;
+			sound_play(asset_get("sfx_birdflap"));
 		}
 		if (state == PS_WAVELAND && state_timer == 0) {
 			var waveland_dir = round(hsp/abs(hsp))

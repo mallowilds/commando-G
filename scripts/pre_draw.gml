@@ -100,7 +100,8 @@ for (var i = 0; i < ds_list_size(lfx_list); i++) {
     var lfx = ds_list_find_value(lfx_list, i);
     if (!lfx.lfx_foreground) {
     	var lfx_image_index = lfx.lfx_lifetime * (sprite_get_number(lfx.lfx_sprite_index) / lfx.lfx_max_lifetime);
-    	draw_sprite_ext(lfx.lfx_sprite_index, lfx_image_index, lfx.lfx_x, lfx.lfx_y, lfx.lfx_spr_dir, 1, 0, c_white, 1 );
+        var lfx_alpha = (lfx.lfx_max_lifetime-lfx.lfx_lifetime)/lfx.lfx_max_lifetime/2;
+    	draw_sprite_ext(lfx.lfx_sprite_index, lfx_image_index, lfx.lfx_x, lfx.lfx_y, 2*lfx.lfx_spr_dir, 2, 0, c_white, lfx_alpha );
     }
 }
 //#endregion

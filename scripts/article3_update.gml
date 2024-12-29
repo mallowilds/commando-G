@@ -152,7 +152,7 @@ switch state {
         vsp = (state_timer > 6 ? sin(state_timer*pi/30) : -6 + state_timer);
         
         if (state_timer > 300) {
-            spawn_lfx(sprite_get("vfx_item_tooth_despawn"), x, y, 8, 1, 1, 0, 0);
+            spawn_hit_fx(x, y, player_id.fx_tooth_despawn);
             instance_destroy();
             exit;
         }
@@ -200,13 +200,16 @@ switch state {
                 var _y = orb_healed[i].y;
                 var _h = orb_healed[i].char_height;
                 var _hvar = (_h < 10) ? 0 : _h-10;
-                spawn_lfx(sprite_get("vfx_item_u_heal"), _x-45+random_func_2(seed+1, 30, false), _y-_h+random_func_2(seed+2, _hvar, false), 39+random_func_2(seed+3, 7, true), 1, 1, 0, -1);
-			    spawn_lfx(sprite_get("vfx_item_u_heal"), _x-15+random_func_2(seed+4, 30, false), _y-_h+random_func_2(seed+5, _hvar, false), 39+random_func_2(seed+5, 7, true), 1, 1, 0, -1);
-			    spawn_lfx(sprite_get("vfx_item_u_heal"), _x+15+random_func_2(seed+7, 30, false), _y-_h+random_func_2(seed+8, _hvar, false), 39+random_func_2(seed+9, 7, true), 1, 1, 0, -1);
+                for (var i = 0; i < 3; i++) {
+					var heal_fx = spawn_hit_fx(_x-45+(30*i)+random_func_2(1+i*3, 30, true), _y-_h+random_func_2(2+i*3, _hvar, true), player_id.fx_item_heal);
+					heal_fx.depth = depth-1;
+					heal_fx.hit_length = 39+random_func_2(i*3, 7, true);
+					heal_fx.vsp = -1;
+				}
             }
             
             sound_play(asset_get("mfx_timertick_holy"));
-            spawn_lfx(sprite_get("vfx_item_tooth_despawn"), x, y, 8, 1, 1, 0, 0);
+            spawn_hit_fx(x, y, player_id.fx_tooth_despawn);
             instance_destroy();
             exit;
         }
@@ -956,20 +959,6 @@ state_timer++;
 #define face_target(target_x)
 	if (target_x < x) spr_dir = -1;
 	else spr_dir = 1;
-
-#define spawn_lfx(in_sprite, _x, _y, in_lifetime, in_spr_dir, in_foreground, in_hsp, in_vsp)
-var new_lfx = {
-    lfx_x : _x,
-    lfx_y : _y,
-    lfx_sprite_index : in_sprite,
-    lfx_max_lifetime : in_lifetime,
-    lfx_lifetime : 0,
-    lfx_spr_dir : in_spr_dir,
-    lfx_foreground : in_foreground,
-    lfx_hsp : in_hsp,
-    lfx_vsp : in_vsp,
-};
-ds_list_add(player_id.lfx_list, new_lfx);
 
 #define init_position_history
 history_index = 0;
