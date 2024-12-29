@@ -740,7 +740,8 @@ switch state {
     	} else if (state_timer % 60 == 1) {
     		var item = instance_create(x+16, y+16, "obj_article3");
     		item.state = 20;
-    		item.rarity = (player_id.uncommon_pool_size < 1) ? 0 : 1;
+    		if (player_id.uncommon_pool_size < 1) item.rarity = 0;
+			else item.rarity = (random_func(12, 1, false) <= player_id.TRICORN_UNCOMMON_ODDS) ? 1 : 0;
     		sound_play(asset_get("mfx_star"));
     	}
     	

@@ -409,6 +409,9 @@ FSHIELD_DAMAGE_SCALE = 2;
 FSHIELD_RADIUS = 100; // for collision on proc
 FSHIELD_DODGE_RADIUS = 60; // strictly for activation on dodges
 
+// Tricorn
+TRICORN_UNCOMMON_ODDS = 0.65;
+
 // Snake Eyes
 SNAKEEYES_KBS_ADD = 0.05; // Added once for each Snake Eyes over the baseline
 SNAKEEYES_DAMAGE_ADD = 3; // Ditto
