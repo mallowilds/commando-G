@@ -61,6 +61,8 @@ sprite_change_offset("dspec_smallchest_outline" , 144, 224);
 sprite_change_offset("dspec_largechest"         , 144, 224);
 sprite_change_offset("dspec_largechest_landvfx" , 144, 224);
 sprite_change_offset("dspec_largechest_outline" , 144, 224);
+sprite_change_offset("dspec_trishop"            , 144, 224);
+sprite_change_offset("dspec_trishop_outline"    , 144, 224);
 sprite_change_offset("dspec_cac_bomb"           , 144, 224);
 sprite_change_offset("dspecial_arrows"          , 60,   0);
 

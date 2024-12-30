@@ -227,7 +227,7 @@ switch(state) { // use this one for doing actual article behavior
     // Trishop inherits its init from chests that turn into it, so no init here.
     case 31: // Fall
         if (y + vsp > target_y) {
-            mask_index = sprite_get("dspec_largechest"); // todo: make an actual mask
+            mask_index = sprite_get("dspec_smallchest"); // todo: make an actual mask
             ignores_walls = false;
             can_be_grounded = true;
         }
@@ -393,20 +393,20 @@ switch(state) { // use this one for changing sprites and animating
         sprite_index = sprite_get("null");
         break;
     case 31: // Fall
-        sprite_index = sprite_get("dspec_largechest");
-        image_index = 0;
+        sprite_index = sprite_get("dspec_trishop");
+        image_index = 0-is_large;
         break;
     case 32: // Idle
-        sprite_index = sprite_get("dspec_largechest");
+        sprite_index = sprite_get("dspec_trishop");
         image_index = 1 + ((state_timer < 6) ? state_timer / 3 : 2);
         break;
     case 33: // Opening
-        sprite_index = sprite_get("dspec_largechest");
-        image_index = 5 + (state_timer / 4.5);
+        sprite_index = sprite_get("dspec_trishop");
+        image_index = 5 + (state_timer / 5);
         break;
     case 34: // Despawning
-        sprite_index = sprite_get("dspec_largechest");
-        image_index = 16;
+        sprite_index = sprite_get("dspec_trishop");
+        image_index = 11;
         break;
     
     // Classified Access Codes bomb

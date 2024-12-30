@@ -39,11 +39,13 @@ switch(state) { // use this one for changing sprites and animating
     // Trishop
     case 30: // Init
     case 31: // Fall
+    break;
     case 32: // Idle
         // Selector moved into pre_draw for draw-order reasons
     case 33: // Opening
+        draw_sprite_ext(sprite_get("dspec_trishop_outline"), 0, x, y, spr_dir, 1, 0, c_white, outline_alpha);
+        break;
     case 34: // Despawning
-        draw_debug_text(x, y, "This is a trishop!!");
         break;
     
     
