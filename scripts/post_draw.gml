@@ -38,7 +38,7 @@ if (flash_timer > 0) {
 if (instance_exists(chest_obj) && chest_obj.state == 32 && chest_obj.trishop_vis_timer >= 0) with chest_obj {
     var progress = clamp(trishop_vis_timer / 5, 0, 1)
     var _x = x;
-    var _y = other.y-28;
+    var _y = other.y-50;
     
     draw_sprite_ext(sprite_get("trishop_bg_lines"), 0, _x, _y, 2, 2, 0, c_white, progress);
     

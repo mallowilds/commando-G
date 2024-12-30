@@ -275,7 +275,7 @@ switch(state) { // use this one for doing actual article behavior
         if (outline_alpha > 0) outline_alpha -= 0.2;
         if (state_timer == 1) sound_play(sound_get("cm_smallchest"));
         if (state_timer == 20) {
-            var item = instance_create(x, y-10, "obj_article3");
+            var item = instance_create(x, y-24, "obj_article3");
             item.state = 20;
             item.rarity = trishop_rarity;
             item.forced_index = trishop_loot[trishop_selection];
