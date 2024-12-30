@@ -301,9 +301,10 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 
 // Dashline effects (Arcane Blades, Energy Cell)
 if ((item_grid[ITEM_BLADES][IG_NUM_HELD] > 0 && get_player_damage(player) >= 100) || jewel_barrier_timer > 0) {
-	if (get_gameplay_time()%6 == 0) {
-		var spr_name = "vfx_item_dashlines_" + string(random_func(14, 2, true));
-		spawn_lfx(sprite_get(spr_name),x-(20*spr_dir), y-6, 30, spr_dir, false, (-3 + clamp(hsp*spr_dir, 0, 2))*spr_dir, 0);
+	if (get_gameplay_time()%4 == 0 && abs(hsp) > 4 && state_cat != SC_HITSTUN) {
+		var dir = (hsp > 0) ? 1 : -1
+		var spr_name = "vfx_item_dashlines_" + string(random_func(14, 4, true));
+		spawn_lfx(sprite_get(spr_name),x, y-6, 30, dir, false, -dir, 0);
 	}
 }
 
@@ -393,8 +394,9 @@ if (item_grid[ITEM_HEART][IG_NUM_HELD] != 0) {
 if (jewel_barrier_timer > 0) {
 	
 	jewel_barrier_timer--;
-	if (jewel_barrier_timer == 0) {
+	if (jewel_barrier_timer == 0 || jewel_barrier == 0) {
 		jewel_barrier = 0;
+		jewel_barrier_timer = 0;
 		new_item_id = ITEM_JEWEL;
     	user_event(0); // refresh move speed
 	}

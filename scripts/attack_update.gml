@@ -460,12 +460,6 @@ switch(attack) {
     	hsp = 0;
     	vsp = 0;
     	if (window == 1 && window_timer == 1) {
-    		if (item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
-				jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
-				jewel_barrier_timer = JEWEL_DURATION;
-				new_item_id = ITEM_JEWEL;
-				user_event(0); // for ms buff
-			}
     		if (chest_obj.state == 32) { // trishop
 				if (!halt_for_trishop) {
 					halt_for_trishop = true;
@@ -532,6 +526,12 @@ switch(attack) {
 			}
 			if (item_grid[ITEM_CLOVER][IG_NUM_HELD] > 0 && dspec_cooldown_hits > DSPEC_CLOVER_HITS) dspec_cooldown_hits = DSPEC_CLOVER_HITS;
     	}
+    	else if (window == 2 && window_timer == 1 && item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
+			jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
+			jewel_barrier_timer = JEWEL_DURATION;
+			new_item_id = ITEM_JEWEL;
+			user_event(0); // for ms buff
+		}
     	if (window < 3) {
     		can_move = false;
     		vsp = 0;

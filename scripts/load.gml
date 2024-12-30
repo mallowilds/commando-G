@@ -104,8 +104,10 @@ sprite_change_offset("vfx_bleed"                , 8, 10);
 sprite_change_offset("vfx_bleed_2"              , 8, 10);
 sprite_change_offset("vfx_sucker_buff_red"      , 6, 22);
 sprite_change_offset("vfx_sucker_buff_blue"     , 6, 22);
-sprite_change_offset("vfx_item_dashlines_0"     , 20, 30);
-sprite_change_offset("vfx_item_dashlines_1"     , 20, 30);
+sprite_change_offset("vfx_item_dashlines_0"     , 10, 30);
+sprite_change_offset("vfx_item_dashlines_1"     , 10, 30);
+sprite_change_offset("vfx_item_dashlines_2"     , 10, 30);
+sprite_change_offset("vfx_item_dashlines_3"     , 10, 30);
 
 sprite_change_offset("tricorn_hat"              , 16, 16);
 
