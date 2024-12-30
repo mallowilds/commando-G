@@ -24,6 +24,16 @@ if (state == clamp(state, PS_ATTACK_AIR, PS_ATTACK_GROUND) && attack == AT_NSPEC
 
 //#endregion
 
+//#region Flash
+
+if (flash_timer > 0) {
+    gpu_set_fog(true, flash_color, 0, 99);
+    draw_sprite_ext(sprite_index, image_index, x+draw_x, y+draw_y, spr_dir, 1, 0, c_white, flash_timer/flash_timer_max);
+    gpu_set_fog(false, c_white, 0, 0);
+}
+
+//#endregion
+
 //#region Tri-shop selector
 if (instance_exists(chest_obj) && chest_obj.state == 32 && chest_obj.trishop_vis_timer >= 0) with chest_obj {
     var progress = clamp(trishop_vis_timer / 5, 0, 1)
@@ -35,18 +45,6 @@ if (instance_exists(chest_obj) && chest_obj.state == 32 && chest_obj.trishop_vis
     draw_sprite_ext(sprite_get("item"), trishop_loot[0], _x-(64*progress), _y-(52*progress), 2*progress, 2, 0, c_white, 1);
     draw_sprite_ext(sprite_get("item"), trishop_loot[1], _x,               _y-(66*progress), 2*progress, 2, 0, c_white, 1);
     draw_sprite_ext(sprite_get("item"), trishop_loot[2], _x+(64*progress), _y-(52*progress), 2*progress, 2, 0, c_white, 1);
-}
-//#endregion
-
-
-
-//#region Lightweight particle drawing
-for (var i = 0; i < ds_list_size(lfx_list); i++) {
-    var lfx = ds_list_find_value(lfx_list, i);
-    if (lfx.lfx_foreground) {
-    	var lfx_image_index = lfx.lfx_lifetime * (sprite_get_number(lfx.lfx_sprite_index) / lfx.lfx_max_lifetime);
-    	draw_sprite_ext(lfx.lfx_sprite_index, lfx_image_index, lfx.lfx_x, lfx.lfx_y, lfx.lfx_spr_dir, 1, 0, c_white, 1 );
-    }
 }
 //#endregion
 

@@ -60,3 +60,9 @@ if (is_na && get_player_stocks(player) == 1) {
 if (get_player_stocks(player) == 1) {	
 	final_death_timer = 120;
 }
+
+// Energy Cell (needs to run last!)
+if (item_grid[ITEM_CELL][IG_NUM_HELD] > 0) {
+	new_item_id = ITEM_CELL;
+    user_event(0);
+}

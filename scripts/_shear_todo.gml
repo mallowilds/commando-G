@@ -16,7 +16,6 @@ Warbanner: yep
 Tri-shops: yep
 Kjaro's Band: HFX
 Runald's Band: HFX
-Energy Cell/Predatory Instincts: possibly some sort of vfx?
 Concussion Grenade: some form of visual idk
 The Ol' Lopper: Visual
 Shattering Justice: Visual

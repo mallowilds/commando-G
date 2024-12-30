@@ -263,6 +263,8 @@ switch(attack) {
     
     //#region Neutral Special
     case AT_NSPECIAL:
+    	fast_falling = false;
+        can_fast_fall = false;
     	nspec_vis_timer++;
         move_cooldown[AT_NSPECIAL] = 36;
 
@@ -432,6 +434,7 @@ switch(attack) {
     //#region Down Special
     
     case AT_DSPECIAL:
+    	fast_falling = false;
         can_fast_fall = false;
         can_move = false;
         if (window == 1 && window_timer == 1) {
@@ -466,7 +469,6 @@ switch(attack) {
 				if (!halt_for_trishop) {
 					halt_for_trishop = true;
 					select_for_trishop = false;
-					dspec_cooldown_hits = chest_obj.is_large ? DSPEC_LCHEST_CD_HITS : DSPEC_SCHEST_CD_HITS;
 					set_window_value(attack, window, AG_WINDOW_LENGTH, 8)
 	    			set_window_value(attack, window, AG_WINDOW_SFX_FRAME, 7);
 	    			
@@ -490,6 +492,7 @@ switch(attack) {
 				else if (select_for_trishop) {
 					var new_trishop_selection = -1;
 					if ((joy_pad_idle || special_pressed) && chest_obj.trishop_selection != -1) {
+						dspec_cooldown_hits = chest_obj.is_large ? DSPEC_LCHEST_CD_HITS : DSPEC_SCHEST_CD_HITS;
 						chest_obj.state = 33;
 						chest_obj.state_timer = 0;
 						window_timer++; // advance past freeze
@@ -535,6 +538,8 @@ switch(attack) {
 			user_event(0); // for ms buff
 		}
     	if (window < 3) {
+    		fast_falling = false;
+        	can_fast_fall = false;
     		can_move = false;
     		vsp = 0;
     	}
@@ -546,7 +551,8 @@ switch(attack) {
 	//#region Up Special
 	
     case AT_USPECIAL:
-        //a
+        fast_falling = false;
+        can_fast_fall = false;
         break;
     
     //#endregion

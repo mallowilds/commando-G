@@ -137,7 +137,17 @@ switch new_item_id {
         break;
     
     case 50: // Energy Cell
-        update_attack_speed();
+        var new_cell_stacks = (item_grid[ITEM_CELL][IG_NUM_HELD] > 0) ? floor(get_player_damage(player) / (CELL_THRESHOLD_BASE + CELL_THRESHOLD_SCALE*item_grid[ITEM_CELL][IG_NUM_HELD])) : 0;
+        if (new_cell_stacks != cell_active_stacks) {
+            if (new_cell_stacks > cell_active_stacks) {
+                sound_play(asset_get("sfx_boss_shine"));
+                flash_timer = 15;
+        		flash_timer_max = 18;
+        		flash_color = make_color_rgb(140, 200, 250);
+            }
+            cell_active_stacks = new_cell_stacks;
+            update_attack_speed();
+        }
         break;
         
     case 51: // Shipping Request Forms
@@ -198,7 +208,7 @@ switch new_item_id {
                  + (MOCHA_ASPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD] * nectar_mult) // Mocha
                  + ((instincts_timer > 0) ? (INSTINCTS_ASPEED_BASE + INSTINCTS_ASPEED_SCALE*item_grid[ITEM_INSTINCTS][IG_NUM_HELD]) : 0) // Predatory Instincts
                  + ((filial_aspeed_timer > 0) ? FILIAL_ASPEED_STACKS : 0) // Filial Imprinting
-                 + ((item_grid[ITEM_CELL][IG_NUM_HELD] > 0) ? floor(get_player_damage(player) / (CELL_THRESHOLD_BASE + CELL_THRESHOLD_SCALE*item_grid[ITEM_CELL][IG_NUM_HELD])) : 0); // Energy Cell
+                 + cell_active_stacks; // Energy Cell
     
     return;
     

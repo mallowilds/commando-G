@@ -299,7 +299,10 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 
 //#region Item timers/states
 
-// Dashline effects (Arcane Blades, Energy Cell)
+// Visual flash effect (Predatory Instincts, Energy Cell)
+if (flash_timer > 0) flash_timer--;
+
+// Dashline effects (Arcane Blades, Locked Jewel)
 if ((item_grid[ITEM_BLADES][IG_NUM_HELD] > 0 && get_player_damage(player) >= 100) || jewel_barrier_timer > 0) {
 	if (get_gameplay_time()%4 == 0 && abs(hsp) > 4 && state_cat != SC_HITSTUN) {
 		var dir = (hsp > 0) ? 1 : -1
@@ -341,6 +344,7 @@ if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 		stompers_hbox_air = create_hitbox(AT_EXTRA_1, 4, x, y);
 		//stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
 	}
+	land_sound = (stompers_active) ? land_sound_stompers : land_sound_base;
 	stompers_timer++;
 }
 

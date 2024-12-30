@@ -106,4 +106,22 @@ for (var i = 0; i < ds_list_size(lfx_list); i++) {
 }
 //#endregion
 
+//#region Predatory Instincts/Energy Cell auras
+if (instincts_timer > 0) {
+    var col = make_color_hsv(250, 200, 150);
+    var x_off = 16*sin(get_gameplay_time()/72);
+    var y_off = 4*cos(get_gameplay_time()/30);
+    var alpha = (instincts_timer > 20) ? 0.5 : (instincts_timer/20)*0.5;
+    draw_sprite_ext(sprite_get("vfx_item_instincts"), 0, x+x_off, y-26+y_off, 2, 2, 0, col, alpha);
+    draw_sprite_ext(sprite_get("vfx_item_instincts"), 0, x-x_off, y-26+y_off, 2, 2, 0, col, alpha);
+}
+if (cell_active_stacks > 0) {
+    var col = make_color_rgb(140, 200, 250);
+    var x_off = 4*sin(get_gameplay_time()/72);
+    var y_off = 4*cos(get_gameplay_time()/30);
+    var alpha = clamp(cell_active_stacks/10, 0, 0.5)
+    draw_sprite_ext(sprite_get("vfx_item_cell"), 0, x+x_off, y-26+y_off, 2, 2, 0, col, alpha);
+    draw_sprite_ext(sprite_get("vfx_item_cell"), 0, x-x_off, y-26+y_off, 2, 2, 0, col, alpha);
+}
+//#endregion
 

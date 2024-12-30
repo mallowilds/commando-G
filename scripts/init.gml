@@ -31,6 +31,9 @@ lfx_list = ds_list_create();
 
 // General utility
 prev_attack = noone;
+flash_timer = 0;
+flash_timer_max = 0;
+flash_color = c_white;
 
 // UTilt
 utilt_advance_frame = false;
@@ -457,6 +460,8 @@ tooth_awaiting_spawn = array_create(20, -1);
 
 quail_do_boost = 0;
 
+cell_active_stacks = 0;
+
 filial_num_spawned = 0;
 filial_aspeed_timer = 0;
 filial_speed_timer = 0;
@@ -801,6 +806,8 @@ roll_backward_max               = 9;
 
 //                      --base movement sound effects--                       //
 land_sound                      = asset_get("sfx_land_med");
+land_sound_base                 = land_sound;
+land_sound_stompers             = asset_get("sfx_bounce");
 landing_lag_sound               = asset_get("sfx_land");
 waveland_sound                  = asset_get("sfx_waveland_zet");
 jump_sound                      = asset_get("sfx_jumpground");
