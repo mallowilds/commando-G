@@ -14,7 +14,7 @@ if ((my_hitboxID.type == 1 && !first_hit) || (my_hitboxID.type == 2 && ("is_fake
 
 //#region Strong handling
 if (my_hitboxID.cmd_strong_finisher) {
-	// Kjaro's Band
+	// Kjaro's Band (duplicated later for the sake of Gasoline compat)
 	if (item_grid[ITEM_FIREBAND][IG_NUM_HELD] > 0) {
 		var band_damage = FIREBAND_DAMAGE_BASE + item_grid[ITEM_FIREBAND][IG_NUM_HELD] * FIREBAND_DAMAGE_SCALE;
 		apply_burn(hit_player_obj, band_damage);
@@ -126,10 +126,15 @@ if (my_hitboxID.cmd_is_explosive == 1) {
 		// hfx
 	}
 	
-	// Gasoline
+	// Gasoline (also accounts for Kjaro's Band)
 	if (item_grid[ITEM_GASOLINE][IG_NUM_HELD] > 0) {
 		var gas_damage = GASOLINE_DAMAGE_BASE + item_grid[ITEM_GASOLINE][IG_NUM_HELD] * GASOLINE_DAMAGE_SCALE * nectar_mult;
-		apply_burn(hit_player_obj, gas_damage);
+		if (!my_hitboxID.cmd_strong_finisher || item_grid[ITEM_FIREBAND][IG_NUM_HELD] == 0) {
+			apply_burn(hit_player_obj, gas_damage);
+		} else {
+			var band_damage = FIREBAND_DAMAGE_BASE + item_grid[ITEM_FIREBAND][IG_NUM_HELD] * FIREBAND_DAMAGE_SCALE;
+			apply_burn(hit_player_obj, gas_damage+band_damage);
+		}
 	}
 	
 }

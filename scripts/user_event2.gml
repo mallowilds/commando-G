@@ -299,7 +299,7 @@ ICEBAND_KBS_SCALE = 0.1;
 // Guardian Heart
 HEART_ENDANGERED_TIME = 300; // Time in frames until heart barrier starts regenerating
 HEART_TICK_TIME = 60; // Time between regeneration ticks
-HEART_BARRIER_BASE = 5;
+HEART_BARRIER_BASE = 0;
 HEART_BARRIER_SCALE = 5;
 
 // Locked Jewel

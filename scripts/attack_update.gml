@@ -386,16 +386,18 @@ switch(attack) {
 	//#region Forward Special
 	
     case AT_FSPECIAL:
+    	if (window == 1 && window_timer == 1) set_attack_value(AT_FSPECIAL, AG_OFF_LEDGE, true);
         if (free) {
             if vsp > 5 vsp = 5 
             if hsp > (7*spr_dir) hsp = (7*spr_dir)
         }
-        if window != 1 {
+        if (window != 1 && !was_parried) {
             can_jump = true
             can_attack = true
             can_strong = true
         }
         move_cooldown[AT_FSPECIAL] = 50;
+        if (was_parried) set_attack_value(AT_FSPECIAL, AG_OFF_LEDGE, false);
         break;
     case AT_FSPECIAL_AIR:
     	if (window == 1) {

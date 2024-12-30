@@ -874,10 +874,11 @@ switch state {
     // Activate
     case 67:
     	if (state_timer == 5) {
-    		if (target_array == []) {
+    		if (array_equals(target_array, [])) {
     			var hbox = create_hitbox(AT_EXTRA_1, 9, x, y);
     			hbox.vsp = -16;
     			hbox.proj_angle = 90;
+    			hbox.target_obj = noone;
     			hbox.parent_obj = self;
     			hbox.is_fake_hit = true;
     		}
