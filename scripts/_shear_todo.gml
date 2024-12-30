@@ -13,7 +13,6 @@
 
 --> List of missing assets on otherwise finished items
 Warbanner: yep
-Tri-shops: yep
 Kjaro's Band: HFX
 Runald's Band: HFX
 The Ol' Lopper: Visual

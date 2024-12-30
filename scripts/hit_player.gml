@@ -18,13 +18,15 @@ if (my_hitboxID.cmd_strong_finisher) {
 	if (item_grid[ITEM_FIREBAND][IG_NUM_HELD] > 0) {
 		var band_damage = FIREBAND_DAMAGE_BASE + item_grid[ITEM_FIREBAND][IG_NUM_HELD] * FIREBAND_DAMAGE_SCALE;
 		apply_burn(hit_player_obj, band_damage);
-        // spawn vfx
+        var kjaro_vfx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kjaro);
+		kjaro_vfx.depth = hit_player_obj.depth-1;
 	}
 	
 	// Runald's Band
 	if (item_grid[ITEM_ICEBAND][IG_NUM_HELD] > 0) {
 		sound_play(asset_get("sfx_ice_back_air"));
-		// spawn vfx
+		var runald_vfx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), HFX_ETA_ICE_BIG);
+		runald_vfx.depth = hit_player_obj.depth-1;
 	}
 }
 //#endregion

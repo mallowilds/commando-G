@@ -117,8 +117,8 @@ if (instincts_timer > 0) {
 }
 if (cell_active_stacks > 0) {
     var col = make_color_rgb(140, 200, 250);
-    var x_off = 4*sin(get_gameplay_time()/72);
-    var y_off = 4*cos(get_gameplay_time()/30);
+    var x_off = 4*cos(get_gameplay_time()/72);
+    var y_off = -4*cos(get_gameplay_time()/30);
     var alpha = clamp(cell_active_stacks/10, 0, 0.5)
     draw_sprite_ext(sprite_get("vfx_item_cell"), 0, x+x_off, y-26+y_off, 2, 2, 0, col, alpha);
     draw_sprite_ext(sprite_get("vfx_item_cell"), 0, x-x_off, y-26+y_off, 2, 2, 0, col, alpha);
