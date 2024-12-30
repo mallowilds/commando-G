@@ -116,6 +116,7 @@ if (my_hitboxID.cmd_is_explosive == 1) {
 		hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] = stun_type;
 		hit_player_obj.commando_status_counter[ST_STUN_EXPLOSIVE] = STUNGRENADE_STUN_BASE + item_grid[ITEM_STUNGRENADE][IG_NUM_HELD] * STUNGRENADE_STUN_SCALE;
 		hit_player_obj.commando_status_owner[ST_STUN_EXPLOSIVE] = player;
+		hit_player_obj.commando_stored_x = hit_player_obj.x;
 		sound_play(asset_get("sfx_mol_flash_explode"));
 		// hfx
 	}

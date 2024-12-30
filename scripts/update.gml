@@ -149,7 +149,7 @@ with oPlayer {
 		}
 	}
 	
-	// Explosive stun (state 1 is active, state 2 is lockout. Status counter counts down to allow external stun time setting)
+	// Explosive stun (state 1 is active, state 2/3 are lockout. Status counter counts down to allow external stun time setting)
 	if (commando_status_owner[other.ST_STUN_EXPLOSIVE] == other.player && commando_status_state[other.ST_STUN_EXPLOSIVE] > 0) {
 		commando_status_counter[other.ST_STUN_EXPLOSIVE]--;
 		if (last_player != commando_status_owner[other.ST_STUN_EXPLOSIVE]) { // mirrored in hit_player
@@ -157,16 +157,25 @@ with oPlayer {
 			commando_status_counter[other.ST_STUN_EXPLOSIVE] = 0;
 			commando_status_owner[other.ST_STUN_EXPLOSIVE] = noone;
 		}
-		switch (commando_status_state[other.ST_STUN_EXPLOSIVE]) {
+		var timer = commando_status_counter[other.ST_STUN_EXPLOSIVE];
+		switch commando_status_state[other.ST_STUN_EXPLOSIVE] {
 			case 1:
-				if (commando_status_counter[other.ST_STUN_EXPLOSIVE] <= 0) {
+				var attenuation = (timer > 10) ? 2 : timer/5;
+				x = commando_stored_x + attenuation*(abs(3-(timer%6))-2);
+				if (timer <= 0) {
 					commando_status_state[other.ST_STUN_EXPLOSIVE] = 2;
 					commando_status_counter[other.ST_STUN_EXPLOSIVE] = 0;
 				}
-				else hitstop++;;
+				else hitstop++;
 				break;
 			case 2:
 				if (!hitpause) {
+					commando_status_state[other.ST_STUN_EXPLOSIVE] = 3;
+					commando_status_counter[other.ST_STUN_EXPLOSIVE] = other.STUNGRENADE_EXTRA_LOCKOUT;
+				}
+				break;
+			case 3:
+				if (commando_status_counter[other.ST_STUN_EXPLOSIVE] <= 0) {
 					commando_status_state[other.ST_STUN_EXPLOSIVE] = 0;
 					commando_status_counter[other.ST_STUN_EXPLOSIVE] = 0;
 					commando_status_owner[other.ST_STUN_EXPLOSIVE] = noone;

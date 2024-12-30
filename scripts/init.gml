@@ -379,6 +379,7 @@ hbox_stored_hps = 0;
 commando_status_state = array_create(7);
 commando_status_counter = array_create(7);
 commando_status_owner = array_create(7, noone); // for the sake of the ditto
+commando_stored_x = 0;
 
 // Dodge duration overrides
 dodge_duration_timer = 0;

@@ -16,7 +16,6 @@ Warbanner: yep
 Tri-shops: yep
 Kjaro's Band: HFX
 Runald's Band: HFX
-Concussion Grenade: some form of visual idk
 The Ol' Lopper: Visual
 Shattering Justice: Visual
 Classified Access Codes: bomb. also probably needs a new explosion, given that the mollo bomb has the symbol
