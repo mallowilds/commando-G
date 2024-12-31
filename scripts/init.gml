@@ -202,50 +202,51 @@ item_id_ordering = [
     ITEM_STICKYBOMB,
     ITEM_GASOLINE,
     ITEM_FSHIELD,
-    ITEM_FIREWORKS,     // 19
+    ITEM_FIREWORKS,
+    ITEM_TTIMES,        // 20
     noone, // category delimiter
-    ITEM_FIREBAND,      // 21
+    ITEM_FIREBAND,      // 22
     ITEM_ICEBAND,       
     ITEM_UKELELE,
-    ITEM_RJETPACK,
-    ITEM_QUAIL,         // 25
+    ITEM_RJETPACK,      // 25
+    ITEM_QUAIL,
     ITEM_FEATHER,
     ITEM_HEART,
     ITEM_JEWEL,
-    ITEM_FILIAL,
-    ITEM_SNAKEEYES,     // 30
+    ITEM_FILIAL,        // 30
+    ITEM_SNAKEEYES,
     ITEM_SCYTHE,
     ITEM_IGNITION,
     ITEM_INSTINCTS,
-    ITEM_SHIPPING,
-    ITEM_CELL,          // 35
+    ITEM_SHIPPING,      // 35
+    ITEM_CELL,
     ITEM_STUNGRENADE,
     ITEM_ATG1,
-    noone,
-    ITEM_SCEPTER,       // 39
-    ITEM_TRICORN,       // 40
+    ITEM_SPARK,
+    noone,              // 40
+    ITEM_SCEPTER,       // 41
+    ITEM_TRICORN,
     ITEM_FIREBOOTS,
     ITEM_ATG2,
-    ITEM_LOPPER,
+    ITEM_LOPPER,        // 45
     ITEM_SHATTERING,
-    ITEM_CODES,         // 45
+    ITEM_CODES,
     ITEM_PJETPACK,
     ITEM_HEADSET,
-    ITEM_AFTERBURNER,
+    ITEM_AFTERBURNER,   // 50
     ITEM_CRITDAGGER,
-    ITEM_SCOPE,         // 50
+    ITEM_SCOPE,
     ITEM_TURBINE,
     ITEM_AEGIS,
-    ITEM_BEHEMOTH,
+    ITEM_BEHEMOTH,      // 55
     ITEM_NECTAR,
-    ITEM_DIOS,          // 55
-    noone,
-    ITEM_TTIMES,        // 57
-    ITEM_SPARK,
-    ITEM_CLOVER,
+    ITEM_DIOS,          // 57
 ];
 
-ordering_start_indices = [0, 21, 39, 57];
+// Enable secret if Rune O is taken
+if (has_rune("O")) array_push(item_id_ordering, ITEM_CLOVER);
+
+ordering_start_indices = [0, 22, 41];
 
 // If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
@@ -487,7 +488,7 @@ self_prev_outline = [0, 0, 0];
 // Training mode utility
 tmu_state = TMU_INACTIVE;
 tmu_exists = get_match_setting(SET_PRACTICE);
-init_prompt_active = tmu_exists;
+init_prompt_active = tmu_exists && !get_match_setting(SET_RUNES);
 init_prompt_timer = 0;
 if (tmu_exists) {
     
@@ -499,7 +500,7 @@ if (tmu_exists) {
     tmu_display_row = 0;
     
     tmu_item_panel = 0;
-    tmu_item_panel_max = 3;
+    tmu_item_panel_max = 2;
     tmu_item_panel_contents = noone; // filled on load
     tmu_legendary_unlock_counter = 0;
     
@@ -823,5 +824,30 @@ bubble_y                        = 8;
 
 //win stuff
 set_victory_portrait(sprite_get("portrait_base"));
+
+//last-chance abyss init (perform item grants here!)
+if (get_match_setting(SET_RUNES)) {
+    if (has_rune("L")) { // random rare (spawns an orb for clarity reasons)
+        var item = instance_create(x, y-10, "obj_article3");
+        item.rarity = 2;
+        item.state = 20;
+    }
+    if (has_rune("M")) {
+        for (var i = 0; i < 3; i++) {
+            new_item_id = ITEM_SHIPPING;
+            ue1_command = UE1_GRANT;
+            item_silenced = true;
+            user_event(1);
+        }
+    }
+    if (has_rune("N")) {
+        item_grid[@ ITEM_HOOF][@ IG_NUM_HELD] = 20;
+        array_push(inventory_list, ITEM_HOOF);
+        new_item_id = ITEM_NECTAR;
+        ue1_command = UE1_GRANT;
+        item_silenced = true;
+        user_event(1);
+    }
+}
 
 init_complete = true;

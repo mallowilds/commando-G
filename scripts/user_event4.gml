@@ -26,8 +26,8 @@ switch tmu_state {
             draw_sprite_ext(sprite_get("item"), iid, 44+tmu_x+58*draw_column, 64+tmu_y+58*draw_row, 2, 2, 0, c_white, 1);
             var draw_shadowed = false;
             if (item_grid[iid][IG_TYPE] == ITP_LEGENDARY && item_grid[iid][IG_RARITY] != RTY_COMMON) {
-                if (rarity == RTY_RARE) draw_shadowed = (rares_remaining == 0 || item_grid[iid][IG_TYPE] >= 1);
-                else draw_shadowed = item_grid[iid][IG_TYPE] >= uncommon_limit;
+                if (rarity == RTY_RARE) draw_shadowed = (rares_remaining == 0 || item_grid[iid][IG_NUM_HELD] >= 1);
+                else draw_shadowed = item_grid[iid][IG_NUM_HELD] >= uncommon_limit;
             } else {
                 var rarity = item_grid[iid][IG_RARITY]
                 var index = item_grid[iid][IG_RANDOMIZER_INDEX];
