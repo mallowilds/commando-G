@@ -90,6 +90,11 @@ switch new_item_id {
     case 29: // Rusty Jetpack
         update_vertical_movement();
         break;
+    
+    case 30: // Filial Imprinting
+        update_attack_speed();
+        update_horizontal_movement();
+        break;
         
     case 32: // Fireman's Boots
         fireboots_lockout = 0;
@@ -208,7 +213,8 @@ switch new_item_id {
                  + (MOCHA_ASPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD] * nectar_mult) // Mocha
                  + ((instincts_timer > 0) ? (INSTINCTS_ASPEED_BASE + INSTINCTS_ASPEED_SCALE*item_grid[ITEM_INSTINCTS][IG_NUM_HELD]) : 0) // Predatory Instincts
                  + ((filial_aspeed_timer > 0) ? FILIAL_ASPEED_STACKS : 0) // Filial Imprinting
-                 + cell_active_stacks; // Energy Cell
+                 + cell_active_stacks // Energy Cell
+                 + ((spark_buff_timer > 0) ? SPARK_ASPEED_SCALE * item_grid[ITEM_SPARK][IG_NUM_HELD] : 0) // Legendary Spark
     
     return;
     
@@ -220,6 +226,7 @@ switch new_item_id {
                + (MOCHA_SPEED_SCALE * item_grid[ITEM_MOCHA][IG_NUM_HELD] * nectar_mult) // Mocha
                + ((jewel_barrier_timer > 0) ? JEWEL_SPEED_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD] : 0) // Locked Jewel
                + ((filial_speed_timer > 0) ? FILIAL_SPEED_STACKS : 0) // Filial Imprinting
+               + ((spark_buff_timer > 0) ? SPARK_SPEED_SCALE * item_grid[ITEM_SPARK][IG_NUM_HELD] : 0) // Legendary Spark
     
     walk_anim_speed = walk_anim_speed_base + (MSPEED_WALK_ANIM_SCALE * move_speed);
     dash_anim_speed = dash_anim_speed_base + (MSPEED_DASH_ANIM_SCALE * move_speed) + (EDRINK_DASH_ANIM_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD] * nectar_mult);

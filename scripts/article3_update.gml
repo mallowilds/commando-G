@@ -68,6 +68,13 @@ FIREWORKS ~ factory
 ~ 66: init
 ~ 67: activate
 
+LEGENDARY SPARK ~ thunderbolt
+~ 80: init
+~ 81: await
+~ 82: strike 1
+~ 83: strike 2
+~ 84: strike 3
+
 */
 
 
@@ -75,7 +82,7 @@ FIREWORKS ~ factory
 switch state {
     
     
-    //#region Fireman's Boots ~ Fire
+    //#region Fireman's Boots ~ fire
     case 00:
         sprite_index = asset_get("fire_grnd1");
         mask_index = sprite_get("item_firetile_mask");
@@ -114,7 +121,7 @@ switch state {
         
     //#endregion
     
-    //#region Monster Tooth
+    //#region Monster Tooth ~ orb
     case 10:
         sprite_index = sprite_get("item_tooth_orb");
         mask_index = sprite_get("item_tooth_orb");
@@ -346,7 +353,6 @@ switch state {
     	
         
     //#endregion
-    
     
     //#region Warbanner
     
@@ -827,7 +833,7 @@ switch state {
     
     //#endregion
     
-    //#region Fireworks
+    //#region Fireworks ~ factory
     
     // Init
     case 66:
@@ -912,6 +918,50 @@ switch state {
     	}
     	break;
     
+    //#endregion
+    
+    //#region Legendary Spark ~ thunderbolt
+    
+    // Init
+    case 80:
+        state = 81;
+        state_timer = 0;
+        break;
+    
+    // Await
+    case 81:
+    	if (state_timer > player_id.SPARK_WARN_TIME) {
+    		state++;
+    		state_timer = 0;
+    	}
+        break;
+    
+    // Multihits
+    case 82:
+    case 83:
+    	if (x-20 < player_id.x && player_id.x < x+20) {
+    		player_id.spark_buff_timer = player_id.SPARK_BUFF_DURATION;
+    		player_id.spark_do_update = true;
+    	}
+    	if (state_timer > 10) {
+    		state++;
+    		state_timer = 0;
+    	}
+    	
+        break;
+    
+    // Finisher
+    case 84:
+    	if (x-28 < player_id.x && player_id.x < x+28) {
+    		player_id.spark_buff_timer = player_id.SPARK_BUFF_DURATION;
+    		player_id.spark_do_update = true;
+    	}
+    	if (state_timer > 10) {
+    		instance_destroy();
+    		exit;
+    	}
+        break;
+        
     //#endregion
     
     //#region Failed initialization

@@ -425,6 +425,13 @@ if (instincts_timer > 0) {
 	}
 }
 
+// Legendary Spark
+var target = floor((player-1)/4 * SPARK_PERIOD);
+if (get_gameplay_time() % SPARK_PERIOD == target) {
+	var spark = instance_create(x, y-26, "obj_article3");
+	spark.state = 80;
+}
+
 // Fireman's Boots
 if (item_grid[32][IG_NUM_HELD] > 0) {
 	if (fireboots_lockout <= 0) {
@@ -638,7 +645,7 @@ if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 	}
 }
 
-// Filial Imprinting
+// Filial Imprinting / Legendary Spark
 var filial_outline_type = 0;
 var filial_fx = noone;
 
@@ -665,10 +672,30 @@ if (filial_aspeed_timer > 0) {
 	if (get_gameplay_time() % 24 == 18) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
 }
 
+if (spark_buff_timer > 0) {
+	if (get_gameplay_time() % 24 == 0) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
+	if (get_gameplay_time() % 24 == 12) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
+	if (get_gameplay_time() % 24 == 6) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
+	if (get_gameplay_time() % 24 == 18) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
+	spark_buff_timer--;
+	if (spark_buff_timer == 0) {
+		if (filial_outline_type == 0) filial_outline_type = -1;
+		spark_do_update = true;
+	} else {
+		filial_outline_type = 3;
+	}
+}
+
 if (filial_do_update) {
 	new_item_id = ITEM_FILIAL;
 	user_event(0);
 	filial_do_update = false;
+	spark_do_update = false; // filial covers the same bases
+}
+
+if (spark_do_update) {
+	new_item_id = ITEM_SPARK;
+	user_event(0);
 }
 
 if (filial_fx != noone) filial_fx.depth = depth-1;

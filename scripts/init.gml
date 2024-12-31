@@ -429,6 +429,9 @@ ignition_odds_applied = 0; // Flag for buffing burn item odds
 
 atg_freq = 0;
 
+spark_buff_timer = 0;
+spark_do_update = false;
+
 h3ad_lockout_timer = 0; // H3AD-5T, used for fast falling
 h3ad_was_fast_falling = false;
 
