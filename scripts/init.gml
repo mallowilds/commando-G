@@ -828,6 +828,16 @@ set_victory_portrait(sprite_get("portrait_base"));
 //last-chance abyss init (perform item grants here!)
 if (get_match_setting(SET_RUNES)) {
     if (has_rune("L")) { // random rare (spawns an orb for clarity reasons)
+        var seed = 0;
+        with oPlayer {
+            if (url == "") seed += (player + 1) * player;
+            else {
+                var mult = (player + 1) * player;
+                seed += real(url) * player;
+                seed %= 200;
+            }
+            item_seed = seed;
+        }
         var item = instance_create(x, y-10, "obj_article3");
         item.rarity = 2;
         item.state = 20;
