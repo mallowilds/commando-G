@@ -14,7 +14,7 @@ rainfontbig = font_get("_rfontbig");
 
 
 //=-(                        ~~//** CONSTANTS **//~~                       )-=//
-user_event(2); // Lots of primitive constants are defined in here. These should be baked into the code before release (using the planned tool)
+user_event(2);// RCF user_event, defines lots of primitive constants. Will be removed during flattening.
 
 // Non-primitive constants are below. (mostly text strings)
 rarity_names = ["Common", "Uncommon", "Rare"];
@@ -244,7 +244,7 @@ item_id_ordering = [
 ];
 
 // Enable secret if Rune O is taken
-if (has_rune("O")) array_push(item_id_ordering, ITEM_CLOVER);
+if (RUNE_LUCKY) array_push(item_id_ordering, ITEM_CLOVER);
 
 ordering_start_indices = [0, 22, 41];
 
@@ -334,12 +334,12 @@ if (get_match_setting(SET_RUNES)) {
             var iid = p_item_ids[rty][i];
             var type1 = item_grid[iid][IG_TYPE];
             var type2 = item_grid[iid][IG_TYPE2];
-            if ( (has_rune("A") && (type1 == ITP_DAMAGE || type2 == ITP_DAMAGE || type1 == ITP_KNOCKBACK || type2 == ITP_KNOCKBACK))
-              || (has_rune("B") && (type1 == ITP_SPEED || type2 == ITP_SPEED))
-              || (has_rune("C") && (type1 == ITP_HEALING || type2 == ITP_HEALING || type1 == ITP_BARRIER || type2 == ITP_BARRIER))
-              || (has_rune("D") && (type1 == ITP_CRITICAL || type2 == ITP_CRITICAL))
-              || (has_rune("E") && (type1 == ITP_ATTACK_SPEED || type2 == ITP_ATTACK_SPEED))
-              || (has_rune("F") && (type1 == ITP_EXPLOSIVE || type2 == ITP_EXPLOSIVE))
+            if ( (RUNE_OFFENSE_UP && (type1 == ITP_DAMAGE || type2 == ITP_DAMAGE || type1 == ITP_KNOCKBACK || type2 == ITP_KNOCKBACK))
+              || (RUNE_SPEED_UP && (type1 == ITP_SPEED || type2 == ITP_SPEED))
+              || (RUNE_DEFENSE_UP && (type1 == ITP_HEALING || type2 == ITP_HEALING || type1 == ITP_BARRIER || type2 == ITP_BARRIER))
+              || (RUNE_CRITICAL_UP && (type1 == ITP_CRITICAL || type2 == ITP_CRITICAL))
+              || (RUNE_ASPEED_UP && (type1 == ITP_ATTACK_SPEED || type2 == ITP_ATTACK_SPEED))
+              || (RUNE_EXPLOSIVE_UP && (type1 == ITP_EXPLOSIVE || type2 == ITP_EXPLOSIVE))
             ) {
                 var quantity = p_item_remaining[rty][i];
                 p_item_values[@ rty][@ i] = ABYSS_BUFFED_VALUE;
@@ -830,7 +830,7 @@ set_victory_portrait(sprite_get("portrait_base"));
 
 //last-chance abyss init (perform item grants here!)
 if (get_match_setting(SET_RUNES)) {
-    if (has_rune("L")) { // random rare (spawns an orb for clarity reasons)
+    if (RUNE_FREE_RARE) { // spawns an orb for clarity reasons
         var seed = 0;
         with oPlayer {
             if (url == "") seed += (player + 1) * player;
@@ -845,7 +845,7 @@ if (get_match_setting(SET_RUNES)) {
         item.rarity = 2;
         item.state = 20;
     }
-    if (has_rune("M")) {
+    if (RUNE_TRISHOPS) {
         for (var i = 0; i < 3; i++) {
             new_item_id = ITEM_SHIPPING;
             ue1_command = UE1_GRANT;
@@ -853,7 +853,7 @@ if (get_match_setting(SET_RUNES)) {
             user_event(1);
         }
     }
-    if (has_rune("N")) {
+    if (RUNE_HUBRIS) {
         item_grid[@ ITEM_HOOF][@ IG_NUM_HELD] = 20;
         array_push(inventory_list, ITEM_HOOF);
         new_item_id = ITEM_NECTAR;

@@ -70,7 +70,7 @@ if (rarity < 0 || rarity > 2) {
 // Attempt to generate a legendary item
 var rnd_legendary = random_func_2(item_seed, 1, false);
 item_seed = (item_seed + 1) % 200;
-var odds = has_rune("O") ? LEGENDARY_ABYSS_ODDS : LEGENDARY_ODDS;
+var odds = RUNE_LUCKY ? LEGENDARY_ABYSS_ODDS : LEGENDARY_ODDS;
 if (rnd_legendary <= odds && legendary_pool_size[rarity] > 0) {
 	
 	var weight_array = p_legendary_available[rarity];

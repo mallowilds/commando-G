@@ -135,6 +135,24 @@ TMU_INFO_CLOSING = 4;
 
 //#endregion
 
+//#region Rune flags
+
+// These are technically non-constant, but calling has_rune should be cheap
+// so keeping the aliases in here should be fine
+RUNE_OFFENSE_UP = has_rune("A");
+RUNE_SPEED_UP = has_rune("B");
+RUNE_DEFENSE_UP = has_rune("C");
+RUNE_CRITICAL_UP = has_rune("D");
+RUNE_ASPEED_UP = has_rune("E");
+RUNE_EXPLOSIVE_UP = has_rune("F");
+
+RUNE_FREE_RARE = has_rune("L");
+RUNE_TRISHOPS = has_rune("M");
+RUNE_HUBRIS = has_rune("N");
+RUNE_LUCKY = has_rune("O");
+
+//#endregion
+
 //#region General Properties
 
 // Probability properties
