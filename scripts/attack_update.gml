@@ -93,21 +93,29 @@ switch(attack) {
         break;
         
     case AT_FAIR:
-        if window == 2 {
+        if (window == 2) {
         	var holding = (attack_down || left_stick_down || right_stick_down);
         	if (holding) strong_charge += 1;	// Note that damage growth from this is increased - see hit_player.gml
 			if (!holding || window_timer == 29) {
 				sound_stop(s_reload)
 				window = 3 
 				window_timer = 0;
-				
+			}
+			else if (window_timer % 10 < 5) {
+				strong_flashing = true;
 			}
 		}
-		if window == 3 && window_timer == 2 {
+		else if (window == 3 && window_timer == 5) {
 			if (vsp > -2) vsp = -2;
 			if (hsp*spr_dir <= -2) hsp -= -3*spr_dir;
 			else hsp = -5*spr_dir;
 			sound_play(s_shotty, 0, noone, 3, .95)
+		}
+		else if (window > 3 && !hitpause) {
+			var threshold = (window == 4) ? 5 : max(5-window_timer/5, 0);
+			if (abs(hsp) < threshold) {
+				hsp = -threshold * spr_dir;
+			}
 		}
         break;
 	

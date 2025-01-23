@@ -427,7 +427,7 @@ if (instincts_timer > 0) {
 
 // Legendary Spark
 var target = floor((player-1)/4 * SPARK_PERIOD);
-if (get_gameplay_time() % SPARK_PERIOD == target) {
+if (false && get_gameplay_time() % SPARK_PERIOD == target) {
 	var spark = instance_create(x, y-26, "obj_article3");
 	spark.state = 80;
 }
