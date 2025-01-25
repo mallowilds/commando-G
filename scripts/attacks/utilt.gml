@@ -4,7 +4,7 @@ set_attack_value(AT_UTILT, AG_HURTBOX_SPRITE, sprite_get("utiltg_hurt"));
 
 //utiltg start
 set_window_value(AT_UTILT, 1, AG_WINDOW_LENGTH, 10);
-set_window_value(AT_UTILT, 1, AG_WINDOW_ANIM_FRAMES, 1);
+set_window_value(AT_UTILT, 1, AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(AT_UTILT, 1, AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(AT_UTILT, 1, AG_WINDOW_HAS_CUSTOM_FRICTION, 1);
 set_window_value(AT_UTILT, 1, AG_WINDOW_CUSTOM_GROUND_FRICTION, .1);
@@ -17,25 +17,25 @@ set_window_value(AT_UTILT, 1, AG_WINDOW_CUSTOM_GROUND_FRICTION, .1);
 //utiltg active
 set_window_value(AT_UTILT, 2, AG_WINDOW_LENGTH, 2);
 set_window_value(AT_UTILT, 2, AG_WINDOW_ANIM_FRAMES, 1);
-set_window_value(AT_UTILT, 2, AG_WINDOW_ANIM_FRAME_START, 1);
+set_window_value(AT_UTILT, 2, AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(AT_UTILT, 2, AG_WINDOW_HAS_CUSTOM_FRICTION, 1);
 set_window_value(AT_UTILT, 2, AG_WINDOW_CUSTOM_GROUND_FRICTION, .1);
 
 //utiltg end
 set_window_value(AT_UTILT, 3, AG_WINDOW_LENGTH, 15);
 set_window_value(AT_UTILT, 3, AG_WINDOW_ANIM_FRAMES, 3);
-set_window_value(AT_UTILT, 3, AG_WINDOW_ANIM_FRAME_START, 2);
+set_window_value(AT_UTILT, 3, AG_WINDOW_ANIM_FRAME_START, 3);
 set_window_value(AT_UTILT, 3, AG_WINDOW_HAS_WHIFFLAG, 1);
 
 //utilt recoil "active"
 set_window_value(AT_UTILT, 4, AG_WINDOW_LENGTH, 4);
 set_window_value(AT_UTILT, 4, AG_WINDOW_ANIM_FRAMES, 2);
-set_window_value(AT_UTILT, 4, AG_WINDOW_ANIM_FRAME_START, 5);
+set_window_value(AT_UTILT, 4, AG_WINDOW_ANIM_FRAME_START, 6);
 
 //utilt recoil end
 set_window_value(AT_UTILT, 5, AG_WINDOW_LENGTH, 13);
 set_window_value(AT_UTILT, 5, AG_WINDOW_ANIM_FRAMES, 3);
-set_window_value(AT_UTILT, 5, AG_WINDOW_ANIM_FRAME_START, 6);
+set_window_value(AT_UTILT, 5, AG_WINDOW_ANIM_FRAME_START, 7);
 set_window_value(AT_UTILT, 5, AG_WINDOW_HAS_WHIFFLAG, 1);
 
 set_num_hitboxes(AT_UTILT, 3);

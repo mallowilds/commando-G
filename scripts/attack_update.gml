@@ -505,7 +505,8 @@ switch(attack) {
 						chest_obj.state_timer = 0;
 						window_timer++; // advance past freeze
 					}
-					else if (joy_dir > 180) {
+					else if (joy_dir >= 345) new_trishop_selection = 2;
+					else if (joy_dir > 195) {
 						chest_obj.trishop_selection = -1;
 						select_for_trishop = false;
 					}
