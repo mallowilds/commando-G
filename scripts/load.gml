@@ -3,7 +3,6 @@
 load_x = 68*2+1
 load_y = 109*2
 sprite_change_offset("idle"                 , load_x, load_y); 
-sprite_change_offset("hurt"                 , load_x, load_y);
 sprite_change_offset("crouch"               , load_x, load_y);
 sprite_change_offset("walk"                 , load_x, load_y);
 sprite_change_offset("walkturn"             , load_x, load_y);
@@ -11,6 +10,13 @@ sprite_change_offset("dash"                 , load_x, load_y);
 sprite_change_offset("dashstart"            , load_x, load_y);
 sprite_change_offset("dashstop"             , load_x, load_y);
 sprite_change_offset("dashturn"             , load_x, load_y);
+
+sprite_change_offset("hurt"                 , load_x, load_y);
+sprite_change_offset("hurtground"           , load_x, load_y);
+sprite_change_offset("bighurt"              , load_x, load_y);
+sprite_change_offset("spinhurt"             , load_x, load_y);
+sprite_change_offset("uphurt"               , load_x, load_y);
+sprite_change_offset("downhurt"             , load_x, load_y);
 
 sprite_change_offset("jumpstart"            , load_x, load_y);
 sprite_change_offset("jump"                 , load_x, load_y);
