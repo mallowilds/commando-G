@@ -34,6 +34,7 @@ prev_attack = noone;
 flash_timer = 0;
 flash_timer_max = 0;
 flash_color = c_white;
+do_wind_streaks = true;
 
 // UTilt
 utilt_advance_frame = false;

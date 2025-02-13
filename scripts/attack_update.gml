@@ -405,6 +405,7 @@ switch(attack) {
             can_jump = true
             can_attack = true
             can_strong = true
+            do_wind_streaks = true;
         }
         move_cooldown[AT_FSPECIAL] = 50;
         if (was_parried) set_attack_value(AT_FSPECIAL, AG_OFF_LEDGE, false);
@@ -418,6 +419,7 @@ switch(attack) {
             can_jump = true
             can_attack = true
             can_strong = true
+            do_wind_streaks = true;
         }
         
         if (window == 2) {

@@ -32,6 +32,16 @@ first_hit = has_hit;
 //#endregion
 
 //#region Lightweight particle management
+
+if (do_wind_streaks && get_gameplay_time()%4 == 0 && abs(hsp) > 4 && state_cat != SC_HITSTUN) {
+	var dir = (hsp > 0) ? 1 : -1
+	var spr_name = "vfx_item_dashlines_" + string(random_func(14, 4, true));
+	var in_fspec = (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND) && (attack == AT_FSPECIAL || attack == AT_FSPECIAL_2)
+	var y_off = in_fspec ? 2 : -6;
+	spawn_lfx(sprite_get(spr_name), x, y+y_off, 30, dir, false, -dir, 0);
+}
+do_wind_streaks = false;
+
 // See also: pre_draw.gml, post_draw.gml
 for (var i = 0; i < ds_list_size(lfx_list); i++) {
     var lfx = ds_list_find_value(lfx_list, i);
@@ -311,13 +321,9 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 // Visual flash effect (Predatory Instincts, Energy Cell)
 if (flash_timer > 0) flash_timer--;
 
-// Dashline effects (Arcane Blades, Locked Jewel)
+// Dashline effects (Arcane Blades, Locked Jewel, FSpecial
 if ((item_grid[ITEM_BLADES][IG_NUM_HELD] > 0 && get_player_damage(player) >= 100) || jewel_barrier_timer > 0) {
-	if (get_gameplay_time()%4 == 0 && abs(hsp) > 4 && state_cat != SC_HITSTUN) {
-		var dir = (hsp > 0) ? 1 : -1
-		var spr_name = "vfx_item_dashlines_" + string(random_func(14, 4, true));
-		spawn_lfx(sprite_get(spr_name),x, y-6, 30, dir, false, -dir, 0);
-	}
+	do_wind_streaks = true;
 }
 
 // Warbanner
