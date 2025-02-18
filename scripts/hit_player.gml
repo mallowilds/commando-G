@@ -37,7 +37,7 @@ if (my_hitboxID.cmd_strong_finisher) {
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	//print_debug("crit!");
 	// Play crit sound
-	sound_play(s_crit);
+	sound_play(s_crit, 0, noone, 2);
 	
 	if (item_grid[ITEM_GLASSES][IG_NUM_HELD] > 0) {
 		// damage applied in melee hitbox update
@@ -79,6 +79,7 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 		hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = TASER_STUN_BASE + item_grid[ITEM_TASER][IG_NUM_HELD] * TASER_STUN_SCALE * nectar_mult;
 		hit_player_obj.commando_status_owner[ST_STUN_ELECTRIC] = player;
 		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), (stun_type == 1) ? fx_crit_shock_long : fx_crit_shock);
+		sound_play(asset_get("sfx_absa_cloud_pop"))
 	}
 	
 	if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0 && hit_player_obj.burned) {
@@ -425,7 +426,9 @@ switch(my_hitboxID.attack) {
     	}
         break;
     case AT_DAIR:
-        //a
+        if hbox_num == 2 {
+        	sound_play(asset_get("sfx_blow_medium3"))
+        }
         break;
     case AT_UAIR:
         //a
