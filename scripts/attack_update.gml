@@ -163,6 +163,11 @@ switch(attack) {
         //mods bring out the
         down_down = true
         break;
+    case AT_USTRONG: 
+    	if (window == 2 && window_timer == window_length - 1) {
+            sound_play(s_dag_swing)
+        }
+    	break;
     case AT_UAIR:
     	if window == 1 && window_timer == window_length - 1 {
     		sound_play(sound_get("cm_dagger_swing"), 0, noone, 1, .96)

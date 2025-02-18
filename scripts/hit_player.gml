@@ -36,7 +36,6 @@ if (my_hitboxID.cmd_strong_finisher) {
 // but avoiding the other checks certainly doesn't hurt
 if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	//print_debug("crit!");
-	
 	// Play crit sound
 	sound_play(s_crit);
 	
@@ -456,7 +455,9 @@ switch(my_hitboxID.attack) {
     	}
     	break;
     case AT_USTRONG:
-    	//a
+    //	if hbox_num == 1 {
+    		sound_play(s_knifem)
+    //	}
     	break;
     case AT_DSTRONG:
     	if (hbox_num < 4 && hbox_num != 1) {
