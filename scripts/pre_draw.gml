@@ -65,13 +65,24 @@ with (obj_article2) if (other == player_id && !is_hud_element) {
 
 //#region NSpec charge visuals
 
+if (turbine_stored_charge > 0 || (state == PS_ATTACK_GROUND && do_turbine_recolor)) {
+    var col1 = make_color_rgb(150, 10, 10);
+    var col2 = make_color_rgb(255, 120, 120);
+}
+else if (item_grid[ITEM_SCEPTER][IG_NUM_HELD] > 0 && attack_speed > 1) {
+    var col1 = make_color_rgb(140, 10, 130);
+    var col2 = make_color_rgb(255, 120, 230);
+}
+else {
+    var col1 = make_color_rgb(10, 10, 140);
+    var col2 = make_color_rgb(120, 120, 255);
+}
+
 var progress = 1;
 if ((state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR) && attack == AT_NSPECIAL) {
     if (nspec_vis_timer < 20) {
         progress = nspec_vis_timer/20;
         var alpha = 0.3*(1-progress)*nspec_vis_level
-        var col1 = make_color_rgb(10, 10, 140);
-        var col2 = make_color_rgb(120, 120, 255);
         gpu_set_fog(true, col2, 0, 99);
         draw_sprite_ext(sprite_index, image_index, x-(20+10*nspec_vis_level)*spr_dir*progress, y, spr_dir, 1, 0, c_white, alpha);
         gpu_set_fog(true, col1, 0, 99);
@@ -83,8 +94,6 @@ if ((state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR) && attack == AT_NSPECI
 var nspec_charge = max(turbine_stored_charge, nspec_charge_level);
 if (nspec_charge > 0) {
     var vibrancy = progress*nspec_charge/3;
-    var col1 = make_color_rgb(10, 10, 140);
-    var col2 = make_color_rgb(120, 120, 255);
     var sin_val = sin(state_timer/15);
     gpu_set_fog(true, col2, 0, 99);
     draw_sprite_ext(sprite_index, image_index, x-(8-8*sin_val)*spr_dir*vibrancy, y, spr_dir, 1, 0, c_white, vibrancy*0.7);

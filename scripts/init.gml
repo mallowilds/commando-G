@@ -137,7 +137,7 @@ item_grid = [
     
     ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       ITP_BURNING,      0, noone, "Strongs blast enemies with runic fire, lighting them ablaze.", noone], // 18 | hit_player.gml, user_event0.gml
     ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    noone,            0, noone, "Strongs blast enemies with runic ice, freezing to the bone.", noone], // 19 | melee hitbox update, hit_player.gml
-    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    ITP_CRITICAL,     0, noone, "..And his music was electric.", noone], // 20 | user_event0.gml, AT_USTRONG_2
+    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    ITP_CRITICAL,     0, noone, "..And his music was electric.", noone], // 20 | user_event0.gml, AT_USTRONG_2, attack_update.gml
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Gain an extra jump.", noone], // 21 | user_event0.gml
     ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      noone,            0, noone, "Gain a shield that recharges outside of danger.", noone], // 22 | update.gml, got_hit.gml, user_event0.gml, general barrier utils
     ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      ITP_SPEED,        0, noone, "Gain a burst of shield and speed after opening chests.", noone], // 23 | attack_update.gml, update.gml, general barrier utils
@@ -149,7 +149,7 @@ item_grid = [
     ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Increase jump height and reduce gravity.", noone], // 29 | user_event0.gml
     ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    noone,            0, noone, "Smite them. Smite them all.", noone], // 30 | Unimplemented
     
-    ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Upgrade your Neutral Special.", noone], // 31 | Unimplemented
+    ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Upgrade your Neutral Special with Attack Speed.", noone], // 31 | attack_update.gml, pre_draw.gml
     ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Fight fire with fire...", noone], // 32 | update.gml, article3, user_event0.gml
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hooah.", noone], // 33 | user_event0.gml, hit_player.gml, article3, AT_EXTRA1
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 35,    "Enemies above 120% take massive knockback.", noone], // 34 | update.gml, hit_player.gml, other_post_draw.gml
@@ -159,7 +159,7 @@ item_grid = [
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | update.gml, user_event0.gml
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, set_attack.gml
-    ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge Neutral Special.", noone], // 41 | Unimplemented
+    ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge Neutral Special.", noone], // 41 | hit_player.gml, attack_update.gml, set_attack.gml, pre_draw.gml
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | user_event0, integrated into the healing-applying function (and general barrier utils)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!", noone], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml, user_event0
     ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      noone,            0, noone, "Cheat death.", noone], // 44 | update.gml, death.gml

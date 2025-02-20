@@ -1,4 +1,5 @@
 
+do_turbine_recolor = false; // it's easiest to just set it here...
 
 if (debug_display_opened && attack_pressed && taunt_pressed) attack = AT_TAUNT;
 

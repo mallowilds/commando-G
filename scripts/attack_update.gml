@@ -314,6 +314,7 @@ switch(attack) {
             		nspec_vis_timer = nspec_charge_threshold + 1;
             		nspec_vis_level = nspec_charge_level;
             		nspec_starting = nspec_charge_level >= 1;
+            		do_turbine_recolor = (turbine_stored_charge > 0);
             		turbine_stored_charge = 0;
             		num_loops = (item_grid[ITEM_SCEPTER][IG_NUM_HELD] >= 1) ? attack_speed-1 : 0;
             		for (var i = 1; i <= 12; i++) set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW, 10);
@@ -340,31 +341,42 @@ switch(attack) {
 	            			spawn_hit_fx(x+(54*spr_dir), y-54, HFX_CLA_DSMASH_BREAK);
 	            		}
                 	}
-            		else switch nspec_charge_level {
-        				case 0:
-        					nspec_proj_index = sprite_get("nspecproj_raw");
-        					set_hitbox_value(AT_NSPECIAL, 1, HG_WINDOW, 3);
-        					set_hitbox_value(AT_NSPECIAL, 2, HG_WINDOW, 4);
-        					break;
-        				case 1:
-        					nspec_proj_index = sprite_get("nspecproj_small");
-        					set_hitbox_value(AT_NSPECIAL, 3, HG_WINDOW, 3);
-        					set_hitbox_value(AT_NSPECIAL, 4, HG_WINDOW, 4);
-        					break;
-        				case 2:
-        					nspec_proj_index = sprite_get("nspecproj_med");
-        					set_hitbox_value(AT_NSPECIAL, 5, HG_WINDOW, 3);
-        					set_hitbox_value(AT_NSPECIAL, 6, HG_WINDOW, 3);
-        					set_hitbox_value(AT_NSPECIAL, 7, HG_WINDOW, 4);
-        					set_hitbox_value(AT_NSPECIAL, 8, HG_WINDOW, 4);
-        					break;
-        				case 3:
-        					nspec_proj_index = sprite_get("nspecproj_big");
-        					set_hitbox_value(AT_NSPECIAL,  9, HG_WINDOW, 3);
-        					set_hitbox_value(AT_NSPECIAL, 10, HG_WINDOW, 3);
-        					set_hitbox_value(AT_NSPECIAL, 11, HG_WINDOW, 4);
-        					set_hitbox_value(AT_NSPECIAL, 12, HG_WINDOW, 4);
-        					break;
+                	else if (special_down && nspec_charge_level == 3 && nspec_charge_frames < 20) {
+                		window_timer--;
+	            		nspec_charge_frames++;
+                	}
+            		else {
+            			switch nspec_charge_level {
+	        				case 0:
+	        					var nspec_proj_name = "nspecproj_raw";
+	        					set_hitbox_value(AT_NSPECIAL, 1, HG_WINDOW, 3);
+	        					set_hitbox_value(AT_NSPECIAL, 2, HG_WINDOW, 4);
+	        					break;
+	        				case 1:
+	        					var nspec_proj_name = "nspecproj_small";
+	        					set_hitbox_value(AT_NSPECIAL, 3, HG_WINDOW, 3);
+	        					set_hitbox_value(AT_NSPECIAL, 4, HG_WINDOW, 4);
+	        					break;
+	        				case 2:
+	        					var nspec_proj_name = "nspecproj_med";
+	        					set_hitbox_value(AT_NSPECIAL, 5, HG_WINDOW, 3);
+	        					set_hitbox_value(AT_NSPECIAL, 6, HG_WINDOW, 3);
+	        					set_hitbox_value(AT_NSPECIAL, 7, HG_WINDOW, 4);
+	        					set_hitbox_value(AT_NSPECIAL, 8, HG_WINDOW, 4);
+	        					break;
+	        				case 3:
+	        					var nspec_proj_name = "nspecproj_big";
+	        					set_hitbox_value(AT_NSPECIAL,  9, HG_WINDOW, 3);
+	        					set_hitbox_value(AT_NSPECIAL, 10, HG_WINDOW, 3);
+	        					set_hitbox_value(AT_NSPECIAL, 11, HG_WINDOW, 4);
+	        					set_hitbox_value(AT_NSPECIAL, 12, HG_WINDOW, 4);
+	        					break;
+            			}
+            			if (do_turbine_recolor) nspec_proj_name = nspec_proj_name + "_turbine";
+            			else if (item_grid[ITEM_SCEPTER][IG_NUM_HELD] > 0 && attack_speed > 1) nspec_proj_name = nspec_proj_name + "_scepter";
+            			nspec_proj_index = sprite_get(nspec_proj_name);
+            			set_window_value(AT_NSPECIAL, 5, AG_WINDOW_LENGTH, nspec_charge_endlag[nspec_charge_level]);
+            			
         			}
 		    	}
                 break;

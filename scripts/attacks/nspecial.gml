@@ -45,7 +45,8 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 15);
+                                                     nspec_charge_endlag = [15, 19, 23, 27];
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 15); // overwriten by attack_update.gml
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
