@@ -170,16 +170,18 @@ switch(attack) {
     	break;
     case AT_USTRONG_2:
     	print(window)
-    	if window == 1 && window_timer == 5 {
+    	if (window == 1 && window_timer == 5) {
     		sound_play(asset_get("sfx_absa_concentrate"))
+    		uke_looped = (item_grid[ITEM_UKELELE][IG_NUM_HELD] == 1); // deny for only 1
     	}
-    	if window == 1 && window_timer > 5 && state_timer % 6 == 0 {
-	    	//sound_play(asset_get("sfx_absa_singlezap1"), 0, noone, .3, .98 + (random_func(87, 1, 0)/10))
-	    }
-        if window == 2 || window == 3 || window == 4 {
-        	if window_timer == 3 {
-        		sound_play(asset_get("sfx_absa_new_whip1"), 0, noone, .3, 1.05)
-        	}
+        if ((2 <= window && window <= 4) || (window == 5 && !uke_looped)) {
+        	if (window_timer == 3) sound_play(asset_get("sfx_absa_new_whip1"), 0, noone, .3, 1.05)
+        }
+        if (window == 5 && window_timer == window_length - 1 && !uke_looped) {
+        	var uke = item_grid[ITEM_UKELELE][IG_NUM_HELD];
+        	if (uke == 2) window = 4;
+        	else if (uke >= 3) window = 3;
+        	uke_looped = true;
         }
         if (window == 5 && window_timer == 3) {
             //sound_stop(asset_get("sfx_absa_cloud_crackle"))
@@ -459,6 +461,11 @@ switch(attack) {
         	vsp += 0.3;
         }
         
+        if (pjetpack_available && window > 2 && jump_down && pjetpack_fuel > 0) {
+        	attack_end();
+        	set_state(PS_IDLE_AIR);
+        }
+        
         can_move = (window == 3);
         
         break;
@@ -589,6 +596,17 @@ switch(attack) {
     case AT_USPECIAL:
         fast_falling = false;
         can_fast_fall = false;
+        
+        if (window == 1) {
+        	if (window_timer == 1) set_window_value(AT_USPECIAL, 3, AG_WINDOW_TYPE, free ? 7 : 0);
+        	if (window_timer == window_length && !free) spawn_base_dust(x, y, "jump");
+        }
+        
+        if (window == 2 && window_timer == 1) {
+        	hsp = 2*(right_down-left_down);
+        }
+
+		// Note that the rise from the explosion is in hitbox_update
         break;
     
     //#endregion

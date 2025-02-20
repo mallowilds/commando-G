@@ -486,7 +486,7 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 	} else {
 		pjetpack_hud_alpha = clamp(pjetpack_hud_alpha-0.1, 0, pjetpack_hud_alpha);
 	}
-}
+} else pjetpack_available = false;
 
 // H3AD-5T V2
 if (item_grid[38][IG_NUM_HELD] > 0) { 

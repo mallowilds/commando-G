@@ -251,10 +251,6 @@ ordering_start_indices = [0, 22, 41];
 
 // If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
-// v BETA REMOVALS v
-if (!get_match_setting(SET_PRACTICE)) {
-    item_grid[@ ITEM_UKELELE][@ IG_RARITY] = RTY_VOID;
-}
 
 
 // Inventory store

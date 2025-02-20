@@ -31,6 +31,16 @@ if (my_hitboxID.cmd_strong_finisher) {
 }
 //#endregion
 
+//#region Ukelele
+if (my_hitboxID.attack == AT_USTRONG_2) {
+	if (my_hitboxID.hbox_num < 4) {
+		if (hit_player_obj.y > y-50) hit_player_obj.y = lerp(hit_player_obj.y, y-50, 0.4);
+	} else {
+		
+	}
+}
+//#endregion
+
 //#region Crit handling
 // Critical active is only technically necessary for disabling the crit sound,
 // but avoiding the other checks certainly doesn't hurt
@@ -465,7 +475,7 @@ switch(my_hitboxID.attack) {
     case AT_USTRONG_2:
     	if hbox_num == 4 {
     		sound_play(sound_get("uke2"), 0, noone, 1.6)
-    		//sound_play(asset_get("sfx_absa_uair"), 0,)
+    		var fx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_crit);
     	} else {
     		sound_play(sound_get("uke1"), 0, noone, 1.3)
     	}

@@ -9,7 +9,7 @@ set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
 set_attack_value(atk, AG_CATEGORY                       , 2);
 set_attack_value(atk, AG_OFF_LEDGE                      , 1);
 set_attack_value(atk, AG_USES_CUSTOM_GRAVITY            , 1);
-set_attack_value(atk, AG_DISABLES_JETPACK               , 1);
+set_attack_value(atk, AG_DISABLES_JETPACK               , 1); // attack_update: interruptable after first window
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 11);

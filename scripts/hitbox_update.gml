@@ -1,5 +1,34 @@
 //
 
+// Up Special
+if (attack == AT_USPECIAL) {
+    if (hbox_num == 1 && hitbox_timer == length && !was_parried) {
+        spawn_hit_fx(x, y, HFX_ELL_BOOM_BIG);
+        sound_play(asset_get("sfx_ell_fist_explode"));
+        
+        var _x = player_id.x;
+        var _y = player_id.y - 30;
+        var recover_dir = point_direction(x, y, _x, _y);
+        
+        with player_id {
+            hsp = lengthdir_x(11, recover_dir);
+            vsp = lengthdir_y(11, recover_dir);
+            old_hsp = hsp;
+            old_vsp = vsp;
+            
+            var atk = AT_USPECIAL;
+            var num = 2;
+            var hbox = create_hitbox(atk, num, other.x, other.y);
+            // For script order reasons, tags on this one need to happen manually.
+            hbox.cmd_is_critical = get_hitbox_value(atk, num, HG_IS_CRITICAL);
+			hbox.cmd_strong_finisher = get_hitbox_value(atk, num, HG_STRONG_FINISHER);
+			hbox.cmd_is_explosive = get_hitbox_value(atk, num, HG_IS_BLAST);
+			hbox.cmd_is_gunshot = get_hitbox_value(atk, num, HG_IS_GUNSHOT);
+			hbox.cmd_behemoth_applied = (item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) && hbox.cmd_is_gunshot;
+        }
+    }
+}
+
 // Homing missiles
 if (attack == AT_EXTRA_1) {
     
