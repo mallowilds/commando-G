@@ -4,7 +4,7 @@
 if (attack == AT_USPECIAL) {
     if (hbox_num == 1 && hitbox_timer == length && !was_parried) {
         spawn_hit_fx(x, y, HFX_ELL_BOOM_BIG);
-        sound_play(asset_get("sfx_ell_fist_explode"));
+        sound_play(sound_get("grenade1"));
         
         var _x = player_id.x;
         var _y = player_id.y - 30;

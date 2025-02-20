@@ -94,6 +94,6 @@ set_hitbox_value(AT_UTILT, 3, HG_KNOCKBACK_SCALING, .3);
 set_hitbox_value(AT_UTILT, 3, HG_BASE_HITPAUSE, 6);
 set_hitbox_value(AT_UTILT, 2, HG_HITPAUSE_SCALING, .7);
 set_hitbox_value(AT_UTILT, 3, HG_VISUAL_EFFECT, HFX_ELL_BOOM_BIG);
-set_hitbox_value(AT_UTILT, 3, HG_HIT_SFX, asset_get("sfx_ell_explosion_medium"));
+set_hitbox_value(AT_UTILT, 3, HG_HIT_SFX, sound_get("grenade1"));
 set_hitbox_value(AT_UTILT, 3, HG_HITBOX_GROUP, 3);
 set_hitbox_value(AT_UTILT, 3, HG_IS_BLAST, 1);
