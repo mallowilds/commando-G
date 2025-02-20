@@ -462,6 +462,14 @@ switch(my_hitboxID.attack) {
     		sound_play(s_knifem)
     //	}
     	break;
+    case AT_USTRONG_2:
+    	if hbox_num == 4 {
+    		sound_play(sound_get("uke2"), 0, noone, 1.6)
+    		//sound_play(asset_get("sfx_absa_uair"), 0,)
+    	} else {
+    		sound_play(sound_get("uke1"), 0, noone, 1.3)
+    	}
+    	break;
     case AT_DSTRONG:
     	if (hbox_num < 4 && hbox_num != 1) {
     		sound_play(asset_get("sfx_mol_flare_shoot"), 0, noone, 1, 1.03)

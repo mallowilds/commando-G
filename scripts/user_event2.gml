@@ -202,7 +202,7 @@ TEXTBOX_BIG_THRESHOLD = 50; // in char length
 DATTACK_SPEED_SCALE = 0.75;
 DATTACK_EDRINK_SCALE = 1.5;
 
-NSPEC_THRESHOLD_TIME = 60; // Looped three times for charge stages
+NSPEC_THRESHOLD_TIME = 20; // Looped three times for charge stages
 NSPEC_ASPEED_FACTOR = .95; // Applied exponentially
 
 DSPEC_SCHEST_RADIUS = 54;

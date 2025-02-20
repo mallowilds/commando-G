@@ -168,6 +168,26 @@ switch(attack) {
             sound_play(s_dag_swing)
         }
     	break;
+    case AT_USTRONG_2:
+    	print(window)
+    	if window == 1 && window_timer == 5 {
+    		sound_play(asset_get("sfx_absa_concentrate"))
+    	}
+    	if window == 1 && window_timer > 5 && state_timer % 6 == 0 {
+	    	//sound_play(asset_get("sfx_absa_singlezap1"), 0, noone, .3, .98 + (random_func(87, 1, 0)/10))
+	    }
+        if window == 2 || window == 3 || window == 4 {
+        	if window_timer == 3 {
+        		sound_play(asset_get("sfx_absa_new_whip1"), 0, noone, .3, 1.05)
+        	}
+        }
+        if (window == 5 && window_timer == 3) {
+            //sound_stop(asset_get("sfx_absa_cloud_crackle"))
+            sound_play(asset_get("sfx_absa_new_whip2"), 0, noone, .8, 1)
+            sound_play(asset_get("sfx_absa_uair"), 0, noone, .8, 1)
+            sound_play(sound_get("theunmatchedpowerofgod"), 0, noone, .8)
+        }
+        break;
     case AT_UAIR:
     	if window == 1 && window_timer == window_length - 1 {
     		sound_play(sound_get("cm_dagger_swing"), 0, noone, 1, .96)

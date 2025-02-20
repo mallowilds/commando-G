@@ -46,6 +46,7 @@ sprite_change_offset("dair"                 , load_x, load_y); //
 sprite_change_offset("fstrong"              , load_x, load_y);
 sprite_change_offset("tricorn"              , load_x, load_y);
 sprite_change_offset("ustrong"              , load_x, load_y); //
+sprite_change_offset("ustrong2"             , load_x, load_y); //
 sprite_change_offset("dstrong"              , load_x, load_y);
 sprite_change_offset("nspecial"             , load_x, load_y);
 sprite_change_offset("fspecial"             , load_x, load_y); //
