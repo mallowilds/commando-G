@@ -490,6 +490,7 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 
 // H3AD-5T V2
 if (item_grid[38][IG_NUM_HELD] > 0) { 
+	// Fast falls
 	h3ad_lockout_timer++;
 	if (!free) h3ad_lockout_timer = 0;
 	if (state_cat == SC_HITSTUN || state == PS_RESPAWN || state == PS_DEAD) can_fast_fall = false;
@@ -501,6 +502,23 @@ if (item_grid[38][IG_NUM_HELD] > 0) {
 	if (h3ad_was_fast_falling != fast_falling) {
 		if (fast_falling) sound_play(asset_get("sfx_land_heavy"));
 		h3ad_was_fast_falling = fast_falling;
+	}
+	
+	// Jump attenuation
+	if (state == PS_JUMPSQUAT) {
+		h3ad_jump_released = false;
+	}
+	else if (free) {
+		if (vsp >= 0) h3ad_jump_released = false
+		else if (state_timer < 6) {
+			if (!jump_down) h3ad_jump_released = true;
+		}
+		else if (h3ad_jump_released) {
+			if (vsp < 0) vsp -= vsp/10;
+		}
+	}
+	else {
+		h3ad_jump_released = false;
 	}
 }
 
