@@ -86,7 +86,8 @@ with oPlayer {
 			with (other) {
 				var hbox = create_hitbox(AT_EXTRA_1, 3, _x, _y);
 				hbox.damage += (STICKY_DAMAGE_SCALE) * (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD]*nectar_mult - 1);
-				spawn_hit_fx(_x, _y, HFX_MOL_EXPLODE_HIT);
+				var fx = spawn_hit_fx(_x, _y, fx_explode_small);
+				fx.depth = other.depth-1;
 				sound_play(asset_get("sfx_mol_flare_shoot"));
 			}
 			commando_status_state[other.ST_STICKY] = 2;

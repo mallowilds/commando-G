@@ -3,6 +3,7 @@
 // Up Special
 if (attack == AT_USPECIAL) {
     if (hbox_num == 1 && hitbox_timer == length && !was_parried) {
+        spawn_hit_fx(x, y, player_id.fx_explode_large);
         spawn_hit_fx(x, y, HFX_ELL_BOOM_BIG);
         sound_play(sound_get("grenade1"));
         

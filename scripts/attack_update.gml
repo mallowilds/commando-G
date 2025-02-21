@@ -698,7 +698,7 @@ if (do_behemoth_hbox && hit_player_obj.hitstop < hit_player_obj.hitstop_full * (
 	hbox.hitpause_growth = hbox_stored_hps * BEHEMOTH_HITPAUSE_MULT;
 	hbox.no_other_hit = hbox_stored_lockout;
 	do_behemoth_hbox = false;
-	behemoth_hfx = spawn_hit_fx(_x, _y, HFX_ELL_BOOM_BIG);
+	behemoth_hfx = spawn_hit_fx(_x, _y, fx_explode_large);
 	behemoth_hfx.depth = hit_player_obj.depth+1;
 	behemoth_hfx_hitstop = 0; // to be overwritten shortly
 }

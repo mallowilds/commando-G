@@ -665,7 +665,10 @@ fx_crit_lens                = hit_fx_create(sprite_get("vfx_crit_lens"), 16);
 fx_crit_blood               = hit_fx_create(sprite_get("vfx_crit_blood"), 24);
 fx_crit_shock               = hit_fx_create(sprite_get("vfx_crit_shock"), 24);
 fx_crit_shock_long          = hit_fx_create(sprite_get("vfx_crit_shock"), 50);
+
 fx_blast                    = hit_fx_create(sprite_get("vfx_blast"), 17);
+fx_explode_small            = hit_fx_create(sprite_get("vfx_explode_small"), 12);
+fx_explode_large            = hit_fx_create(sprite_get("vfx_explode_large"), 17);
 
 //
 

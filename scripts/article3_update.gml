@@ -798,7 +798,7 @@ switch state {
     // Init
     case 63:
     	num_missiles = player_id.atg_freq;
-    	if (!player_id.hitpause) {
+    	if (!target_obj.hitpause) {
     		state = 64;
     		state_timer = 0;
     	}
