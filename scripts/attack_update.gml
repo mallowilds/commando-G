@@ -309,13 +309,13 @@ switch(attack) {
             	if (window_timer == 1) {
             		sound_play(asset_get("sfx_forsburn_cape_swipe"));
             		nspec_charge_threshold = NSPEC_THRESHOLD_TIME * power(NSPEC_ASPEED_FACTOR, attack_speed-1);
-            		nspec_charge_frames = floor(nspec_charge_threshold * (turbine_stored_charge%1));
-            		nspec_charge_level = floor(turbine_stored_charge);
+            		nspec_charge_frames = 0;
+            		nspec_charge_level = (turbine_stored_charge >= TURBINE_THRESHOLD) ? 3 : 0;
             		nspec_vis_timer = nspec_charge_threshold + 1;
             		nspec_vis_level = nspec_charge_level;
             		nspec_starting = nspec_charge_level >= 1;
-            		do_turbine_recolor = (turbine_stored_charge > 0);
-            		turbine_stored_charge = 0;
+            		do_turbine_recolor = (turbine_stored_charge >= TURBINE_THRESHOLD);
+            		if (nspec_charge_level == 3) turbine_stored_charge = 0;
             		num_loops = (item_grid[ITEM_SCEPTER][IG_NUM_HELD] >= 1) ? attack_speed-1 : 0;
             		for (var i = 1; i <= 12; i++) set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW, 10);
             	}
@@ -376,7 +376,6 @@ switch(attack) {
             			else if (item_grid[ITEM_SCEPTER][IG_NUM_HELD] > 0 && attack_speed > 1) nspec_proj_name = nspec_proj_name + "_scepter";
             			nspec_proj_index = sprite_get(nspec_proj_name);
             			set_window_value(AT_NSPECIAL, 5, AG_WINDOW_LENGTH, nspec_charge_endlag[nspec_charge_level]);
-            			
         			}
 		    	}
                 break;
@@ -387,6 +386,7 @@ switch(attack) {
 	            		window = 3;
 		    			window_timer = 999; // jump to window 4
 		    			sound_play(s_gunh);
+		    			if (do_turbine_recolor) sound_play(sound_get("turbinefire"));
 	            	}
 		    		else sound_play(s_gunf);
             	}
@@ -400,7 +400,10 @@ switch(attack) {
 		    			sound_play(s_gunf);
 		    			attack_end();
                 	}
-		    		else sound_play(s_gunh);
+		    		else {
+		    			sound_play(s_gunh);
+		    			if (do_turbine_recolor) sound_play(sound_get("turbinefire"));
+		    		}
 		    	}
 		    	hsp = 0;
                 vsp = 0;

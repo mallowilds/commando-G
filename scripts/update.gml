@@ -528,6 +528,16 @@ if (instance_exists(behemoth_hfx) && behemoth_hfx_hitstop > 0) {
 	behemoth_hfx.step_timer--;
 }
 
+// Laser Turbine
+if (turbine_stored_charge < TURBINE_THRESHOLD || state == PS_DEAD) {
+	if (turbine_sfx_instance != noone) {
+		sound_stop(turbine_sfx_instance);
+		turbine_sfx_instance = noone;
+	}
+} else if (turbine_sfx_instance == noone) {
+	turbine_sfx_instance = sound_play(sound_get("turbinecharge"), 1);
+}
+
 // Dio's Best Friend
 if (dios_revive_timer > 0) {
 	
@@ -838,6 +848,7 @@ with pHitBox if (player_id == other) {
 			other.cmd_is_explosive = get_hitbox_value(other.attack, other.hbox_num, HG_IS_BLAST);
 			other.cmd_is_gunshot = get_hitbox_value(other.attack, other.hbox_num, HG_IS_GUNSHOT);
 			other.cmd_behemoth_applied = (item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) && other.cmd_is_gunshot;
+			if (shaped_glass_active) other.damage *= 2;
 		}
 		if (cmd_is_critical) {
 			if (player_id.item_grid[player_id.ITEM_GLASSES][player_id.IG_NUM_HELD] > 0) { // Lens Maker's Glasses

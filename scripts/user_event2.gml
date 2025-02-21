@@ -11,6 +11,7 @@ UE1_REVOKE = 2;
 UE1_GEN_THREE = 3;
 
 // RTY -> Rarity
+RTY_ABYSSAL = -3; // for abyss items
 RTY_VOID = -2; // for items that cannot drop under normal circumstances
 RTY_DUMMY = -1; // for if an item needs to be dummied out
 RTY_COMMON = 0;
@@ -116,6 +117,8 @@ ITEM_SNAKEEYES      = 56;
 ITEM_CRITDAGGER     = 57;
 ITEM_NECTAR         = 58;
 
+ITEM_SHAPED_GLASS   = 59;
+
 // ST -> Statuses
 ST_STICKY = 0;
 ST_BLEED = 1;
@@ -145,6 +148,8 @@ RUNE_DEFENSE_UP = has_rune("C");
 RUNE_CRITICAL_UP = has_rune("D");
 RUNE_ASPEED_UP = has_rune("E");
 RUNE_EXPLOSIVE_UP = has_rune("F");
+
+RUNE_SHAPED_GLASS = has_rune("H")
 
 RUNE_FREE_RARE = has_rune("L");
 RUNE_TRISHOPS = has_rune("M");
@@ -395,6 +400,9 @@ AEGIS_RATIO_SCALE = 0.25;
 // Laser Scope
 SCOPE_KBS_ADD = 0.1; // Applied on ignition hitboxes, or if Snake Eyes is active
 SCOPE_DAMAGE_ADD = 5; // Ditto (these will apply twice if both conditions are met)
+
+// Laser Turbine
+TURBINE_THRESHOLD = 90; // Damage required to fully charge Laser Turbine.
 
 // Brilliant Behemoth
 BEHEMOTH_AWAIT_MULT = 0.67; // As a percentage of enemy hitpause to wait through before exploding

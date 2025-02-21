@@ -51,6 +51,9 @@ if (filial_speed_timer > 0) filial_speed_timer = 1;
 // Laser Turbine
 turbine_stored_charge = 0;
 
+// Shaped Glass
+if (shaped_glass_active && get_player_stocks(player) == 0) sound_play(sound_get("glass_die"));
+
 // Death Message
 if (is_na && get_player_stocks(player) == 1) {
 	sound_play(s_jailed, 0, noone, 1.5, 1);

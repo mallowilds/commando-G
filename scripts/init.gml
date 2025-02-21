@@ -159,7 +159,7 @@ item_grid = [
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | update.gml, user_event0.gml
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, set_attack.gml
-    ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge Neutral Special.", noone], // 41 | hit_player.gml, attack_update.gml, set_attack.gml, pre_draw.gml
+    ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge Neutral Special.", noone], // 41 | hit_player.gml, attack_update.gml, set_attack.gml, pre_draw.gml, update.gml
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | user_event0, integrated into the healing-applying function (and general barrier utils)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!", noone], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml, user_event0
     ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      noone,            0, noone, "Cheat death.", noone], // 44 | update.gml, death.gml
@@ -179,6 +179,8 @@ item_grid = [
     ["Ceremonial Dagger",       RTY_RARE,       ITP_CRITICAL,     noone,            0, noone, "Critical hits summon daggers to chase down opponents.", noone], // 57 | hit_player.gml, article3, AT_EXTRA1, hitbox_update.gml
     ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Common items grow more powerful.", noone], // 58 | user_event0.gml, animation.gml, anywhere common items are implemented
     
+    ["Shaped Glass",            RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Double your damage... but shatter your weight.", noone], // 59 | update.gml hitbox initializer, user_event0.gml, death.gml
+
 ]
 //#RCFENDDEFORMAT
 
@@ -450,6 +452,8 @@ pjetpack_vis_fuel = 0;
 pjetpack_sound = noone;
 
 turbine_stored_charge = 0;
+do_turbine_recolor = false;
+turbine_sfx_instance = noone;
 
 dios_revive_timer = -999;
 dios_stored_damage = 0;
@@ -485,6 +489,7 @@ snakeeyes_active = 0;
 nectar_mult = 1;
 self_prev_outline = [0, 0, 0];
 
+shaped_glass_active = 0;
 
 // Training mode utility
 tmu_state = TMU_INACTIVE;
@@ -831,6 +836,12 @@ set_victory_portrait(sprite_get("portrait_base"));
 
 //last-chance abyss init (perform item grants here!)
 if (get_match_setting(SET_RUNES)) {
+    if (RUNE_SHAPED_GLASS) {
+        new_item_id = ITEM_SHAPED_GLASS;
+        ue1_command = UE1_GRANT;
+        item_silenced = true;
+        user_event(1);
+    }
     if (RUNE_FREE_RARE) { // spawns an orb for clarity reasons
         var seed = 0;
         with oPlayer {

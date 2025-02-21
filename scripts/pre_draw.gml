@@ -65,9 +65,9 @@ with (obj_article2) if (other == player_id && !is_hud_element) {
 
 //#region NSpec charge visuals
 
-if (turbine_stored_charge > 0 || (state == PS_ATTACK_GROUND && do_turbine_recolor)) {
-    var col1 = make_color_rgb(150, 10, 10);
-    var col2 = make_color_rgb(255, 120, 120);
+if (do_turbine_recolor || (turbine_stored_charge > 0 && !(attack == AT_NSPECIAL && state == clamp(state, PS_ATTACK_AIR, PS_ATTACK_GROUND)))) {
+    var col1 = make_color_rgb(140, 10, 10);
+    var col2 = make_color_rgb(255, 140, 160);
 }
 else if (item_grid[ITEM_SCEPTER][IG_NUM_HELD] > 0 && attack_speed > 1) {
     var col1 = make_color_rgb(140, 10, 130);
@@ -91,7 +91,8 @@ if ((state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR) && attack == AT_NSPECI
     }
 }
 
-var nspec_charge = max(turbine_stored_charge, nspec_charge_level);
+var tsc = (turbine_stored_charge >= TURBINE_THRESHOLD) ? 3 : 2*turbine_stored_charge/TURBINE_THRESHOLD;
+var nspec_charge = max(tsc, nspec_charge_level);
 if (nspec_charge > 0) {
     var vibrancy = progress*nspec_charge/3;
     var sin_val = sin(state_timer/15);

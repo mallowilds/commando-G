@@ -51,8 +51,7 @@ switch new_item_id {
         break;
     
     case 17: // Tough Times
-        // Tough Times ignores Growth Nectar, given the sheer power of kb adj scaling
-        knockback_adj = (item_grid[17][IG_NUM_HELD] > 0) ? power(TTIMES_KBADJ_EXP_SET, item_grid[17][IG_NUM_HELD]) : knockback_adj_base;
+        update_knockback_adj();
         break;
     
     case 20: // Ukelele
@@ -189,6 +188,11 @@ switch new_item_id {
         if (item_grid[52][IG_NUM_HELD] == 0) fshield_damage = 0;
         else fshield_damage = FSHIELD_DAMAGE_BASE + FSHIELD_DAMAGE_SCALE*item_grid[52][IG_NUM_HELD]*nectar_mult;
         break;
+        
+    case 59: // Shaped Glass
+        shaped_glass_active = (item_grid[59][IG_NUM_HELD] > 0);
+        update_knockback_adj();
+        break;
     
 }
 
@@ -258,6 +262,11 @@ switch new_item_id {
     gravity_speed = gravity_speed_base - (RJETPACK_GRAV_SPEED_BASE * (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0)); // Rusty Jetpack
     
     return;
+
+#define update_knockback_adj
+    // Tough Times ignores Growth Nectar, given the sheer power of kb adj scaling
+    knockback_adj = (item_grid[ITEM_TTIMES][IG_NUM_HELD] > 0) ? power(TTIMES_KBADJ_EXP_SET, item_grid[ITEM_TTIMES][IG_NUM_HELD]) : knockback_adj_base;
+    if (item_grid[ITEM_SHAPED_GLASS] > 0) knockback_adj -= 0.3;
     
 #define set_taunt_indices
     utaunt_index = (item_grid[ITEM_UKELELE][IG_NUM_HELD] > 0) ? AT_TAUNT_2 : AT_TAUNT;

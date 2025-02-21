@@ -303,9 +303,8 @@ if (my_hitboxID.cmd_strong_finisher && atg_freq > 0) {
 //#endregion
 
 //#region Laser Turbine
-if (my_hitboxID.cmd_is_gunshot) {
-	turbine_stored_charge += item_grid[ITEM_TURBINE][IG_NUM_HELD] * 0.5;
-	if (turbine_stored_charge > 3) turbine_stored_charge = 3;
+if (item_grid[ITEM_TURBINE][IG_NUM_HELD] > 0) {
+	turbine_stored_charge += item_grid[ITEM_TURBINE][IG_NUM_HELD] * my_hitboxID.damage;
 }
 //#endregion
 
