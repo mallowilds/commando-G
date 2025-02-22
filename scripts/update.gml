@@ -665,7 +665,7 @@ else if (clover_timer == 1) {
             hitstop_full = 0;
             if (state_cat == SC_HITSTUN) {
 				invincible = true;
-				invince_time = 10;
+				invince_time = CLOVER_EXTRA_INVINCE;
 				hsp = 0;
 				vsp = -6;
 				set_state(PS_IDLE_AIR);

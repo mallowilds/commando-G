@@ -309,7 +309,7 @@ switch(state) { // use this one for doing actual article behavior
         }
         if (!free || has_hit) {
             set_state(52);
-            var explode_vfx = spawn_hit_fx(x, y-50, HFX_MOL_BOOM_FINISH);
+            var explode_vfx = spawn_hit_fx(x, y-50, player_id.fx_explode_large);
             explode_vfx.depth = depth-1;
             hbox.destroyed = true;
             hbox = noone;
