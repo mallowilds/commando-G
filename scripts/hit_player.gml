@@ -503,9 +503,22 @@ switch(my_hitboxID.attack) {
         break;
        
     case AT_EXTRA_1:
-    	if (my_hitboxID.orig_player == player && hbox_num == 1) { // Brilliant Behemoth
-    		behemoth_hfx_hitstop = max(0, hit_player_obj.hitstop);
+    	if (my_hitboxID.orig_player == player) switch hbox_num { 
+    		case 1: // Brilliant Behemoth
+    			behemoth_hfx_hitstop = max(0, hit_player_obj.hitstop);
+    			break;
+    		case 10: // Legendary Spark
+    			var _x = round(lerp(my_hitboxID.x, hit_player_obj.x, 0.8));
+    			var _y = hit_player_obj.y - floor(hit_player_obj.char_height*0.7);
+    			spawn_hit_fx(_x, _y, HFX_GEN_SWEET);
+    			break;
+    		case 11: // Legendary Spark
+    			var _x = round(lerp(my_hitboxID.x, hit_player_obj.x, 0.8));
+    			var _y = hit_player_obj.y - floor(hit_player_obj.char_height*0.7);
+    			spawn_hit_fx(_x, _y, HFX_GEN_BIG);
+    			break;
     	}
+    	
     	break;
     
 }

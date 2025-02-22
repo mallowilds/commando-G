@@ -1,6 +1,7 @@
 
-
 u_mult_damage_buffer = 0; // buffer for fractional multiplier damage
+
+if ("is_ror_commando" not in self) is_ror_commando = false;
 
 commando_status_state = array_create(7);
 commando_status_counter = array_create(7);

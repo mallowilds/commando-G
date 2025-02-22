@@ -169,7 +169,6 @@ switch(attack) {
         }
     	break;
     case AT_USTRONG_2:
-    	print(window)
     	if (window == 1 && window_timer == 5) {
     		sound_play(asset_get("sfx_absa_concentrate"))
     		uke_looped = (item_grid[ITEM_UKELELE][IG_NUM_HELD] == 1); // deny for only 1

@@ -1,6 +1,7 @@
 //                                  debug                                     //
 init_complete = false; // used to ensure that draw scripts don't flood the error log if initialization is interrupted
 is_playtest = (object_index == oTestPlayer);
+is_ror_commando = true;
 
 debug_display_opened = 0;
 debug_display_count = 23;

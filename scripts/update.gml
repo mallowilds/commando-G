@@ -434,8 +434,32 @@ if (instincts_timer > 0) {
 
 // Legendary Spark
 var target = floor((player-1)/4 * SPARK_PERIOD);
-if (false && get_gameplay_time() % SPARK_PERIOD == target) {
-	var spark = instance_create(x, y-26, "obj_article3");
+if (item_grid[ITEM_SPARK][IG_NUM_HELD] > 0 && get_gameplay_time() % SPARK_PERIOD == target) {
+	// Determine y-position
+	var spark_y = y;
+	if (free || ground_type == 2) {
+		var b_y = get_stage_data(SD_BOTTOM_BLASTZONE_Y);
+		// First, check if there's any ground at all. If so, we can save some time.
+		if (!collision_line(x, y, x, b_y, asset_get("par_block"), false, false)) {
+			spark_y = b_y;
+		}
+		// Otherwise, we'll have to do a binary search for a valid position
+		else {
+			var t_y = y;
+			var loops = log2(b_y - y);
+			for (var i = 0; i < loops; i++) {
+				spark_y = (t_y+b_y)/2;
+				if (!collision_line(x, y, x, spark_y, asset_get("par_block"), false, false)) {
+					t_y = spark_y;
+				} else {
+					b_y = spark_y;
+				}
+			}
+			spark_y = ceil((t_y+b_y)/2);
+		}
+	}
+	
+	var spark = instance_create(x, spark_y, "obj_article3");
 	spark.state = 80;
 }
 

@@ -697,14 +697,19 @@ switch state {
     	with oPlayer {
     		if (point_distance(x, y, other.x, other.y) < 18) {
     			other.should_destroy = true;
-    			if (other.buff_type) filial_aspeed_timer = other.buff_duration;
-    			else filial_speed_timer = other.buff_duration;
-    			filial_do_update = true;
+    			if (is_ror_commando) {
+	    			if (other.buff_type) filial_aspeed_timer = other.buff_duration;
+	    			else filial_speed_timer = other.buff_duration;
+	    			filial_do_update = true;
+	    			sound_play(asset_get("sfx_abyss_spawn"));
+    			} else {
+    				sound_play(asset_get("sfx_syl_dspecial_plantaway"), 0, noone, 0.7, 1.3);
+    			}
     		}
     	}
     	
     	if (should_destroy || state_timer > 600) {
-    		// sfx, vfx
+    		spawn_hit_fx(x, y-8, HFX_FOR_HIT_SMALL);
     		instance_destroy();
     		exit;
     	}
@@ -926,6 +931,7 @@ switch state {
     case 80:
         state = 81;
         state_timer = 0;
+        sound_play(sound_get("theunmatchedpowerofgod"), 0, noone, .5, 0.4)
         break;
     
     // Await
@@ -933,6 +939,9 @@ switch state {
     	if (state_timer > player_id.SPARK_WARN_TIME) {
     		state++;
     		state_timer = 0;
+    		create_hitbox(AT_EXTRA_1, 10, x, y-500);
+    		sound_play(asset_get("sfx_absa_new_whip1"), 0, noone, .3, 1.05)
+    		sound_play(asset_get("sfx_mol_norm_explode"), 0, noone, 0.7);
     	}
         break;
     
@@ -940,12 +949,26 @@ switch state {
     case 82:
     case 83:
     	if (x-20 < player_id.x && player_id.x < x+20) {
+    		if (player_id.spark_buff_timer <= 0) {
+    			sound_play(asset_get("sfx_abyss_spawn"));
+    			spawn_hit_fx(player_id.x, player_id.y-36, HFX_FOR_HIT_BIG);
+    		}
     		player_id.spark_buff_timer = player_id.SPARK_BUFF_DURATION;
     		player_id.spark_do_update = true;
     	}
     	if (state_timer > 10) {
     		state++;
     		state_timer = 0;
+    		if (state == 83) {
+    			create_hitbox(AT_EXTRA_1, 10, x, y-500);
+    			sound_play(asset_get("sfx_absa_new_whip1"), 0, noone, .3, 1.05)
+    			sound_play(asset_get("sfx_mol_norm_explode"), 0, noone, 0.5);
+    		} else {
+    			create_hitbox(AT_EXTRA_1, 11, x, y-500);
+    			sound_play(asset_get("sfx_absa_new_whip2"), 0, noone, .8, 1)
+            	sound_play(asset_get("sfx_absa_uair"), 0, noone, .8, 1)
+            	sound_play(sound_get("theunmatchedpowerofgod"), 0, noone, .8)
+    		}
     	}
     	
         break;
@@ -953,6 +976,10 @@ switch state {
     // Finisher
     case 84:
     	if (x-28 < player_id.x && player_id.x < x+28) {
+    		if (player_id.spark_buff_timer <= 0) {
+    			sound_play(asset_get("sfx_abyss_spawn"));
+    			spawn_hit_fx(player_id.x, player_id.y-40, HFX_FOR_HIT_BIG);
+    		}
     		player_id.spark_buff_timer = player_id.SPARK_BUFF_DURATION;
     		player_id.spark_do_update = true;
     	}
