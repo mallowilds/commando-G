@@ -205,7 +205,7 @@ set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 10);
 set_hitbox_value(atk, hbox_num, HG_EFFECT                   , 0);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 8);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.7);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.9);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 10);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.9);
 set_hitbox_value(atk, hbox_num, HG_HITSTUN_MULTIPLIER       , 1);

@@ -56,6 +56,7 @@ switch(attack) {
         break;
         
     case AT_UTILT:
+    	hud_offset = lerp(hud_offset, 50, 0.5);
         if (window == 1 && window_timer == 1) {
         	utilt_do_explosion = false;
         	utilt_advance_frame = false;
@@ -163,12 +164,14 @@ switch(attack) {
         //mods bring out the
         down_down = true
         break;
-    case AT_USTRONG: 
+    case AT_USTRONG:
+    	hud_offset = lerp(hud_offset, 90, 0.5);
     	if (window == 2 && window_timer == window_length - 1) {
             sound_play(s_dag_swing)
         }
     	break;
     case AT_USTRONG_2:
+    	hud_offset = lerp(hud_offset, 102, 0.5);
     	if (window == 1 && window_timer == 5) {
     		sound_play(asset_get("sfx_absa_concentrate"))
     		uke_looped = (item_grid[ITEM_UKELELE][IG_NUM_HELD] == 1); // deny for only 1
@@ -190,6 +193,7 @@ switch(attack) {
         }
         break;
     case AT_UAIR:
+    	hud_offset = lerp(hud_offset, 50, 0.5);
     	if window == 1 && window_timer == window_length - 1 {
     		sound_play(sound_get("cm_dagger_swing"), 0, noone, 1, .96)
     	}
@@ -464,14 +468,20 @@ switch(attack) {
         }
         
         if (window == 2) {
-        	if (window_timer == 1 && !hitpause) fspec_air_uses--;
+        	if (window_timer == 1 && !hitpause) {
+        		fspec_air_uses--;
+        		fspec_clamp_hsp = true;
+        	}
         	hsp -= 0.15 * spr_dir;
         	vsp += 0.075;
         } else {
         	if (hsp > air_max_speed) hsp -= 0.6;
         	else if (hsp < air_max_speed*-1) hsp += 0.6;
-        	else if (hsp > 3) hsp -= 0.3;
-        	else if (hsp < -3) hsp += 0.3;
+        	else {
+        		fspec_clamp_hsp = false;
+        		if (hsp > 3) hsp -= 0.3;
+        		else if (hsp < -3) hsp += 0.3;
+        	}
         	vsp += 0.3;
         }
         
@@ -495,12 +505,50 @@ switch(attack) {
         can_move = false;
         if (window == 1 && window_timer == 1) {
         	call_sfx_instance = sound_play(s_tap);
+        	move_sfx_instance = noone;
         }
         if (window != 3) {
             hsp = lerp(hsp, 0, .1)
             if vsp > 0 vsp = lerp(vsp, 0, .3)
         }
-        if (window == 2 && window_timer == 10 && instance_exists(chest_obj)) {
+        
+        var chest_active = instance_exists(chest_obj);
+        
+        // Classified Access Codes
+        if (!special_down && move_sfx_instance != noone) {
+    		sound_stop(move_sfx_instance);
+    		move_sfx_instance = noone;
+    	}
+        
+        if (chest_active && window == 2 && special_down && item_grid[ITEM_CODES][IG_NUM_HELD] > 0) {
+        	if (window_timer % 5 == 3) {
+        		move_sfx_instance = sound_play(asset_get("mfx_coin"), false, noone, 0.3, 0.4);
+        	}
+        	if (window_timer == 23 && call_sfx_instance != noone) {
+        		sound_stop(call_sfx_instance);
+        		call_sfx_instance = noone;
+        	}
+        	if (window_timer == 29) window_timer = 9;
+        	
+        	chest_obj.cac_repositioning = true;
+        	chest_obj.x += 8 * (right_down-left_down);
+        	if (attack_pressed) {
+        		chest_obj.state = 50;
+        		chest_obj.state_timer = 0;
+        		window = 3;
+        		window_timer = 1;
+        	} else if (shield_pressed) {
+        		window = 3;
+        		window_timer = 1;
+        	}
+        }
+        
+        // Chest call
+        else if (chest_active && window == 2 && window_timer >= 10) {
+    		if (call_sfx_instance != noone) {
+        		sound_stop(call_sfx_instance);
+        		call_sfx_instance = noone;
+        	}
     		if (chest_obj.state == 01) {
     			chest_obj.state = 10;
     			chest_obj.state_timer = 0;
@@ -511,8 +559,9 @@ switch(attack) {
     		}
     		window = 3;
     		window_timer = 1;
-    		sound_stop(call_sfx_instance);
     	}
+    	
+    	// Chest request
         else if (window == 3 && window_timer == 1) {
         	chest_obj = instance_create(x, y-20, "obj_article1");
         }

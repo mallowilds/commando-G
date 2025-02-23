@@ -64,9 +64,9 @@ switch(state) { // use this one for doing actual article behavior
         if (player_id.item_grid[player_id.ITEM_CODES][player_id.IG_NUM_HELD] < 1 && state_timer >= 120) { 
             set_state(20);
         }
-        // Classified Access Codes: drop bomb after 5s
-        else if (player_id.item_grid[player_id.ITEM_CODES][player_id.IG_NUM_HELD] >= 1 && state_timer >= 300) { 
-            set_state(50);
+        // Classified Access Codes: wait time increased to 4s, or 5s during repositioning
+        else if (state_timer >= (cac_repositioning ? 300 : 240)) { 
+            set_state(20);
         }
         break;
     case 03: // Jammed (parried state)

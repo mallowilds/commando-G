@@ -17,6 +17,9 @@ if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
 	idle_air_platfalling = false;
 }
 
+// Fix hud_offset jittering
+if (hud_offset < 0) hud_offset = 0;
+
 //#region Cooldown management
 
 // FSpec cooldown
@@ -24,6 +27,13 @@ if (!free || state_cat == SC_HITSTUN || state == PS_RESPAWN || state == PS_WALL_
 	fspec_air_uses = (item_grid[ITEM_AFTERBURNER][IG_NUM_HELD] > 0) ? 2 : 1;
 }
 if (fspec_air_uses <= 0 && move_cooldown[AT_FSPECIAL_AIR] < 2) move_cooldown[AT_FSPECIAL_AIR] = 2;
+
+// FSpec DJump penalty
+if (fspec_clamp_hsp && state != PS_ATTACK_AIR) {
+	fspec_clamp_hsp = false;
+	var sp = FSPEC_JUMP_CLAMP_RATE * air_max_speed;
+	if (state == PS_IDLE_AIR || state == PS_DOUBLE_JUMP) hsp = clamp(hsp, -sp, sp);
+}
 
 // DSpec cooldown
 if (dspec_cooldown_hits	> 0) move_cooldown[AT_DSPECIAL] = 2;

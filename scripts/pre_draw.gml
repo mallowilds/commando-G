@@ -21,6 +21,18 @@ if (instance_exists(chest_obj) && chest_obj.state == 32 && chest_obj.trishop_vis
 }
 //#endregion
 
+//#region Classified Access Codes signal
+if (instance_exists(chest_obj) && state == PS_ATTACK_GROUND && window == 2 && chest_obj.cac_repositioning && special_down && object_index != oTestPlayer) {
+    var far_x = chest_obj.x;
+    var far_y = get_stage_data(SD_TOP_BLASTZONE_Y)+40;
+    var dir = point_direction(x, y-24, far_x, far_y);
+    var _x = x+lengthdir_y(16, dir);
+    var _y = y-24;
+    draw_sprite_ext(sprite_get("vfx_item_cac_signal"), get_gameplay_time()/2, _x, _y, 4, 32, dir, get_player_hud_color(player), 0.5);
+}
+
+//#endregion
+
 //#region obj_article2 pre_draw
 // (because text draw functions are unstable in article code)
 with (obj_article2) if (other == player_id && !is_hud_element) {
