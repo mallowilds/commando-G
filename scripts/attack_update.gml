@@ -532,23 +532,26 @@ switch(attack) {
         	
         	chest_obj.cac_repositioning = true;
         	chest_obj.x += 8 * (right_down-left_down);
-        	if (attack_pressed) {
-        		chest_obj.state = 50;
-        		chest_obj.state_timer = 0;
+        	if (attack_pressed || shield_pressed) {
         		window = 3;
         		window_timer = 1;
-        	} else if (shield_pressed) {
-        		window = 3;
-        		window_timer = 1;
+        		if (call_sfx_instance != noone) {
+		    		sound_stop(call_sfx_instance);
+		    		call_sfx_instance = noone;
+		    	}
+		    	if (attack_pressed) {
+		    		chest_obj.state = 50;
+        			chest_obj.state_timer = 0;
+		    	}
         	}
         }
         
         // Chest call
         else if (chest_active && window == 2 && window_timer >= 10) {
-    		if (call_sfx_instance != noone) {
-        		sound_stop(call_sfx_instance);
-        		call_sfx_instance = noone;
-        	}
+        	if (call_sfx_instance != noone) {
+	    		sound_stop(call_sfx_instance);
+	    		call_sfx_instance = noone;
+	    	}
     		if (chest_obj.state == 01) {
     			chest_obj.state = 10;
     			chest_obj.state_timer = 0;
@@ -565,6 +568,7 @@ switch(attack) {
         else if (window == 3 && window_timer == 1) {
         	chest_obj = instance_create(x, y-20, "obj_article1");
         }
+        	
         break;
     case AT_DSPECIAL_2:
     	hsp = 0;

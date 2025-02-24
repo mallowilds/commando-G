@@ -3,7 +3,7 @@
 
 // sprite and mask indexes; + default article variables
 sprite_index = sprite_get("null");
-mask_index = asset_get("null");
+mask_index = sprite_get("dspec_chest_mask");
 can_be_grounded = false;
 ignores_walls = true;
 spr_dir = player_id.spr_dir;

@@ -101,7 +101,6 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 11: // Fall
         if (y + vsp > target_y) {
-            mask_index = sprite_get("dspec_smallchest"); // todo: make an actual mask
             ignores_walls = false;
             can_be_grounded = true;
         }
@@ -174,7 +173,6 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 21: // Fall
         if (y + vsp > target_y) {
-            mask_index = sprite_get("dspec_largechest"); // todo: make an actual mask
             ignores_walls = false;
             can_be_grounded = true;
         }
@@ -227,7 +225,6 @@ switch(state) { // use this one for doing actual article behavior
     // Trishop inherits its init from chests that turn into it, so no init here.
     case 31: // Fall
         if (y + vsp > target_y) {
-            mask_index = sprite_get("dspec_smallchest"); // todo: make an actual mask
             ignores_walls = false;
             can_be_grounded = true;
         }
@@ -292,7 +289,7 @@ switch(state) { // use this one for doing actual article behavior
     case 50: // Init
         target_y = y;
         y = get_stage_data(SD_TOP_BLASTZONE_Y)+80;
-        vsp = 2;
+        vsp = 0;
         set_state(51);
         hbox = create_hitbox(AT_DSPECIAL, 5, x, y-50);
         hbox.vsp = vsp;
@@ -301,9 +298,8 @@ switch(state) { // use this one for doing actual article behavior
         sound_play(asset_get("sfx_mol_huge_countdown"), false, noone, 1, 0.7);
         break;
     case 51: // Fall
-    	if (state_timer > 30) vsp += 0.9;
+    	vsp += 0.9;
         if (y + vsp > target_y) {
-            mask_index = sprite_get("dspec_cac_bomb"); // todo: make an actual mask
             ignores_walls = false;
             can_be_grounded = true;
         }

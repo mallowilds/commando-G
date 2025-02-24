@@ -6,6 +6,7 @@
 FSpecial-Air
 Taunts (Default, Warbanner, Ukelele)
 Big hurt, Spin hurt (low priority)
+Chest despawn anim? (low priority)
 
 --> List of unfinished character anims
 NAir (sketched)
@@ -20,6 +21,6 @@ Runald's Band: HFX (is etalus HFX fine?)
 Legendary Spark: Visual (both warning and thunder strikes)
 The Ol' Lopper: Visual (sketched)
 Shattering Justice: Visual
-Classified Access Codes: Bomb. Also probably needs to be more controllable?
+Classified Access Codes: Bomb
 57-Leaf Clover: VFX
 Sticky/Lopper/Taser/Stun Grenade: effect cooldown indicators?

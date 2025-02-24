@@ -64,6 +64,7 @@ sprite_change_offset("plat"                 , load_x, load_y);
 
 sprite_change_offset("uspec_proj"               , 10, 10);
 
+sprite_change_offset("dspec_chest_mask"         , 144, 224);
 sprite_change_offset("dspec_smallchest"         , 144, 224);
 sprite_change_offset("dspec_smallchest_landvfx" , 144, 224);
 sprite_change_offset("dspec_smallchest_outline" , 144, 224);
