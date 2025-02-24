@@ -119,14 +119,6 @@ switch(attack) {
 			}
 		}
         break;
-	
-    case AT_DAIR:
-        //a
-        break;
-        
-    case AT_UAIR:
-        //a
-        break;
     
     case AT_FSTRONG: 
         if (window == 2 && window_timer == window_length-1) {
@@ -169,6 +161,10 @@ switch(attack) {
     	if (window == 2 && window_timer == window_length - 1) {
             sound_play(s_dag_swing)
         }
+        if (do_ignite_hbox && !hitpause) {
+        	create_hitbox(AT_USTRONG, 4, x, y); // melee hitbox, position doesn't matter
+        	do_ignite_hbox = false;
+        }
     	break;
     case AT_USTRONG_2:
     	hud_offset = lerp(hud_offset, 102, 0.5);
@@ -191,6 +187,10 @@ switch(attack) {
             sound_play(asset_get("sfx_absa_uair"), 0, noone, .8, 1)
             sound_play(sound_get("theunmatchedpowerofgod"), 0, noone, .8)
         }
+        if (do_ignite_hbox && !hitpause) {
+        	create_hitbox(AT_USTRONG_2, 6, x, y); // melee hitbox, position doesn't matter
+        	do_ignite_hbox = false;
+        }
         break;
     case AT_UAIR:
     	hud_offset = lerp(hud_offset, 50, 0.5);
@@ -202,6 +202,12 @@ switch(attack) {
         	do_ignite_hbox = false;
         }
     	break;
+    case AT_DAIR:
+    	if (do_ignite_hbox && !hitpause) {
+        	create_hitbox(AT_DAIR, 4, x, y); // melee hitbox, position doesn't matter
+        	do_ignite_hbox = false;
+        }
+        break;
     //#endregion
     
     

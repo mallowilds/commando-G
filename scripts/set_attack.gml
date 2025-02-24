@@ -40,12 +40,20 @@ if (attack == AT_DSPECIAL) {
 if (attack != AT_TAUNT && debug_display_opened && debug_display_type == 3 && move_cooldown[attack] < 2) move_cooldown[attack] = 2;
 
 // Crit handling
-if (attack == AT_DTILT || attack == AT_UAIR) {
+if (attack == AT_DTILT || attack == AT_UAIR || attack == AT_DAIR || attack == AT_USTRONG) {
     
-    var do_enhanced_crits = snakeeyes_active || item_grid[40][IG_NUM_HELD] > 0;
+    var do_enhanced_crits = snakeeyes_active || item_grid[ITEM_SCOPE][IG_NUM_HELD] > 0;
     
     if (do_enhanced_crits) enable_enhanced_crit(attack, 2, 3, 4);
     else enable_basic_crit(attack, 2, 3, 4);
+    
+}
+else if (attack == AT_USTRONG_2) {
+    
+    var do_enhanced_crits = snakeeyes_active || item_grid[ITEM_SCOPE][IG_NUM_HELD] > 0;
+    
+    if (do_enhanced_crits) enable_enhanced_crit(attack, 4, 5, 6);
+    else enable_basic_crit(attack, 4, 5, 6);
     
 }
 snakeeyes_active = false;
@@ -75,6 +83,7 @@ if (snakeeyes_active) {
 }
 
 if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0) {
+    set_hitbox_value(atk, enhanced, HG_HIT_LOCKOUT, 0);
     reset_hitbox_value(atk, ignition, HG_DAMAGE);
     reset_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING);
     var ignition_dmg = get_hitbox_value(atk, ignition, HG_DAMAGE);
@@ -90,6 +99,8 @@ if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0) {
     }
     set_hitbox_value(atk, ignition, HG_DAMAGE, ignition_dmg);
     set_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING, ignition_kbs);
+} else {
+    reset_hitbox_value(atk, enhanced, HG_HIT_LOCKOUT);
 }
 
 
@@ -99,3 +110,6 @@ set_hitbox_value(atk, enhanced, HG_WINDOW, 99);
 
 reset_hitbox_value(atk, ignition, HG_DAMAGE);
 reset_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING);
+
+if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0) set_hitbox_value(atk, normal, HG_HIT_LOCKOUT, 0);
+else reset_hitbox_value(atk, normal, HG_HIT_LOCKOUT);
