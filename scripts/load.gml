@@ -1,5 +1,8 @@
 //              --character sprite offsets (has small_sprites)--              //
 
+sprite_change_offset("hurtbox"              , 21, 70);
+sprite_change_offset("hurtbox_crouch"       , 21, 56); 
+
 load_x = 68*2+1
 load_y = 109*2
 sprite_change_offset("idle"                 , load_x, load_y); 

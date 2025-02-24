@@ -4,7 +4,7 @@ var window_length   = 0;
 
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("dspecial_open"));
-set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("dspecial_hurt"));
+set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("dspecial_open_hurt"));
 set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_CATEGORY                       , 2);
 set_attack_value(atk, AG_DISABLES_JETPACK               , 1);

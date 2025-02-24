@@ -696,8 +696,8 @@ spr_lopper_start            = sprite_get("vfx_item_lopper_start");
 //=-(                      ~~//** BASE STATS **//~~                        )-=//
 
 //                              --hurtboxes--                                 //
-hurtbox_spr                     = asset_get("ex_guy_hurt_box");
-crouchbox_spr                   = asset_get("ex_guy_crouch_box");
+hurtbox_spr                     = sprite_get("hurtbox");
+crouchbox_spr                   = sprite_get("hurtbox_crouch");
 air_hurtbox_spr                 = -1;
 hitstun_hurtbox_spr             = -1;
 

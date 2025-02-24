@@ -1,6 +1,6 @@
 set_attack_value(AT_UTILT, AG_SPRITE, sprite_get("utilt")); //nade
 set_attack_value(AT_UTILT, AG_NUM_WINDOWS, 3);
-set_attack_value(AT_UTILT, AG_HURTBOX_SPRITE, sprite_get("utiltg_hurt"));
+set_attack_value(AT_UTILT, AG_HURTBOX_SPRITE, sprite_get("utilt_hurt"));
 
 //utiltg start
 set_window_value(AT_UTILT, 1, AG_WINDOW_LENGTH, 10);
