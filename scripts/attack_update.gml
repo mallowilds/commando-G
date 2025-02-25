@@ -606,7 +606,7 @@ switch(attack) {
 				}
 				else if (select_for_trishop) {
 					var new_trishop_selection = -1;
-					if ((joy_pad_idle || special_pressed) && chest_obj.trishop_selection != -1) {
+					if ((joy_pad_idle || attack_pressed || special_pressed) && chest_obj.trishop_selection != -1) {
 						dspec_cooldown_hits = chest_obj.is_large ? DSPEC_LCHEST_CD_HITS : DSPEC_SCHEST_CD_HITS;
 						chest_obj.state = 33;
 						chest_obj.state_timer = 0;

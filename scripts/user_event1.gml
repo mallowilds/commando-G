@@ -71,6 +71,7 @@ if (rarity < 0 || rarity > 2) {
 var rnd_legendary = random_func_2(item_seed, 1, false);
 item_seed = (item_seed + 1) % 200;
 var odds = RUNE_LUCKY ? LEGENDARY_ABYSS_ODDS : LEGENDARY_ODDS;
+if (get_player_stocks(player) == 1) odds *= 2;
 if (rnd_legendary <= odds && legendary_pool_size[rarity] > 0) {
 	
 	var weight_array = p_legendary_available[rarity];

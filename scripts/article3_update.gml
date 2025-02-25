@@ -100,7 +100,7 @@ switch state {
             image_index = 0;
         }
         with oPlayer {
-            if (player != other.player && !burned && place_meeting(x, y, other)) {
+            if (!free && player != other.player && !burned && place_meeting(x, y, other)) {
                 burned = true;
                 burnt_id = other.player_id;
                 burn_timer = 150 - 30*other.player_id.FIREBOOTS_DAMAGE;
