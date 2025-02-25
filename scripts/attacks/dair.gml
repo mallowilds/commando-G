@@ -9,9 +9,12 @@ set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_CATEGORY                       , 1);
 set_attack_value(atk, AG_HAS_LANDING_LAG                , 1);
 set_attack_value(atk, AG_LANDING_LAG                    , 6);
+set_attack_value(atk, AG_USES_CUSTOM_GRAVITY                    , 6);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 14);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 11);
+set_window_value(atk, window_num                        , AG_WINDOW_CUSTOM_GRAVITY, -1);
+
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
@@ -28,7 +31,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 13);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 14);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
@@ -55,6 +58,8 @@ set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 5);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.5);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 5);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.5);
+set_hitbox_value(atk, hbox_num, HG_HITSTUN_MULTIPLIER       , 0.7);
+
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 25);
