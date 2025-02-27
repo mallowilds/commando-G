@@ -55,6 +55,7 @@ nspec_vis_level = 0;
 nspec_starting = false;
 
 // FSpec
+fspec_air_max_uses = 1;
 fspec_air_uses = 1;
 fspec_clamp_hsp = 0;
 
@@ -160,11 +161,11 @@ item_grid = [
     ["Fireman's Boots",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Fight fire with fire...", noone], // 32 | update.gml, article3, user_event0.gml
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hooah.", noone], // 33 | user_event0.gml, hit_player.gml, article3, AT_EXTRA1
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 35,    "Enemies above 120% take massive knockback.", noone], // 34 | update.gml, hit_player.gml, other_post_draw.gml
-    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 34,    "Enemies above 100% have their Armor shattered.", noone], // 35 | update.gml, hit_player.gml, other_post_draw.gml
+    ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 34,    "Enemies above 100% have their armor Shattered.", noone], // 35 | update.gml, hit_player.gml, other_post_draw.gml
     ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hold Down Special for repositioning, then press Attack for extreme reinforcements.", noone], // 36 | article1_update.gml
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        noone,            0, 38,    "No hands!", noone], // 37 | user_event0.gml, update.gml, post_draw.gml
-    ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml
-    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | update.gml, user_event0.gml
+    ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml, update.gml
+    ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | user_event0.gml
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, set_attack.gml
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge Neutral Special.", noone], // 41 | hit_player.gml, attack_update.gml, set_attack.gml, pre_draw.gml, update.gml
     ["Aegis",                   RTY_RARE,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | user_event0, integrated into the healing-applying function (and general barrier utils)
@@ -186,7 +187,7 @@ item_grid = [
     ["Ceremonial Dagger",       RTY_RARE,       ITP_CRITICAL,     noone,            0, noone, "Critical hits summon daggers to chase down opponents.", noone], // 57 | hit_player.gml, article3, AT_EXTRA1, hitbox_update.gml
     ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Common items grow more powerful.", noone], // 58 | user_event0.gml, animation.gml, anywhere common items are implemented
     
-    ["Shaped Glass",            RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Double your damage... but shatter your weight.", noone], // 59 | update.gml hitbox initializer, user_event0.gml, death.gml
+    ["Shaped Glass",            RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Double your damage... but Shatter your weight.", noone], // 59 | update.gml hitbox initializer, user_event0.gml, death.gml
 
 ]
 //#RCFENDDEFORMAT

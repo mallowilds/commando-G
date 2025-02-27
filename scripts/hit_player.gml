@@ -167,7 +167,7 @@ if (get_player_damage(hit_player_obj.player) >= LOPPER_DAMAGE_THRESHOLD && hit_p
 	if (hit_player_obj.commando_status_owner[ST_LOPPER] == noone) {
 		hit_player_obj.commando_status_state[ST_LOPPER] = 1;
 		hit_player_obj.commando_status_owner[ST_LOPPER] = player;
-		hit_player_obj.commando_status_timer[ST_LOPPER] = 0;
+		hit_player_obj.commando_status_counter[ST_LOPPER] = 0;
 	}
 }
 
@@ -177,7 +177,7 @@ if (get_player_damage(hit_player_obj.player) >= SHATTERING_DAMAGE_THRESHOLD && i
 		hit_player_obj.commando_status_state[ST_SHATTERED] = hit_player_obj.knockback_adj;
 		hit_player_obj.commando_status_owner[ST_SHATTERED] = player;
 	}
-	hit_player_obj.commando_status_timer[ST_SHATTERED] = 0; // duration is reapplied regardless
+	hit_player_obj.commando_status_counter[ST_SHATTERED] = SHATTERING_DURATION * item_grid[ITEM_SHATTERING][IG_NUM_HELD];
 }
 //#endregion
 

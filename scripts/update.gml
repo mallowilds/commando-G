@@ -54,7 +54,7 @@ if (limitless_mode && !limitless_mode_locked) {
 
 // FSpec cooldown
 if (!free || state_cat == SC_HITSTUN || state == PS_RESPAWN || state == PS_WALL_JUMP) {
-	fspec_air_uses = (item_grid[ITEM_AFTERBURNER][IG_NUM_HELD] > 0) ? 2 : 1;
+	fspec_air_uses = fspec_air_max_uses;
 }
 if (fspec_air_uses <= 0 && move_cooldown[AT_FSPECIAL_AIR] < 2) move_cooldown[AT_FSPECIAL_AIR] = 2;
 
@@ -273,20 +273,18 @@ with oPlayer {
 	
 	// Shattering Justice effect (state is cheatily used to store the modified knockback_adj)
 	if (commando_status_owner[other.ST_SHATTERED] == other.player && commando_status_state[other.ST_SHATTERED] > 0) {
-		if (!hitpause) commando_status_counter[other.ST_SHATTERED]++;
+		if (!hitpause) commando_status_counter[other.ST_SHATTERED]--;
 		if (knockback_adj != commando_status_state[other.ST_SHATTERED]) { // If knockback_adj was changed externally, reapply the shred
 			knockback_adj += other.SHATTERING_KB_SHRED;
 			commando_status_state[other.ST_SHATTERED] = knockback_adj;
 		}
-		if (commando_status_counter[other.ST_SHATTERED] >= other.SHATTERING_DURATION) { // Reset upon finishing duration
+		if (commando_status_counter[other.ST_SHATTERED] <= 0) { // Reset upon finishing duration
 			knockback_adj -= other.SHATTERING_KB_SHRED;
 			commando_status_state[other.ST_SHATTERED] = 0;
 			commando_status_counter[other.ST_SHATTERED] = 0;
 			commando_status_owner[other.ST_SHATTERED] = noone;
 		}
 	}
-	
-	// if (self != other) print_debug(knockback_adj);
 	
 	if (update_outline) init_shader();
 	
@@ -664,7 +662,7 @@ else if (dios_revive_timer > -30) {
 if (clover_test) {
 	if (activated_kill_effect) {
 		clover_timer = CLOVER_RUNTIME;
-		clover_active = false;
+		clover_active--;
 	}
 	clover_test = false;
 }

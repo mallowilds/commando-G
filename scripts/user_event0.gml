@@ -109,6 +109,7 @@ switch new_item_id {
     
     case 39: // Hardlight Afterburner
         set_num_hitboxes(AT_FSPECIAL, (item_grid[39][IG_NUM_HELD] > 0)); // enable fspec hitbox if afterburner is present
+        fspec_air_max_uses = 1 + item_grid[39][IG_NUM_HELD];
         break;
     
     case 42: // Aegis
@@ -127,7 +128,7 @@ switch new_item_id {
         break;
         
     case 46: // 57 Leaf Clover
-        clover_active = item_grid[46][IG_NUM_HELD] != 0;
+        clover_active = item_grid[46][IG_NUM_HELD];
     
     case 49: // Filial Imprinting
         if (filial_num_spawned < item_grid[49][IG_NUM_HELD]) {
@@ -141,7 +142,12 @@ switch new_item_id {
         break;
     
     case 50: // Energy Cell
-        var new_cell_stacks = (item_grid[ITEM_CELL][IG_NUM_HELD] > 0) ? floor(get_player_damage(player) / (CELL_THRESHOLD_BASE + CELL_THRESHOLD_SCALE*item_grid[ITEM_CELL][IG_NUM_HELD])) : 0;
+        if (item_grid[ITEM_CELL][IG_NUM_HELD] == 0) var new_cell_stacks = 0;
+        else {
+            var div_scale = 1 + (item_grid[ITEM_CELL][IG_NUM_HELD]-1)*CELL_THRESHOLD_DIV_SCALE;
+            var new_cell_stacks = floor(get_player_damage(player) * div_scale / CELL_THRESHOLD_BASE);
+            // https://www.desmos.com/calculator/ppoyduzgni
+        }
         if (new_cell_stacks != cell_active_stacks) {
             if (new_cell_stacks > cell_active_stacks) {
                 sound_play(asset_get("sfx_boss_shine"));
@@ -254,12 +260,12 @@ switch new_item_id {
     
     jump_speed = jump_speed_base + clamp((RJETPACK_JUMP_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]) + (HEADSET_JUMP_SCALE * item_grid[ITEM_HEADSET][IG_NUM_HELD]), 0, MAX_JUMP_MOD);
     // short_hop_speed = base_short_hop_speed; // actually let's not
-    djump_speed = djump_speed_base + (RJETPACK_DJUMP_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]); // Rusty Jetpack
-    walljump_vsp = walljump_vsp_base + (RJETPACK_WJUMP_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]); // Rusty Jetpack
+    djump_speed = djump_speed_base + (RJETPACK_DJUMP_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]);
+    walljump_vsp = walljump_vsp_base + (RJETPACK_WJUMP_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]);
     
-    max_fall = max_fall_base + (RJETPACK_MAX_FALL_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]); // Rusty Jetpack
-    fast_fall = fast_fall_base + (HEADSET_FAST_FALL_SCALE * item_grid[ITEM_HEADSET][IG_NUM_HELD]); // H3AD-5T V2
-    gravity_speed = gravity_speed_base - (RJETPACK_GRAV_SPEED_BASE * (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0)); // Rusty Jetpack
+    max_fall = max_fall_base + (RJETPACK_MAX_FALL_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]);
+    fast_fall = fast_fall_base + (item_grid[ITEM_HEADSET][IG_NUM_HELD] > 0 ? HEADSET_FAST_FALL_ADD : 0);
+    gravity_speed = gravity_speed_base - (RJETPACK_GRAV_SPEED_BASE * (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0));
     
     return;
 

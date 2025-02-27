@@ -89,6 +89,7 @@ switch state {
         state = 01;
         state_timer = 0;
         do_hitbox = false;
+        damage = player_id.FIREBOOTS_DAMAGE * player_id.item_grid[player_id.ITEM_FIREBOOTS][player_id.IG_NUM_HELD];
         break;
         
     case 01:
@@ -103,7 +104,7 @@ switch state {
             if (!free && player != other.player && !burned && place_meeting(x, y, other)) {
                 burned = true;
                 burnt_id = other.player_id;
-                burn_timer = 150 - 30*other.player_id.FIREBOOTS_DAMAGE;
+                burn_timer = 150 - 30*other.damage;
                 burned_color = 0;
                 init_shader();
                 sound_play(asset_get("sfx_burnapplied"));

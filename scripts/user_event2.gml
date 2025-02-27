@@ -194,7 +194,7 @@ MSPEED_MOONWALK_ACCEL_SCALE = 0.075;
 MSPEED_MAX_JUMP_HSP_SCALE = 1;
 MSPEED_AIR_MAX_HSP_SCALE = 0.5;
 
-MAX_JUMP_MOD = 5; // for jump_speed
+MAX_JUMP_MOD = 8; // for jump_speed
 
 // Aesthetic Properties
 TEXTBOX_BIG_THRESHOLD = 50; // in char length
@@ -391,7 +391,7 @@ PJETPACK_MAX_FALL = 3;
 // H3AD-5T V2
 HEADSET_LOCKOUT_TIME = 8; // Fastfall lockout after a jump, in frames
 HEADSET_JUMP_SCALE = 4;
-HEADSET_FAST_FALL_SCALE = 4;
+HEADSET_FAST_FALL_ADD = 4;
 
 // Aegis
 AEGIS_RATIO_BASE = 0.5;
@@ -437,8 +437,8 @@ FILIAL_SPEED_STACKS = 2;
 FILIAL_HEAL_AMOUNT = 4; // deprecated
 
 // Energy Cell
-CELL_THRESHOLD_BASE = 40;
-CELL_THRESHOLD_SCALE = -5; // Note that this scaling causes problems upon reaching non-positive values! The standard uncommon limit prevents this.
+CELL_THRESHOLD_BASE = 36;
+CELL_THRESHOLD_DIV_SCALE = 0.3;
 
 // Fire Shield
 FSHIELD_DAMAGE_BASE = 4;
