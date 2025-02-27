@@ -130,7 +130,8 @@ sprite_change_offset("vfx_item_dashlines_0"     , 10, 30);
 sprite_change_offset("vfx_item_dashlines_1"     , 10, 30);
 sprite_change_offset("vfx_item_dashlines_2"     , 10, 30);
 sprite_change_offset("vfx_item_dashlines_3"     , 10, 30);
-
+sprite_change_offset("vfx_zap_small", 60, 62);
+sprite_change_offset("vfx_zap_large", 100, 102);
 sprite_change_offset("tricorn_hat"              , 16, 16);
 
 sprite_change_offset("proj_aimable_temp"        , 30, 12);

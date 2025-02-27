@@ -159,13 +159,13 @@ RUNE_LUCKY = has_rune("O");
 //#endregion
 
 //#region General Properties
-print("hi")
+
 // Probability properties
 LEGENDARY_ODDS = 0.01;
 LEGENDARY_ABYSS_ODDS = 0.157;
-UNCOMMON_LIMIT = 99; // per uncommon item
+UNCOMMON_LIMIT = 3; // per uncommon item
 UNCOMMON_ABYSS_LIMIT = 5;
-RARE_LIMIT = 99; // across all rare items
+RARE_LIMIT = 3; // across all rare items
 RARE_ABYSS_LIMIT = 5;
 INIT_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5, 4, 6]; // maps to primary ITP indices. this init array is only for use by init.gml!
 ABYSS_BUFFED_VALUE = 15;

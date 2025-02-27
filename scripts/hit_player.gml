@@ -510,12 +510,12 @@ switch(my_hitboxID.attack) {
     		case 10: // Legendary Spark
     			var _x = round(lerp(my_hitboxID.x, hit_player_obj.x, 0.8));
     			var _y = hit_player_obj.y - floor(hit_player_obj.char_height*0.7);
-    			spawn_hit_fx(_x, _y, HFX_GEN_SWEET);
+    			spawn_hit_fx(_x, _y, vfx_zap_1);
     			break;
     		case 11: // Legendary Spark
     			var _x = round(lerp(my_hitboxID.x, hit_player_obj.x, 0.8));
     			var _y = hit_player_obj.y - floor(hit_player_obj.char_height*0.7);
-    			spawn_hit_fx(_x, _y, HFX_GEN_BIG);
+    			spawn_hit_fx(_x, _y, vfx_zap_2);
     			break;
     	}
     	

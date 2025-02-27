@@ -683,6 +683,9 @@ fx_lopper_active            = hit_fx_create(sprite_get("vfx_item_lopper_active")
 fx_tooth_despawn            = hit_fx_create(sprite_get("vfx_item_tooth_despawn"), 8);
 fx_jetpack_steam            = hit_fx_create(asset_get("mech_dstrong_steam"), 10);
 
+vfx_zap_1 = hit_fx_create(sprite_get("vfx_zap_small"), 18);
+vfx_zap_2 = hit_fx_create(sprite_get("vfx_zap_large"), 28);
+
 fx_kjaro                    = hit_fx_create(sprite_get("vfx_item_kjaro"), 30);
 
 fx_small_chest_land         = hit_fx_create(sprite_get("dspec_smallchest_landvfx"), 16);

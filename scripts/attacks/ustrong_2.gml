@@ -94,7 +94,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 3);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 5);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
-//set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 304);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , vfx_zap_1);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  ,  asset_get("sfx_absa_kickhit"));
 hbox_num++;
 
@@ -116,7 +116,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 3);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 5);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
-//set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 304);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , vfx_zap_1);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  ,  asset_get("sfx_absa_kickhit"));
 hbox_num++;
 
@@ -139,7 +139,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 3);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 5);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
-//set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 304);
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , vfx_zap_1);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_absa_kickhit"));
 hbox_num++;
 
@@ -165,7 +165,7 @@ set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blo
 set_hitbox_value(atk, hbox_num, HG_HIT_LOCKOUT              , 6);
 set_hitbox_value(atk, hbox_num, HG_STRONG_FINISHER          , 1);
 set_hitbox_value(atk, hbox_num, HG_IS_CRITICAL              , 1);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_BIG); 
+set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , vfx_zap_2);
 
 hbox_num++; //Crit (Laser Scope)
 
