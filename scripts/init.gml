@@ -10,6 +10,11 @@ debug_display_scrolltimer = 0;
 debug_display_type = 0;
 debug_display_typerange = 3;
 
+var player_name = get_player_name(player);
+limitless_mode = (string_pos("CHEAT", player_name) == 1); // Indexed starting at 1 due to GML jank
+limitless_mode_cancelled = false;
+limitless_mode_locked = !limitless_mode;
+
 rainfont = font_get("_rfont");
 rainfontbig = font_get("_rfontbig");
 
@@ -270,7 +275,7 @@ item_silenced = false; // Flag that silences the next item-get pop-up. Reset on 
 
 // Randomizer properties
 legendary_pool_size = array_create(3, 0); // to be initialized
-rares_remaining = 3; // manual limit, assumes that at least 3 rares exist
+rares_remaining = RARE_LIMIT; // manual limit, assumes that at least 3 rares exist
 uncommon_limit = UNCOMMON_LIMIT;
 uncommon_pool_size = 0; // to be initialized
 item_seed = player * 5; // max 200, this should hold within the rivals engine
@@ -496,7 +501,7 @@ shaped_glass_active = 0;
 // Training mode utility
 tmu_state = TMU_INACTIVE;
 tmu_exists = get_match_setting(SET_PRACTICE);
-init_prompt_active = tmu_exists && !get_match_setting(SET_RUNES);
+init_prompt_active = tmu_exists && !get_match_setting(SET_RUNES) && !limitless_mode;
 init_prompt_timer = 0;
 if (tmu_exists) {
     

@@ -20,6 +20,36 @@ if (!(state == PS_FIRST_JUMP || state == PS_IDLE_AIR)) {
 // Fix hud_offset jittering
 if (hud_offset < 0) hud_offset = 0;
 
+//#region Limitless mode
+if (limitless_mode) dspec_cooldown_hits = 0;
+// Cancel handling
+if (limitless_mode && !limitless_mode_locked) {
+	with oPlayer if (state == PS_PARRY_START && down_down) {
+		other.limitless_mode = false;
+		other.limitless_mode_cancelled = true;
+		if (player != other.player) with other {
+			commando_status_state[ST_STUN_EXPLOSIVE] = 1;
+			commando_status_counter[ST_STUN_EXPLOSIVE] = 180;
+			commando_status_owner[ST_STUN_EXPLOSIVE] = player;
+			last_player = player;
+			commando_stored_x = x;
+			
+			hitpause = true;
+			hitstop = 1;
+			hitstop_full = 1;
+			destroy_hitboxes();
+			attack_end();
+			set_state(free ? PS_HITSTUN : PS_HITSTUN_LAND);
+			hitstun = 1;
+			hitstun_full = 1;
+			
+			sound_play(asset_get("sfx_mol_bat_whack"));
+		}
+	}
+}
+//#endregion
+
+
 //#region Cooldown management
 
 // FSpec cooldown

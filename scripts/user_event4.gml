@@ -35,6 +35,7 @@ switch tmu_state {
                 else if (rarity == RTY_RARE && rares_remaining == 0) draw_shadowed = true;
                 else draw_shadowed = (p_item_weights[rarity][index] <= 0);
             }
+            if (limitless_mode) draw_shadowed = false;
             if (draw_shadowed) {
                 gpu_set_fog(true, c_black, depth, depth);
                 draw_sprite_ext(sprite_get("item"), iid, 44+tmu_x+58*draw_column, 64+tmu_y+58*draw_row, 2, 2, 0, c_white, 0.4);

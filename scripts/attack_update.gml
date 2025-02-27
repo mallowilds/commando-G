@@ -580,6 +580,10 @@ switch(attack) {
     	hsp = 0;
     	vsp = 0;
     	if (window == 1 && window_timer == 1) {
+    		// Lock limitless mode, if applicable
+    		limitless_mode_locked = true;
+    		limitless_mode_cancelled = false; // manages pop-up
+    		
     		if (chest_obj.state == 32) { // trishop
 				if (!halt_for_trishop) {
 					halt_for_trishop = true;
@@ -714,7 +718,11 @@ switch(attack) {
     // Training mode utility
     case AT_EXTRA_3:
     	attack_invince = true;
-    	if (window == 1 && window_timer == 1) clear_button_buffer(PC_TAUNT_PRESSED);
+    	if (window == 1 && window_timer == 1) {
+    		limitless_mode_locked = true;
+    		limitless_mode_cancelled = false;
+    		clear_button_buffer(PC_TAUNT_PRESSED);
+    	}
     	
     	if (window == 2) {
     		if (taunt_pressed) {

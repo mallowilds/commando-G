@@ -99,9 +99,9 @@ return item_id;
 var rarity = item_grid[item_id][IG_RARITY];
 var incompat_index = item_grid[item_id][IG_INCOMPATIBLE]
 var is_valid_index = (item_id == clamp(item_id, 0, array_length(item_grid)-1));
-var is_incompatible = (incompat_index != noone && item_grid[incompat_index][IG_NUM_HELD] >= 1);
-var is_excess_uncommon = (rarity == RTY_UNCOMMON && item_grid[item_id][IG_NUM_HELD] >= uncommon_limit);
-var is_excess_rare = (rarity == RTY_RARE && (rares_remaining <= 0 || item_grid[item_id][IG_NUM_HELD] >= 1));
+var is_incompatible = (incompat_index != noone && item_grid[incompat_index][IG_NUM_HELD] >= 1 && !limitless_mode);
+var is_excess_uncommon = (rarity == RTY_UNCOMMON && item_grid[item_id][IG_NUM_HELD] >= uncommon_limit && !limitless_mode);
+var is_excess_rare = (rarity == RTY_RARE && (rares_remaining <= 0 || item_grid[item_id][IG_NUM_HELD] >= 1) && !limitless_mode);
 
 // Successful item grant
 if (is_valid_index && !is_incompatible && !is_excess_uncommon && !is_excess_rare) {
@@ -127,7 +127,7 @@ if (is_valid_index && !is_incompatible && !is_excess_uncommon && !is_excess_rare
 	user_event(0);
 	
 	// If something else is incompatible, remove it from the pool
-	if (incompat_index != noone) {
+	if (incompat_index != noone && !limitless_mode) {
 		var incompat_access_index = item_grid[incompat_index][IG_RANDOMIZER_INDEX];
 		var incompat_rarity = item_grid[incompat_index][IG_RARITY];
 		if (0 <= incompat_rarity && incompat_rarity <= 2) {
@@ -159,6 +159,8 @@ else print_debug("user_event1 error: unknown item conflict");
 return false;
 
 #define reduce_item_probability(item_id, is_temp)
+	if (limitless_mode) return;
+
 	var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
 	var itp = item_grid[item_id][IG_TYPE];
 	var rarity = item_grid[item_id][IG_RARITY];
@@ -242,6 +244,8 @@ else common_count--;
 return true;
 
 #define increase_item_probability(item_id, is_temp)
+if (limitless_mode) return;
+
 var access_index = item_grid[item_id][IG_RANDOMIZER_INDEX];
 var itp = item_grid[item_id][IG_TYPE];
 var rarity = item_grid[item_id][IG_RARITY];

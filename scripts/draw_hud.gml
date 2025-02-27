@@ -80,6 +80,21 @@ if (debug_display_opened) user_event(6);
 //#endregion
 
 
+//#region Limitless mode warning
+
+if (limitless_mode && !limitless_mode_locked) {
+	draw_debug_text(temp_x-30, temp_y-62, "Limitless mode has been enabled!");
+	draw_debug_text(temp_x-30, temp_y-46, "DOWN+PARRY: cancels this mode.");
+	draw_debug_text(temp_x-30, temp_y-30, "If you're an opponent and don't recognize this, do so now!");
+	draw_debug_text(temp_x-30, temp_y-14, "This mode should not be used in tournaments.");
+}
+else if (limitless_mode_cancelled) {
+	draw_debug_text(temp_x, temp_y-14, "Limitless mode has been cancelled!");
+}
+
+//#endregion
+
+
 //#region Death Messages //This needs to be moved from here to a different file, and have the position adjusted. Ideally it'd still be centered on the camera, not to the stage, but idk how to do that.
 
 if final_death_timer > 0 {

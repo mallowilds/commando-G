@@ -164,9 +164,7 @@ RUNE_LUCKY = has_rune("O");
 LEGENDARY_ODDS = 0.01;
 LEGENDARY_ABYSS_ODDS = 0.157;
 UNCOMMON_LIMIT = 3; // per uncommon item
-UNCOMMON_ABYSS_LIMIT = 5;
 RARE_LIMIT = 3; // across all rare items
-RARE_ABYSS_LIMIT = 5;
 INIT_WEIGHTS = [6, 6, 4, 6, 6, 6, 4, 5, 4, 6]; // maps to primary ITP indices. this init array is only for use by init.gml!
 ABYSS_BUFFED_VALUE = 15;
 SYNERGY_BUFFED_VALUE = 10; // Used by Ignition Tank and Brilliant Behemoth
@@ -181,6 +179,7 @@ LCHEST_C_WEIGHT = 0;
 LCHEST_U_WEIGHT = 80;
 LCHEST_R_WEIGHT = 20;
 
+MAX_TMU_ITEMS = 10;
 
 // Move Speed stacking properties
 MSPEED_WALK_ANIM_SCALE = 0.04;
