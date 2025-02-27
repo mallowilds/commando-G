@@ -13,43 +13,6 @@ prev_attack = attack;
 switch(attack) {
 	
 	//#region Standard normals
-	
-    case AT_JAB:
-        
-        // num_loops is set in set_attack
-        
-    	if (window == 1 && window_timer == 1) {
-    		attack_end();
-			clear_button_buffer(PC_ATTACK_PRESSED);
-			num_loops--;
-			if (num_loops == 0) {
-				set_window_value(attack, 3, AG_WINDOW_GOTO, 7);
-				set_window_value(attack, 7, AG_WINDOW_ANIM_FRAME_START, 3);
-				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 4);
-				set_window_value(attack, 9, AG_WINDOW_ANIM_FRAME_START, 5);
-			}
-			else set_window_value(attack, 3, AG_WINDOW_GOTO, 0);
-		}
-		
-		else if (window == 4 && window_timer == 1) {
-			clear_button_buffer(PC_ATTACK_PRESSED);
-			num_loops--;
-			if (num_loops == 0) {
-				set_window_value(attack, 6, AG_WINDOW_GOTO, 0);
-				set_window_value(attack, 7, AG_WINDOW_ANIM_FRAME_START, 0);
-				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 1);
-				set_window_value(attack, 9, AG_WINDOW_ANIM_FRAME_START, 2);
-			}
-			else {
-				set_window_value(attack, 6, AG_WINDOW_GOTO, 1);
-				set_hitbox_value(attack, 1, HG_HITSTUN_MULTIPLIER, 0.7);
-    			set_hitbox_value(attack, 2, HG_HITSTUN_MULTIPLIER, 0.7);
-    			set_hitbox_value(attack, 3, HG_HITSTUN_MULTIPLIER, 0.7);
-    			set_hitbox_value(attack, 4, HG_HITSTUN_MULTIPLIER, 0.7);
-			}
-		}
-		
-        break;
         
     case AT_FTILT:
         //a
@@ -143,8 +106,7 @@ switch(attack) {
     //#endregion
     
     
-    //#region Crit normals (DTilt)
-    
+    //#region Crit normals
     case AT_DTILT:
         if (window == 1 && window_timer == window_length - 1) {
             sound_play(s_dag_swing)
@@ -213,6 +175,58 @@ switch(attack) {
     
     //#region Attack Speed scaling attacks
     
+    //#region Jab
+    case AT_JAB:
+        // num_loops and hitstun mults are reset in set_attack
+    	if (window == 1 && window_timer == 1) {
+    		attack_end();
+			clear_button_buffer(PC_ATTACK_PRESSED);
+			num_loops--;
+			if (num_loops == 0) {
+				set_window_value(attack, 3, AG_WINDOW_GOTO, 7);
+				set_window_value(attack, 7, AG_WINDOW_ANIM_FRAME_START, 3);
+				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 4);
+				set_window_value(attack, 9, AG_WINDOW_ANIM_FRAME_START, 5);
+			}
+			else set_window_value(attack, 3, AG_WINDOW_GOTO, 0);
+		}
+		
+		else if (window == 4 && window_timer == 1) {
+			clear_button_buffer(PC_ATTACK_PRESSED);
+			num_loops--;
+			if (num_loops == 0) {
+				set_window_value(attack, 6, AG_WINDOW_GOTO, 0);
+				set_window_value(attack, 7, AG_WINDOW_ANIM_FRAME_START, 0);
+				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 1);
+				set_window_value(attack, 9, AG_WINDOW_ANIM_FRAME_START, 2);
+			}
+			else {
+				set_window_value(attack, 6, AG_WINDOW_GOTO, 1);
+				set_hitbox_value(attack, 1, HG_HITSTUN_MULTIPLIER, 0.7);
+    			set_hitbox_value(attack, 2, HG_HITSTUN_MULTIPLIER, 0.7);
+    			set_hitbox_value(attack, 3, HG_HITSTUN_MULTIPLIER, 0.7);
+    			set_hitbox_value(attack, 4, HG_HITSTUN_MULTIPLIER, 0.7);
+			}
+		}
+		
+		else if (shield_pressed && get_window_value(attack, window, AG_WINDOW_CANCEL_TYPE) == 1 && get_window_value(attack, window, AG_WINDOW_CANCEL_FRAME) <= window_timer) {
+			if (window == 3) {
+				set_window_value(attack, 7, AG_WINDOW_ANIM_FRAME_START, 3);
+				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 4);
+				set_window_value(attack, 9, AG_WINDOW_ANIM_FRAME_START, 5);
+			} else {
+				set_window_value(attack, 7, AG_WINDOW_ANIM_FRAME_START, 0);
+				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 1);
+				set_window_value(attack, 9, AG_WINDOW_ANIM_FRAME_START, 2);
+			}
+			destroy_hitboxes();
+			window = 7;
+			window_timer = 0;
+		}
+		
+        break;
+    //#endregion
+    
     //#region Back Air
     case AT_BAIR:
     	if window != 1 && window != 5{
@@ -240,7 +254,7 @@ switch(attack) {
     	
     	// Loop handling
     	var aerial_pressed = attack_pressed || is_attack_pressed(DIR_ANY) || left_strong_pressed || right_strong_pressed || down_strong_pressed || up_strong_pressed || is_strong_pressed(DIR_ANY); // thank you dan
-    	if (window >= 2 && aerial_pressed) loop_cancelled = true;
+    	if (window >= 2 && (aerial_pressed || shield_pressed)) loop_cancelled = true;
     	if (!hitpause && window == 2 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) && 0 >= num_loops) {
     		window = 3;
     		window_timer = 999; // jump to window 4
@@ -280,7 +294,7 @@ switch(attack) {
     		loop_cancelled = false;
     	}
     	var strong_pressed = left_strong_pressed || right_strong_pressed || down_strong_pressed || up_strong_pressed || is_strong_pressed(DIR_ANY); // thank you dan
-    	if (window >= 2 && strong_pressed) loop_cancelled = true;
+    	if (window >= 2 && (strong_pressed || shield_pressed)) loop_cancelled = true;
     	if (window == 3 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) && 0 >= num_loops) {
     		window = 4;
     		window_timer = 999; // jump to window 5

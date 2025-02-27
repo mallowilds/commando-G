@@ -176,6 +176,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 5);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , .4);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium3"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 hbox_num++;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);

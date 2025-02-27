@@ -57,7 +57,7 @@ set_num_hitboxes(atk, 12);
 var hbox_num = 1;
 // All hitboxes are spawned manually (so don't change the HG_WINDOWs to valid windows!)
 
-// >ultihit (Level 0)
+// Multihit (Level 0)
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 3);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
@@ -105,10 +105,12 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium3"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 hbox_num++;
 
+// -----------------------------------------------------------------------------
 
-// >ultihit (Level 1)
+// Multihit (Level 1)
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 3);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
@@ -156,8 +158,10 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium3"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 hbox_num++;
 
+// -----------------------------------------------------------------------------
 
 // Rear multihit (Level 2)
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -231,6 +235,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium3"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 hbox_num++;
 
 // Front finisher (Level 2)
@@ -256,8 +261,10 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 hbox_num++;
 
+// -----------------------------------------------------------------------------
 
 // Rear multihit (Level 3)
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
@@ -331,6 +338,7 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium3"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 hbox_num++;
 
 // Front finisher (Level 3)
@@ -356,4 +364,5 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
+set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 hbox_num++;
