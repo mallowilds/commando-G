@@ -22,9 +22,12 @@ hbox = noone;
 land_vfx = noone;
 has_hit = false;
 is_large = false; // for the sake of trishops
+show_hud = get_local_setting(SET_HUD_SIZE) || get_local_setting(SET_HUD_NAMES);
+
+cac_repositioning = 0;
+
 trishop_rarity = 0; // common, uncommon, rare
 trishop_selection = -1; // 0-2, left-to-right
 trishop_vis_timer = -1;
 trishop_vis_opacities = [0.1, 0.1, 0.1];
 trishop_vis_flashing = 0;
-cac_repositioning = 0;

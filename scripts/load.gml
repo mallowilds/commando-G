@@ -65,6 +65,8 @@ sprite_change_offset("plat"                 , load_x, load_y);
 //                  --other sprite offsets (no small_sprites)--               //
 // includes projectiles, vfx, articles
 
+sprite_change_offset("hud_arrow"                , 7, 10);
+
 sprite_change_offset("uspec_proj"               , 10, 10);
 
 sprite_change_offset("dspec_chest_mask"         , 144, 224);
