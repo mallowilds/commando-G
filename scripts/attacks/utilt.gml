@@ -84,8 +84,8 @@ set_hitbox_value(AT_UTILT, 3, HG_WINDOW, 0); // spawned manually
 set_hitbox_value(AT_UTILT, 3, HG_LIFETIME, 2);
 set_hitbox_value(AT_UTILT, 3, HG_HITBOX_X, 18);
 set_hitbox_value(AT_UTILT, 3, HG_HITBOX_Y, -88);
-set_hitbox_value(AT_UTILT, 3, HG_WIDTH, 80);
-set_hitbox_value(AT_UTILT, 3, HG_HEIGHT, 80);
+set_hitbox_value(AT_UTILT, 3, HG_WIDTH, 100);
+set_hitbox_value(AT_UTILT, 3, HG_HEIGHT, 100);
 set_hitbox_value(AT_UTILT, 3, HG_PRIORITY, 3);
 set_hitbox_value(AT_UTILT, 3, HG_DAMAGE, 6);
 set_hitbox_value(AT_UTILT, 3, HG_ANGLE, 85);

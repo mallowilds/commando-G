@@ -171,7 +171,7 @@ return false;
 		p_legendary_available[@ rarity][@ access_index] = p_legendary_available[@ rarity][@ access_index] - 1;
 		p_legendary_remaining[@ rarity][@ access_index] = p_legendary_remaining[@ rarity][@ access_index] - 1;
 		// Don't decrement the uncommon pool! Legendaries aren't a part of it
-		if (!is_temp && rarity == RTY_RARE) rares_remaining--;
+	//	if (!is_temp && rarity == RTY_RARE) rares_remaining--;
 	}
 	
 	// Reduce for a standard item
@@ -181,7 +181,7 @@ return false;
 		p_item_remaining[@ rarity][@ access_index] = p_item_remaining[@ rarity][@ access_index] - 1;
 		p_item_weights[@ rarity][@ access_index] = p_item_weights[@ rarity][@ access_index] - value;
 		if (rarity == RTY_UNCOMMON) uncommon_pool_size--;
-		else if (!is_temp && rarity == RTY_RARE) rares_remaining--;
+	//	else if (!is_temp && rarity == RTY_RARE) rares_remaining--;
 	}
 
 // Returns true if the item was applied successfully, false if there was no item to remove.

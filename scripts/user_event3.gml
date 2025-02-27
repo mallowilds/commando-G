@@ -69,7 +69,7 @@ switch tmu_state {
         // Process commands
         tmu_item_id = tmu_item_panel_contents[tmu_selected];
         
-        if (attack_pressed && item_grid[tmu_item_id][IG_NUM_HELD] < 10) {
+        if (attack_pressed && item_grid[tmu_item_id][IG_NUM_HELD] < 30) {
             clear_button_buffer(PC_ATTACK_PRESSED);
             new_item_id = tmu_item_id;
             ue1_command = UE1_GRANT;
