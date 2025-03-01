@@ -729,15 +729,18 @@ if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 		if (state == PS_FIRST_JUMP && state_timer == 0) {
 			hsp = spr_dir * (max_jump_hsp + QUAIL_JUMP_BASE + QUAIL_JUMP_SCALE*item_grid[ITEM_QUAIL][IG_NUM_HELD]);
 			spawn_base_dust(x, y, "dash_start");
-			var burst = spawn_base_dust(x-(14*spr_dir), y-42, "djump");
-			burst.draw_angle = -90*spr_dir;
+			quail_burst_obj = spawn_base_dust(x-(14*spr_dir), y-42, "djump");
+			quail_burst_obj.draw_angle = -90*spr_dir;
 			sound_play(asset_get("sfx_birdflap"));
 		}
 		if (state == PS_WAVELAND && state_timer == 0) {
-			var waveland_dir = round(hsp/abs(hsp))
+			var waveland_dir = (hsp == 0) ? 0 : round(hsp/abs(hsp))
 			if (waveland_dir == spr_dir) {
 				hsp += spr_dir * (QUAIL_WAVE_BASE + QUAIL_WAVE_SCALE*item_grid[ITEM_QUAIL][IG_NUM_HELD]);
+			} else if instance_exists(quail_burst_obj) {
+				quail_burst_obj.step_timer = 999; // destroy
 			}
+			quail_burst_obj = noone; // We no longer need to track this
 		}
 	}
 }

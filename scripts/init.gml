@@ -474,6 +474,7 @@ clover_caught = [];
 tooth_awaiting_spawn = array_create(20, -1);
 
 quail_do_boost = 0;
+quail_burst_obj = noone;
 
 cell_active_stacks = 0;
 

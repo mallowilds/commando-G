@@ -145,7 +145,7 @@ switch new_item_id {
         if (item_grid[ITEM_CELL][IG_NUM_HELD] == 0) var new_cell_stacks = 0;
         else {
             var div_scale = 1 + (item_grid[ITEM_CELL][IG_NUM_HELD]-1)*CELL_THRESHOLD_DIV_SCALE;
-            var new_cell_stacks = floor(get_player_damage(player) * div_scale / CELL_THRESHOLD_BASE);
+            var new_cell_stacks = round(get_player_damage(player) * div_scale / CELL_THRESHOLD_BASE);
             // https://www.desmos.com/calculator/ppoyduzgni
         }
         if (new_cell_stacks != cell_active_stacks) {
