@@ -933,16 +933,28 @@ switch state {
         state = 81;
         state_timer = 0;
         sound_play(sound_get("theunmatchedpowerofgod"), 0, noone, .5, 0.4)
+        warn_alpha = 0;
+        warn_xscale = 1;
         break;
     
     // Await
     case 81:
-    	if (state_timer > player_id.SPARK_WARN_TIME) {
+    	if (state_timer <= 10) {
+    		warn_alpha = 0.4*ease_sineOut(0, 1, state_timer, 10);
+    		warn_xscale = ease_sineOut(1, 2, state_timer, 10);
+    	}
+    	else if (state_timer > player_id.SPARK_WARN_TIME) {
     		state++;
     		state_timer = 0;
-    		create_hitbox(AT_EXTRA_1, 10, x, y-500);
-    		sound_play(asset_get("sfx_absa_new_whip1"), 0, noone, .3, 1.05)
-    		sound_play(asset_get("sfx_mol_norm_explode"), 0, noone, 0.7);
+    		spawn_bolt();
+    	}
+    	else if (state_timer > player_id.SPARK_WARN_TIME-10) {
+    		warn_alpha -= 0.04;
+    		warn_xscale += 0.2;
+    	}
+    	else {
+    		var step = pi*(state_timer-10)/45
+    		warn_alpha += 0.003*sin(step);
     	}
         break;
     
@@ -960,16 +972,8 @@ switch state {
     	if (state_timer > 10) {
     		state++;
     		state_timer = 0;
-    		if (state == 83) {
-    			create_hitbox(AT_EXTRA_1, 10, x, y-500);
-    			sound_play(asset_get("sfx_absa_new_whip1"), 0, noone, .3, 1.05)
-    			sound_play(asset_get("sfx_mol_norm_explode"), 0, noone, 0.5);
-    		} else {
-    			create_hitbox(AT_EXTRA_1, 11, x, y-500);
-    			sound_play(asset_get("sfx_absa_new_whip2"), 0, noone, .8, 1)
-            	sound_play(asset_get("sfx_absa_uair"), 0, noone, .8, 1)
-            	sound_play(sound_get("theunmatchedpowerofgod"), 0, noone, .8)
-    		}
+    		if (state == 83) spawn_bolt();
+    		else spawn_bolt_final();
     	}
     	
         break;
@@ -1059,3 +1063,23 @@ if (hsp == 0 && vsp == 0) {
 	dx_history[history_index] = lengthdir_x(1, dir);
 	dy_history[history_index] = lengthdir_y(1, dir);
 }
+
+#define spawn_bolt
+create_hitbox(AT_EXTRA_1, 10, x, y-480);
+sound_play(asset_get("sfx_absa_new_whip1"), 0, noone, .3, 1.05)
+sound_play(asset_get("sfx_mol_norm_explode"), 0, noone, 0.5);
+spawn_hit_fx(x, y-640, player_id.fx_bolt);
+spawn_hit_fx(x, y-320, player_id.fx_bolt);
+spawn_hit_fx(x, y, player_id.fx_bolt);
+spawn_hit_fx(x, y, player_id.fx_bolt_ground);
+
+#define spawn_bolt_final
+create_hitbox(AT_EXTRA_1, 11, x, y-480);
+sound_play(asset_get("sfx_absa_new_whip2"), 0, noone, .8, 1)
+sound_play(asset_get("sfx_absa_uair"), 0, noone, .8, 1)
+sound_play(sound_get("theunmatchedpowerofgod"), 0, noone, .8)
+spawn_hit_fx(x, y-640, player_id.fx_bolt_large);
+spawn_hit_fx(x, y-320, player_id.fx_bolt_large);
+spawn_hit_fx(x, y, player_id.fx_bolt_large);
+spawn_hit_fx(x, y, player_id.fx_bolt_large_ground);
+

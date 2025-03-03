@@ -689,6 +689,11 @@ fx_sucker_buff_blue         = hit_fx_create(sprite_get("vfx_sucker_buff_blue"), 
 fx_lopper_active            = hit_fx_create(sprite_get("vfx_item_lopper_active"), 18);
 fx_tooth_despawn            = hit_fx_create(sprite_get("vfx_item_tooth_despawn"), 8);
 fx_jetpack_steam            = hit_fx_create(asset_get("mech_dstrong_steam"), 10);
+fx_bolt                     = hit_fx_create(sprite_get("vfx_bolt"), 9);
+fx_bolt_ground              = hit_fx_create(sprite_get("vfx_bolt_ground"), 9);
+fx_bolt_large               = hit_fx_create(sprite_get("vfx_bolt_large"), 12);
+fx_bolt_large_ground        = hit_fx_create(sprite_get("vfx_bolt_large_ground"), 12);
+
 
 vfx_zap_1 = hit_fx_create(sprite_get("vfx_zap_small"), 18);
 vfx_zap_2 = hit_fx_create(sprite_get("vfx_zap_large"), 28);

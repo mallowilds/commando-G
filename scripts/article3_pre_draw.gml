@@ -1,5 +1,6 @@
 //
 
+// Item trail
 if (20 < state && state < 30) {
     var hi = history_index;
     
@@ -53,9 +54,18 @@ if (20 < state && state < 30) {
     }
 }
 
-if (30 < state && state < 40) {
+// Warbanner
+else if (30 < state && state < 40) {
     draw_set_alpha(0.15);
     draw_circle_color(x, y+radius_y_offset, warbanner_radius, get_player_hud_color(player), get_player_hud_color(player), false);
     draw_set_alpha(1);
     draw_circle_color(x, y+radius_y_offset, warbanner_radius, get_player_hud_color(player), get_player_hud_color(player), true);
+}
+
+// Legendary Spark (indicator)
+else if (state == 81) {
+    var pcol = get_player_hud_color(player);
+    for (var i = 0; i < 960; i += 320) {
+        draw_sprite_ext(sprite_get("vfx_bolt_indicator"), 0, x, y-i, warn_xscale, 2, 0, pcol, warn_alpha);
+    }
 }
