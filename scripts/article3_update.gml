@@ -68,6 +68,10 @@ FIREWORKS ~ factory
 ~ 66: init
 ~ 67: activate
 
+PLASMA SHRIMP ~ factory
+~ 68: init
+~ 69: activate
+
 LEGENDARY SPARK ~ thunderbolt
 ~ 80: init
 ~ 81: await
@@ -865,6 +869,7 @@ switch state {
     
     //#endregion
     
+    
     //#region Fireworks ~ factory
     
     // Init
@@ -953,6 +958,43 @@ switch state {
     
     //#endregion
     
+    //#region Plasma Shrimp ~ factory
+    
+    // Init
+    case 68:
+    	num_missiles = 3;
+    	if (player_id.icbm_active) num_missiles *= 2;
+    	if (!target_obj.hitpause) {
+    		state = 69;
+    		state_timer = 0;
+    	}
+		break;
+    
+    // Activate
+    case 69:
+    	if (state_timer == 5) {
+    		var hbox = create_hitbox(AT_EXTRA_1, 12, player_id.x, player_id.y-30);
+    		hbox.target_obj = target_obj;
+    		hbox.homing = true;
+    		hbox.kb_value = bkb*0.6;
+    		hbox.kb_scale = kbg*0.8;
+    		hbox.spr_dir = 1;
+    		hbox.angle = angle;
+    		hbox.hitpause = floor(bhp/2);
+    		hbox.hitpause_growth = hsp/2;
+    		hbox.is_fake_hit = true;
+    		
+    		num_missiles--;
+    		if (num_missiles == 0) {
+    			instance_destroy();
+    			exit;
+    		}
+    		state_timer = 0;
+    	}
+    	break;
+    
+    //#endregion
+    
     //#region Legendary Spark ~ thunderbolt
     
     // Init
@@ -1026,7 +1068,7 @@ switch state {
     //#region Longstanding Solitude ~ manager
     case 90:
     	player_id.move_cooldown[AT_DSPECIAL] = 30;
-    	if (state_timer % 20 == 15 && state_timer < 300) {
+    	if (state_timer % 20 == 15 && state_timer < 160) {
     		var rnd = random_func(1, 1, false)
     		var rty = 0;
     		if (rnd < 0.1) rty = 2;

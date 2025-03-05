@@ -190,8 +190,8 @@ item_grid = [
     ["Shaped Glass",            RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Double your damage... but Shatter your weight.", noone], // 59 | update.gml hitbox initializer, user_event0.gml, death.gml
     ["ICBM",                    RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Double all homing missiles. They now apply Blast effects.", noone], // 60 | Fireworks, ATGs, Ceremonial Dagger, Plasma Shrimp
     ["Benthic Bloom",           RTY_ABYSSAL,    ITP_META,         noone,            0, noone, "Your items mutate and evolve as your opponents die.", noone], // 61 | update.gml; hit/kill detection
-    ["Plasma Shrimp",           RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Hitting opponents with non-Strongs fires missiles.", noone], // 62 | TBD
-    ["Longstanding Solitude",   RTY_ABYSSAL,    ITP_META,         noone,            0, noone, "Gain 15 random items. You have no backup.", noone], // 63 | article3_update. Does nothing on its own; manager is inited with abyss management.
+    ["Plasma Shrimp",           RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Hitting opponents with non-Strongs fires missiles.", noone], // 62 |  user_event0.gml, hit_player.gml, article3, AT_EXTRA1
+    ["Longstanding Solitude",   RTY_ABYSSAL,    ITP_META,         noone,            0, noone, "Gain 8 random items. You have no backup.", noone], // 63 | article3_update. Does nothing on its own; manager is inited with abyss management.
 
 
 ]

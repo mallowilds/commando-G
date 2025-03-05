@@ -142,6 +142,7 @@ sprite_change_offset("proj_missile1"            , 30, 12);
 sprite_change_offset("proj_missile2"            , 30, 12);
 sprite_change_offset("proj_firework"            , 30, 12);
 sprite_change_offset("proj_dagger"              , 30, 12);
+sprite_change_offset("proj_plimp"               , 30, 12);
 
 sprite_change_offset("fx_small_circle1"         , 174, 168);
 sprite_change_offset("fx_small_circle2"         , 174, 168);

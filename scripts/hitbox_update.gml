@@ -67,7 +67,8 @@ if (attack == AT_EXTRA_1) {
     }
     
     // ATG (extremely basic, but must have its stats set externally when spawned)
-    if (hbox_num == 8) {
+    // Also Plasma Shrimp!
+    if (hbox_num == 8 || hbox_num == 12) {
         draw_xscale = 1;
         if (bashed || target_obj.state == PS_DEAD || target_obj.state == PS_RESPAWN) homing = false;
         if (homing) {

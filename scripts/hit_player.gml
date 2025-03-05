@@ -272,10 +272,11 @@ if (item_grid[ITEM_MTOOTH][IG_NUM_HELD] > 0 && hit_player_obj.orig_knock >= 12) 
 }
 //#endregion
 
-//#region Brilliant Behemoth/ATG
+//#region Brilliant Behemoth/ATG/Plasma Shrimp
+var plimp_active = item_grid[ITEM_SHRIMP][IG_NUM_HELD] > 0;
 
 // Store knockback if appropriate
-if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied) {
+if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied || plimp_active) {
 	hbox_stored_damage = my_hitboxID.damage; // probably won't see use in practice
 	hbox_stored_bkb = my_hitboxID.kb_value;
 	hbox_stored_kbg = my_hitboxID.kb_scale;
@@ -298,6 +299,19 @@ if (my_hitboxID.cmd_strong_finisher && atg_freq > 0) {
 	factory.angle = hbox_stored_angle;
 	factory.bhp = hbox_stored_bhp;
 	factory.hps = hbox_stored_hps;
+}
+
+else if (plimp_active && my_hitboxID.type == 1) {
+	if (my_hitboxID.attack != AT_USTRONG && my_hitboxID.attack != AT_USTRONG_2 && my_hitboxID.attack != AT_DSTRONG && my_hitboxID.attack != AT_FSTRONG) {
+		var factory = instance_create(x, y, "obj_article3");
+		factory.state = 68;
+		factory.target_obj = hit_player_obj;
+		factory.bkb = hbox_stored_bkb;
+		factory.kbg = hbox_stored_kbg;
+		factory.angle = hbox_stored_angle;
+		factory.bhp = hbox_stored_bhp;
+		factory.hps = hbox_stored_hps;
+	}
 }
 
 //#endregion
