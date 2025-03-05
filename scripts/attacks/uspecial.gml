@@ -35,7 +35,7 @@ window_num++;
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 7);  // changed in attack_update
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 20);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 window_num++;
 
