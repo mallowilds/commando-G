@@ -188,6 +188,11 @@ item_grid = [
     ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Common items grow more powerful.", noone], // 58 | user_event0.gml, animation.gml, anywhere common items are implemented
     
     ["Shaped Glass",            RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Double your damage... but Shatter your weight.", noone], // 59 | update.gml hitbox initializer, user_event0.gml, death.gml
+    ["ICBM",                    RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Double all homing missiles. They now apply Blast effects.", noone], // 60 | Fireworks, ATGs, Ceremonial Dagger, Plasma Shrimp
+    ["Benthic Bloom",           RTY_ABYSSAL,    ITP_META,         noone,            0, noone, "Your items mutate and evolve as your opponents die.", noone], // 61 | update.gml; hit/kill detection
+    ["Plasma Shrimp",           RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Hitting opponents with non-Strongs fires missiles.", noone], // 62 | TBD
+    ["Longstanding Solitude",   RTY_ABYSSAL,    ITP_META,         noone,            0, noone, "Gain 15 random items. You have no backup.", noone], // 63 | article3_update. Does nothing on its own; manager is inited with abyss management.
+
 
 ]
 //#RCFENDDEFORMAT
@@ -257,6 +262,14 @@ item_id_ordering = [
 // Enable secret if Rune O is taken
 if (RUNE_LUCKY) array_push(item_id_ordering, ITEM_CLOVER);
 
+// Disable chest-proc items if Longstanding Solitude is taken
+if (RUNE_SOLITUDE) {
+    item_grid[@ ITEM_FIREWORKS][@ IG_RARITY] = RTY_VOID;
+    item_grid[@ ITEM_JEWEL][@ IG_RARITY] = RTY_VOID;
+    item_grid[@ ITEM_SHIPPING][@ IG_RARITY] = RTY_VOID;
+    item_grid[@ ITEM_CODES][@ IG_RARITY] = RTY_VOID;
+}
+
 ordering_start_indices = [0, 22, 41];
 
 // If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
@@ -281,6 +294,7 @@ uncommon_limit = UNCOMMON_LIMIT;
 uncommon_pool_size = 0; // to be initialized
 item_seed = player * 5; // max 200, this should hold within the rivals engine
 common_count = 0; // Not actually used by the randomizer, but still handled in the same places.
+uncommon_count = 0; // Ditto.
 
 grant_rarity = noone; // for user_event(1). This default value throws an error as a sanity check
 
@@ -499,6 +513,7 @@ nectar_mult = 1;
 self_prev_outline = [0, 0, 0];
 
 shaped_glass_active = 0;
+icbm_active = 0;
 
 // Training mode utility
 tmu_state = TMU_INACTIVE;
@@ -856,11 +871,37 @@ set_victory_portrait(sprite_get("portrait_base"));
 
 //last-chance abyss init (perform item grants here!)
 if (get_match_setting(SET_RUNES)) {
+    if (RUNE_ICBM) {
+        new_item_id = ITEM_ICBM;
+        ue1_command = UE1_GRANT;
+        item_silenced = true;
+        user_event(1);
+    }
     if (RUNE_SHAPED_GLASS) {
         new_item_id = ITEM_SHAPED_GLASS;
         ue1_command = UE1_GRANT;
         item_silenced = true;
         user_event(1);
+    }
+    if (RUNE_BLOOM) {
+        new_item_id = ITEM_BLOOM;
+        ue1_command = UE1_GRANT;
+        item_silenced = true;
+        user_event(1);
+    }
+    if (RUNE_SHRIMP) {
+        new_item_id = ITEM_SHRIMP;
+        ue1_command = UE1_GRANT;
+        item_silenced = true;
+        user_event(1);
+    }
+    if (RUNE_SOLITUDE) {
+        new_item_id = ITEM_SOLITUDE;
+        ue1_command = UE1_GRANT;
+        item_silenced = true;
+        user_event(1);
+        var manager = instance_create(x, y-10, "obj_article3");
+        manager.state = 90;
     }
     if (RUNE_FREE_RARE) { // spawns an orb for clarity reasons
         var seed = 0;

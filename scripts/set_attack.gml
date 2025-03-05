@@ -98,7 +98,7 @@ if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0) {
     	ignition_dmg += SCOPE_DAMAGE_ADD * mult;
     	ignition_kbs += SCOPE_KBS_ADD * mult;
     }
-    ignition_kbs += IGNITION_KBS_SCALE * item_gri[ITEM_IGNITION][IG_NUM_HELD];
+    ignition_kbs += IGNITION_KBS_SCALE * item_grid[ITEM_IGNITION][IG_NUM_HELD];
     set_hitbox_value(atk, ignition, HG_DAMAGE, ignition_dmg);
     set_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING, ignition_kbs);
 } else {
@@ -113,7 +113,7 @@ set_hitbox_value(atk, enhanced, HG_WINDOW, 99);
 reset_hitbox_value(atk, ignition, HG_DAMAGE);
 reset_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING);
 var ignition_kbs = get_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING);
-ignition_kbs += IGNITION_KBS_SCALE * item_gri[ITEM_IGNITION][IG_NUM_HELD];
+ignition_kbs += IGNITION_KBS_SCALE * item_grid[ITEM_IGNITION][IG_NUM_HELD];
 set_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING, ignition_kbs);
 
 if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0) set_hitbox_value(atk, normal, HG_HIT_LOCKOUT, 0);

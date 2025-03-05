@@ -118,6 +118,10 @@ ITEM_CRITDAGGER     = 57;
 ITEM_NECTAR         = 58;
 
 ITEM_SHAPED_GLASS   = 59;
+ITEM_ICBM           = 60;
+ITEM_BLOOM          = 61;
+ITEM_SHRIMP         = 62;
+ITEM_SOLITUDE       = 63;
 
 // ST -> Statuses
 ST_STICKY = 0;
@@ -149,7 +153,11 @@ RUNE_CRITICAL_UP = has_rune("D");
 RUNE_ASPEED_UP = has_rune("E");
 RUNE_EXPLOSIVE_UP = has_rune("F");
 
-RUNE_SHAPED_GLASS = has_rune("H")
+RUNE_ICBM = has_rune("G");
+RUNE_SHAPED_GLASS = has_rune("H");
+RUNE_BLOOM = has_rune("I");
+RUNE_SHRIMP = has_rune("J");
+RUNE_SOLITUDE = has_rune("K");
 
 RUNE_FREE_RARE = has_rune("L");
 RUNE_TRISHOPS = has_rune("M");

@@ -721,10 +721,8 @@ switch(attack) {
 		//#endregion
 		
 		if (window == 1 && window_timer == window_length && item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) {
-			
 			warbanner_obj = instance_create(x, y, "obj_article3");
 			warbanner_obj.state = 30;
-			
 		}
 		
     	break;

@@ -22,7 +22,7 @@ switch ue1_command {
 		apply_item(new_item_id);
 		if (!item_silenced) {
 	    	var popup = instance_create(x-172, y-110, "obj_article2");
-	    	popup.item_id = new_item_id;	
+	    	popup.item_id = new_item_id;
 	    }
 		break;
 	case 2: // remove a copy of the item at new_item_id, if possible
@@ -143,6 +143,7 @@ if (is_valid_index && !is_incompatible && !is_excess_uncommon && !is_excess_rare
 	// Update probabilities
 	if (rarity != RTY_COMMON) reduce_item_probability(item_id, false);
 	else common_count++;
+	if (rarity == RTY_UNCOMMON) uncommon_count++;
 	
 	return true;
 	
@@ -240,6 +241,7 @@ if (item_grid[item_id][IG_NUM_HELD] <= 0) {
 // increase item probability
 if (item_grid[item_id][IG_RARITY] != RTY_COMMON) increase_item_probability(item_id, false);
 else common_count--;
+if (item_grid[item_id][IG_RARITY] == RTY_UNCOMMON) uncommon_count--;
 
 return true;
 

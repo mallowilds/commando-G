@@ -75,12 +75,14 @@ LEGENDARY SPARK ~ thunderbolt
 ~ 83: strike 2
 ~ 84: strike 3
 
+LONGSTANDING SOLITUDE ~ manager
+~ 90: active
+
 */
 
 
 
 switch state {
-    
     
     //#region Fireman's Boots ~ fire
     case 00:
@@ -792,6 +794,29 @@ switch state {
     	right.spr_dir = 1;
     	right.is_fake_hit = true;
     	
+    	if (player_id.icbm_active) {
+    		var down = create_hitbox(AT_EXTRA_1, 7, x, y);
+	    	down.proj_angle = 270;
+	    	down.target_obj = target_obj;
+	    	down.delay = 35 + taser_delay;
+	    	down.spr_dir = 1;
+	    	down.is_fake_hit = true;
+	
+	    	var left = create_hitbox(AT_EXTRA_1, 7, x, y);
+	    	left.proj_angle = 150;
+	    	left.target_obj = target_obj;
+	    	left.delay = 40 + taser_delay;
+	    	left.spr_dir = 1;
+	    	left.is_fake_hit = true;
+	
+	    	var right = create_hitbox(AT_EXTRA_1, 7, x, y);
+	    	right.proj_angle = 30;
+	    	right.target_obj = target_obj;
+	    	right.delay = 45 + taser_delay;
+	    	right.spr_dir = 1;
+	    	right.is_fake_hit = true;
+    	}
+    	
     	sound_play(sound_get("cm_dagger_swing"), false, noone, 1.2, 0.6);
 
 		instance_destroy();
@@ -804,6 +829,7 @@ switch state {
     // Init
     case 63:
     	num_missiles = player_id.atg_freq;
+    	if (player_id.icbm_active) num_missiles *= 2;
     	if (!target_obj.hitpause) {
     		state = 64;
     		state_timer = 0;
@@ -845,6 +871,7 @@ switch state {
     case 66:
     	if (state_timer == 0) {
 	    	num_fireworks = player_id.fireworks_freq;
+	    	if (player_id.icbm_active) num_fireworks *= 2;
 	    	was_parried = false;
 	    	parry_owner = player;
 	    	target_index = 0;
@@ -994,6 +1021,22 @@ switch state {
     	}
         break;
         
+    //#endregion
+    
+    //#region Longstanding Solitude ~ manager
+    case 90:
+    	player_id.move_cooldown[AT_DSPECIAL] = 30;
+    	if (state_timer % 20 == 15 && state_timer < 300) {
+    		var rnd = random_func(1, 1, false)
+    		var rty = 0;
+    		if (rnd < 0.1) rty = 2;
+    		else if (random_func(1, 1, false) < 0.4) rty = 1;
+    		
+    		var item = instance_create(x, y, "obj_article3");
+    		item.state = 20;
+            item.rarity = rty;
+    	}
+    	break;
     //#endregion
     
     //#region Failed initialization

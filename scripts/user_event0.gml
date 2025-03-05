@@ -199,6 +199,13 @@ switch new_item_id {
         shaped_glass_active = (item_grid[59][IG_NUM_HELD] > 0);
         update_knockback_adj();
         break;
+        
+    case 60: // ICBM
+        icbm_active = (item_grid[60][IG_NUM_HELD] > 0);
+        set_hitbox_value(AT_EXTRA_1, 7, HG_IS_BLAST, icbm_active); // cere dagger
+        set_hitbox_value(AT_EXTRA_1, 8, HG_IS_BLAST, icbm_active); // atg
+        set_hitbox_value(AT_EXTRA_1, 9, HG_IS_BLAST, icbm_active); // fireworks
+        break;
     
 }
 

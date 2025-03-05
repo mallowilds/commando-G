@@ -324,9 +324,48 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 		
 		// On kill and/or object ceases to exist
 		if (!instance_exists(recently_hit[i]) || recently_hit[i].state == PS_DEAD || recently_hit[i].state == PS_RESPAWN) {
-			var brooches = item_grid[9][IG_NUM_HELD];
+			// Topaz Brooch
+			var brooches = item_grid[ITEM_BROOCH][IG_NUM_HELD];
 			if (brooches > 0) brooch_barrier += BROOCH_BARRIER_BASE + BROOCH_BARRIER_SCALE * brooches * nectar_mult; // Topaz Brooch
 			recently_hit[i] = noone;
+			
+			// Benthic Bloom
+			if (item_grid[ITEM_BLOOM][IG_NUM_HELD] > 0) {
+				for (var j = 0; j < 3; j++) {
+					var num_upgradable = 0;
+					var upgrade_commons = (uncommon_pool_size > 0 || limitless_mode);
+					var upgrade_uncommons = (rares_remaining > 0 || limitless_mode);
+					if (upgrade_commons) num_upgradable += common_count;
+					if (upgrade_uncommons) num_upgradable += uncommon_count;
+					new_item_id = noone;
+					if (num_upgradable > 0) {
+						var inventory_len = array_length(inventory_list);
+						var advances_remaining = random_func(j, num_upgradable, true);
+						print_debug(advances_remaining)
+						for (var k = 0; k < inventory_len; k++) {
+							var rty = item_grid[inventory_list[k]][IG_RARITY];
+							if ((rty == RTY_COMMON && upgrade_commons) || (rty == RTY_UNCOMMON && upgrade_uncommons)) {
+								for (var num = 0; num < item_grid[inventory_list[k]][IG_NUM_HELD]; num++) {
+									if (advances_remaining == 0) new_item_id = inventory_list[k];
+									advances_remaining--;
+								}
+							}
+						}
+						if (new_item_id != noone) {
+							grant_rarity = item_grid[new_item_id][IG_RARITY]+1;
+							ue1_command = UE1_REVOKE;
+							user_event(1);
+							ue1_command = UE1_GENERATE;
+							user_event(1);
+							ue1_command = UE1_GRANT;
+							item_silenced = true;
+							user_event(1);
+						} else {
+							print_debug("update.gml error: Benthic failed to retrieve an item to upgrade")
+						}
+					} else j = 3; // break loop if there's nothing to upgrade
+				} 
+			}
 		}
 		
 		// Opponent has left hitstun
