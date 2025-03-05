@@ -341,7 +341,6 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 					if (num_upgradable > 0) {
 						var inventory_len = array_length(inventory_list);
 						var advances_remaining = random_func(j, num_upgradable, true);
-						print_debug(advances_remaining)
 						for (var k = 0; k < inventory_len; k++) {
 							var rty = item_grid[inventory_list[k]][IG_RARITY];
 							if ((rty == RTY_COMMON && upgrade_commons) || (rty == RTY_UNCOMMON && upgrade_uncommons)) {

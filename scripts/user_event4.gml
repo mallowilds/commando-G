@@ -33,6 +33,7 @@ switch tmu_state {
                 var index = item_grid[iid][IG_RANDOMIZER_INDEX];
                 if (rarity == RTY_COMMON) draw_shadowed = (item_grid[iid][IG_NUM_HELD] >= 10);
                 else if (rarity == RTY_RARE && rares_remaining == 0) draw_shadowed = true;
+                else if (rarity == RTY_VOID) draw_shadowed = true;
                 else draw_shadowed = (p_item_weights[rarity][index] <= 0);
             }
             if (limitless_mode) draw_shadowed = false;

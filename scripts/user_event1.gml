@@ -102,9 +102,10 @@ var is_valid_index = (item_id == clamp(item_id, 0, array_length(item_grid)-1));
 var is_incompatible = (incompat_index != noone && item_grid[incompat_index][IG_NUM_HELD] >= 1 && !limitless_mode);
 var is_excess_uncommon = (rarity == RTY_UNCOMMON && item_grid[item_id][IG_NUM_HELD] >= uncommon_limit && !limitless_mode);
 var is_excess_rare = (rarity == RTY_RARE && (rares_remaining <= 0 || item_grid[item_id][IG_NUM_HELD] >= 1) && !limitless_mode);
+var is_voided = (rarity == RTY_VOID)
 
 // Successful item grant
-if (is_valid_index && !is_incompatible && !is_excess_uncommon && !is_excess_rare) {
+if (is_valid_index && !is_incompatible && !is_excess_uncommon && !is_excess_rare && !is_voided) {
 	
 	// Play item get sound
 	if (item_grid[item_id][IG_TYPE] == ITP_LEGENDARY) sound_play(s_itemr);
@@ -155,6 +156,7 @@ else if (!is_valid_index) print_debug("user_event1 error: attempted to grant ite
 else if (is_incompatible) print_debug("user_event1 error: attempted to grant incompatible item " + item_grid[item_id][IG_NAME]);
 else if (is_excess_uncommon) print_debug("user_event1 error: attempted to grant excess uncommon item " + item_grid[item_id][IG_NAME]);
 else if (is_excess_rare) print_debug("user_event1 error: attempted to grant excess rare item " + item_grid[item_id][IG_NAME]);
+else if (is_voided) print_debug("user_event1 error: attempted to disabled item " + item_grid[item_id][IG_NAME]);
 else print_debug("user_event1 error: unknown item conflict");
 
 return false;
