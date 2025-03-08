@@ -6,7 +6,8 @@ var hbox_num = my_hitboxID.hbox_num;
 if (my_hitboxID.attack == AT_NSPECIAL && my_hitboxID.type == 2) exit;
 
 //#region DSpec cooldown handling
-if ((my_hitboxID.type == 1 && !first_hit) || (my_hitboxID.type == 2 && ("is_fake_hit" not in my_hitboxID || !my_hitboxID.is_fake_hit) && (my_hitboxID.orig_player != player || my_hitboxID.attack != AT_EXTRA_1))) {
+var is_fake_hit = get_hitbox_value(my_hitboxID.attack, hbox_num, HG_PROJECTILE_FAKE_HIT);
+if ((my_hitboxID.type == 1 && !first_hit) || (my_hitboxID.type == 2 && !is_fake_hit && (my_hitboxID.orig_player != player || my_hitboxID.attack != AT_EXTRA_1))) {
 	if (dspec_cooldown_hits == 1) sound_play(s_cd)
 	if (dspec_cooldown_hits > 0) dspec_cooldown_hits--;
 }

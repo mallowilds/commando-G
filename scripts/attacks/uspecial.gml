@@ -77,6 +77,7 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , true); // necessary for recovery
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_FAKE_HIT      , true); // since this is technically a multihit
 hbox_num++;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 2);
