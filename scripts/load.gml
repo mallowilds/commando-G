@@ -107,6 +107,7 @@ sprite_change_offset("item_suckerdrop_mask"     , 10, 18);
 sprite_change_offset("vfx_explode_small"        , 66, 66);
 sprite_change_offset("vfx_explode_large"        , 128, 128);
 sprite_change_offset("vfx_explosion_large"      , 170, 170);
+sprite_change_offset("vfx_explosion_medium"      , 170, 170);
 
 sprite_change_offset("vfx_item_orb_c"           , 24, 24);
 sprite_change_offset("vfx_item_orb_u"           , 24, 24);

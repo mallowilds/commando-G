@@ -34,6 +34,7 @@ if (my_hitboxID.cmd_strong_finisher) {
 
 //#region Ukelele
 if (my_hitboxID.attack == AT_USTRONG_2) {
+	hit_player_obj.hitpause_shock = true;
 	if (my_hitboxID.hbox_num < 4) {
 		if (hit_player_obj.y > y-50) hit_player_obj.y = lerp(hit_player_obj.y, y-50, 0.4);
 	} else {
@@ -85,6 +86,7 @@ if (critical_active && my_hitboxID.cmd_is_critical == 1) {
 	}
 	
 	if (item_grid[ITEM_TASER][IG_NUM_HELD] > 0) {
+		hit_player_obj.hitpause_shock = true;
 		var stun_type = (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] == 0 && hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] == 0) ? 1 : 2;
 		hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] = stun_type;
 		hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = TASER_STUN_BASE + item_grid[ITEM_TASER][IG_NUM_HELD] * TASER_STUN_SCALE * nectar_mult;
@@ -120,6 +122,7 @@ else if (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] != 0) {
 //#region Explosive handling
 // UTilt
 if (my_hitboxID.attack == AT_UTILT && hbox_num == 2) utilt_do_explosion = true;
+
 
 if (my_hitboxID.cmd_is_explosive == 1) {
 	

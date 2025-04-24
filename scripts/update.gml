@@ -7,6 +7,11 @@ if (init_prompt_active) {
 	init_prompt_timer++;
 } else if (init_prompt_timer > 0) init_prompt_timer--;
 
+with hit_fx_obj if player_id == other {
+    if hit_fx == other.vfx_explosion_med {
+        depth = player_id.depth-100;
+    }
+}
 // Utility menu subroutines
 if (tmu_state != TMU_INACTIVE) user_event(3);
 if (debug_display_opened) user_event(5);
