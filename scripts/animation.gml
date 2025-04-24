@@ -41,11 +41,16 @@ switch(state) {
         }
         break;
     case PS_IDLE_AIR:
-        if prev_state = PS_AIR_DODGE {
+        if prev_state = PS_AIR_DODGE || (prev_state == PS_ATTACK_AIR && attack == AT_FSPECIAL_AIR) {
             image_index =  image_number-1
         }
         if prev_state = PS_DOUBLE_JUMP {
             image_index =  image_number-1
+        }
+        if (prev_state == PS_ATTACK_AIR && attack == AT_USPECIAL) {
+            sprite_index = sprite_get("uspecial")
+            image_index = 6
+            print("hi")
         }
         // Animation for when dropping from a platform
         if (idle_air_platfalls && !idle_air_looping) {

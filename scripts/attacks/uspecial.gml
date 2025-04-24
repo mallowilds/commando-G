@@ -33,10 +33,10 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 7);  // changed in attack_update
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 20);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 22);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 4);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
 window_num++;
 
 //                        --attack hitboxes--                                 //
@@ -87,8 +87,8 @@ set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 4);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , 0);
 set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 120);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 120);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 96);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 96);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 6);
 set_hitbox_value(atk, hbox_num, HG_EFFECT                   , 0);

@@ -2,9 +2,12 @@
 
 // Up Special
 if (attack == AT_USPECIAL) {
+	if hbox_num == 1 {
+		proj_angle = 10*hitbox_timer
+	}
     if (hbox_num == 1 && hitbox_timer == length && !was_parried) {
-        spawn_hit_fx(x, y, player_id.fx_explode_large);
-        spawn_hit_fx(x, y, HFX_ELL_BOOM_BIG);
+        spawn_hit_fx(x, y - 30, player_id.vfx_explodey_big);
+        //spawn_hit_fx(x, y, player_id.vfx_explode_big);
         sound_play(sound_get("grenade1"));
         
         var _x = player_id.x;
@@ -19,7 +22,7 @@ if (attack == AT_USPECIAL) {
             
             var atk = AT_USPECIAL;
             var num = 2;
-            var hbox = create_hitbox(atk, num, other.x, other.y);
+            var hbox = create_hitbox(atk, num, other.x, other.y - 30);
             // For script order reasons, tags on this one need to happen manually.
             hbox.cmd_is_critical = get_hitbox_value(atk, num, HG_IS_CRITICAL);
 			hbox.cmd_strong_finisher = get_hitbox_value(atk, num, HG_STRONG_FINISHER);

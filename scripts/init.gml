@@ -112,7 +112,7 @@ death_message_pick = death_messages[random_func_2( 0, array_length(death_message
 final_death_timer = 0;
 is_na = 0; // n/a compat
 
-
+ror_win_text = "..and so he left, with everything but his humanity."
 
 
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
@@ -692,7 +692,7 @@ fx_crit_shock_long          = hit_fx_create(sprite_get("vfx_crit_shock"), 50);
 
 fx_blast                    = hit_fx_create(sprite_get("vfx_blast"), 17);
 fx_explode_small            = hit_fx_create(sprite_get("vfx_explode_small"), 12);
-fx_explode_large            = hit_fx_create(sprite_get("vfx_explode_large"), 17);
+vfx_explodey_big             = hit_fx_create(sprite_get("vfx_explosion_large"), 26);
 
 //
 
@@ -788,8 +788,8 @@ max_djumps_base                 = max_djumps;
 
 walljump_hsp                    = 7;
 walljump_vsp                    = 8;
-walljump_time                   = 15;
-wall_frames                     = 2;
+walljump_time                   = 32;
+wall_frames                     = 1;
 walljump_vsp_base               = walljump_vsp;
 
 max_fall                        = 10;

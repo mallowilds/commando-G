@@ -5,7 +5,7 @@ var window_length   = 0;
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("fspecial_air"));
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("fspecial_hurt"));
-set_attack_value(atk, AG_NUM_WINDOWS                    , 4);
+set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_CATEGORY                       , 2);
 set_attack_value(atk, AG_OFF_LEDGE                      , 1);
 set_attack_value(atk, AG_USES_CUSTOM_GRAVITY            , 1);
@@ -37,7 +37,7 @@ window_num++;
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 18);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
-set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_VSPEED, -1);
 window_num++;
