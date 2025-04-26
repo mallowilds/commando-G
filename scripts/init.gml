@@ -824,7 +824,7 @@ dodge_startup_frames            = 1;
 dodge_active_frames             = 2;
 dodge_recovery_frames           = 2;
 
-tech_active_frames              = 3;
+tech_active_frames              = 1;
 tech_recovery_frames            = 1;
 
 techroll_startup_frames         = 2;

@@ -62,7 +62,7 @@ sprite_change_offset("dspecial_open"        , load_x, load_y);
 
 sprite_change_offset("taunt"                , load_x, load_y);
 
-sprite_change_offset("plat"                 , load_x, load_y);
+sprite_change_offset("tele"                 , load_x, load_y);
 
 //                  --other sprite offsets (no small_sprites)--               //
 // includes projectiles, vfx, articles

@@ -2,6 +2,7 @@
 
 if (!init_complete) exit;
 
+
 //#region NSpecial
 if (state == clamp(state, PS_ATTACK_AIR, PS_ATTACK_GROUND) && attack == AT_NSPECIAL) {
     // Flash

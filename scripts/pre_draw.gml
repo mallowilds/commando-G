@@ -9,6 +9,13 @@ if blocktimer > 0 {
     draw_sprite_ext(sprite_get("blocked"), 0, x - 60, y - 115 + (blocktimer/25), 1, 1, 0, c_white, blocktimer/100)
 }*/
 
+
+//#region respawn plat 
+    if state == PS_RESPAWN {
+        draw_sprite(sprite_get("tele"), 0, x, y)
+    }
+//#endregion 
+
 //#region Tri-shop selector
 if (instance_exists(chest_obj) && chest_obj.state == 32 && chest_obj.trishop_vis_timer >= 0) with chest_obj {
     var progress = clamp(trishop_vis_timer / 5, 0, 1)
