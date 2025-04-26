@@ -78,7 +78,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //endlag final
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 16);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 20);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 5);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
@@ -105,7 +105,6 @@ set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 4);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 2);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
-set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 32);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak1"));

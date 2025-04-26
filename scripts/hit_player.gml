@@ -460,7 +460,11 @@ switch(my_hitboxID.attack) {
     case AT_UAIR:
         //a
         break;
-        
+       
+    case AT_FAIR:
+    	var dir_fx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_blast);
+    	dir_fx.draw_angle = -40 * spr_dir;
+    	break;
     case AT_FSTRONG:
     	var dir_fx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_blast);
     	dir_fx.draw_angle = 10 * spr_dir;

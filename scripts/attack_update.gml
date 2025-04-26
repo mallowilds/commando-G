@@ -155,7 +155,7 @@ switch(attack) {
         }
         break;
     case AT_UAIR:
-    	hud_offset = lerp(hud_offset, 50, 0.5);
+    	hud_offset = lerp(hud_offset, 80, 0.5);
     	if window == 1 && window_timer == window_length - 1 {
     		sound_play(sound_get("slash2"), 0, noone, 1)
     	}
@@ -333,7 +333,6 @@ switch(attack) {
         switch window {
             case 1:
             	if state_timer % 4 == 0 {
-            		print(0.875 + (state_timer/20))
             		sound_play(sound_get("cm_altsel"), false, noone, 2, 0.6 + (state_timer/100));
             	}
             	if (window_timer == 1) {

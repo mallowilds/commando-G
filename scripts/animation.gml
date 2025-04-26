@@ -84,7 +84,14 @@ switch(state) {
         break;
     case PS_DOUBLE_JUMP:
         if state_timer == 0 {
-            sound_play(asset_get("sfx_ell_small_missile_ground"), 0, noone, 0.7, 1.1)
+            if djumps > 1 {
+                sound_play(sound_get("feather_djump"))
+                spawn_hit_fx(x, y, fx_djump)
+            } else {
+                sound_play(asset_get("sfx_ell_small_missile_ground"), 0, noone, 0.7, 1.1)
+            }
+            
+            
         }
         break;
 

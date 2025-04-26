@@ -63,6 +63,7 @@ sprite_change_offset("dspecial_open"        , load_x, load_y);
 sprite_change_offset("taunt"                , load_x, load_y);
 
 sprite_change_offset("tele"                 , load_x, load_y);
+sprite_change_offset("hopoo"                , 72, 42);
 
 //                  --other sprite offsets (no small_sprites)--               //
 // includes projectiles, vfx, articles
