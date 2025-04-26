@@ -19,7 +19,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_CUSTOM_GRAVI
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_heavy1"));
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_medium1"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 
@@ -63,7 +63,7 @@ set_hitbox_value(atk, hbox_num, HG_HITSTUN_MULTIPLIER       , 0.7);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 25);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , s_knifem);
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , s_knifel);
 
 hbox_num++; // Crit
 

@@ -157,7 +157,7 @@ switch(attack) {
     case AT_UAIR:
     	hud_offset = lerp(hud_offset, 50, 0.5);
     	if window == 1 && window_timer == window_length - 1 {
-    		sound_play(sound_get("cm_dagger_swing"), 0, noone, 1, .96)
+    		sound_play(sound_get("slash2"), 0, noone, 1)
     	}
     	if (do_ignite_hbox && !hitpause) {
         	create_hitbox(AT_UAIR, 4, x, y); // melee hitbox, position doesn't matter
@@ -165,6 +165,9 @@ switch(attack) {
         }
     	break;
     case AT_DAIR:
+    	if window == 1 && window_timer == window_length - 1 {
+    		sound_play(sound_get("slash3"))
+    	}
     	if (do_ignite_hbox && !hitpause) {
         	create_hitbox(AT_DAIR, 4, x, y); // melee hitbox, position doesn't matter
         	do_ignite_hbox = false;
@@ -329,8 +332,12 @@ switch(attack) {
         if window != 1 && window != 5{ hud_offset = 30 }
         switch window {
             case 1:
+            	if state_timer % 4 == 0 {
+            		print(0.875 + (state_timer/20))
+            		sound_play(sound_get("cm_altsel"), false, noone, 2, 0.6 + (state_timer/100));
+            	}
             	if (window_timer == 1) {
-            		sound_play(asset_get("sfx_forsburn_cape_swipe"));
+            		sound_play(asset_get("sfx_forsburn_cape_swipe"), 0, noone, 1, 1);
             		nspec_charge_threshold = NSPEC_THRESHOLD_TIME * power(NSPEC_ASPEED_FACTOR, attack_speed-1);
             		nspec_charge_frames = 0;
             		nspec_charge_level = (turbine_stored_charge >= TURBINE_THRESHOLD) ? 3 : 0;
@@ -348,7 +355,6 @@ switch(attack) {
                 	if (nspec_starting && nspec_charge_level >= 1) {
                 		nspec_vis_timer = 0;
 	            		nspec_vis_level++;
-                		sound_play(asset_get("sfx_frog_fspecial_charge_gained_1"), false, noone, 1, 0.875 + (nspec_charge_level/8));
 	            		spawn_hit_fx(x+(54*spr_dir), y-54, HFX_CLA_DSMASH_BREAK);
 	            		nspec_starting = false;
                 	}
@@ -360,7 +366,7 @@ switch(attack) {
 	            			nspec_charge_level++;
 	            			nspec_vis_timer = 0;
 	            			nspec_vis_level++;
-	            			sound_play(asset_get("sfx_frog_fspecial_charge_gained_1"), false, noone, 1, 0.875 + (nspec_charge_level/8));
+	            			sound_play(sound_get("nsp1"), false, noone, 1, 1 + (nspec_charge_level/8));
 	            			spawn_hit_fx(x+(54*spr_dir), y-54, HFX_CLA_DSMASH_BREAK);
 	            		}
                 	}
@@ -404,12 +410,16 @@ switch(attack) {
                 break;
             case 2: //postcharge frames
             	nspec_charge_level = 0;
+				if window_timer == 1 {
+					if (do_turbine_recolor) sound_play(sound_get("turbinefire"), 0, noone, 1.8, .9);
+				}            	
             	if (window_timer == window_length && !hitpause) {
 	            	if (0 >= num_loops) {
 	            		window = 3;
 		    			window_timer = 999; // jump to window 4
+		    			sound_play(sound_get("plasma"))
 		    			sound_play(s_gunh);
-		    			if (do_turbine_recolor) sound_play(sound_get("turbinefire"));
+		    	
 	            	}
 		    		else sound_play(s_gunf);
             	}

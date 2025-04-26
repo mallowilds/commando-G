@@ -45,8 +45,8 @@ if (my_hitboxID.attack == AT_USTRONG_2) {
 
 //#region Crit handling
 // Critical active is only technically necessary for disabling the crit sound,
-// but avoiding the other checks certainly doesn't hurt
-if (critical_active && my_hitboxID.cmd_is_critical == 1) {
+// but avoiding the other checks certainly doesn't hurt //i actually want the crit sound to always play so im gonna comment that part out
+if (/*critical_active &&*/ my_hitboxID.cmd_is_critical == 1) {
 	//print_debug("crit!");
 	// Play crit sound
 	sound_play(s_crit, 0, noone, 2);
@@ -454,7 +454,7 @@ switch(my_hitboxID.attack) {
         break;
     case AT_DAIR:
         if hbox_num == 2 {
-        	sound_play(asset_get("sfx_blow_medium3"))
+        	//sound_play(asset_get("sfx_blow_weak1"))
         }
         break;
     case AT_UAIR:
@@ -485,9 +485,9 @@ switch(my_hitboxID.attack) {
     	}
     	break;
     case AT_USTRONG:
-    //	if hbox_num == 1 {
-    		sound_play(s_knifem)
-    //	}
+    	if hbox_num == 2 {
+    		sound_play(asset_get("sfx_blow_heavy1"), 0, noone, .7, 1.15)
+    	}
     	break;
     case AT_USTRONG_2:
     	if hbox_num == 4 {

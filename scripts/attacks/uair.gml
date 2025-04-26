@@ -16,7 +16,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 12);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
-set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_heavy1"));
+set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_medium2"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);
 window_num++;
 
@@ -57,7 +57,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 6);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.6);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -18);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_medium3"));
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , s_knifel);
 hbox_num++;
 
 
@@ -78,7 +78,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 8);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.7);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_crit);
 set_hitbox_value(atk, hbox_num, HG_IS_CRITICAL              , 1);
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , s_knifem);
 
 hbox_num++; //Crit (Laser Scope)
 
