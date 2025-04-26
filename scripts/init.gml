@@ -788,7 +788,7 @@ max_djumps_base                 = max_djumps;
 
 walljump_hsp                    = 7;
 walljump_vsp                    = 8;
-walljump_time                   = 32;
+walljump_time                   = 6;
 wall_frames                     = 1;
 walljump_vsp_base               = walljump_vsp;
 
