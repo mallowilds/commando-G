@@ -29,6 +29,7 @@ switch new_item_id {
         if (item_grid[1][IG_NUM_HELD] == 0) warbanner_obj = noone; // this will prompt the warbanner to clean itself up
         update_horizontal_movement();
         update_attack_speed();
+        set_taunt_indices();
         break;
     
     case 5: // Paul's Goat Hoof
@@ -56,6 +57,7 @@ switch new_item_id {
     
     case 20: // Ukelele
         ustrong_index = (item_grid[20][IG_NUM_HELD] > 0) ? AT_USTRONG_2 : AT_USTRONG;
+        set_taunt_indices();
         break;
     
     case 21: // Hopoo Feather
@@ -284,7 +286,7 @@ switch new_item_id {
     
 #define set_taunt_indices
     utaunt_index = (item_grid[ITEM_UKELELE][IG_NUM_HELD] > 0) ? AT_TAUNT_2 : AT_TAUNT;
-    ntaunt_index = (item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) ? AT_EXTRA_1 : utaunt_index;
+    ntaunt_index = (item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) ? AT_EXTRA_2 : utaunt_index;
     // dtaunt is constant and set in init.gml
 
 // source_id is the id of the item doing the buffing, which is excluded.

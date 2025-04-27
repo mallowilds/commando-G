@@ -728,12 +728,15 @@ switch(attack) {
 			debug_display_opened = !debug_display_opened;
 		}
 		//#endregion
-		
-		if (window == 1 && window_timer == window_length && item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) {
-			warbanner_obj = instance_create(x, y, "obj_article3");
+
+    	break;
+    	
+    // Warbanner
+    case AT_EXTRA_2:
+		if (window == 2 && window_timer == window_length-1 && item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) {
+			warbanner_obj = instance_create(x+(38*spr_dir), y, "obj_article3");
 			warbanner_obj.state = 30;
 		}
-		
     	break;
     
     // Training mode utility

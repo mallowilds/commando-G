@@ -53,7 +53,7 @@ sprite_change_offset("ustrong2"             , load_x, load_y); //
 sprite_change_offset("dstrong"              , load_x, load_y);
 sprite_change_offset("nspecial"             , load_x, load_y);
 sprite_change_offset("fspecial"             , load_x, load_y); //
-sprite_change_offset("fspecial_air"             , load_x, load_y); //
+sprite_change_offset("fspecial_air"         , load_x, load_y); //
 
 sprite_change_offset("uspecial"             , load_x, load_y); //
 sprite_change_offset("dspecial"             , load_x, load_y); 
@@ -61,12 +61,18 @@ sprite_change_offset("dspecial_call"        , load_x, load_y);
 sprite_change_offset("dspecial_open"        , load_x, load_y); 
 
 sprite_change_offset("taunt"                , load_x, load_y);
+sprite_change_offset("taunt_war"            , load_x, load_y);
 
 sprite_change_offset("tele"                 , load_x, load_y);
-sprite_change_offset("hopoo"                , 72, 42);
+
 
 //                  --other sprite offsets (no small_sprites)--               //
 // includes projectiles, vfx, articles
+
+// unsorted, move later
+sprite_change_offset("hopoo"                , 72, 42);
+sprite_change_offset("warbanner"            , 27, 70);
+sprite_change_offset("warbanner_mask"       , 27, 70);
 
 sprite_change_offset("hud_arrow"                , 7, 10);
 

@@ -365,9 +365,10 @@ switch state {
     
     // init
     case 30:
-    	sprite_index = sprite_get("item_temp_warbanner_spawn");
+    	sprite_index = sprite_get("warbanner");
     	image_index = 0;
-    	spr_dir = 1; // temp
+    	mask_index = sprite_get("warbanner_mask");
+    	spr_dir = player_id.spr_dir;
     	radius_y_offset = -54;
     	
     	warbanner_strength = player_id.item_grid[player_id.ITEM_WARBANNER][player_id.IG_NUM_HELD]*player_id.nectar_mult;
@@ -375,35 +376,27 @@ switch state {
     	warbanner_radius = 0;
     	warbanner_radius_speed = warbanner_max_radius / 20;
     	
-    	state = 31;
+    	state = 32;
     	state_timer = 0;
     	break;
     
     // spawn
     case 31:
-    	image_index += 0.33;
-    	if (image_index >= 3) {
-    		sprite_index = sprite_get("item_temp_warbanner_idle");
-    		image_index = 0;
-    		state = 32;
-    		state_timer = 0;
-    	}
+    	// deprecated
 	
 	// idle
 	case 32:
 	
-		if (state == 32) image_index += 0.1;
 		warbanner_radius = clamp(warbanner_radius+warbanner_radius_speed, warbanner_radius, warbanner_max_radius);
 		
 		with oPlayer if (get_player_team(player) == get_player_team(other.player)) {
-			
 			if (point_distance(x, y-(char_height/2), other.x, other.y+(other.radius_y_offset)) <= other.warbanner_radius) {
-				if (commando_warbanner_owner != other.player && commando_warbanner_strength < other.warbanner_strength) {
+				if (commando_warbanner_owner != other && commando_warbanner_strength < other.warbanner_strength) {
 					commando_warbanner_strength = other.warbanner_strength;
-					commando_warbanner_owner = other.player;
+					commando_warbanner_owner = other;
 					commando_warbanner_updated = 1;
 				}
-			} else if (commando_warbanner_owner == other.player) {
+			} else if (commando_warbanner_owner == other) {
 				commando_warbanner_strength = 0;
 				commando_warbanner_owner = noone;
 				commando_warbanner_updated = 1;
@@ -413,23 +406,34 @@ switch state {
 		if (player_id.was_parried || player_id.state == PS_RESPAWN || player_id.state == PS_DEAD || player_id.warbanner_obj != self) {
 			state = 33;
 			state_timer = 0;
-			sprite_index = sprite_get("item_temp_warbanner_despawn");
 		}
+		
+		if (free) vsp += 0.5;
+		else vsp = 0;
 		
 		break;
 		
 	// despawn
 	case 33:
-		image_index = state_timer/3;
+		if (image_alpha > 0) image_alpha -= 0.05;
 		warbanner_radius = clamp(warbanner_radius-3*warbanner_radius_speed, 0, warbanner_radius);
 		
-		// This is temp handling for removing the buff, needs to be polished up later. Use the same point_distance check as above. (move to a function?)
-		if (image_index >= 4) {
-			with oPlayer if (commando_warbanner_owner == other.player) {
+		with oPlayer if (get_player_team(player) == get_player_team(other.player)) {
+			if (point_distance(x, y-(char_height/2), other.x, other.y+(other.radius_y_offset)) <= other.warbanner_radius) {
+				if (commando_warbanner_owner != other && commando_warbanner_strength < other.warbanner_strength) {
+					commando_warbanner_strength = other.warbanner_strength;
+					commando_warbanner_owner = other;
+					commando_warbanner_updated = 1;
+				}
+			} else if (commando_warbanner_owner == other) {
 				commando_warbanner_strength = 0;
 				commando_warbanner_owner = noone;
 				commando_warbanner_updated = 1;
 			}
+		}
+		
+		// This is temp handling for removing the buff, needs to be polished up later. Use the same point_distance check as above. (move to a function?)
+		if (warbanner_radius <= 0 && image_alpha <= 0) {
 			instance_destroy();
 			exit;
 		}
