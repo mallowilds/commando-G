@@ -243,9 +243,15 @@ with oPlayer {
 	// The Ol' Lopper effect (state 1 is awaiting, state 2 is hitpause, state 3 is lockout)
 	if (commando_status_owner[other.ST_LOPPER] == other.player && commando_status_state[other.ST_LOPPER] > 0) {
 		if (!hitpause) commando_status_counter[other.ST_LOPPER]++;
+		
 		switch (commando_status_state[other.ST_LOPPER]) {
 			case 1:
+				if  commando_status_counter[other.ST_LOPPER] == 1 && !hitpause {
+					sound_play(other.s_toll, 0, noone, 2)
+				}
 				if (commando_status_counter[other.ST_LOPPER] >= other.LOPPER_AWAIT_TIME) {
+					sound_play(other.s_lops, 0, noone, 1, .9)
+				//	sound_play(asset_get("sfx_swipe_heavy1"), 0, noone, 1, .8)
 					commando_status_state[other.ST_LOPPER] = 2;
 					commando_status_counter[other.ST_LOPPER] = 0;
 					with (other) {

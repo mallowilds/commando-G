@@ -175,6 +175,11 @@ if (get_player_damage(hit_player_obj.player) >= LOPPER_DAMAGE_THRESHOLD && hit_p
 	}
 }
 
+if my_hitboxID.attack == AT_EXTRA_1 && hbox_num == 2 {
+	sound_play(sound_get("loph"), 0, noone, 1, .9)
+	//print("hi")
+}
+
 if (get_player_damage(hit_player_obj.player) >= SHATTERING_DAMAGE_THRESHOLD && item_grid[ITEM_SHATTERING][IG_NUM_HELD] > 0) {
 	if (hit_player_obj.commando_status_owner[ST_SHATTERED] == noone) {
 		hit_player_obj.knockback_adj += SHATTERING_KB_SHRED;

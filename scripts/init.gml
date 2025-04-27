@@ -585,6 +585,10 @@ s_err = sound_get("cm_err");
 s_bomb1 = sound_get("explosion");
 s_bomb2 = sound_get("explosionmed");
 s_bomb3 = sound_get("explosionhuge");
+
+s_toll = sound_get("toll2")
+s_lops = sound_get("lopsw")
+s_loph = sound_get("loph")
 //
 
 
