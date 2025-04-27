@@ -259,8 +259,6 @@ with oPlayer {
 						other.commando_lop_fx = spawn_hit_fx(other.x, other.y+floor(other.char_height/3), fx_lopper_active);
 					}
 					commando_lop_fx.spr_dir = spr_dir;
-					commando_lop_fx.image_xscale = 2*spr_dir;
-					commando_lop_fx.image_yscale = 2;
 					commando_lop_fx.depth = depth-1;
 				}
 				break;
@@ -269,7 +267,6 @@ with oPlayer {
 				if (!hitpause) {
 					commando_status_state[other.ST_LOPPER] = 3;
 					commando_status_counter[other.ST_LOPPER] = 0;
-					// spawn despawn/endlag vfx
 				}
 				break;
 			case 3:

@@ -117,8 +117,8 @@ sprite_change_offset("vfx_item_fung"            , 44, 22);
 sprite_change_offset("vfx_item_tooth_despawn"   , 16, 28);
 sprite_change_offset("vfx_item_res"             , 254, 200);
 sprite_change_offset("vfx_item_stompers"        , 25, 30);
-sprite_change_offset("vfx_item_lopper_start"    , 36, 102);
-sprite_change_offset("vfx_item_lopper_active"   , 36, 102);
+sprite_change_offset("vfx_item_lopper_start"    , 36, 102); // small sprite'd
+sprite_change_offset("vfx_item_lopper_active"   , 72, 204); // not small sprite'd (giik pls)
 sprite_change_offset("vfx_item_kjaro"           , 70, 130);
 sprite_change_offset("vfx_crit"                 , 144, 150);
 sprite_change_offset("vfx_crit_lens"            , 144, 150);

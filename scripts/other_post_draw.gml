@@ -6,14 +6,6 @@ if (commando_status_state[other_player_id.ST_STICKY] == 1) {
     draw_sprite_ext(other_player_id.spr_sticky, 0, x-(10*spr_dir), y-char_height+6, spr_dir*2, 2, 0, c_white, 1);
 }
 
-// Ol' Lopper
-if (commando_status_state[other_player_id.ST_LOPPER] == 1) {
-    draw_debug_text(x, y-14, "lopping");
-}
-else if (commando_status_state[other_player_id.ST_LOPPER] == 2) {
-    draw_debug_text(x, y-14, "lopped");
-}
-
 // Shattering Justice
 if (commando_status_state[other_player_id.ST_SHATTERED] > 0) {
     draw_debug_text(x, y-14, "shattered");
