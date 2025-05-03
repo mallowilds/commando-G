@@ -263,8 +263,6 @@ switch new_item_id {
     set_window_value(AT_FSPECIAL, 2, AG_WINDOW_HSPEED, FSPEC_GROUND_HSP_BASE + (FSPEC_GROUND_HSP_SCALE * move_speed));
     set_window_value(AT_FSPECIAL_AIR, 2, AG_WINDOW_HSPEED, FSPEC_AIR_HSP_BASE + (FSPEC_AIR_HSP_SCALE * move_speed));
     set_window_value(AT_FSPECIAL_AIR, 2, AG_WINDOW_VSPEED, FSPEC_AIR_VSP_BASE + (FSPEC_AIR_VSP_SCALE * move_speed));
-    
-    return;
 
 #define update_vertical_movement
     
@@ -276,13 +274,11 @@ switch new_item_id {
     max_fall = max_fall_base + (RJETPACK_MAX_FALL_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]);
     fast_fall = fast_fall_base + (item_grid[ITEM_HEADSET][IG_NUM_HELD] > 0 ? HEADSET_FAST_FALL_ADD : 0);
     gravity_speed = gravity_speed_base - (RJETPACK_GRAV_SPEED_BASE * (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0));
-    
-    return;
 
 #define update_knockback_adj
     // Tough Times ignores Growth Nectar, given the sheer power of kb adj scaling
     knockback_adj = (item_grid[ITEM_TTIMES][IG_NUM_HELD] > 0) ? power(TTIMES_KBADJ_EXP_SET, item_grid[ITEM_TTIMES][IG_NUM_HELD]) : knockback_adj_base;
-    if (item_grid[ITEM_SHAPED_GLASS] > 0) knockback_adj -= 0.3;
+    if (item_grid[ITEM_SHAPED_GLASS][IG_NUM_HELD] > 0) knockback_adj -= 0.3;
     
 #define set_taunt_indices
     utaunt_index = (item_grid[ITEM_UKELELE][IG_NUM_HELD] > 0) ? AT_TAUNT_2 : AT_TAUNT;

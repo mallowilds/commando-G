@@ -119,8 +119,8 @@ ITEM_NECTAR         = 58;
 
 ITEM_SHAPED_GLASS   = 59;
 ITEM_ICBM           = 60;
-ITEM_BLOOM          = 61;
-ITEM_SHRIMP         = 62;
+ITEM_SHRIMP         = 61;
+ITEM_BLOOM          = 62;
 ITEM_SOLITUDE       = 63;
 
 // ST -> Statuses
