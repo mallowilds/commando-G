@@ -19,7 +19,7 @@ if (my_hitboxID.cmd_strong_finisher) {
 	if (item_grid[ITEM_FIREBAND][IG_NUM_HELD] > 0) {
 		var band_damage = FIREBAND_DAMAGE_BASE + item_grid[ITEM_FIREBAND][IG_NUM_HELD] * FIREBAND_DAMAGE_SCALE;
 		apply_burn(hit_player_obj, band_damage);
-        var kjaro_vfx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_kjaro);
+        var kjaro_vfx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), HFX_SHO_FLAME_BIG);
 		kjaro_vfx.depth = hit_player_obj.depth-1;
 	}
 	

@@ -717,8 +717,6 @@ fx_djump                    = hit_fx_create(sprite_get("hopoo"), 18)
 vfx_zap_1 = hit_fx_create(sprite_get("vfx_zap_small"), 18);
 vfx_zap_2 = hit_fx_create(sprite_get("vfx_zap_large"), 28);
 
-fx_kjaro                    = hit_fx_create(sprite_get("vfx_item_kjaro"), 30);
-
 fx_small_chest_land         = hit_fx_create(sprite_get("dspec_smallchest_landvfx"), 16);
 fx_large_chest_land         = hit_fx_create(sprite_get("dspec_largechest_landvfx"), 16);
 
