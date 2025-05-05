@@ -48,6 +48,8 @@ with (obj_article2) if (other == player_id && !is_hud_element) {
         
         case 1:
             
+            var cac_off = (item_id == other.ITEM_CODES) ? -20 : 0;
+
             draw_set_alpha(draw_alpha);
             
             if (string_length(player_id.item_grid[item_id][player_id.IG_DESC]) < player_id.TEXTBOX_BIG_THRESHOLD) {
@@ -56,8 +58,8 @@ with (obj_article2) if (other == player_id && !is_hud_element) {
                 draw_sprite(sprite_get("item_bgpanel_big"), 0, x - 52, y - 20)
             }
             
-            draw_sprite_ext(sprite_get("item"), item_id, x + 34, y + 4, 2, 2, 0, c_black, 0.5 * draw_alpha)
-            draw_sprite_ext(sprite_get("item"), item_id, x + 32, y + 0, 2, 2, 0, c_white, draw_alpha)
+            draw_sprite_ext(sprite_get("item"), item_id, x + _x + 34 + cac_off, y + 4, 2, 2, 0, c_black, 0.5 * draw_alpha)
+            draw_sprite_ext(sprite_get("item"), item_id, x + _x + 32 + cac_off, y + 0, 2, 2, 0, c_white, draw_alpha)
             
             draw_set_font( font_get("_rfont") );
             draw_set_halign( fa_center );

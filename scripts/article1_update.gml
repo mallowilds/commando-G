@@ -57,6 +57,7 @@ switch(state) { // use this one for doing actual article behavior
     case 01: // Request arrow (large)
         if (state_timer >= 300) { // Advance to large arrow after 5s
             set_state(02);
+            is_large = true;
         }
         break;
     case 02: // Request arrow (large)
@@ -305,7 +306,7 @@ switch(state) { // use this one for doing actual article behavior
             can_be_grounded = true;
         }
         if (!free || has_hit) {
-            set_state(52);
+            set_state(52+is_large);
             hbox.destroyed = true;
             hbox = noone;
             hsp = 0;
@@ -322,7 +323,7 @@ switch(state) { // use this one for doing actual article behavior
             hbox.vsp = vsp;
         }
         break;
-    case 52: // Exploding
+    case 52: // Exploding - small
     	if (state_timer == 18) { // fireworks (as a treat) and despawn
     		y -= 30;
     		do_fireworks();
@@ -338,6 +339,30 @@ switch(state) { // use this one for doing actual article behavior
     	else if (state_timer % 5 == 0) { // multihits (should be same as in 51's trigger)
     		var _x = x + round(random_func(16, state_timer*4, false)) - (state_timer * 2);
     		var _y = y + round(random_func(17, state_timer*4, false)) - (state_timer * 2);
+    	
+        	var explode_vfx = spawn_hit_fx(_x, _y-35-floor(state_timer/2), player_id.vfx_explosion_med);
+            explode_vfx.depth = depth-1;
+            var explode_hbox = create_hitbox(AT_DSPECIAL, 6, _x, _y-50);
+            explode_hbox.owner_chest = self;
+            sound_play(asset_get("sfx_mol_norm_explode"));
+    	}
+        break;
+    case 53: // Exploding - large
+    	if (state_timer == 28) { // fireworks (as a treat) and despawn
+    		y -= 30;
+    		do_fireworks();
+            should_die = true;
+    	}
+    	else if (state_timer == 25) { // launcher
+    		var explode_vfx = spawn_hit_fx(x, y-60, player_id.vfx_explodey_big);
+            explode_vfx.depth = depth-1;
+    		var explode_hbox = create_hitbox(AT_DSPECIAL, 7, x, y-64);
+            explode_hbox.owner_chest = self;
+    		sound_play(asset_get("sfx_mol_huge_explode"));
+    	}
+    	else if (state_timer % 5 == 0) { // multihits (should be same as in 51's trigger)
+    		var _x = x + round(random_func(16, state_timer*3, false)) - (state_timer * 2);
+    		var _y = y + round(random_func(17, state_timer*3, false)) - (state_timer * 2);
     	
         	var explode_vfx = spawn_hit_fx(_x, _y-35-floor(state_timer/2), player_id.vfx_explosion_med);
             explode_vfx.depth = depth-1;

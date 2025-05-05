@@ -88,6 +88,7 @@ if (instance_exists(tmu_infowindow)) with tmu_infowindow {
         
         	var _x = other.temp_x - 84;
         	var _y = other.temp_y - 200;
+        	var cac_off = (item_id == other.ITEM_CODES) ? -20 : 0;
             
             draw_set_alpha(draw_alpha);
             
@@ -97,8 +98,8 @@ if (instance_exists(tmu_infowindow)) with tmu_infowindow {
                 draw_sprite(sprite_get("item_bgpanel_big"), 0, _x - 52, _y - 20)
             }
             
-            draw_sprite_ext(sprite_get("item"), item_id, _x + 34, _y + 4, 2, 2, 0, c_black, 0.5 * draw_alpha)
-            draw_sprite_ext(sprite_get("item"), item_id, _x + 32, _y + 0, 2, 2, 0, c_white, draw_alpha)
+            draw_sprite_ext(sprite_get("item"), item_id, _x + 34 + cac_off, _y + 4, 2, 2, 0, c_black, 0.5 * draw_alpha)
+            draw_sprite_ext(sprite_get("item"), item_id, _x + 32 + cac_off, _y + 0, 2, 2, 0, c_white, draw_alpha)
             
             draw_set_font( font_get("_rfont") );
             draw_set_halign( fa_center );
