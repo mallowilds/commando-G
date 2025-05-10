@@ -414,7 +414,12 @@ switch state {
 			}
 		}
 		
-		if (player_id.was_parried || player_id.state == PS_RESPAWN || player_id.state == PS_DEAD || player_id.warbanner_obj != self) {
+		if (state_timer > player_id.WARBANNER_DURATION_BASE
+			|| player_id.was_parried
+			|| player_id.state == PS_RESPAWN
+			|| player_id.state == PS_DEAD
+			|| player_id.warbanner_obj != self
+		) {
 			state = 33;
 			state_timer = 0;
 		}

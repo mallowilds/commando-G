@@ -1,9 +1,10 @@
 
-// Retrieve item smuggler
+// Retrieve item smuggler, init item priorities
 if ("inventory_list" not in self) {
     inventory_list = noone;
     with obj_article3 if player == other.player {
          other.inventory_list = inventory_list;
+         instance_destroy(self);
     }
     // TODO: handle item priority
 }
