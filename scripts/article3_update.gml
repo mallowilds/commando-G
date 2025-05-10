@@ -5,6 +5,7 @@
 /*STATE LIST
 
 - Default (-1): Failed initialization
+- -5: Inventory smuggler
 
 FIREMAN'S BOOTS ~ FIRE
 - 00: Initialization
@@ -87,6 +88,16 @@ LONGSTANDING SOLITUDE ~ manager
 
 
 switch state {
+	
+	//#region Inventory Smuggler
+	case -5:
+		// Clean up upon reaching CSS
+		if (room == 71) {
+			instance_destroy();
+			exit;
+		}
+		break;
+	//#endregion
     
     //#region Fireman's Boots ~ fire
     case 00:

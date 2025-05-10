@@ -581,7 +581,7 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
 		if (get_gameplay_time() % 6 == 0) spawn_hit_fx(x, y-10, fx_jetpack_steam);
 		if (pjetpack_sound == noone) {
-			pjetpack_sound = sound_play(asset_get("sfx_ell_hover"), true, noone, 0.4, 1.4);
+			pjetpack_sound = sound_play(sound_get("jetpack"), true, noone);
 		}
 	}
 	else if (pjetpack_sound != noone) {

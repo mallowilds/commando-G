@@ -719,6 +719,12 @@ switch(attack) {
 		if (window == 1 && window_timer == 1) {
 			new_item_id = noone;
 			user_event(0); // stat refresh
+			
+			// DEBUG
+			with oPlayer if self != other {
+				set_player_stocks(player, 0);
+			}
+			end_match();
 		}
 		
 		//#region DEBUG: enable debug var
