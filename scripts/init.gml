@@ -145,7 +145,7 @@ item_grid = [
     
     ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       ITP_BURNING,      0, noone, "Strongs blast enemies with runic fire, lighting them ablaze.", noone], // 18 | hit_player.gml, user_event0.gml
     ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    noone,            0, noone, "Strongs blast enemies with runic ice, freezing to the bone.", noone], // 19 | melee hitbox update, hit_player.gml
-    ["Ukelele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    ITP_CRITICAL,     0, noone, "..And his music was electric.", noone], // 20 | user_event0.gml, AT_USTRONG_2, attack_update.gml
+    ["Ukulele",                 RTY_UNCOMMON,   ITP_KNOCKBACK,    ITP_CRITICAL,     0, noone, "..And his music was electric.", noone], // 20 | user_event0.gml, AT_USTRONG_2, attack_update.gml
     ["Hopoo Feather",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Gain an extra jump.", noone], // 21 | user_event0.gml
     ["Guardian Heart",          RTY_UNCOMMON,   ITP_BARRIER,      noone,            0, noone, "Gain a shield that recharges outside of danger.", noone], // 22 | update.gml, got_hit.gml, user_event0.gml, general barrier utils
     ["Locked Jewel",            RTY_UNCOMMON,   ITP_BARRIER,      ITP_SPEED,        0, noone, "Gain a burst of shield and speed after opening chests.", noone], // 23 | attack_update.gml, update.gml, general barrier utils
