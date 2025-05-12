@@ -9,6 +9,7 @@ else {
     print_debug("user_event1 error: called from unidentifiable object");
 }
 
+item_smuggler.inventory_list = inventory_list;
 
 
 

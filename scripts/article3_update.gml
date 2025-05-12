@@ -5,6 +5,7 @@
 /*STATE LIST
 
 - Default (-1): Failed initialization
+- -5: Inventory smuggler
 
 FIREMAN'S BOOTS ~ FIRE
 - 00: Initialization
@@ -87,6 +88,16 @@ LONGSTANDING SOLITUDE ~ manager
 
 
 switch state {
+	
+	//#region Inventory Smuggler
+	case -5:
+		// Clean up upon reaching CSS
+		if (room == 71) {
+			instance_destroy();
+			exit;
+		}
+		break;
+	//#endregion
     
     //#region Fireman's Boots ~ fire
     case 00:
@@ -403,7 +414,12 @@ switch state {
 			}
 		}
 		
-		if (player_id.was_parried || player_id.state == PS_RESPAWN || player_id.state == PS_DEAD || player_id.warbanner_obj != self) {
+		if (state_timer > player_id.WARBANNER_DURATION_BASE
+			|| player_id.was_parried
+			|| player_id.state == PS_RESPAWN
+			|| player_id.state == PS_DEAD
+			|| player_id.warbanner_obj != self
+		) {
 			state = 33;
 			state_timer = 0;
 		}

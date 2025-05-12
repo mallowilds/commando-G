@@ -213,7 +213,7 @@ if (commando_warbanner_strength > 0) warbanner_mult_add = WARBANNER_MULT_BASE + 
 // Headstompers handling
 var stompers_extra_damage = 0;
 if (my_hitboxID.type == 1 && my_hitboxID.attack == AT_EXTRA_1 && 4 <= hbox_num && hbox_num <= 6) {
-	stompers_extra_damage = STOMPERS_DAMAGE_SCALE * (item_grid[ITEM_STOMPERS][IG_NUM_HELD] - 1);
+	stompers_extra_damage = STOMPERS_DAMAGE_SCALE * (item_grid[ITEM_STOMPERS][IG_NUM_HELD]);
 	// while we're here...
 	if (hbox_num == 4) {
 		sound_play(my_hitboxID.sound_effect);
@@ -284,8 +284,14 @@ if (item_grid[ITEM_MTOOTH][IG_NUM_HELD] > 0 && hit_player_obj.orig_knock >= 12) 
 //#region Brilliant Behemoth/ATG/Plasma Shrimp
 var plimp_active = item_grid[ITEM_SHRIMP][IG_NUM_HELD] > 0;
 
-// Store knockback if appropriate
+// If this could spawn missiles...
 if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied || plimp_active) {
+	// Check lethality
+	var kb = get_kb_formula(get_player_damage(hit_player), hit_player_obj.knockback_adj, get_match_setting(SET_SCALING)*2, my_hitboxID.damage, my_hitboxID.kb_value, my_hitboxID.kb_scale);
+	var hs = get_hitstun_formula(get_player_damage(hit_player), hit_player_obj.knockback_adj, get_match_setting(SET_SCALING)*2, my_hitboxID.damage, my_hitboxID.kb_value, my_hitboxID.kb_scale)
+	var is_galaxy = will_die_from_kb(hit_player_obj, kb, my_hitboxID.kb_angle, hs)
+	
+	// Store knockback
 	hbox_stored_damage = my_hitboxID.damage; // probably won't see use in practice
 	hbox_stored_bkb = my_hitboxID.kb_value;
 	hbox_stored_kbg = my_hitboxID.kb_scale;
@@ -308,6 +314,7 @@ if (my_hitboxID.cmd_strong_finisher && atg_freq > 0) {
 	factory.angle = hbox_stored_angle;
 	factory.bhp = hbox_stored_bhp;
 	factory.hps = hbox_stored_hps;
+	factory.force_kill = is_galaxy ? hit_player : noone;
 }
 
 else if (plimp_active && my_hitboxID.type == 1) {
@@ -320,6 +327,13 @@ else if (plimp_active && my_hitboxID.type == 1) {
 		factory.angle = hbox_stored_angle;
 		factory.bhp = hbox_stored_bhp;
 		factory.hps = hbox_stored_hps;
+	}
+}
+
+// Galaxy insurance
+if (my_hitboxID.attack == AT_EXTRA_1 && "force_kill" in my_hitboxID) {
+	if (hit_player == my_hitboxID.force_kill) {
+		hit_player_obj.orig_knock += 5;
 	}
 }
 

@@ -10,6 +10,11 @@ debug_display_scrolltimer = 0;
 debug_display_type = 0;
 debug_display_typerange = 3;
 
+item_smuggler = instance_create(x, y, "obj_article3"); // For results screen
+item_smuggler.state = -5;
+item_smuggler.persistent = true;
+item_smuggler.inventory_list = [];
+
 var player_name = get_player_name(player);
 limitless_mode = (string_pos("CHEAT", player_name) == 1); // Indexed starting at 1 due to GML jank
 limitless_mode_cancelled = false;
