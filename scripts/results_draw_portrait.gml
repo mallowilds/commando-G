@@ -3,6 +3,8 @@
 if ("draw_items" not in self) {
     
     user_event(2);
+    ITEM_SHIPPING_ALT = ITEM_HOOF;
+    ITEM_ICEBAND_ALT = ITEM_UKELELE;
     draw_items = noone;
     
     // Retrieve item smuggler
@@ -69,7 +71,7 @@ if ("draw_items" not in self) {
     
     // (Nearly) everything else
     var other_items = [
-        ITEM_APROUNDS, ITEM_AEGIS, ITEM_STUNGRENADE, ITEM_STICKYBOMB, ITEM_CODES, ITEM_SHIPPING, // Belt
+        ITEM_APROUNDS, ITEM_AEGIS, ITEM_STUNGRENADE, ITEM_STICKYBOMB, ITEM_CODES, // Belt
         ITEM_ATG1, ITEM_ATG2, // Missiles (this is cheating a bit, since ATG2 covers ATG1)
         ITEM_FIREWORKS, ITEM_SYRINGE, ITEM_FIREBAND, ITEM_BUNGUS, ITEM_CLOVER, // Arm
         ITEM_FEATHER, ITEM_QUAIL, ITEM_SNAKEEYES, ITEM_SCOPE, ITEM_TURBINE, // Gun
@@ -82,14 +84,16 @@ if ("draw_items" not in self) {
         if (array_contains(inventory_list, other_items[i])) array_push(draw_items, other_items[i]);
     }
     
-    // Runald's Band: account for Ukelele
-    for (var i = 0; i < array_length(other_items); i++) {
-        if (array_contains(inventory_list, ITEM_ICEBAND)) {
-            if (ukelele_active) array_push(draw_items, ITEM_ICEBAND+1);
-            else array_push(draw_items, ITEM_ICEBAND);
-        }
+    // SRF and Runald's Band: load an alternate sprite for Ukelele portrait
+    if (array_contains(inventory_list, ITEM_ICEBAND)) {
+        if (ukelele_active) array_push(draw_items, ITEM_ICEBAND_ALT);
+        else array_push(draw_items, ITEM_ICEBAND);
     }
-    
+    if (array_contains(inventory_list, ITEM_SHIPPING)) {
+        if (ukelele_active) array_push(draw_items, ITEM_SHIPPING_ALT);
+        else array_push(draw_items, ITEM_SHIPPING);
+    }
+
     // Abyss items are explicitly not drawn
     
     // Headgear (prioritized)
