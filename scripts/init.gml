@@ -32,6 +32,7 @@ rarity_names = ["Common", "Uncommon", "Rare"];
 negative_rarity_names = ["", "Dummy", "Void"];
 item_type_names = ["Damage", "Knockback", "Healing", "Speed", "Critical", "Attack Speed", "Barrier", "Explosive", "Meta", "Burning"];
 legendary_type_name = "Legendary";
+set_victory_bg(sprite_get("cm_victory_bg"))
 
 
 
@@ -201,7 +202,6 @@ item_grid = [
 
 ]
 //#RCFENDDEFORMAT
-
 // Ordering for in-game utilities (debug displays and practice mode)
 item_id_ordering = [
     ITEM_CROWBAR,       // 0
@@ -874,7 +874,7 @@ bubble_x                        = 0;
 bubble_y                        = 8;
 
 //win stuff
-set_victory_portrait(sprite_get("portrait_base"));
+set_victory_portrait(sprite_get("portrait"));
 
 //last-chance abyss init (perform item grants here!)
 if (get_match_setting(SET_RUNES)) {
