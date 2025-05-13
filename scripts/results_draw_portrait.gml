@@ -8,11 +8,14 @@ if ("draw_items" not in self) {
     // Retrieve item smuggler
     var inventory_list = noone;
     with obj_article3 if player == other.player {
-         other.inventory_list = inventory_list;
+         inventory_list = self.inventory_list;
          instance_destroy(self);
     }
     
-    if (inventory_list == noone || array_equals(inventory_list, [])) exit;
+    if (inventory_list == noone) {
+        print_debug("Failed to retrieve inventory list. Default portrait will be used.")
+        exit;
+    }
     
     // Init item listing, exit if known to be empty
     draw_items = [];
@@ -23,7 +26,7 @@ if ("draw_items" not in self) {
     // will be overridden by those later in the list.
     
     // Jetpack replacement (prioritized)
-    var pack = -9; // Default, denotes that Commando's regular pack should be drawn
+    var pack = 59; // Default, denotes that Commando's regular pack should be drawn
     var pack_items = [ITEM_RJETPACK, ITEM_IGNITION, ITEM_PJETPACK, ITEM_AFTERBURNER];
     for (var i = 0; i < array_length(pack_items); i++) {
         if (array_contains(inventory_list, pack_items[i])) pack = pack_items[i];
@@ -37,7 +40,7 @@ if ("draw_items" not in self) {
     }
     
     // Knife replacement (prioritized)
-    var knife = -8; // Default, denotes that Commando's regular knife should be drawn
+    var knife = 60; // Default, denotes that Commando's regular knife should be drawn
     var knife_items = [ITEM_BLEEDDAGGER, ITEM_TASER, ITEM_CRITDAGGER];
     for (var i = 0; i < array_length(knife_items); i++) {
         if (array_contains(inventory_list, knife_items[i])) knife = knife_items[i];
@@ -68,7 +71,7 @@ if ("draw_items" not in self) {
     var other_items = [
         ITEM_APROUNDS, ITEM_AEGIS, ITEM_STUNGRENADE, ITEM_STICKYBOMB, ITEM_CODES, ITEM_SHIPPING, // Belt
         ITEM_ATG1, ITEM_ATG2, // Missiles (this is cheating a bit, since ATG2 covers ATG1)
-        ITEM_FIREWORKS, ITEM_SYRINGE, ITEM_FIREBAND, ITEM_ICEBAND, ITEM_BUNGUS, ITEM_CLOVER, // Arm
+        ITEM_FIREWORKS, ITEM_SYRINGE, ITEM_FIREBAND, ITEM_BUNGUS, ITEM_CLOVER, // Arm
         ITEM_FEATHER, ITEM_QUAIL, ITEM_SNAKEEYES, ITEM_SCOPE, ITEM_TURBINE, // Gun
         ITEM_GASOLINE, ITEM_SPARK, // Misc
         ITEM_EDRINK, ITEM_MOCHA, ITEM_GLASSES, ITEM_MTOOTH, ITEM_SCARF, // Head (lower)
@@ -77,6 +80,14 @@ if ("draw_items" not in self) {
     ];
     for (var i = 0; i < array_length(other_items); i++) {
         if (array_contains(inventory_list, other_items[i])) array_push(draw_items, other_items[i]);
+    }
+    
+    // Runald's Band: account for Ukelele
+    for (var i = 0; i < array_length(other_items); i++) {
+        if (array_contains(inventory_list, ITEM_ICEBAND)) {
+            if (ukelele_active) array_push(draw_items, ITEM_ICEBAND+1);
+            else array_push(draw_items, ITEM_ICEBAND);
+        }
     }
     
     // Abyss items are explicitly not drawn
@@ -89,32 +100,20 @@ if ("draw_items" not in self) {
     }
     if (head != noone) array_push(draw_items, chest);
     
-    // Do portrait replacements (TODO)
+    // Do portrait replacements
     if (hoof_active && ukelele_active) {
-        // set_portrait()
+        set_victory_portrait(sprite_get("portrait_both"));
     } else if (hoof_active) {
-        // set_portrait()
+        set_victory_portrait(sprite_get("portrait_hoof"));
     } else if (ukelele_active) {
-        // set_portrait()
+        set_victory_portrait(sprite_get("portrait_ukelele"));
     }
     
 }
 
 // Draw items
-if (draw_items != noone) {
-    for (var i = 0; i < array_length(draw_items); i++) {
-        switch draw_items[i] {
-            case -9:
-                // Draw default jetpack
-                break;
-            case -8:
-                // Draw default knife
-                break;
-            default:
-                draw_sprite_ext(sprite_get("portrait_item"), draw_items[i], portrait_x, portrait_y, 2, 2, 0, c_white, 1);
-                break;
-        }
-    }
+if (draw_items != noone) for (var i = 0; i < array_length(draw_items); i++) {
+    draw_sprite_ext(sprite_get("portrait_item"), draw_items[i], portrait_x, portrait_y, 2, 2, 0, c_white, 1);
 }
 
 
