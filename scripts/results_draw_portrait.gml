@@ -98,7 +98,7 @@ if ("draw_items" not in self) {
     for (var i = 0; i < array_length(head_items); i++) {
         if (array_contains(inventory_list, head_items[i])) head = head_items[i];
     }
-    if (head != noone) array_push(draw_items, chest);
+    if (head != noone) array_push(draw_items, head);
     
     // Do portrait replacements
     if (hoof_active && ukelele_active) {
@@ -112,8 +112,19 @@ if ("draw_items" not in self) {
 }
 
 // Draw items
-if (draw_items != noone) for (var i = 0; i < array_length(draw_items); i++) {
-    draw_sprite_ext(sprite_get("portrait_item"), draw_items[i], portrait_x, portrait_y, 2, 2, 0, c_white, 1);
+if (draw_items != noone) {
+    for (var i = 0; i < array_length(draw_items); i++) {
+        draw_sprite_ext(sprite_get("portrait_items"), draw_items[i], portrait_x, portrait_y, 2, 2, 0, c_white, 1);
+    }
+    
+    var flash = black_flash_alpha*2;
+    if (flash > 0) {
+        gpu_set_fog(true, c_black, depth, depth);
+        for (var i = 0; i < array_length(draw_items); i++) {
+            draw_sprite_ext(sprite_get("portrait_items"), draw_items[i], portrait_x, portrait_y, 2, 2, 0, c_white, flash);
+        }
+        gpu_set_fog(false, c_white, 0, 0);
+    }
 }
 
 

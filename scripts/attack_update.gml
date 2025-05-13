@@ -722,10 +722,7 @@ switch(attack) {
 			user_event(0); // stat refresh
 			
 			// DEBUG
-			with oPlayer if self != other {
-				set_player_stocks(player, 0);
-			}
-			end_match();
+			end_match(1, 2);
 		}
 		
 		//#region DEBUG: enable debug var
