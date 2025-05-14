@@ -1,15 +1,15 @@
 
 if (object_index == oPlayer || object_index == oTestPlayer) {
 	do_user_event1();
+	item_smuggler.inventory_list = inventory_list;
 }
 else if (player_id.object_index == oPlayer || player_id.object_index == oTestPlayer) with player_id {
     do_user_event1();
+    item_smuggler.inventory_list = inventory_list;
 }
 else {
     print_debug("user_event1 error: called from unidentifiable object");
 }
-
-item_smuggler.inventory_list = inventory_list;
 
 
 
