@@ -716,13 +716,9 @@ switch(attack) {
     
     // Default
     case AT_TAUNT:
-    case AT_TAUNT_2:
 		if (window == 1 && window_timer == 1) {
 			new_item_id = noone;
 			user_event(0); // stat refresh
-			
-			// DEBUG
-			end_match(1, 2);
 		}
 		
 		//#region DEBUG: enable debug var
