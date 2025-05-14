@@ -62,6 +62,7 @@ sprite_change_offset("dspecial_open"        , load_x, load_y);
 
 sprite_change_offset("taunt"                , load_x, load_y);
 sprite_change_offset("taunt_war"            , load_x, load_y);
+sprite_change_offset("taunt_uke"                , load_x, load_y);
 
 sprite_change_offset("tele"                 , load_x, load_y);
 
