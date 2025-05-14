@@ -386,6 +386,7 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 			if (tooth_awaiting_spawn[i] != -1) {
 				var temp_angle = tooth_awaiting_spawn[i];
 				for (var j = 0; j < item_grid[47][IG_NUM_HELD]*nectar_mult; j++) {
+					spawn_hit_fx(recently_hit[i].x, recently_hit[i].y-4, fx_tooth_despawn);
 					var orb = instance_create(recently_hit[i].x, recently_hit[i].y-4, "obj_article3");
 					orb.state = 10;
 					var orb_angle = temp_angle - 5 + random_func_2((player*j + 3*j)%200, 10, false);
