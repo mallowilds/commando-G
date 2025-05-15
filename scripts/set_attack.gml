@@ -4,7 +4,6 @@ do_turbine_recolor = false; // it's easiest to just set it here...
 if (debug_display_opened && attack_pressed && taunt_pressed) attack = AT_TAUNT;
 
 if (attack == AT_JAB) {
-	attack = 2
     num_loops = attack_speed;
     set_hitbox_value(AT_JAB, 1, HG_HITSTUN_MULTIPLIER, 1);
     set_hitbox_value(AT_JAB, 2, HG_HITSTUN_MULTIPLIER, 1);

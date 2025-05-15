@@ -392,6 +392,8 @@ ustrong_index = AT_USTRONG; // altered by Ukelele
 fstrong_index = AT_FSTRONG; // altered by Tricorn
 //custom intro
 AT_INTRO = 2; //the attack index the intro uses, 2 doesn't overwrite any other attack
+intro_pod = hit_fx_create(sprite_get("intro_pod"), 50)
+pod_idle = hit_fx_create(sprite_get("pod_idle"), 160)
 
 // Multipliers and fractional damage (see also: other_init.gml)
 u_mult_damage_buffer = 0;

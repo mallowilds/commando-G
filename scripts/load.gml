@@ -66,6 +66,8 @@ sprite_change_offset("taunt_uke"                , load_x, load_y);
 
 sprite_change_offset("tele"                 , load_x, load_y);
 sprite_change_offset("intro"                 , load_x, load_y);
+sprite_change_offset("intro_pod"                 , 105*2, 132*2);
+sprite_change_offset("pod_idle"                 , 105*2, 132*2);
 
 
 //                  --other sprite offsets (no small_sprites)--               //

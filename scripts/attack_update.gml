@@ -13,14 +13,25 @@ prev_attack = attack;
 switch(attack) {
 	//#region intro 
 	case 2:
+		grabbed_invisible=0
 		if window == 1 {
-			draw_y = -50 //during window 1, pod spawns (after a short time), then opens. window 2 starts as soon as cm jumps out
-			draw_x = -10
+			if window_timer == 40 {
+				spawn_hit_fx(x, y, intro_pod)
+			}
+			draw_y = -30 //during window 1, pod spawns (after a short time), then opens. window 2 starts as soon as cm jumps out
+			draw_x = -40 * spr_dir
+			if window_timer == 90 {
+				spawn_hit_fx(x, y, pod_idle)
+			}
 		}
 		if window == 2 {
-			if window_timer < 25 { 
+			if window_timer < 10 {
+				draw_y = lerp(draw_y, -45, .2)
+				draw_x = ease_linear(-40*spr_dir, 0, window_timer, 25)
+			}
+			if window_timer > 10 && window_timer < 24 { 
 				draw_y = lerp(draw_y, 0, .1) //maybe needs adjustment, figure it'd be easier than manual positioning
-				draw_x = lerp(draw_x, 0, .05)
+				draw_x = ease_linear(-40*spr_dir, 0, window_timer, 25)
 			} else if window_timer == 25{
 				draw_y = 0
 				draw_x = 0
@@ -33,6 +44,7 @@ switch(attack) {
         
     case AT_FTILT:
         //a
+        
         break;
         
     case AT_UTILT:
