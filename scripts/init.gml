@@ -915,21 +915,7 @@ if (get_match_setting(SET_RUNES)) {
         var manager = instance_create(x, y-10, "obj_article3");
         manager.state = 90;
     }
-    if (RUNE_FREE_RARE) { // spawns an orb for clarity reasons
-        var seed = 0;
-        with oPlayer {
-            if (url == "") seed += (player + 1) * player;
-            else {
-                var mult = (player + 1) * player;
-                seed += real(url) * player;
-                seed %= 200;
-            }
-            item_seed = seed;
-        }
-        var item = instance_create(x, y-10, "obj_article3");
-        item.rarity = 2;
-        item.state = 20;
-    }
+    // RUNE_FREE_RARE moved to a post-init operation at the top of update.gml
     if (RUNE_TRISHOPS) {
         for (var i = 0; i < 3; i++) {
             new_item_id = ITEM_SHIPPING;

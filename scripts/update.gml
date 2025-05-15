@@ -992,6 +992,26 @@ with pHitBox if (player_id == other) {
 }
 //#endregion
 
+//#region Rune for free rare (post-init)
+if (get_gameplay_time() == 1) {
+	if (RUNE_FREE_RARE) { // spawns an orb for clarity reasons
+        var seed = 0;
+        with oPlayer {
+            if ("url" not in self || url == "") seed += (player + 1) * player;
+            else {
+                var mult = (player + 1) * player;
+                seed += real(url) * player;
+                seed %= 200;
+            }
+            item_seed = seed;
+        }
+        var item = instance_create(x, y-10, "obj_article3");
+        item.rarity = 2;
+        item.state = 20;
+    }
+}
+//#endregion
+
 
 //#region Reset fractional damage on enemy death
 with object_index {
