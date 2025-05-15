@@ -706,12 +706,12 @@ else if (dios_revive_timer > -30) {
 }
 
 // 57-Leaf Clover
-if (clover_test) {
+if (clover_do_test) {
 	if (activated_kill_effect) {
 		clover_timer = CLOVER_RUNTIME;
 		clover_active--;
 	}
-	clover_test = false;
+	clover_do_test = false;
 }
 
 if (clover_timer == CLOVER_RUNTIME) {

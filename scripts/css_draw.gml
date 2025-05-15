@@ -33,7 +33,7 @@ init_shader();
 //--- ---
 var qe_b = "commando"
 // ! you can now scroll down until you reach "the primary part you should change."
- 
+print_debug(room)
 var tmp_cur = 0;
 var tmp_i = [0, 0, 0, 0, 0];
 var tmp_x = [0, 0, 0, 0, 0];

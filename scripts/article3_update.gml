@@ -91,11 +91,26 @@ switch state {
 	
 	//#region Inventory Smuggler
 	case -5:
-		// Clean up upon reaching CSS
-		if (room == 71) {
-			instance_destroy();
-			exit;
+		visible = false;
+		
+		// Clean up upon reaching CSS (failsafe)
+		if (last_room != room) {
+			if (room == asset_get("local_charselect_room")
+				|| room == asset_get("network_2v2_select")
+				|| room == asset_get("training_charselect_room")
+				|| room == asset_get("tourney_charselect_room")
+				|| room == asset_get("abyss_vs_charselect_room")
+				|| room == asset_get("abyss_charselect_room")
+				|| room == asset_get("tether_charselect_room")
+				|| room == asset_get("replay_menu")
+				|| room == asset_get("network_char_select")
+			) {
+				instance_destroy();
+				exit;
+			}
+			room = last_room;
 		}
+		
 		break;
 	//#endregion
     

@@ -102,3 +102,38 @@ if (barrier > 0 && get_local_setting(SET_HUD_SIZE) != 0) {
 }
 
 //#endregion
+
+//#region Clover indicator
+
+if (clover_active && get_local_setting(SET_HUD_SIZE) != 0) {
+    var _x = x;
+    var _y = y - hud_offset - char_height;
+    var dmg = get_player_damage(player);
+    
+    var name = get_player_name(player);
+    var nameless = (get_player_name(player) == "P1" || get_player_name(player) == "P2" || get_player_name(player) == "P3" || get_player_name(player) == "P4");
+    if (nameless) _y -= 50;
+    else _y -= 66;
+    
+    // Oddly, CPUs have their HUD offset by 2 px
+    if (get_player_hud_color(player) == c_gray) _x -= 2;
+    
+    // Small HUD
+    if (get_local_setting(SET_HUD_SIZE) == 1) {
+        if (dmg < 10) _x += 6;
+        else if (dmg < 100) _x += 10;
+        else _x += 14;
+    }
+    
+    // Large HUD
+    else {
+        if (dmg < 10) _x += 6;
+        else if (dmg < 100) _x += 11;
+        else _x += 16;
+    }
+    
+    draw_sprite(sprite_get("bloom"), 3, _x, _y);
+}
+
+
+//#endregion

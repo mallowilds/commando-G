@@ -16,7 +16,7 @@ if (fireboots_lockout < FIREBOOTS_HIT_LOCKOUT) fireboots_lockout = FIREBOOTS_HIT
 do_behemoth_hbox = 0;
 
 // 57-Leaf Clover
-clover_test = clover_active;
+clover_do_test = clover_active;
 
 //Death Message (N/A Compat)
 is_na = (hit_player_obj.url == 2229832619);

@@ -11,6 +11,7 @@ if ("draw_items" not in self) {
     var inventory_list = noone;
     with obj_article3 if player == other.player {
          inventory_list = self.inventory_list;
+         persistent = false;
          instance_destroy(self);
     }
     
