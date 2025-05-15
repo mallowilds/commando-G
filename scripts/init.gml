@@ -191,7 +191,7 @@ item_grid = [
     ["Fireworks",               RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Launch fireworks when opening chests.", noone], // 55 | user_event0, article1_update.gml, article3, AT_EXTRA1, hitbox_update.gml, got_parried.gml
     ["Snake Eyes",              RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Consecutive critical hits become stronger.", noone], // 56 | set_attack.gml, hit_player.gml, user_event0.gml
     ["Ceremonial Dagger",       RTY_RARE,       ITP_CRITICAL,     noone,            0, noone, "Critical hits summon daggers to chase down opponents.", noone], // 57 | hit_player.gml, article3, AT_EXTRA1, hitbox_update.gml
-    ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Common items grow more powerful... given enough of them.", noone], // 58 | user_event0.gml, animation.gml, anywhere common items are implemented
+    ["Growth Nectar",           RTY_RARE,       ITP_META,         noone,            0, noone, "Common items grow more powerful.", noone], // 58 | user_event0.gml, animation.gml, anywhere common items are implemented
     
     ["Shaped Glass",            RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Double your damage... but Shatter your weight.", noone], // 59 | update.gml hitbox initializer, user_event0.gml, death.gml
     ["ICBM",                    RTY_ABYSSAL,    ITP_DAMAGE,       noone,            0, noone, "Double all homing missiles. They now apply Blast effects.", noone], // 60 | Fireworks, ATGs, Ceremonial Dagger, Plasma Shrimp
