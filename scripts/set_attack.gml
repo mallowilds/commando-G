@@ -23,6 +23,9 @@ if (attack == AT_USTRONG) attack = ustrong_index;
 
 if (attack == AT_FSPECIAL && (free || state == PS_JUMPSQUAT)) attack = AT_FSPECIAL_AIR;
 if (prev_attack == AT_FSPECIAL_AIR) hsp = clamp(hsp, -leave_ground_max, leave_ground_max);
+if attack == AT_FSPECIAL && item_grid[ITEM_AFTERBURNER][IG_NUM_HELD] > 0 {
+	set_attack_value(AT_FSPECIAL, AG_SPRITE                         , sprite_get("fspec_hardlight"));
+}
 
 if (attack == AT_DSPECIAL) {
     if (!instance_exists(chest_obj)) chest_obj = noone;

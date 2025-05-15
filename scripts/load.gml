@@ -53,6 +53,8 @@ sprite_change_offset("ustrong2"             , load_x, load_y); //
 sprite_change_offset("dstrong"              , load_x, load_y);
 sprite_change_offset("nspecial"             , load_x, load_y);
 sprite_change_offset("fspecial"             , load_x, load_y); //
+sprite_change_offset("fspec_hardlight"             , load_x, load_y); //
+
 sprite_change_offset("fspecial_air"         , load_x, load_y); //
 
 sprite_change_offset("uspecial"             , load_x, load_y); //
