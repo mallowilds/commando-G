@@ -65,6 +65,7 @@ sprite_change_offset("taunt_war"            , load_x, load_y);
 sprite_change_offset("taunt_uke"                , load_x, load_y);
 
 sprite_change_offset("tele"                 , load_x, load_y);
+sprite_change_offset("intro"                 , load_x, load_y);
 
 
 //                  --other sprite offsets (no small_sprites)--               //

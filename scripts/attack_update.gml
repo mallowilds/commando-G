@@ -11,7 +11,24 @@ prev_attack = attack;
 
 // specific attack behaviour
 switch(attack) {
-	
+	//#region intro 
+	case 2:
+		if window == 1 {
+			draw_y = -50 //during window 1, pod spawns (after a short time), then opens. window 2 starts as soon as cm jumps out
+			draw_x = -10
+		}
+		if window == 2 {
+			if window_timer < 25 { 
+				draw_y = lerp(draw_y, 0, .1) //maybe needs adjustment, figure it'd be easier than manual positioning
+				draw_x = lerp(draw_x, 0, .05)
+			} else if window_timer == 25{
+				draw_y = 0
+				draw_x = 0
+				sound_play(asset_get("sfx_land"))
+				spawn_base_dust(x, y, "land", spr_dir)
+			}
+			
+		}
 	//#region Standard normals
         
     case AT_FTILT:

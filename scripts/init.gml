@@ -390,6 +390,8 @@ utaunt_index = AT_TAUNT;
 dtaunt_index = get_match_setting(SET_PRACTICE) ? AT_EXTRA_3 : AT_TAUNT;
 ustrong_index = AT_USTRONG; // altered by Ukelele
 fstrong_index = AT_FSTRONG; // altered by Tricorn
+//custom intro
+AT_INTRO = 2; //the attack index the intro uses, 2 doesn't overwrite any other attack
 
 // Multipliers and fractional damage (see also: other_init.gml)
 u_mult_damage_buffer = 0;
