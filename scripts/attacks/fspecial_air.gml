@@ -4,7 +4,7 @@ var window_length   = 0;
 
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("fspecial_air"));
-set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("fspecial_hurt"));
+set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("fspecial_air_hurt"));
 set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_CATEGORY                       , 2);
 set_attack_value(atk, AG_OFF_LEDGE                      , 1);

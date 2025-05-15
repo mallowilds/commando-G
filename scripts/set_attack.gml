@@ -52,8 +52,8 @@ else if (attack == AT_USTRONG_2) {
     
     var do_enhanced_crits = snakeeyes_active || item_grid[ITEM_SCOPE][IG_NUM_HELD] > 0;
     
-    if (do_enhanced_crits) enable_enhanced_crit(attack, 4, 5, 6);
-    else enable_basic_crit(attack, 4, 5, 6);
+    if (do_enhanced_crits) enable_enhanced_crit(attack, 7, 8, 9);
+    else enable_basic_crit(attack, 7, 8, 9);
     
 }
 snakeeyes_active = false;
