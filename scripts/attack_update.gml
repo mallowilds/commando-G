@@ -171,6 +171,7 @@ switch(attack) {
         	if (uke == 2) window = 4;
         	else if (uke >= 3) window = 3;
         	uke_looped = true;
+        	attack_end();
         }
         if (window == 5 && window_timer == 3) {
             //sound_stop(asset_get("sfx_absa_cloud_crackle"))
@@ -179,7 +180,7 @@ switch(attack) {
             sound_play(sound_get("theunmatchedpowerofgod"), 0, noone, .8)
         }
         if (do_ignite_hbox && !hitpause) {
-        	create_hitbox(AT_USTRONG_2, 6, x, y); // melee hitbox, position doesn't matter
+        	create_hitbox(AT_USTRONG_2, 9, x, y); // melee hitbox, position doesn't matter
         	do_ignite_hbox = false;
         }
         break;
