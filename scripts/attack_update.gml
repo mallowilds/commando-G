@@ -809,10 +809,11 @@ switch(attack) {
 
 #define attempt_behemoth_explosion
 if (do_behemoth_hbox && hit_player_obj.hitstop < hit_player_obj.hitstop_full * (1-BEHEMOTH_AWAIT_MULT)) {
-	var _x = floor(hit_player_obj.x);
-	var _y = floor(hit_player_obj.y - (hit_player_obj.char_height*0.7));
+	var _x = round(lerp(x, hit_player_obj.x, 0.8));
+	var _y = round(hit_player_obj.y - hit_player_obj.char_height);
 	var hbox = create_hitbox(AT_EXTRA_1, 1, _x, _y);
-	hbox.spr_dir = 1;
+	hbox.spr_dir = hbox_stored_dir;
+	hbox.kb_angle = hbox_stored_angle;
 	hbox.kb_value = hbox_stored_bkb;
 	hbox.kb_scale = hbox_stored_kbg;
 	hbox.kb_angle = hbox_stored_angle;
@@ -820,7 +821,7 @@ if (do_behemoth_hbox && hit_player_obj.hitstop < hit_player_obj.hitstop_full * (
 	hbox.hitpause_growth = hbox_stored_hps * BEHEMOTH_HITPAUSE_MULT;
 	hbox.no_other_hit = hbox_stored_lockout;
 	do_behemoth_hbox = false;
-	behemoth_hfx = spawn_hit_fx(_x, _y, fx_explode_large);
+	behemoth_hfx = spawn_hit_fx(_x, _y, vfx_explosion_med);
 	behemoth_hfx.depth = hit_player_obj.depth+1;
 	behemoth_hfx_hitstop = 0; // to be overwritten shortly
 }

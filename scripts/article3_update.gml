@@ -883,8 +883,8 @@ switch state {
     		hbox.homing = true;
     		hbox.kb_value = bkb*0.6;
     		hbox.kb_scale = kbg*0.8;
-    		hbox.spr_dir = 1;
-    		hbox.angle = angle;
+    		hbox.spr_dir = spr_dir;
+    		hbox.kb_angle = kb_angle;
     		hbox.hitpause = floor(bhp/2);
     		hbox.hitpause_growth = hsp/2;
     		hbox.is_fake_hit = true;
@@ -1014,8 +1014,8 @@ switch state {
     		hbox.homing = true;
     		hbox.kb_value = bkb*0.6;
     		hbox.kb_scale = kbg*0.8;
-    		hbox.spr_dir = 1;
-    		hbox.angle = angle;
+    		hbox.spr_dir = spr_dir;
+    		hbox.kb_angle = kb_angle;
     		hbox.hitpause = floor(bhp/2);
     		hbox.hitpause_growth = hsp/2;
     		hbox.is_fake_hit = true;
