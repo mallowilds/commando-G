@@ -580,7 +580,7 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 		pjetpack_available = true;
 	}
 	
-	var inactionable = (state == PS_PRATFALL) || (state == PS_ATTACK_AIR && get_attack_value(attack, AG_DISABLES_JETPACK));
+	var inactionable = hitpause || (state_cat == SC_HITSTUN) || (state == PS_PRATFALL) || (state == PS_ATTACK_AIR && get_attack_value(attack, AG_DISABLES_JETPACK));
 	if (!inactionable && jump_down && pjetpack_available && pjetpack_fuel > 0) {
 		pjetpack_fuel--;
 		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
