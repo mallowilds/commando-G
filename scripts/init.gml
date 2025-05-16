@@ -466,6 +466,7 @@ spark_do_update = false;
 h3ad_lockout_timer = 0; // H3AD-5T, used for fast falling
 h3ad_was_fast_falling = false;
 h3ad_jump_released = false;
+h3ad_jump_timer = 0;
 
 fireboots_distance = 0;
 fireboots_prev_x = x;
