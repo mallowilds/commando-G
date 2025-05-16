@@ -108,7 +108,7 @@ switch state {
 				instance_destroy();
 				exit;
 			}
-			room = last_room;
+			last_room = room;
 		}
 		
 		break;
