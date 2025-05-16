@@ -82,7 +82,7 @@ if (!variable_instance_exists(id,"ae") || ye == true){
     altsel = sound_get("cm_altsel"); // change the alt select sound here. if you don't want to change the sound, put 0 here.
     color_desc_activate = false; // optional "alt color description button". set to "true" to turn it on.
     
-	col_max = 16; // number of alternate color palettes. 0 is the default color, count it accordingly.
+	col_max = 17; // number of alternate color palettes. 0 is the default color, count it accordingly.
 	
 	//first array index is for alternate color. second array index is for distinguishing the information in it.
 	ce[0,0] = make_color_rgb(255, 228, 156) // "color preview square" color. can be any color!
@@ -115,27 +115,30 @@ if (!variable_instance_exists(id,"ae") || ye == true){
     ce[9,0] = make_color_rgb(38, 143, 199)
 	ce[9,1] = "Perfected"
 	ce[9,2] = ""
-    ce[10,0] = make_color_rgb(76, 0, 146)
-	ce[10,1] = "Voidtouched"
+	ce[10,0] = make_color_rgb(255, 224, 122)
+	ce[10,1] = "Gilded"
 	ce[10,2] = ""
-    ce[11,0] = make_color_rgb(255, 169, 79)
-	ce[11,1] = "Ethereal"
+    ce[11,0] = make_color_rgb(76, 0, 146)
+	ce[11,1] = "Voidtouched"
 	ce[11,2] = ""
-    ce[12,0] = make_color_rgb(251, 0, 20)
-	ce[12,1] = "Vestige"
+    ce[12,0] = make_color_rgb(255, 169, 79)
+	ce[12,1] = "Ethereal"
 	ce[12,2] = ""
-    ce[13,0] = make_color_rgb(195, 103, 9)
-	ce[13,1] = "Employee"
+    ce[13,0] = make_color_rgb(251, 0, 20)
+	ce[13,1] = "Vestige"
 	ce[13,2] = ""
-    ce[14,0] = make_color_rgb(255, 118, 33)
-	ce[14,1] = "Hornet"
+    ce[14,0] = make_color_rgb(195, 103, 9)
+	ce[14,1] = "Employee"
 	ce[14,2] = ""
-    ce[15,0] = make_color_rgb(21, 64, 46)
-	ce[15,1] = "S.O.S."
+    ce[15,0] = make_color_rgb(255, 118, 33)
+	ce[15,1] = "Hornet"
 	ce[15,2] = ""
-    ce[16,0] = make_color_rgb(230, 28, 28)
-	ce[16,1] = "Judgement"
+    ce[16,0] = make_color_rgb(21, 64, 46)
+	ce[16,1] = "S.O.S."
 	ce[16,2] = ""
+    ce[17,0] = make_color_rgb(230, 28, 28)
+	ce[17,1] = "Judgement"
+	ce[17,2] = ""
 }
  
 if (ae == "ae"){

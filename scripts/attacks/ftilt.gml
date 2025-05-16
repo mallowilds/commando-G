@@ -9,7 +9,7 @@ set_attack_value(atk, AG_NUM_WINDOWS                    , 3);
 set_attack_value(atk, AG_CATEGORY                       , 0);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 8);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 6);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
@@ -123,7 +123,7 @@ set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 64);
 set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 40);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 3);
-set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 45);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 80);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 6);
 set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , .4);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 6);

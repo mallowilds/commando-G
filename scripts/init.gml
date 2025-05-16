@@ -120,7 +120,7 @@ final_death_timer = 0;
 is_na = 0; // n/a compat
 
 ror_win_text = "..and so he left, with everything but his humanity."
-
+set_victory_theme(sound_get("cm_victory"))
 
 //=-(                     ~~//** ITEM MANAGEMENT **//~~                     )-=//
 

@@ -15,6 +15,7 @@ switch(attack) {
 	case 2:
 		grabbed_invisible=0
 		if window == 1 {
+			hud_offset = 900
 			if window_timer == 40 {
 				spawn_hit_fx(x, y, intro_pod)
 			}
@@ -22,9 +23,13 @@ switch(attack) {
 			draw_x = -40 * spr_dir
 			if window_timer == 90 {
 				spawn_hit_fx(x, y, pod_idle)
+				if get_player_color(player) == 7 {
+					sound_play(sound_get("hell"))
+				}
 			}
 		}
 		if window == 2 {
+			hud_offset = 50
 			if window_timer < 24 { 
 				draw_y = window_timer * (window_timer-24) / 4
 				draw_x = -40*spr_dir*(1 - window_timer/25)
@@ -505,6 +510,7 @@ switch(attack) {
             can_jump = true
             can_attack = true
             can_strong = true
+            can_ustrong = true
             do_wind_streaks = true;
         }
         move_cooldown[AT_FSPECIAL] = 50;
