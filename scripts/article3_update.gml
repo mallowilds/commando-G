@@ -912,6 +912,7 @@ switch state {
     	if (state_timer == 0) {
 	    	num_fireworks = player_id.fireworks_freq;
 	    	if (player_id.icbm_active) num_fireworks *= 2;
+	    	num_fireworks *= player_id.nectar_mult;
 	    	was_parried = false;
 	    	parry_owner = player;
 	    	target_index = 0;

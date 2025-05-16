@@ -25,13 +25,9 @@ switch(attack) {
 			}
 		}
 		if window == 2 {
-			if window_timer < 10 {
-				draw_y = lerp(draw_y, -45, .2)
-				draw_x = ease_linear(-40*spr_dir, 0, window_timer, 25)
-			}
-			if window_timer > 10 && window_timer < 24 { 
-				draw_y = lerp(draw_y, 0, .1) //maybe needs adjustment, figure it'd be easier than manual positioning
-				draw_x = ease_linear(-40*spr_dir, 0, window_timer, 25)
+			if window_timer < 24 { 
+				draw_y = window_timer * (window_timer-24) / 4
+				draw_x = -40*spr_dir*(1 - window_timer/25)
 			} else if window_timer == 25{
 				draw_y = 0
 				draw_x = 0
