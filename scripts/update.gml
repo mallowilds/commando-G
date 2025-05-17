@@ -621,19 +621,22 @@ if (item_grid[38][IG_NUM_HELD] > 0) {
 	// Jump attenuation
 	if (state == PS_JUMPSQUAT) {
 		h3ad_jump_released = false;
+		h3ad_jump_timer = jump_down; // short-hop detection
 	}
-	else if (free) {
-		if (vsp >= 0) h3ad_jump_released = false
-		else if (state_timer < 6) {
-			if (!jump_down) h3ad_jump_released = true;
+	else if (h3ad_jump_timer > 0) {
+		if (!jump_down) {
+			h3ad_jump_released = (h3ad_jump_timer != 1);
+			h3ad_jump_timer = 0;
+		} else {
+			h3ad_jump_timer++;
+			if (h3ad_jump_timer > 6) h3ad_jump_timer = 0;
 		}
-		else if (h3ad_jump_released) {
-			if (vsp < 0) vsp -= vsp/10;
-		}
 	}
-	else {
-		h3ad_jump_released = false;
+	else if (h3ad_jump_released && (state == PS_FIRST_JUMP || state == PS_IDLE_AIR || state == PS_ATTACK_AIR)) {
+		if (vsp < 0) vsp -= vsp/10;
+		else h3ad_jump_released = false;
 	}
+	else h3ad_jump_released = false;
 }
 
 // Brilliant Behemoth

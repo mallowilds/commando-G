@@ -297,7 +297,8 @@ if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied || plimp
 	hbox_stored_damage = my_hitboxID.damage; // probably won't see use in practice
 	hbox_stored_bkb = my_hitboxID.kb_value;
 	hbox_stored_kbg = my_hitboxID.kb_scale;
-	hbox_stored_angle = point_direction(0, 0, hit_player_obj.hsp, hit_player_obj.vsp); // as an aside, behemoth/atg hitboxes should have spr_dir fixed at 1
+	hbox_stored_angle = point_direction(0, 0, hit_player_obj.hsp, hit_player_obj.vsp);
+	hbox_stored_dir = 1;
 	hbox_stored_bhp = my_hitboxID.hitpause;
 	hbox_stored_hps = my_hitboxID.hitpause_growth;
 	hbox_stored_lockout = my_hitboxID.no_other_hit;
@@ -313,7 +314,8 @@ if (my_hitboxID.cmd_strong_finisher && atg_freq > 0) {
 	factory.target_obj = hit_player_obj;
 	factory.bkb = hbox_stored_bkb;
 	factory.kbg = hbox_stored_kbg;
-	factory.angle = hbox_stored_angle;
+	factory.kb_angle = hbox_stored_angle;
+	factory.spr_dir = hbox_stored_dir;
 	factory.bhp = hbox_stored_bhp;
 	factory.hps = hbox_stored_hps;
 	factory.force_kill = is_galaxy ? hit_player : noone;
@@ -326,7 +328,8 @@ else if (plimp_active && my_hitboxID.type == 1) {
 		factory.target_obj = hit_player_obj;
 		factory.bkb = hbox_stored_bkb;
 		factory.kbg = hbox_stored_kbg;
-		factory.angle = hbox_stored_angle;
+		factory.kb_angle = hbox_stored_angle;
+		factory.spr_dir = hbox_stored_dir;
 		factory.bhp = hbox_stored_bhp;
 		factory.hps = hbox_stored_hps;
 	}
