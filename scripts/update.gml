@@ -776,7 +776,7 @@ else if (clover_timer == 1) {
 // Wax Quail
 if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 	var attack_dashing = (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR) && ((attack == AT_DATTACK && has_hit) || attack == AT_FSPECIAL);
-	if (state == PS_DASH || attack_dashing) quail_do_boost = true;
+	if (state == PS_DASH || state == PS_DASH_START || attack_dashing) quail_do_boost = true;
 	else if (state != PS_JUMPSQUAT && state != PS_FIRST_JUMP && state != PS_AIR_DODGE && state != PS_WAVELAND) quail_do_boost = false;
 	
 	if (quail_do_boost) {

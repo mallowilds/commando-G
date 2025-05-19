@@ -86,20 +86,22 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 9);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -73);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 74);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 45);
-set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 2);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -1);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -107);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 46);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 17);
+
+set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 4);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 12);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
 set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 9);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.9);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0.8);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 10);
-set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0.8);
+set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 1);
 set_hitbox_value(atk, hbox_num, HG_EXTRA_HITPAUSE           , 5);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 304); //temp
-set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
+set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , s_knifem);
 set_hitbox_value(atk, hbox_num, HG_IS_CRITICAL              , 1);
 
 hbox_num++; //Crit (Ignition Tank)
@@ -109,10 +111,11 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 2);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 0); // spawned manually
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 1);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 9);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -73);
-set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 100);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 72);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , -1);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -107);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
+set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 46);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 17);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 6);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 8);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);

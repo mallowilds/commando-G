@@ -99,9 +99,9 @@ switch(attack) {
 				strong_flashing = true;
 			}
 		}
-		else if (window == 3 && window_timer == 5) {
+		else if (window == 3 && window_timer == 2) {
 			if (vsp > -2) vsp = -2;
-			if (hsp*spr_dir <= -2) hsp -= -3*spr_dir;
+			if (hsp*spr_dir <= -2) hsp -= 2*(move_speed/2)*spr_dir;
 			else hsp = -5*spr_dir;
 			sound_play(s_shotty, 0, noone, 3, .95)
 		}

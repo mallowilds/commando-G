@@ -9,7 +9,7 @@ set_attack_value(atk, AG_NUM_WINDOWS                    , 5);
 set_attack_value(atk, AG_CATEGORY                       , 1);
 set_attack_value(atk, AG_STRONG_CHARGE_WINDOW           , 9); // enables strong_charge checks (hacky)
 set_attack_value(atk, AG_HAS_LANDING_LAG                , 1);
-set_attack_value(atk, AG_LANDING_LAG                    , 10);
+set_attack_value(atk, AG_LANDING_LAG                    , 7);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //pre-chcarge
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 12);
@@ -30,7 +30,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES,
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 6);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
@@ -77,6 +77,8 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
 set_hitbox_value(atk, hbox_num, HG_IS_BLAST             , 1);
+set_hitbox_value(atk, hbox_num, HG_STRONG_FINISHER          , 1);
+
 
 hbox_num++;
 
@@ -101,3 +103,5 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
 set_hitbox_value(atk, hbox_num, HG_IS_BLAST             , 1);
+set_hitbox_value(atk, hbox_num, HG_STRONG_FINISHER          , 1);
+

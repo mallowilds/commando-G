@@ -5,6 +5,10 @@ if (attack == AT_USPECIAL) {
 	if hbox_num == 1 {
 		proj_angle = 10*hitbox_timer
 	}
+	if player_id.state_cat == SC_HITSTUN {
+		hitbox_timer = 999
+		print('gone')
+	}
     if (hbox_num == 1 && hitbox_timer == length && !was_parried) {
         spawn_hit_fx(x, y - 30, player_id.vfx_explodey_big);
         //spawn_hit_fx(x, y, player_id.vfx_explode_big);
