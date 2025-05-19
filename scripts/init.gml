@@ -15,6 +15,7 @@ item_smuggler.state = -5;
 item_smuggler.persistent = true;
 item_smuggler.inventory_list = [];
 item_smuggler.last_room = room;
+item_smuggler.clear_on_restart = false;
 
 var player_name = get_player_name(player);
 limitless_mode = (string_pos("CHEAT", player_name) == 1); // Indexed starting at 1 due to GML jank

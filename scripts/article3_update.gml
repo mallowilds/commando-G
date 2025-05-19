@@ -93,6 +93,13 @@ switch state {
 	case -5:
 		visible = false;
 		
+		// Clean up if the match is restarted
+		if (get_gameplay_time() == 1 && clear_on_restart) {
+			instance_destroy();
+			exit;
+		}
+		clear_on_restart = (get_gameplay_time() > 1);
+		
 		// Clean up upon reaching CSS (failsafe)
 		if (last_room != room) {
 			if (room == asset_get("local_charselect_room")
