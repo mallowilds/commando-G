@@ -118,6 +118,8 @@ switch(state) { // use this one for doing actual article behavior
         else if (instance_exists(hbox)) {
             hbox.hitbox_timer--;
             hbox.vsp = vsp;
+        } else {
+        	hbox = noone;
         }
         break;
     case 12: // Idle
@@ -193,6 +195,8 @@ switch(state) { // use this one for doing actual article behavior
         else if (instance_exists(hbox)) {
             hbox.hitbox_timer--;
             hbox.vsp = vsp;
+        } else {
+        	hbox = noone;
         }
         break;
     case 22: // Idle
@@ -251,6 +255,8 @@ switch(state) { // use this one for doing actual article behavior
         else if (instance_exists(hbox)) {
             hbox.hitbox_timer--;
             hbox.vsp = vsp;
+        } else {
+        	hbox = noone;
         }
         break;
     case 32: // Idle
@@ -307,7 +313,7 @@ switch(state) { // use this one for doing actual article behavior
         }
         if (!free || has_hit) {
             set_state(52+is_large);
-            hbox.destroyed = true;
+            if instance_exists(hbox) hbox.destroyed = true;
             hbox = noone;
             hsp = 0;
             vsp = 0;
@@ -318,9 +324,11 @@ switch(state) { // use this one for doing actual article behavior
             explode_hbox.owner_chest = self;
             sound_play(asset_get("sfx_mol_norm_explode"));
         }
-        else {
+        else if (instance_exists(hbox)) {
             hbox.hitbox_timer--;
             hbox.vsp = vsp;
+        } else {
+        	hbox = noone;
         }
         break;
     case 52: // Exploding - small
