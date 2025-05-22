@@ -50,23 +50,23 @@ switch(state) { // use this one for doing actual article behavior
         
     //#region Orbital State
     case 00: // Request arrow (awaiting shipment)
-        if (state_timer >= 300) { // Advance to small arrow after 5s
+        if (state_timer >= player_id.CHEST_AWAIT_TIME) { // Advance to small arrow after 5s
             set_state(01);
         }
         break;
-    case 01: // Request arrow (large)
-        if (state_timer >= 300) { // Advance to large arrow after 5s
+    case 01: // Request arrow (small)
+        if (state_timer >= player_id.CHEST_SMALL_TIME) { // Advance to large arrow after 5s
             set_state(02);
             is_large = true;
         }
         break;
     case 02: // Request arrow (large)
         // No Classified Access Codes: forcibly drop large chest after 2s
-        if (player_id.item_grid[player_id.ITEM_CODES][player_id.IG_NUM_HELD] < 1 && state_timer >= 120) { 
+        if (player_id.item_grid[player_id.ITEM_CODES][player_id.IG_NUM_HELD] < 1 && state_timer >= player_id.CHEST_LARGE_TIME) { 
             set_state(20);
         }
         // Classified Access Codes: wait time increased to 4s, or 5s during repositioning
-        else if (state_timer >= (cac_repositioning ? 300 : 240)) { 
+        else if (state_timer >= (cac_repositioning ? player_id.CHEST_LARGE_TIME_EXT2 : player_id.CHEST_LARGE_TIME_EXT1)) { 
             set_state(20);
         }
         break;
