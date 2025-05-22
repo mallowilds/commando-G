@@ -107,6 +107,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 2);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 32);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
+set_hitbox_value(atk, hbox_num, HG_FORCE_FLINCH             , 1); // This gets tampered with!
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak1"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 0);
 hbox_num++;
@@ -130,6 +131,7 @@ set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , 1);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 32);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , -10);
+set_hitbox_value(atk, hbox_num, HG_FORCE_FLINCH             , 1); // This gets tampered with!
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak1"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 0);
 hbox_num++;

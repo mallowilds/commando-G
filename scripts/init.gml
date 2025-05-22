@@ -25,7 +25,6 @@ limitless_mode_locked = !limitless_mode;
 rainfont = font_get("_rfont");
 rainfontbig = font_get("_rfontbig");
 
-
 //=-(                        ~~//** CONSTANTS **//~~                       )-=//
 user_event(2);// RCF user_event, defines lots of primitive constants. Will be removed during flattening.
 

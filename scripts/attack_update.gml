@@ -240,6 +240,8 @@ switch(attack) {
     			set_hitbox_value(attack, 2, HG_HITSTUN_MULTIPLIER, 0.7);
     			set_hitbox_value(attack, 3, HG_HITSTUN_MULTIPLIER, 0.7);
     			set_hitbox_value(attack, 4, HG_HITSTUN_MULTIPLIER, 0.7);
+    			set_hitbox_value(attack, 1, HG_FORCE_FLINCH, 0);
+				set_hitbox_value(attack, 2, HG_FORCE_FLINCH, 0);
 			}
 		}
 		

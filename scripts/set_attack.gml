@@ -9,6 +9,8 @@ if (attack == AT_JAB) {
     set_hitbox_value(AT_JAB, 2, HG_HITSTUN_MULTIPLIER, 1);
     set_hitbox_value(AT_JAB, 3, HG_HITSTUN_MULTIPLIER, 1);
     set_hitbox_value(AT_JAB, 4, HG_HITSTUN_MULTIPLIER, 1);
+    set_hitbox_value(AT_JAB, 1, HG_FORCE_FLINCH, 1);
+	set_hitbox_value(AT_JAB, 2, HG_FORCE_FLINCH, 1);
 }
 
 if (attack == AT_TAUNT) {

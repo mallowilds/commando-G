@@ -1,6 +1,6 @@
 if get_gameplay_time() == 4 {
-	set_state(PS_ATTACK_GROUND)
-	attack = 2
+	set_state(PS_ATTACK_GROUND);
+	attack = 2;
 }
 
 if (init_prompt_active) {
