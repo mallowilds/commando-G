@@ -61,12 +61,14 @@ switch(state) { // use this one for doing actual article behavior
     case 00: // Request arrow (awaiting shipment)
         if (state_timer >= player_id.CHEST_AWAIT_TIME) { // Advance to small arrow after 5s
             set_state(01);
+            sound_play(sound_get("chest1"))
         }
         break;
     case 01: // Request arrow (small)
         if (state_timer >= player_id.CHEST_SMALL_TIME) { // Advance to large arrow after 5s
             set_state(02);
             is_large = true;
+            sound_play(sound_get("chest2"))
         }
         break;
     case 02: // Request arrow (large)

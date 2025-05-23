@@ -503,7 +503,10 @@ switch(attack) {
 	//#region Forward Special
 	
     case AT_FSPECIAL:
-    	if (window == 1 && window_timer == 1) set_attack_value(AT_FSPECIAL, AG_OFF_LEDGE, true);
+    	if (window == 1 && window_timer == 1) {
+    		set_attack_value(AT_FSPECIAL, AG_OFF_LEDGE, true);
+    		sound_play(sound_get("nsp1"), 0, noone, .6, 1.15)
+    	}
         if (free) {
             if vsp > 5 vsp = 5 
             if hsp > (7*spr_dir) hsp = (7*spr_dir)
@@ -519,6 +522,9 @@ switch(attack) {
         if (was_parried) set_attack_value(AT_FSPECIAL, AG_OFF_LEDGE, false);
         break;
     case AT_FSPECIAL_AIR:
+		 if (window == 1 && window_timer == 1) {
+    		sound_play(sound_get("nsp1"), 0, noone, .6, 1.15)
+    	}
     	if (window == 1) {
     		vsp = 0;
     		hsp *= 0.9;
