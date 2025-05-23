@@ -34,6 +34,15 @@
  * 5x - "Extreme Reinforcements" (Classified Access Codes)
  * 
  */
+ 
+crash_timer++;
+if (crash_timer == 300) {
+	print_debug("PANIC: Script unable to complete for 300 frames. Deleting article.");
+	player_id.chest_obj = noone;
+    instance_destroy();
+    exit;
+}
+ 
 
 if (hitstop > 0) {
     if (instance_exists(hbox)) {
@@ -481,6 +490,8 @@ if (should_die || y > get_stage_data(SD_BOTTOM_BLASTZONE_Y)) { //despawn and exi
     instance_destroy();
     exit;
 }
+
+crash_timer = 0;
 
 
 #define set_state

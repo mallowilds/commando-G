@@ -15,6 +15,8 @@ state = 0;
 state_timer = 0;
 should_die = false; //if the article should be despawned
 
+crash_timer = 0; // If article is unable to run code for 300 frames, it will delete itself
+
 // article variables
 target_y = y-10;
 outline_alpha = 0;
