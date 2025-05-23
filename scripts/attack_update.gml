@@ -642,6 +642,7 @@ switch(attack) {
     case AT_DSPECIAL_2:
     	hsp = 0;
     	vsp = 0;
+    	super_armor = item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0 && (window != 1 || window_timer != 1);
     	if (window == 1 && window_timer == 1) {
     		// Lock limitless mode, if applicable
     		limitless_mode_locked = true;

@@ -22,8 +22,10 @@ if (instance_exists(chest_obj) && chest_obj.state == 32 && chest_obj.trishop_vis
     var _x = x;
     var _y = other.y-50;
     
-    if (_x+90 < get_instance_x(asset_get("camera_obj"))-half_width) _x = get_instance_x(asset_get("camera_obj")) - half_width + 90;
-    else if (get_instance_x(asset_get("camera_obj"))-half_width < _x-90) _x = get_instance_x(asset_get("camera_obj")) + half_width - 90;
+    if (other.object_index != oTestPlayer) {
+        if (_x+90 < get_instance_x(asset_get("camera_obj"))-half_width) _x = get_instance_x(asset_get("camera_obj")) - half_width + 90;
+        else if (get_instance_x(asset_get("camera_obj"))+half_width < _x-90) _x = get_instance_x(asset_get("camera_obj")) + half_width - 90;
+    }
 
     draw_sprite_ext(sprite_get("trishop_bg_sidefill"), 0, _x, _y, 2, 2, 0, c_white, trishop_vis_opacities[0]*progress);
     draw_sprite_ext(sprite_get("trishop_bg_centerfill"), 0, _x, _y, 2, 2, 0, c_white, trishop_vis_opacities[1]*progress);
