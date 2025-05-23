@@ -96,7 +96,11 @@ switch new_item_id {
         update_attack_speed();
         update_horizontal_movement();
         break;
-        
+    
+    case 31: // Ancient Scepter
+        update_attack_speed();
+        break;
+    
     case 32: // Fireman's Boots
         fireboots_lockout = 0;
         break;
