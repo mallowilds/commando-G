@@ -235,7 +235,7 @@ switch new_item_id {
                  + ((filial_aspeed_timer > 0) ? FILIAL_ASPEED_STACKS : 0) // Filial Imprinting
                  + cell_active_stacks // Energy Cell
                  + ((spark_buff_timer > 0) ? SPARK_ASPEED_SCALE * item_grid[ITEM_SPARK][IG_NUM_HELD] : 0) // Legendary Spark
-    
+                 + item_grid[ITEM_SCEPTER][IG_NUM_HELD]
     return;
     
 #define update_horizontal_movement
