@@ -61,8 +61,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 24);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 9);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 3);
-
-
+set_window_value(atk, window_num                        , AG_WINDOW_HAS_WHIFFLAG, 1);
 
 //                        --attack hitboxes--                                 //
 set_num_hitboxes(atk, 5);
