@@ -890,8 +890,9 @@ if (fshield_damage != 0) {
 		    spawn_hit_fx(x, _y, HFX_ZET_SHINE_BIG_FG);
 		    sound_play(asset_get("sfx_burnapplied"));
 		    with oPlayer {
+		    	var invuln = hurtboxID.dodging || invincible || attack_invince;
 		        var can_hit = get_match_setting(SET_TEAMATTACK) ? self != other : get_player_team(player) != get_player_team(other.player);
-		        if (can_hit && collision_circle(other.x, _y, other.FSHIELD_RADIUS, hurtboxID, true, false)) {
+		        if (!invuln && can_hit && collision_circle(other.x, _y, other.FSHIELD_RADIUS, hurtboxID, true, false)) {
 		            burned = true;
 		            burnt_id = other;
 		            burn_timer = 150 - 30*other.fshield_damage;

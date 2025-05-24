@@ -140,7 +140,8 @@ switch state {
             image_index = 0;
         }
         with oPlayer {
-            if (!free && player != other.player && !burned && place_meeting(x, y, other)) {
+        	var invuln = hurtboxID.dodging || invincible || attack_invince;
+            if (!invuln && !free && player != other.player && !burned && place_meeting(x, y, other)) {
                 burned = true;
                 burnt_id = other.player_id;
                 burn_timer = 150 - 30*other.damage;
