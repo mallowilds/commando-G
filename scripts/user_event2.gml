@@ -123,6 +123,8 @@ ITEM_SHRIMP         = 61;
 ITEM_BLOOM          = 62;
 ITEM_SOLITUDE       = 63;
 
+ITEM_CAPTAINS       = 64; // :)
+
 // ST -> Statuses
 ST_STICKY = 0;
 ST_BLEED = 1;
