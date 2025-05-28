@@ -675,7 +675,9 @@ switch(attack) {
 				else if (select_for_trishop) {
 					var new_trishop_selection = -1;
 					if ((joy_pad_idle || attack_pressed || special_pressed) && chest_obj.trishop_selection != -1) {
-						dspec_cooldown_hits = chest_obj.is_large ? DSPEC_LCHEST_CD_HITS : DSPEC_SCHEST_CD_HITS;
+						var lcd = (item_grid[ITEM_CLOVER][IG_NUM_HELD] > 0) ? DSPEC_CLOVER_HITS : DSPEC_LCHEST_CD_HITS;
+						dspec_cooldown_hits = chest_obj.is_large ? lcd : DSPEC_SCHEST_CD_HITS;
+						dspec_cooldown_hits = floor(dspec_cooldown_hits / (1+item_grid[ITEM_CAPTAINS][IG_NUM_HELD]));
 						chest_obj.state = 33;
 						chest_obj.state_timer = 0;
 						window_timer++; // advance past freeze
@@ -699,12 +701,13 @@ switch(attack) {
 				if (chest_obj.state == 12) { // Large chest
 					chest_obj.state = 13;
 					chest_obj.state_timer = 0;
-					dspec_cooldown_hits = DSPEC_SCHEST_CD_HITS;
+					dspec_cooldown_hits = floor(DSPEC_SCHEST_CD_HITS / (1+item_grid[ITEM_CAPTAINS][IG_NUM_HELD]));
 				}
 				else if (chest_obj.state == 22) { // Large chest
 					chest_obj.state = 23;
 					chest_obj.state_timer = 0;
-					dspec_cooldown_hits = DSPEC_LCHEST_CD_HITS;
+					var lcd = (item_grid[ITEM_CLOVER][IG_NUM_HELD] > 0) ? DSPEC_CLOVER_HITS : DSPEC_LCHEST_CD_HITS;
+					dspec_cooldown_hits = floor(lcd / (1+item_grid[ITEM_CAPTAINS][IG_NUM_HELD]));
 				}
 				
 	    		var window_length = (chest_obj.state < 20) ? 8 : 28;
@@ -713,7 +716,6 @@ switch(attack) {
 	    		hsp = 0;
 	    		spr_dir = (x < chest_obj.x) ? 1 : -1;
 			}
-			if (item_grid[ITEM_CLOVER][IG_NUM_HELD] > 0 && dspec_cooldown_hits > DSPEC_CLOVER_HITS) dspec_cooldown_hits = DSPEC_CLOVER_HITS;
     	}
     	else if (window == 2 && window_timer == 1 && item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0) {
 			jewel_barrier = JEWEL_BARRIER_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD];
