@@ -100,6 +100,7 @@ switch(state) { // use this one for doing actual article behavior
         hbox.owner_chest = self;
         sound_play(player_id.s_cfall);
         is_large = false;
+        ai_state = 1;
         
         var roll = random_func(3, 100, true) + 1;
         if (roll <= player_id.trishop_odds) {
@@ -135,8 +136,14 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 12: // Idle
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
-        if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_SCHEST_RADIUS) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
-        else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
+        if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_SCHEST_RADIUS) {
+        	outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
+        	ai_state = 2;
+        }
+        else {
+        	outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
+        	ai_state = 1;
+        }
         break;
     case 13: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;
@@ -173,6 +180,7 @@ switch(state) { // use this one for doing actual article behavior
         hbox.owner_chest = self;
         sound_play(player_id.s_cfall);
         is_large = true;
+        ai_state = 1;
         
         var roll = random_func(player_id.item_seed, 100, true) + 1;
         player_id.item_seed = (player_id.item_seed + 1) % 200;
@@ -212,8 +220,14 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 22: // Idle
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
-        if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_LCHEST_RADIUS) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
-        else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
+        if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_LCHEST_RADIUS) {
+        	outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
+        	ai_state = 2;
+        }
+        else {
+        	outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
+        	ai_state = 1;
+        }
         break;
     case 23: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;
@@ -272,8 +286,14 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 32: // Idle
         if (free) vsp = clamp(vsp+0.5, vsp, 8);
-        if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_SCHEST_RADIUS) outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
-        else outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
+        if (point_distance(x, y, player_id.x, player_id.y) < player_id.DSPEC_SCHEST_RADIUS) {
+        	outline_alpha = clamp(outline_alpha + 0.2, 0, 1);
+        	ai_state = 2;
+        }
+        else {
+        	outline_alpha = clamp(outline_alpha - 0.2, 0, 1);
+        	ai_state = 1;
+        }
         if (player_id.state != PS_ATTACK_AIR && player_id.state != PS_ATTACK_GROUND) trishop_vis_timer = -1;
         if (trishop_vis_timer >= 0) trishop_vis_timer++;
         for (var i = 0; i < 3; i++) {

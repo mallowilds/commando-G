@@ -15,7 +15,10 @@ state = 0;
 state_timer = 0;
 should_die = false; //if the article should be despawned
 
-crash_timer = 0; // If article is unable to run code for 300 frames, it will delete itself
+crash_timer = 0; // if article is unable to run code for 300 frames, it will delete itself
+
+ai_state = 0; // helper for AI. 0 = in waiting, 1 = available but not close enough, 2 = can open.
+ai_should_call_small = random_func(11, 2, true);
 
 // article variables
 target_y = y-10;
