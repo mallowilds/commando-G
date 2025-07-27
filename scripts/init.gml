@@ -583,6 +583,9 @@ if (tmu_exists) {
 s_dag_swing = sound_get("cm_dagger_swing");
 s_cbar = sound_get("cm_crowbar");
 s_dios = sound_get("cm_item_dios");
+if get_player_color(player) == 14 {
+    s_dios = sound_get("im_sorry_sheargrub");
+}
 s_shotty = sound_get("cm_shotgun_blast");
 s_reload = sound_get("cm_shotgun_load");
 

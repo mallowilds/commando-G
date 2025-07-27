@@ -20,7 +20,7 @@ do_behemoth_hbox = 0;
 // Dio's Best Friend
 if (item_grid[44][IG_NUM_HELD] > 0) {
     
-	sound_play(s_dios);
+	sound_play(s_dios, 0, 0); //pans to the middle of the stage
 	dios_revive_timer = DIOS_REVIVE_WAIT;
 	set_state(PS_HITSTUN);
 	initial_invince = 1;

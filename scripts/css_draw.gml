@@ -127,18 +127,21 @@ if (!variable_instance_exists(id,"ae") || ye == true){
     ce[13,0] = make_color_rgb(251, 0, 20)
 	ce[13,1] = "Vestige"
 	ce[13,2] = ""
-    ce[14,0] = make_color_rgb(195, 103, 9)
-	ce[14,1] = "Employee"
+    ce[14,0] = make_color_rgb(149, 202, 116)
+	ce[14,1] = "Fractured"
 	ce[14,2] = ""
-    ce[15,0] = make_color_rgb(255, 118, 33)
-	ce[15,1] = "Hornet"
+    ce[15,0] = make_color_rgb(195, 103, 9)
+	ce[15,1] = "Employee"
 	ce[15,2] = ""
-    ce[16,0] = make_color_rgb(21, 64, 46)
-	ce[16,1] = "S.O.S."
+    ce[16,0] = make_color_rgb(255, 118, 33)
+	ce[16,1] = "Hornet"
 	ce[16,2] = ""
-    ce[17,0] = make_color_rgb(230, 28, 28)
-	ce[17,1] = "Judgement"
+    ce[17] = make_color_rgb(21, 64, 46)
+	ce[17,1] = "S.O.S."
 	ce[17,2] = ""
+    ce[18,0] = make_color_rgb(230, 28, 28)
+	ce[18,1] = "Judgement"
+	ce[18,2] = ""
 }
  
 if (ae == "ae"){
