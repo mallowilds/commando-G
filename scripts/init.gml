@@ -175,7 +175,7 @@ item_grid = [
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | user_event0.gml
     ["Laser Scope",             RTY_RARE,       ITP_CRITICAL,     noone,            0, 41,    "Critical hits deal massive damage and knockback.", noone], // 40 | Crit attacks, set_attack.gml
     ["Laser Turbine",           RTY_RARE,       ITP_ATTACK_SPEED, noone,            0, 40,    "Gunshots charge up a huge Neutral Special.", noone], // 41 | hit_player.gml, attack_update.gml, set_attack.gml, pre_draw.gml, update.gml
-    ["Aegis",                   RTY_RARE,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | user_event0, integrated into the healing-applying function (and general barrier utils)
+    ["Aegis",                   RTY_VOID,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | user_event0, integrated into the healing-applying function (and general barrier utils)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!", noone], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml, user_event0
     ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      noone,            0, noone, "Cheat death.", noone], // 44 | update.gml, death.gml
     ["Withered Best Friend",    RTY_VOID,       ITP_HEALING,      noone,            0, noone, "A spent item with no remaining power.", noone], // 45 | N/A
@@ -260,14 +260,16 @@ item_id_ordering = [
     ITEM_CRITDAGGER,
     ITEM_SCOPE,
     ITEM_TURBINE,
-    ITEM_AEGIS,
-    ITEM_BEHEMOTH,      // 55
-    ITEM_NECTAR,
-    ITEM_DIOS,          // 57
+    ITEM_BEHEMOTH,
+    ITEM_NECTAR,        // 55
+    ITEM_DIOS,
 ];
 
-// Enable secret if Rune O is taken
-if (RUNE_LUCKY) array_push(item_id_ordering, ITEM_CLOVER);
+// Enable secrets if appropriate
+if (RUNE_LUCKY || limitless_mode) {
+    array_push(item_id_ordering, ITEM_AEGIS);
+    array_push(item_id_ordering, ITEM_CLOVER);
+}
 
 // Disable chest-proc items if Longstanding Solitude is taken
 if (RUNE_SOLITUDE) {

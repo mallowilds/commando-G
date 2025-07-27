@@ -134,9 +134,9 @@ switch new_item_id {
         break;
     
     case 42: // Aegis
-        aegis_ratio = AEGIS_RATIO_BASE + AEGIS_RATIO_SCALE*item_grid[42][IG_NUM_HELD]
+        aegis_ratio = AEGIS_RATIO_BASE + AEGIS_RATIO_SCALE*item_grid[42][IG_NUM_HELD];
         if (!aegis_odds_applied) {
-            buff_synergy_odds(ITP_HEALING, ITEM_AEGIS);
+            //buff_synergy_odds(ITP_HEALING, ITEM_AEGIS);
             aegis_odds_applied = true;
         }
         break;
