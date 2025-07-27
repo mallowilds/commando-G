@@ -457,6 +457,7 @@ warbanner_obj = noone;
 commando_warbanner_owner = noone; // mirrored in other_init
 commando_warbanner_strength = 0;
 commando_warbanner_updated = 0;
+ai_warbanner_claimed = false;
 
 stompers_active = 0;
 stompers_timer = 999; // for anims
@@ -547,7 +548,7 @@ icbm_active = 0;
 // Training mode utility
 tmu_state = TMU_INACTIVE;
 tmu_exists = get_match_setting(SET_PRACTICE);
-init_prompt_active = tmu_exists && !get_match_setting(SET_RUNES) && !limitless_mode;
+init_prompt_active = tmu_exists && !get_match_setting(SET_RUNES) && !limitless_mode && get_player_hud_color(player) != c_gray;
 init_prompt_timer = 0;
 if (tmu_exists) {
     

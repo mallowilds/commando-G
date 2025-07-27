@@ -40,6 +40,7 @@ switch new_item_id {
     
     case 1: // Warbanner
         if (item_grid[1][IG_NUM_HELD] == 0) warbanner_obj = noone; // this will prompt the warbanner to clean itself up
+        else far_side_attacks[3] = AT_TAUNT; // for AI
         update_horizontal_movement();
         update_attack_speed();
         set_taunt_indices();
