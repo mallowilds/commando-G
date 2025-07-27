@@ -77,8 +77,6 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
 set_hitbox_value(atk, hbox_num, HG_IS_BLAST             , 1);
-set_hitbox_value(atk, hbox_num, HG_STRONG_FINISHER          , 1);
-
 
 hbox_num++;
 
@@ -103,5 +101,4 @@ set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 30);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_heavy1"));
 set_hitbox_value(atk, hbox_num, HG_IS_BLAST             , 1);
-set_hitbox_value(atk, hbox_num, HG_STRONG_FINISHER          , 1);
 

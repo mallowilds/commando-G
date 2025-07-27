@@ -53,5 +53,7 @@ else if (attack == AT_DSPECIAL_2 && state == clamp(state, PS_ATTACK_AIR, PS_ATTA
     // Seek chest
     ai_going_left = (chest_obj.x < x);
     ai_going_right = !ai_going_left;
+    left_hard_pressed = ai_going_left;
+    right_hard_pressed = ai_going_right;
     if (!free && chest_obj.y+6 < y && abs(x - chest_obj.x) < 80) jump_pressed = true;
     if (!free && freemd && chest_obj.y > y) down_hard_pressed = true;

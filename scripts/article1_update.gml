@@ -83,6 +83,7 @@ switch(state) { // use this one for doing actual article behavior
         }
         break;
     case 03: // Jammed (parried state)
+    	ai_state = noone;
         if (state_timer >= 300) { // Finish after 5s
             should_die = true;
         }
@@ -148,8 +149,11 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 13: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;
-        if (state_timer == 1) sound_play(sound_get("cm_smallchest"));
-        if (state_timer == 20) {
+        if (state_timer == 1) {
+        	sound_play(sound_get("cm_smallchest"));
+        	ai_state = noone;
+        }
+        else if (state_timer == 20) {
             var rarity_weights = [player_id.SCHEST_C_WEIGHT, player_id.SCHEST_U_WEIGHT, player_id.SCHEST_R_WEIGHT]
             if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
             if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
@@ -162,7 +166,7 @@ switch(state) { // use this one for doing actual article behavior
             
             do_fireworks();
         }
-        if (state_timer >= 35) set_state(14);
+        else if (state_timer >= 35) set_state(14);
         break;
     case 14: // Despawning
         if (state_timer >= 60) should_die = true;
@@ -232,8 +236,11 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 23: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;
-        if (state_timer == 1) sound_play(sound_get("cm_largechest"));
-        if (state_timer == 20) {
+        if (state_timer == 1) {
+        	sound_play(sound_get("cm_largechest"));
+        	ai_state = noone;
+        }
+        else if (state_timer == 20) {
             var rarity_weights = [player_id.LCHEST_C_WEIGHT, player_id.LCHEST_U_WEIGHT, player_id.LCHEST_R_WEIGHT]
             if (player_id.uncommon_pool_size <= 0) rarity_weights[1] = 0;
             if (player_id.rares_remaining <= 0) rarity_weights[2] = 0;
@@ -246,7 +253,7 @@ switch(state) { // use this one for doing actual article behavior
             
             do_fireworks();
         }
-        if (state_timer >= 54) set_state(24);
+        else if (state_timer >= 54) set_state(24);
         break;
     case 24: // Despawning
         if (state_timer >= 60) should_die = true;
@@ -310,15 +317,18 @@ switch(state) { // use this one for doing actual article behavior
         break;
     case 33: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;
-        if (state_timer == 1) sound_play(sound_get("cm_smallchest"));
-        if (state_timer == 20) {
+        if (state_timer == 1) {
+        	sound_play(sound_get("cm_smallchest"));
+        	ai_state = noone;
+        }
+        else if (state_timer == 20) {
             var item = instance_create(x, y-24, "obj_article3");
             item.state = 20;
             item.rarity = trishop_rarity;
             item.forced_index = trishop_loot[trishop_selection];
             do_fireworks();
         }
-        if (state_timer >= 35) set_state(34);
+        else if (state_timer >= 35) set_state(34);
         break;
     case 34: // Despawning
         if (state_timer >= 60) should_die = true;
@@ -336,6 +346,7 @@ switch(state) { // use this one for doing actual article behavior
         hbox.owner_chest = self;
         sound_play(player_id.s_cfall);
         sound_play(asset_get("sfx_mol_huge_countdown"), false, noone, 1, 0.7);
+        ai_state = noone;
         break;
     case 51: // Fall
     	vsp += 0.9;

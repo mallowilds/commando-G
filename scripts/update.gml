@@ -113,7 +113,7 @@ with oPlayer {
 	var nectar_mult = other.nectar_mult;
 	
 	if (state == PS_DEAD || state == PS_RESPAWN) {
-		if (commando_status_owner[other.ST_BLEED] == other.player && commando_status_state[other.ST_BLEED] > 0) {
+		if (commando_status_owner[other.ST_BLEED] == other.player) {
 			if (array_equals(outline_color, other.bleeddagger_outline_col)) {
 				outline_color = [0, 0, 0];
 				update_outline = true;
