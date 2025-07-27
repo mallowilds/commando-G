@@ -901,18 +901,6 @@ bubble_y                        = 8;
 set_victory_portrait(sprite_get("portrait"));
 
 //last-chance abyss init (perform item grants here!)
-
-new_item_id = ITEM_SHIPPING;
-ue1_command = UE1_GRANT;
-item_silenced = true;
-user_event(1);
-ue1_command = UE1_GRANT;
-item_silenced = true;
-user_event(1);
-ue1_command = UE1_GRANT;
-item_silenced = true;
-user_event(1);
-
 if (get_match_setting(SET_RUNES)) {
     if (RUNE_ICBM) {
         new_item_id = ITEM_ICBM;
