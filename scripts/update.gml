@@ -464,7 +464,7 @@ if (item_grid[ITEM_BUNGUS][IG_NUM_HELD] != 0) {
 	if (state == PS_CROUCH || attack_crouching) { 
 		if (!bungus_active && bungus_timer > BUNGUS_WAIT_TIME) {
 			bungus_active = 1;
-			bungus_timer = 0;
+			bungus_timer = BUNGUS_TICK_TIME;
 			bungus_vis_timer = 0;
 		}
 		if (bungus_active && bungus_timer > floor(BUNGUS_TICK_TIME/nectar_mult/item_grid[4][IG_NUM_HELD])) {
