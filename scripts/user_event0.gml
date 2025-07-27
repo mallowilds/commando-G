@@ -229,6 +229,10 @@ switch new_item_id {
         set_hitbox_value(AT_EXTRA_1, 12, HG_IS_BLAST, icbm_active); // plasma shrimp
         break;
     
+    case 64: // Captain's Brooch
+        dspec_cooldown_hits = 0;
+        break;
+    
 }
 
 

@@ -342,7 +342,7 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 		// On kill and/or object ceases to exist
 		if (!instance_exists(recently_hit[i]) || recently_hit[i].state == PS_DEAD || recently_hit[i].state == PS_RESPAWN) {
 			// Topaz Brooch
-			var brooches = item_grid[ITEM_BROOCH][IG_NUM_HELD];
+			var brooches = item_grid[ITEM_TOPAZ][IG_NUM_HELD];
 			if (brooches > 0) brooch_barrier += BROOCH_BARRIER_BASE + BROOCH_BARRIER_SCALE * brooches * nectar_mult; // Topaz Brooch
 			recently_hit[i] = noone;
 			

@@ -200,10 +200,11 @@ item_grid = [
     ["Benthic Bloom",           RTY_ABYSSAL,    ITP_META,         noone,            0, noone, "Your items mutate and evolve as your opponents die.", noone], // 62 | update.gml; hit/kill detection
     ["Longstanding Solitude",   RTY_ABYSSAL,    ITP_META,         noone,            0, noone, "Gain 8 random items. You have no backup.", noone], // 63 | article3_update. Does nothing on its own; manager is inited with abyss management.
 
-    ["Captain's Brooch",        RTY_VOID,       ITP_META,         noone,            0, noone, "Reduce the recharge time of chests. Gain a freebie on the house!", noone], // 64 | attack_update, user_event0.gml
+    ["Captain's Brooch",        RTY_RARE,       ITP_META,         noone,            0, noone, "Reduce the recharge time of chests. Gain a freebie on the house!", noone], // 64 | attack_update, user_event0.gml
 
 ]
 //#RCFENDDEFORMAT
+
 // Ordering for in-game utilities (debug displays and practice mode)
 item_id_ordering = [
     ITEM_CROWBAR,       // 0
@@ -215,7 +216,7 @@ item_id_ordering = [
     ITEM_EDRINK,
     ITEM_BLADES,
     ITEM_SCARF,
-    ITEM_BROOCH,
+    ITEM_TOPAZ,
     ITEM_MTOOTH,        // 10
     ITEM_GLASSES,
     ITEM_BLEEDDAGGER,
@@ -263,6 +264,7 @@ item_id_ordering = [
     ITEM_BEHEMOTH,
     ITEM_NECTAR,        // 55
     ITEM_DIOS,
+    ITEM_CAPTAINS,      // 57
 ];
 
 // Enable secrets if appropriate
