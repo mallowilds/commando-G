@@ -385,6 +385,19 @@ critical_active = 0;     // enables checks for crit items
 attack_speed = 1;        // inits to 1, goes up with attack speed items
 move_speed = 0;          // inits to 0, goes up with items like Paul's Goat Hoof
 dodge_duration_add = 0;  // inits to 0, adds n frames to shield actions
+burn_items_held = 0;     // inits to 0, excludes ignition tank. used for item rerolling
+
+// Burn item cache (used for ignition tank rerolling)
+burn_item_cache = [];
+burn_common_cache = [];
+burn_uncommon_cache = [];
+for (var i = 0; i < array_length(item_grid); i++) {
+    if (i != ITEM_IGNITION && (item_grid[i][IG_TYPE] == ITP_BURNING || item_grid[i][IG_TYPE2] == ITP_BURNING)) {
+        array_push(burn_item_cache, i);
+        if (item_grid[i][IG_RARITY] == 0) array_push(burn_common_cache, i);
+        if (item_grid[i][IG_RARITY] == 1) array_push(burn_uncommon_cache, i);
+    }
+}
 
 // Attack overwrites (see set_attack.gml)
 ntaunt_index = AT_TAUNT; // taunts altered by Ukelele/Warbanner

@@ -13,9 +13,9 @@ prev_attack = attack;
 switch(attack) {
 	//#region intro 
 	case 2:
-		grabbed_invisible=0
+		grabbed_invisible = 0;
 		if window == 1 {
-			hud_offset = 900
+			hud_offset = 900;
 			if window_timer == 40 {
 				spawn_hit_fx(x, y, intro_pod)
 			}
@@ -42,12 +42,7 @@ switch(attack) {
 			
 		}
 	//#region Standard normals
-        
-    case AT_FTILT:
-        //a
-        
-        break;
-        
+    
     case AT_UTILT:
     	hud_offset = lerp(hud_offset, 50, 0.5);
         if (window == 1 && window_timer == 1) {

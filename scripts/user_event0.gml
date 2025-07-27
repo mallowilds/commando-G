@@ -16,10 +16,23 @@ if (!is_valid_index) {
     exit;
 }
 
-// Crit items (assumes they're properly tagged)
+// Crit items
 if (item_grid[new_item_id][IG_TYPE] == ITP_CRITICAL || item_grid[new_item_id][IG_TYPE2] == ITP_CRITICAL) {
     if (item_grid[new_item_id][IG_NUM_HELD] > 0) critical_active = 1;
     else assess_critical_active();
+}
+
+// Burn items
+if (new_item_id != ITEM_IGNITION && (item_grid[new_item_id][IG_TYPE] == ITP_BURNING || item_grid[new_item_id][IG_TYPE2] == ITP_BURNING)) {
+    burn_items_held = 0;
+    burn_uncommon_cache = [];
+    for (var i = 0; i < array_length(burn_item_cache); i++) {
+        var num_held = item_grid[burn_item_cache[i]][IG_NUM_HELD]
+        burn_items_held += num_held;
+        if (item_grid[burn_item_cache[i]][IG_RARITY] == RTY_UNCOMMON) {
+            if (uncommon_limit - num_held > 0) array_push(burn_uncommon_cache, burn_item_cache[i]);
+        }
+    }
 }
 
 // Switch statement uses hard-coded IDs since RCF constants aren't real constants on dev builds.
@@ -71,13 +84,15 @@ switch new_item_id {
     case 23: // Locked Jewel
         update_horizontal_movement();
         break;
-        
+    
+    /*
     case 25: // Ignition Tank
         if (!ignition_odds_applied) {
             buff_synergy_odds(ITP_BURNING, ITEM_IGNITION);
             ignition_odds_applied = true;
         }
         break;
+    */
     
     case 26: // Predatory Instincts
         update_attack_speed();
@@ -289,6 +304,7 @@ switch new_item_id {
     ntaunt_index = (item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) ? AT_EXTRA_2 : utaunt_index;
     // dtaunt is constant and set in init.gml
 
+// note: deprecated.
 // source_id is the id of the item doing the buffing, which is excluded.
 // rare items are excluded on account of items like Dios existing.
 #define buff_synergy_odds(item_type, source_id)
