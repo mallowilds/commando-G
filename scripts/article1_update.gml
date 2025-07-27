@@ -62,6 +62,7 @@ switch(state) { // use this one for doing actual article behavior
         if (state_timer >= player_id.CHEST_AWAIT_TIME) { // Advance to small arrow after 5s
             set_state(01);
             sound_play(sound_get("chest1"))
+            player_id.move_cooldown[AT_DSPECIAL] = 0;
         }
         break;
     case 01: // Request arrow (small)
