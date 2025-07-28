@@ -88,7 +88,6 @@ var death_messages = [
     "Your internal organs have failed.",
     "This planet has killed you.",
     "Crushed.",
-    "[TBD]",
     "You have broken every bone in your body.",
     "rekt",
     "ded",

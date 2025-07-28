@@ -429,7 +429,7 @@ SCOPE_KBS_ADD = 0.1; // Applied on ignition hitboxes, or if Snake Eyes is active
 SCOPE_DAMAGE_ADD = 5; // Ditto (these will apply twice if both conditions are met)
 
 // Laser Turbine
-TURBINE_THRESHOLD = 90; // Damage required to fully charge Laser Turbine.
+TURBINE_THRESHOLD = 60; // Damage required to fully charge Laser Turbine.
 
 // Brilliant Behemoth
 BEHEMOTH_AWAIT_MULT = 0.67; // As a percentage of enemy hitpause to wait through before exploding
