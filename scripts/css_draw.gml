@@ -1,20 +1,7 @@
-// alt color shade slots (css edition)
-/* // WIP
-num_base_colors                 = 1;    // how many colors the character has
 
-col_shade_list                  = [
-                                [1],
-                                [0],
-                                [0],
-                                [0],
-                                [1],
-                                [1]
-                                ];      // array holding shade values in each
-                                        // alt for each color
-                                        // as sandbert only has 1 color and 6
-                                        // alts, there's 6 arrays with 1 element
-init_shader();
-*/
+// Persistency for alt detection
+set_synced_var(player, get_player_color(player));
+
 //--- ---
 //
 // hyuponia's "ae" css code

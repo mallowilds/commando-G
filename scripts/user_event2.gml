@@ -11,6 +11,7 @@ UE1_REVOKE = 2;
 UE1_GEN_THREE = 3;
 
 // RTY -> Rarity
+RTY_ALT = -5; // for alt-based item variants
 RTY_ABYSSAL = -3; // for abyss items
 RTY_VOID = -2; // for items that cannot drop under normal circumstances
 RTY_DUMMY = -1; // for if an item needs to be dummied out
@@ -123,7 +124,10 @@ ITEM_SHRIMP         = 61;
 ITEM_BLOOM          = 62;
 ITEM_SOLITUDE       = 63;
 
-ITEM_CAPTAINS       = 64; // :)
+ITEM_CAPTAINS       = 64;
+
+ITEM_DIOS_TAG       = 65;
+ITEM_DIOS_TAG_SPENT = 66;
 
 // ST -> Statuses
 ST_STICKY = 0;

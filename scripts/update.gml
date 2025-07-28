@@ -681,15 +681,18 @@ if (dios_revive_timer > 0) {
 		invince_time = DIOS_INVINCE_TIME;
 		visible = true;
 		
-		item_grid[@ 44][@ IG_NUM_HELD]--;
-		item_grid[@ 45][@ IG_NUM_HELD]++; // spent dios
-		if (item_grid[45][IG_NUM_HELD] == 1) array_push(inventory_list, 45);
+		var dios = tag_alt_active ? ITEM_DIOS_TAG : ITEM_DIOS;
+		var spent = tag_alt_active ? ITEM_DIOS_TAG_SPENT : ITEM_DIOS_SPENT;
+		
+		item_grid[@ dios][@ IG_NUM_HELD]--;
+		item_grid[@ spent][@ IG_NUM_HELD]++; // spent dios
+		if (item_grid[spent][IG_NUM_HELD] == 1) array_push(inventory_list, spent);
 		
 		// Remove Dios from item display
-		if (item_grid[44][IG_NUM_HELD] == 0) {
+		if (item_grid[dios][IG_NUM_HELD] == 0) {
 			var i = 0;
 			var num_items = array_length(inventory_list)
-			while (inventory_list[i] != 44) i++;
+			while (inventory_list[i] != dios) i++;
 			while (i < num_items-1) {
 				inventory_list[i] = inventory_list[i+1];
 				i++;
@@ -699,7 +702,7 @@ if (dios_revive_timer > 0) {
 		
 		// In practice mode: return Dios to item pool to permit testing
 		if (get_match_setting(SET_PRACTICE)) {
-			var access_id = item_grid[ITEM_DIOS][IG_RANDOMIZER_INDEX];
+			var access_id = item_grid[dios][IG_RANDOMIZER_INDEX];
 			p_item_remaining[@ RTY_RARE][@ access_id] += 1;
 			p_item_weights[@ RTY_RARE][@ access_id] += p_item_values[RTY_RARE][access_id];
 			rares_remaining++;
@@ -713,7 +716,7 @@ else if (dios_revive_timer > -30) {
 	dios_revive_timer--;
 	if (dios_revive_timer == -30) {
 		var popup = instance_create(x-172, y-90, "obj_article2");
-		popup.item_id = 45;
+		popup.item_id = tag_alt_active ? ITEM_DIOS_TAG_SPENT : ITEM_DIOS_SPENT;
 	}
 }
 

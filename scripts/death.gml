@@ -18,7 +18,7 @@ do_ignite_hbox = 0;
 do_behemoth_hbox = 0;
 
 // Dio's Best Friend
-if (item_grid[44][IG_NUM_HELD] > 0) {
+if (item_grid[ITEM_DIOS][IG_NUM_HELD] > 0 || item_grid[ITEM_DIOS_TAG][IG_NUM_HELD] > 0) {
     
 	sound_play(s_dios, 0, 0); //pans to the middle of the stage
 	dios_revive_timer = DIOS_REVIVE_WAIT;

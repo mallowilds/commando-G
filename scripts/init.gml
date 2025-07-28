@@ -2,6 +2,7 @@
 init_complete = false; // used to ensure that draw scripts don't flood the error log if initialization is interrupted
 is_playtest = (object_index == oTestPlayer);
 is_ror_commando = true;
+tag_alt_active = (get_synced_var(player) == 14);
 
 debug_display_opened = 0;
 debug_display_count = 23;
@@ -201,6 +202,10 @@ item_grid = [
     ["Longstanding Solitude",   RTY_ABYSSAL,    ITP_META,         noone,            0, noone, "Gain 8 random items. You have no backup.", noone], // 63 | article3_update. Does nothing on its own; manager is inited with abyss management.
 
     ["Captain's Brooch",        RTY_RARE,       ITP_META,         noone,            0, noone, "Reduce the recharge time of chests. Gain a freebie on the house!", noone], // 64 | attack_update, user_event0.gml
+    
+    /* TAG Alt */
+    ["Dio's Best Friend",       RTY_ALT,        ITP_HEALING,      noone,            0, noone, "Cheat death.", noone], // 65 | update.gml, death.gml
+    ["Withered Best Friend",    RTY_ALT,        ITP_HEALING,      noone,            0, noone, "A spent item with no remaining power.", noone], // 66 | N/A
 
 ]
 //#RCFENDDEFORMAT
@@ -263,9 +268,15 @@ item_id_ordering = [
     ITEM_TURBINE,
     ITEM_BEHEMOTH,
     ITEM_NECTAR,        // 55
-    ITEM_DIOS,
+    (tag_alt_active ? ITEM_DIOS_TAG : ITEM_DIOS),
     ITEM_CAPTAINS,      // 57
 ];
+
+// TAG alt easter egg
+if (tag_alt_active) {
+    item_grid[@ ITEM_DIOS][@ IG_RARITY] = RTY_VOID;
+    item_grid[@ ITEM_DIOS_TAG][@ IG_RARITY] = RTY_RARE;
+}
 
 // Enable secrets if appropriate
 if (RUNE_LUCKY || limitless_mode) {
@@ -582,10 +593,7 @@ if (tmu_exists) {
 //          Sound Effects (gonna use init this time, wanna see if it makes it easier)                //
 s_dag_swing = sound_get("cm_dagger_swing");
 s_cbar = sound_get("cm_crowbar");
-s_dios = sound_get("cm_item_dios");
-if get_player_color(player) == 14 {
-    s_dios = sound_get("im_sorry_sheargrub");
-}
+s_dios = tag_alt_active ? sound_get("im_sorry_sheargrub") : sound_get("cm_item_dios");
 s_shotty = sound_get("cm_shotgun_blast");
 s_reload = sound_get("cm_shotgun_load");
 
