@@ -58,20 +58,30 @@ if (limitless_mode && !limitless_mode_locked) {
 }
 //#endregion
 
+//#region SFX management
+
+if (state != PS_ATTACK_AIR && fair_sfx_instance != noone) {
+	sound_stop(fair_sfx_instance);
+	fair_sfx_instance = noone;
+}
+
+//#endregion
 
 //#region Cooldown management
 
 // FSpec cooldown
 if (!free || state_cat == SC_HITSTUN || state == PS_RESPAWN || state == PS_WALL_JUMP) {
 	fspec_air_uses = fspec_air_max_uses;
+	if (state_cat != SC_HITSTUN) move_cooldown[AT_FSPECIAL_AIR] = 0;
 }
 if (fspec_air_uses <= 0 && move_cooldown[AT_FSPECIAL_AIR] < 2) move_cooldown[AT_FSPECIAL_AIR] = 2;
 
-// FSpec DJump penalty
-if (fspec_clamp_hsp && state != PS_ATTACK_AIR) {
+// FSpec speed penalty
+if (!free) fspec_clamp_hsp = false;
+if (fspec_clamp_hsp && (state != PS_ATTACK_AIR || attack != AT_FSPECIAL_AIR)) {
 	fspec_clamp_hsp = false;
 	var sp = FSPEC_JUMP_CLAMP_RATE * air_max_speed;
-	if (state == PS_IDLE_AIR || state == PS_DOUBLE_JUMP) hsp = clamp(hsp, -sp, sp);
+	if (state == PS_IDLE_AIR || state == PS_DOUBLE_JUMP || state == PS_ATTACK_AIR) hsp = clamp(hsp, -sp, sp);
 }
 
 // DSpec cooldown

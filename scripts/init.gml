@@ -54,6 +54,9 @@ do_wind_streaks = true;
 utilt_advance_frame = false;
 utilt_do_explosion = false;
 
+// FAir
+fair_sfx_instance = noone;
+
 // NSpec
 nspec_charge_threshold = NSPEC_THRESHOLD_TIME;
 nspec_charge_frames = 0;
@@ -169,7 +172,7 @@ item_grid = [
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hooah.", noone], // 33 | user_event0.gml, hit_player.gml, article3, AT_EXTRA1
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 35,    "Enemies above 120% take massive knockback.", noone], // 34 | update.gml, hit_player.gml, other_post_draw.gml
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 34,    "Enemies above 100% have their armor Shattered.", noone], // 35 | update.gml, hit_player.gml, other_post_draw.gml
-    ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hold Down Special for repositioning, then press Attack for extreme reinforcements.", noone], // 36 | article1_update.gml
+    ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hold Down Special for repositioning, then press Attack for extreme reinforcements.", noone], // 36 | article1_update.gml, attack_update.gml, set_attack.gml
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        noone,            0, 38,    "No hands!", noone], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml, update.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | user_event0.gml

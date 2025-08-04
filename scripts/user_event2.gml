@@ -245,7 +245,7 @@ FSPEC_AIR_HSP_BASE = 13;
 FSPEC_AIR_HSP_SCALE = 0.65;
 FSPEC_AIR_VSP_BASE = -5;
 FSPEC_AIR_VSP_SCALE = -0.25;
-FSPEC_JUMP_CLAMP_RATE = 1.5; // applied using air_max_speed
+FSPEC_JUMP_CLAMP_RATE = 1.3; // applied using air_max_speed
 
 USPEC_LAUNCH_BASE = 11;  // speed
 USPEC_JETPACK_SCALE = 1; // extra speed per jetpack stack

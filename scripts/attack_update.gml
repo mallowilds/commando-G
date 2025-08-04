@@ -75,6 +75,9 @@ switch(attack) {
 	            spawn_base_dust(x, y, "land", spr_dir)
         	}
         }
+        else if (window == 4) {
+        	iasa_script();
+        }
         break;
         
     case AT_NAIR:
@@ -82,11 +85,15 @@ switch(attack) {
         break;
         
     case AT_FAIR:
-        if (window == 2) {
+    	if (window == 1 && window_timer == 2) {
+    		fair_sfx_instance = sound_play(s_reload);
+    	}
+        else if (window == 2) {
         	var holding = (attack_down || left_stick_down || right_stick_down);
         	if (holding) strong_charge += 1;	// Note that damage growth from this is increased - see hit_player.gml
 			if (!holding || window_timer == 29) {
-				sound_stop(s_reload)
+				sound_stop(fair_sfx_instance);
+				fair_sfx_instance = sound_play(s_reload);
 				window = 3 
 				window_timer = 0;
 			}
@@ -94,11 +101,13 @@ switch(attack) {
 				strong_flashing = true;
 			}
 		}
-		else if (window == 3 && window_timer == 2) {
+		else if (window == 3 && window_timer == 5) {
 			if (vsp > -2) vsp = -2;
 			if (hsp*spr_dir <= -2) hsp -= 2*(move_speed/2)*spr_dir;
 			else hsp = -5*spr_dir;
 			sound_play(s_shotty, 0, noone, 3, .95)
+			sound_stop(fair_sfx_instance);
+			fair_sfx_instance = noone;
 		}
 		else if (window > 3 && !hitpause) {
 			var threshold = (window == 4) ? 5 : max(5-window_timer/5, 0);
@@ -506,13 +515,17 @@ switch(attack) {
             if vsp > 5 vsp = 5 
             if hsp > (7*spr_dir) hsp = (7*spr_dir)
         }
-        if (window != 1 && !was_parried) {
-            can_jump = true
-            can_attack = true
-            can_strong = true
-            can_ustrong = true
+        if (window != 1) {
             do_wind_streaks = true;
+            if (!was_parried && !(window == 2 && window_timer < 4)) {
+	        	can_jump = true
+	            can_attack = true
+	            can_strong = true
+	            can_ustrong = true
+	        }
+	        fspec_clamp_hsp = free;
         }
+        
         move_cooldown[AT_FSPECIAL] = 50;
         if (was_parried) set_attack_value(AT_FSPECIAL, AG_OFF_LEDGE, false);
         break;
@@ -524,11 +537,11 @@ switch(attack) {
     		vsp = 0;
     		hsp *= 0.9;
     	}
-        else {
-            can_jump = true
+        else if (!was_parried && !(window == 2 && window_timer < 4)) {
+        	can_jump = true
             can_attack = true
             can_strong = true
-            do_wind_streaks = true;
+            can_ustrong = true
         }
         
         if (window == 2) {
@@ -555,6 +568,7 @@ switch(attack) {
         }
         
         can_move = (window == 3);
+        move_cooldown[AT_FSPECIAL_AIR] = 100;
         
         break;
     
@@ -631,6 +645,10 @@ switch(attack) {
     	// Chest request
         else if (window == 3 && window_timer == 1) {
         	chest_obj = instance_create(x, y-20, "obj_article1");
+        	if (special_down && item_grid[ITEM_CODES][IG_NUM_HELD] > 0) {
+        		window = 2;
+        		window_timer = 0;
+        	}
         }
         	
         break;
@@ -644,6 +662,7 @@ switch(attack) {
     		limitless_mode_cancelled = false; // manages pop-up
     		
     		if (chest_obj.state == 32) { // trishop
+    			can_jump = true;
 				if (!halt_for_trishop) {
 					halt_for_trishop = true;
 					select_for_trishop = false;
