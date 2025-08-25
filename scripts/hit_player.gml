@@ -277,6 +277,12 @@ if (!hit_player_obj.clone && recently_hit[hit_player_obj.player-1] == noone) {
 
 //#endregion
 
+//#region Guardian Heart
+if (item_grid[ITEM_HEART][IG_NUM_HELD] != 0 && heart_barrier_endangered) {
+	heart_barrier_timer += HEART_HIT_BONUS*my_hitboxID.damage;
+}
+//#endregion
+
 //#region Monster Tooth
 if (item_grid[ITEM_MTOOTH][IG_NUM_HELD] > 0 && hit_player_obj.orig_knock >= 12) {
 	tooth_awaiting_spawn[hit_player_obj.player-1] = point_direction(0, 0, hit_player_obj.hsp*-1, abs(hit_player_obj.vsp)*-1);

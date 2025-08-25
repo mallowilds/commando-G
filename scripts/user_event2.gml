@@ -349,8 +349,9 @@ ICEBAND_KBS_SCALE = 0.1;
 // Guardian Heart
 HEART_ENDANGERED_TIME = 300; // Time in frames until heart barrier starts regenerating
 HEART_TICK_TIME = 60; // Time between regeneration ticks
+HEART_HIT_BONUS = 10; // Amount to advance timer by upon hitting an opponent, in frames/percent
 HEART_BARRIER_BASE = 0;
-HEART_BARRIER_SCALE = 5;
+HEART_BARRIER_SCALE = 10;
 
 // Locked Jewel
 JEWEL_BARRIER_SCALE = 10;
