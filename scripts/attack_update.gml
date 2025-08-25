@@ -250,6 +250,9 @@ switch(attack) {
 		}
 		
 		else if (shield_pressed && get_window_value(attack, window, AG_WINDOW_CANCEL_TYPE) == 1 && get_window_value(attack, window, AG_WINDOW_CANCEL_FRAME) <= window_timer) {
+			// If buffering parry: don't do this
+			if (get_window_value(attack, window, AG_WINDOW_LENGTH) - 5 <= window_timer) break;
+			// Otherwise: go into the final input
 			if (window == 3) {
 				set_window_value(attack, 7, AG_WINDOW_ANIM_FRAME_START, 3);
 				set_window_value(attack, 8, AG_WINDOW_ANIM_FRAME_START, 4);
