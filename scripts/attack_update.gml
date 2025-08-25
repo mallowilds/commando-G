@@ -678,7 +678,7 @@ switch(attack) {
 				}
 				
 				if (!select_for_trishop && !joy_pad_idle) {
-					select_for_trishop = joy_dir <= 180;
+					select_for_trishop = joy_dir <= 195 || 345 < joy_dir;
 				}
 				
 				if (shield_pressed) {
