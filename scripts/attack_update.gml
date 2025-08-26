@@ -150,7 +150,9 @@ switch(attack) {
         	do_ignite_hbox = false;
         }
         //mods bring out the
-        down_down = true
+        if !(attack_pressed || is_attack_pressed(DIR_ANY) || special_pressed || is_special_pressed(DIR_ANY)) {
+        	down_down = true;
+        }
         break;
     case AT_USTRONG:
     	hud_offset = lerp(hud_offset, 90, 0.5);

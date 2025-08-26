@@ -2,10 +2,18 @@
 // Portrait init
 if ("draw_items" not in self) {
     
+    draw_items = noone; // failsafe
+    
+    // Shader initialization
+    static_colorI = colorI;
+    static_colorO = colorO;
+    static_colorB = colorB;
+    static_colorT = colorT;
+    
+    // Constant initialization
     user_event(2);
     ITEM_SHIPPING_VISALT = ITEM_HOOF;
     ITEM_ICEBAND_VISALT = ITEM_UKELELE;
-    draw_items = noone;
     
     // Retrieve item smuggler
     var inventory_list = noone;
@@ -63,7 +71,7 @@ if ("draw_items" not in self) {
     if (leg != noone) array_push(draw_items, leg);
     
     // Chest overlay (prioritized)
-    var chest = noone;
+    chest = noone; // This has to be retained for color-mapped Guardian's Heart component
     var chest_items = [ITEM_JEWEL, ITEM_CELL, ITEM_HEART];
     for (var i = 0; i < array_length(chest_items); i++) {
         if (array_contains(inventory_list, chest_items[i])) chest = chest_items[i];
@@ -114,6 +122,20 @@ if ("draw_items" not in self) {
         set_victory_portrait(sprite_get("portrait_ukelele"));
     }
     
+}
+
+// Special: Guardian's Heart cracks
+if (chest == ITEM_HEART) {
+    shader_start();
+    draw_sprite_ext(sprite_get("portrait_heart_cracks"), 0, portrait_x, portrait_y, 2, 2, 0, c_white, 1);
+    shader_end();
+    
+    var flash = black_flash_alpha*2;
+    if (flash > 0) {
+        gpu_set_fog(true, c_black, depth, depth);
+        draw_sprite_ext(sprite_get("portrait_heart_cracks"), 0, portrait_x, portrait_y, 2, 2, 0, c_white, flash);
+        gpu_set_fog(false, c_white, 0, 0);
+    }
 }
 
 // Draw items
