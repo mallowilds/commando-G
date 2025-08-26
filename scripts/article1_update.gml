@@ -310,8 +310,7 @@ switch(state) { // use this one for doing actual article behavior
         	trishop_fade_timer = trishop_fade_max;
         }
         if (trishop_vis_timer >= 0) trishop_vis_timer++;
-        print_debug(trishop_fade_timer);
-        
+
         for (var i = 0; i < 3; i++) {
         	if (i == trishop_selection) {
         		if (trishop_vis_flashing) {
