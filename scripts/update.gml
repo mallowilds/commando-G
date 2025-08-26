@@ -157,7 +157,7 @@ with oPlayer {
 			commando_status_counter[other.ST_STICKY] = 0;
 			commando_status_owner[other.ST_STICKY] = noone;
 		}
-		if (should_make_shockwave) {
+		if (activated_kill_effect) {
 			commando_status_state[other.ST_STICKY] = 0;
 			commando_status_counter[other.ST_STICKY] = 0;
 			commando_status_owner[other.ST_STICKY] = noone;

@@ -75,7 +75,7 @@ switch(attack) {
 	            spawn_base_dust(x, y, "land", spr_dir)
         	}
         }
-        else if (window == 4) {
+        else if (window == 4 && !was_parried) {
         	iasa_script();
         }
         break;
