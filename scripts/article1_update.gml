@@ -155,7 +155,7 @@ switch(state) { // use this one for doing actual article behavior
         }
         else if (state_timer < 20) {
         	if (player_id.state_cat = SC_HITSTUN) {
-        		state = 22;
+        		state = 12;
         		state_timer = 10; // anim hack
         		sound_stop(sfx_obj_open);
         	}
