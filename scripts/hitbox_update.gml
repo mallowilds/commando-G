@@ -60,7 +60,7 @@ if (attack == AT_EXTRA_1) {
             hit_priority = 1;
             var target_y = target_obj.y - floor(target_obj.char_height/2);
             var dist = point_distance(x, y, target_obj.x, target_y);
-            var sp = min(20, dist);
+            var sp = min(28, dist);
             proj_angle = point_direction(x, y, target_obj.x, target_y);
             hsp = lengthdir_x(sp, proj_angle);
             vsp = lengthdir_y(sp, proj_angle);
@@ -82,11 +82,11 @@ if (attack == AT_EXTRA_1) {
         if (homing) {
             var target_y = target_obj.y - floor(target_obj.char_height/2);
             var dist = point_distance(x, y, target_obj.x, target_y);
-            var sp = min(20, dist);
+            var sp = min(36, dist);
             proj_angle = point_direction(x, y, target_obj.x, target_y);
             hsp = lengthdir_x(sp, proj_angle);
             vsp = lengthdir_y(sp, proj_angle);
-            if (dist <= 30) homing = false;
+            if (dist <= 36) homing = false;
         } else {
             if (place_meeting(x, y, asset_get("par_block"))) {
                 destroyed_next = true;

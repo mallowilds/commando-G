@@ -44,6 +44,11 @@ switch(state) { // use this one for changing sprites and animating
     break;
     case 32: // Idle
         // Selector moved into pre_draw for draw-order reasons
+        draw_set_alpha(0.8 - (trishop_fade_timer / trishop_fade_max));
+        for (var i = 0; i < 3; i++) {
+            draw_sprite(sprite_get("item"), trishop_loot[i], x-24+(24*i), y-116);
+        }
+        draw_set_alpha(1);
     case 33: // Opening
         if (show_hud) draw_sprite_ext(sprite_get("hud_arrow"), 0, x, y-90, 1, 1, 0, get_player_hud_color(player), 1);
         draw_sprite_ext(sprite_get("dspec_trishop_outline"), 0, x, y, spr_dir, 1, 0, c_white, outline_alpha);

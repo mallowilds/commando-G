@@ -151,7 +151,7 @@ item_grid = [
     ["Mocha",                   RTY_COMMON,     ITP_ATTACK_SPEED, ITP_SPEED,        0, noone, "Slightly increased movement & attack speed.", noone], // 14 | user_event0.gml
     ["Sticky Bomb",             RTY_COMMON,     ITP_EXPLOSIVE,    noone,            0, noone, "Blast attacks attach a little more firepower.", noone], // 15 | hit_player.gml, update.gml
     ["Gasoline",                RTY_COMMON,     ITP_EXPLOSIVE,    ITP_BURNING,      0, noone, "Blast attacks set enemies on fire.", noone], // 16 | hit_player.gml, user_event0.gml
-    ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    noone,            0, noone, "I'm coming home soon. Stay strong.", noone], // 17 | user_event0.gml
+    ["Tough Times",             RTY_COMMON,     ITP_LEGENDARY,    noone,            0, noone, "I'm coming home soon. Stay strong. (Take less knockback.)", noone], // 17 | user_event0.gml
     
     ["Kjaro's Band",            RTY_UNCOMMON,   ITP_DAMAGE,       ITP_BURNING,      0, noone, "Strongs blast enemies with runic fire, lighting them ablaze.", noone], // 18 | hit_player.gml, user_event0.gml
     ["Runald's Band",           RTY_UNCOMMON,   ITP_KNOCKBACK,    noone,            0, noone, "Strongs blast enemies with runic ice, freezing to the bone.", noone], // 19 | melee hitbox update, hit_player.gml

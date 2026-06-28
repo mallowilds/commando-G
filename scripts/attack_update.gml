@@ -531,7 +531,8 @@ switch(attack) {
 	        fspec_clamp_hsp = free;
         }
         
-        move_cooldown[AT_FSPECIAL] = 50;
+        move_cooldown[AT_FSPECIAL] = 80;
+        if (!item_grid[ITEM_AFTERBURNER][IG_NUM_HELD]) move_cooldown[AT_FSPECIAL_AIR] = 80;
         if (was_parried) set_attack_value(AT_FSPECIAL, AG_OFF_LEDGE, false);
         break;
     case AT_FSPECIAL_AIR:
@@ -573,7 +574,12 @@ switch(attack) {
         }
         
         can_move = (window == 3);
-        move_cooldown[AT_FSPECIAL_AIR] = 100;
+        if (!item_grid[ITEM_AFTERBURNER][IG_NUM_HELD]) {
+        	move_cooldown[AT_FSPECIAL] = 80;
+        	move_cooldown[AT_FSPECIAL_AIR] = 80;
+        } else {
+        	move_cooldown[AT_FSPECIAL_AIR] = 10;
+        }
         
         break;
     
@@ -660,7 +666,7 @@ switch(attack) {
     case AT_DSPECIAL_2:
     	hsp = 0;
     	vsp = 0;
-    	super_armor = item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0 && (window != 1 || window_timer != 1);
+    	super_armor = item_grid[ITEM_JEWEL][IG_NUM_HELD] > 0 && state_timer < 20;
     	if (window == 1 && window_timer == 1) {
     		// Lock limitless mode, if applicable
     		limitless_mode_locked = true;

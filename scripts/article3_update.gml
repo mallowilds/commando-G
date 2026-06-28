@@ -843,21 +843,21 @@ switch state {
     	var up = create_hitbox(AT_EXTRA_1, 7, x, y);
     	up.proj_angle = 90;
     	up.target_obj = target_obj;
-    	up.delay = 20 + taser_delay;
+    	up.delay = 15 + taser_delay;
     	up.spr_dir = 1;
     	up.is_fake_hit = true;
 
     	var left = create_hitbox(AT_EXTRA_1, 7, x, y);
     	left.proj_angle = 210;
     	left.target_obj = target_obj;
-    	left.delay = 25 + taser_delay;
+    	left.delay = 18 + taser_delay;
     	left.spr_dir = 1;
     	left.is_fake_hit = true;
 
     	var right = create_hitbox(AT_EXTRA_1, 7, x, y);
     	right.proj_angle = 330;
     	right.target_obj = target_obj;
-    	right.delay = 30 + taser_delay;
+    	right.delay = 21 + taser_delay;
     	right.spr_dir = 1;
     	right.is_fake_hit = true;
     	
@@ -865,21 +865,21 @@ switch state {
     		var down = create_hitbox(AT_EXTRA_1, 7, x, y);
 	    	down.proj_angle = 270;
 	    	down.target_obj = target_obj;
-	    	down.delay = 35 + taser_delay;
+	    	down.delay = 24 + taser_delay;
 	    	down.spr_dir = 1;
 	    	down.is_fake_hit = true;
 	
 	    	var left = create_hitbox(AT_EXTRA_1, 7, x, y);
 	    	left.proj_angle = 150;
 	    	left.target_obj = target_obj;
-	    	left.delay = 40 + taser_delay;
+	    	left.delay = 27 + taser_delay;
 	    	left.spr_dir = 1;
 	    	left.is_fake_hit = true;
 	
 	    	var right = create_hitbox(AT_EXTRA_1, 7, x, y);
 	    	right.proj_angle = 30;
 	    	right.target_obj = target_obj;
-	    	right.delay = 45 + taser_delay;
+	    	right.delay = 30 + taser_delay;
 	    	right.spr_dir = 1;
 	    	right.is_fake_hit = true;
     	}
@@ -899,13 +899,13 @@ switch state {
     	if (player_id.icbm_active) num_missiles *= 2;
     	if (!target_obj.hitpause) {
     		state = 64;
-    		state_timer = 0;
+    		state_timer = 5;
     	}
 		break;
     
     // Activate
     case 64:
-    	if (state_timer == 5) {
+    	if (state_timer == 7) {
     		var hbox = create_hitbox(AT_EXTRA_1, 8, player_id.x, player_id.y-30);
     		hbox.target_obj = target_obj;
     		hbox.homing = true;

@@ -150,8 +150,15 @@ switch(state) { // use this one for doing actual article behavior
     case 13: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;
         if (state_timer == 1) {
-        	sound_play(sound_get("cm_smallchest"));
+        	sfx_obj_open = sound_play(sound_get("cm_smallchest"));
         	ai_state = noone;
+        }
+        else if (state_timer < 20) {
+        	if (player_id.state_cat = SC_HITSTUN) {
+        		state = 22;
+        		state_timer = 10; // anim hack
+        		sound_stop(sfx_obj_open);
+        	}
         }
         else if (state_timer == 20) {
             var rarity_weights = [player_id.SCHEST_C_WEIGHT, player_id.SCHEST_U_WEIGHT, player_id.SCHEST_R_WEIGHT]
@@ -237,8 +244,15 @@ switch(state) { // use this one for doing actual article behavior
     case 23: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;
         if (state_timer == 1) {
-        	sound_play(sound_get("cm_largechest"));
+        	sfx_obj_open = sound_play(sound_get("cm_largechest"));
         	ai_state = noone;
+        }
+        else if (state_timer < 20) {
+        	if (player_id.state_cat = SC_HITSTUN) {
+        		state = 22;
+        		state_timer = 10; // anim hack
+        		sound_stop(sfx_obj_open);
+        	}
         }
         else if (state_timer == 20) {
             var rarity_weights = [player_id.LCHEST_C_WEIGHT, player_id.LCHEST_U_WEIGHT, player_id.LCHEST_R_WEIGHT]
@@ -325,8 +339,15 @@ switch(state) { // use this one for doing actual article behavior
     case 33: // Opening
         if (outline_alpha > 0) outline_alpha -= 0.2;
         if (state_timer == 1) {
-        	sound_play(sound_get("cm_smallchest"));
+        	sfx_obj_open = sound_play(sound_get("cm_smallchest"));
         	ai_state = noone;
+        }
+         else if (state_timer < 20) {
+        	if (player_id.state_cat = SC_HITSTUN) {
+        		state = 32;
+        		state_timer = 10; // anim hack
+        		sound_stop(sfx_obj_open);
+        	}
         }
         else if (state_timer == 20) {
             var item = instance_create(x, y-24, "obj_article3");

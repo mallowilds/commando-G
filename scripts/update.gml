@@ -70,9 +70,15 @@ if (state != PS_ATTACK_AIR && fair_sfx_instance != noone) {
 //#region Cooldown management
 
 // FSpec cooldown
-if (!free || state_cat == SC_HITSTUN || state == PS_RESPAWN || state == PS_WALL_JUMP) {
+if (!free || state == PS_RESPAWN) {
 	fspec_air_uses = fspec_air_max_uses;
-	if (state_cat != SC_HITSTUN) move_cooldown[AT_FSPECIAL_AIR] = 0;
+}
+if (state == PS_WALL_JUMP || state_cat == SC_HITSTUN) {
+	if (fspec_air_uses < fspec_air_max_uses) fspec_air_uses++;
+}
+if (state == PS_WALL_JUMP || state == PS_RESPAWN) {
+	move_cooldown[AT_FSPECIAL] = 0;
+	move_cooldown[AT_FSPECIAL_AIR] = 0;
 }
 if (fspec_air_uses <= 0 && move_cooldown[AT_FSPECIAL_AIR] < 2) move_cooldown[AT_FSPECIAL_AIR] = 2;
 
@@ -142,8 +148,9 @@ with oPlayer {
 		if (commando_status_state[other.ST_STICKY] == 1 && commando_status_counter[other.ST_STICKY] >= other.STICKY_DELAY) {
 			var _x = floor(x);
 			var _y = floor(y - (char_height*0.7));
+			var do_weak_sticky = point_distance(0, 0, hsp, vsp) > other.STICKY_MAX_SPD;
 			with (other) {
-				var hbox = create_hitbox(AT_EXTRA_1, 3, _x, _y);
+				var hbox = create_hitbox(AT_EXTRA_1, do_weak_sticky ? 5 : 3, _x, _y);
 				hbox.damage += (STICKY_DAMAGE_SCALE) * (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD]*nectar_mult - 1);
 				var fx = spawn_hit_fx(_x, _y, fx_explode_small);
 				fx.depth = other.depth-1;
@@ -595,8 +602,9 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 		pjetpack_available = true;
 	}
 	
+	var jump_down_fixed = jump_down || (up_down && can_tap_jump());
 	var inactionable = hitpause || (state_cat == SC_HITSTUN) || (state == PS_PRATFALL) || (state == PS_ATTACK_AIR && get_attack_value(attack, AG_DISABLES_JETPACK));
-	if (!inactionable && jump_down && pjetpack_available && pjetpack_fuel > 0) {
+	if (!inactionable && jump_down_fixed && pjetpack_available && pjetpack_fuel > 0) {
 		pjetpack_fuel--;
 		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
 		if (get_gameplay_time() % 6 == 0) spawn_hit_fx(x, y-10, fx_jetpack_steam);

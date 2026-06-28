@@ -269,7 +269,7 @@ WARBANNER_ASPEED_BASE = 0;
 WARBANNER_ASPEED_SCALE = 2;
 WARBANNER_RADIUS_BASE = 100;
 WARBANNER_RADIUS_SCALE = 50;
-WARBANNER_DURATION_BASE = 720;
+WARBANNER_DURATION_BASE = 12000;
 
 // Headstompers
 STOMPERS_DAMAGE_SCALE = 0.5;
@@ -333,6 +333,7 @@ GASOLINE_DAMAGE_SCALE = 3;
 STICKY_DELAY = 30;
 STICKY_DAMAGE_SCALE = 2;  // unlike other scalings, this one starts at 0 for a single item copy and increases from there
 STICKY_CD = 45;
+STICKY_MAX_SPD = 10; // if the opponent's speed exceeds this, do not apply kb
 
 // Tough Times
 TTIMES_KBADJ_EXP_SET = 0.9; // Sets kb_adj to 0.9^n
