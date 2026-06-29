@@ -621,16 +621,17 @@ switch(attack) {
         	
         	chest_obj.cac_repositioning = true;
         	chest_obj.x += 8 * (right_down-left_down);
-        	if (attack_pressed || shield_pressed) {
+        	if ((attack_pressed && chest_obj.state != 00) || shield_pressed) {
         		window = 3;
         		window_timer = 1;
         		if (call_sfx_instance != noone) {
 		    		sound_stop(call_sfx_instance);
 		    		call_sfx_instance = noone;
 		    	}
-		    	if (attack_pressed) {
+		    	if (attack_pressed && chest_obj.state != 00) {
 		    		chest_obj.state = 50;
         			chest_obj.state_timer = 0;
+        			dspec_cooldown_hits = floor(DSPEC_BOMB_CD_HITS / (1+item_grid[ITEM_CAPTAINS][IG_NUM_HELD]));
 		    	}
         	}
         }
@@ -787,6 +788,12 @@ switch(attack) {
 		if (window == 1 && window_timer == 1) {
 			new_item_id = noone;
 			user_event(0); // stat refresh
+			with (oPlayer) {
+				if (self != other) {
+					x = other.x + 80*other.spr_dir;
+					y = other.y - 30;
+				}
+			}
 		}
 		
 		//#region DEBUG: enable debug var

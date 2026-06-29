@@ -248,7 +248,6 @@ set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 16);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 2);
 set_hitbox_value(atk, hbox_num, HG_HITSTUN_MULTIPLIER       , .7);
-
 set_hitbox_value(atk, hbox_num, HG_EFFECT                   , 0);
 set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , fx_explode_small);

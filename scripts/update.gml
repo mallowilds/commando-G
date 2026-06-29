@@ -322,8 +322,7 @@ with oPlayer {
 			commando_status_owner[other.ST_SHATTERED] = noone;
 		}
 	}
-	print_debug(knockback_adj);
-	
+
 	if (update_outline) init_shader();
 	
 }

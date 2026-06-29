@@ -368,16 +368,21 @@ switch(state) { // use this one for doing actual article behavior
         target_y = y;
         y = get_stage_data(SD_TOP_BLASTZONE_Y)+80;
         vsp = 0;
-        set_state(51);
-        hbox = create_hitbox(AT_DSPECIAL, 5, x, y-50);
-        hbox.vsp = vsp;
-        hbox.owner_chest = self;
-        sound_play(player_id.s_cfall);
-        sound_play(asset_get("sfx_mol_huge_countdown"), false, noone, 1, 0.7);
-        ai_state = noone;
+        if (state_timer % 8 == 1) {
+        	sound_play(asset_get("sfx_mol_huge_countdown"), false, noone, 1, 0.7);
+        }
+        if (state_timer == 24) {
+        	set_state(51);
+	        hbox = create_hitbox(AT_DSPECIAL, 5, x, y-50);
+	        hbox.vsp = vsp;
+	        hbox.owner_chest = self;
+	        sound_play(player_id.s_cfall);
+	        ai_state = noone;
+        }
+        
         break;
     case 51: // Fall
-    	vsp += 0.9;
+    	vsp = 24;
         if (y + vsp > target_y) {
             ignores_walls = false;
             can_be_grounded = true;

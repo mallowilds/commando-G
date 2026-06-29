@@ -188,6 +188,7 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_UNBASHABLE    , true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , true);
 set_hitbox_value(atk, hbox_num, HG_EXTENDED_PARRY_STUN      , true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_FAKE_HIT, true);
 hbox_num++;
 
 // CAC bomb explosion multihit
@@ -223,6 +224,7 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_UNBASHABLE    , true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , true);
 set_hitbox_value(atk, hbox_num, HG_EXTENDED_PARRY_STUN      , true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_FAKE_HIT, true);
 hbox_num++;
 
 // CAC bomb explosion hitbox
@@ -257,4 +259,5 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PARRY_STUN    , true);
 set_hitbox_value(atk, hbox_num, HG_EXTENDED_PARRY_STUN      , true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
 set_hitbox_value(atk, hbox_num, HG_IS_BLAST             , true);
+set_hitbox_value(atk, hbox_num, HG_PROJECTILE_FAKE_HIT, true);
 hbox_num++;
