@@ -135,6 +135,9 @@ with oPlayer {
 				update_outline = true;
 			}
 		}
+		if (commando_status_owner[other.ST_SHATTERED] == other.player) {
+			knockback_adj -= other.SHATTERING_KB_SHRED;
+		}
 		for (var i = 0; i < 7; i++) {
 			commando_status_state[i] = 0;
 			commando_status_counter[i] = 0;
@@ -319,6 +322,7 @@ with oPlayer {
 			commando_status_owner[other.ST_SHATTERED] = noone;
 		}
 	}
+	print_debug(knockback_adj);
 	
 	if (update_outline) init_shader();
 	

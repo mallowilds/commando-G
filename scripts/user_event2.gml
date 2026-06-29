@@ -405,9 +405,9 @@ LOPPER_AWAIT_TIME = 100;
 LOPPER_LOCKOUT = 300;
 
 // Shattering Justice
-SHATTERING_DAMAGE_THRESHOLD = 100;
+SHATTERING_DAMAGE_THRESHOLD = 90;
 SHATTERING_DURATION = 90;
-SHATTERING_KB_SHRED = 0.099973; // oddly specific magic number value is used to better detect changes
+SHATTERING_KB_SHRED = 0.09; // oddly specific magic number value is used to better detect changes
 
 // Photon Jetpack
 PJETPACK_FUEL_MAX_BASE = 30;
