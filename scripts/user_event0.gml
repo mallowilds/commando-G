@@ -105,7 +105,8 @@ switch new_item_id {
         break;
     
     case 29: // Rusty Jetpack
-        update_vertical_movement();
+        rjetpack_fuel_max = RJETPACK_FUEL_MAX_BASE + RJETPACK_FUEL_MAX_SCALE*item_grid[29][IG_NUM_HELD];
+        rjetpack_fuel = rjetpack_fuel_max;
         break;
     
     case 30: // Filial Imprinting
@@ -123,6 +124,7 @@ switch new_item_id {
     
     case 37: // Photon Jetpack
         pjetpack_fuel_max = PJETPACK_FUEL_MAX_BASE + PJETPACK_FUEL_MAX_SCALE*item_grid[37][IG_NUM_HELD];
+        pjetpack_fuel = pjetpack_fuel_max;
         break;
     
     case 38: // H3AD-5T V2
@@ -290,10 +292,7 @@ switch new_item_id {
 
 #define update_vertical_movement
     
-    jump_speed = jump_speed_base + clamp((RJETPACK_JUMP_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]) + (HEADSET_JUMP_SCALE * item_grid[ITEM_HEADSET][IG_NUM_HELD]), 0, MAX_JUMP_MOD);
-    // short_hop_speed = base_short_hop_speed; // actually let's not
-    djump_speed = djump_speed_base + (RJETPACK_DJUMP_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]);
-    walljump_vsp = walljump_vsp_base + (RJETPACK_WJUMP_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]);
+    jump_speed = jump_speed_base + clamp((HEADSET_JUMP_SCALE * item_grid[ITEM_HEADSET][IG_NUM_HELD]), 0, MAX_JUMP_MOD);
     
     max_fall = max_fall_base + (RJETPACK_MAX_FALL_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]);
     fast_fall = fast_fall_base + (item_grid[ITEM_HEADSET][IG_NUM_HELD] > 0 ? HEADSET_FAST_FALL_ADD : 0);

@@ -26,6 +26,7 @@ if (my_hitboxID.cmd_strong_finisher) {
 	// Runald's Band
 	if (item_grid[ITEM_ICEBAND][IG_NUM_HELD] > 0) {
 		sound_play(asset_get("sfx_ice_back_air"));
+		take_damage(hit_player, player, ICEBAND_DAMAGE_SCALE*item_grid[ITEM_ICEBAND][IG_NUM_HELD]);
 		var runald_vfx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), HFX_ETA_ICE_BIG);
 		runald_vfx.depth = hit_player_obj.depth-1;
 	}

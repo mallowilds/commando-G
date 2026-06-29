@@ -339,13 +339,14 @@ STICKY_MAX_SPD = 10; // if the opponent's speed exceeds this, do not apply kb
 TTIMES_KBADJ_EXP_SET = 0.9; // Sets kb_adj to 0.9^n
 
 // Kjaro's Band
-FIREBAND_DAMAGE_BASE = 2;
-FIREBAND_DAMAGE_SCALE = 3;
+FIREBAND_DAMAGE_BASE = 0;
+FIREBAND_DAMAGE_SCALE = 5;
 
 // Runald's Band
 ICEBAND_HITPAUSE = 8;
 ICEBAND_EXTRA_HITPAUSE = 4;
 ICEBAND_KBS_SCALE = 0.1;
+ICEBAND_DAMAGE_SCALE = 3;
 
 // Guardian Heart
 HEART_ENDANGERED_TIME = 300; // Time in frames until heart barrier starts regenerating
@@ -377,11 +378,10 @@ STUNGRENADE_STUN_SCALE = 10;
 STUNGRENADE_EXTRA_LOCKOUT = 12;
 
 // Rusty Jetpack
-RJETPACK_JUMP_SCALE = 1;
-RJETPACK_DJUMP_SCALE = 0.5;
-RJETPACK_WJUMP_SCALE = 1;
-RJETPACK_MAX_FALL_SCALE = -0.5;
-RJETPACK_GRAV_SPEED_BASE = -0.05; // Just a flat modifier, no scaling here
+RJETPACK_FUEL_MAX_BASE = 1; // Avoid division by zero
+RJETPACK_FUEL_MAX_SCALE = 30;
+RJETPACK_ACCEL = 0.3;
+RJETPACK_FALL_TARGET = 2;
 
 // Legendary Spark
 SPARK_PERIOD = 600; // Frames between spawns

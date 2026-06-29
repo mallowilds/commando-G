@@ -590,7 +590,13 @@ if (item_grid[32][IG_NUM_HELD] > 0) {
 }
 
 // Photon Jetpack
-if (item_grid[37][IG_NUM_HELD] > 0) { 
+if (item_grid[ITEM_RJETPACK][IG_NUM_HELD] <= 0 && item_grid[ITEM_PJETPACK][IG_NUM_HELD] <= 0) {
+	pjetpack_available = false;
+} else {
+	if (free) jetpack_hud_alpha = clamp(jetpack_hud_alpha+0.1, jetpack_hud_alpha, 1);
+	else jetpack_hud_alpha = clamp(jetpack_hud_alpha-0.1, 0, jetpack_hud_alpha);
+}
+if (item_grid[ITEM_PJETPACK][IG_NUM_HELD] > 0) { 
 	if (!free) {
 		pjetpack_fuel = pjetpack_fuel_max;
 		pjetpack_available = false;
@@ -608,22 +614,52 @@ if (item_grid[37][IG_NUM_HELD] > 0) {
 		pjetpack_fuel--;
 		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
 		if (get_gameplay_time() % 6 == 0) spawn_hit_fx(x, y-10, fx_jetpack_steam);
-		if (pjetpack_sound == noone) {
-			pjetpack_sound = sound_play(sound_get("jetpack"), true, noone);
+		if (jetpack_sound == noone) {
+			jetpack_sound = sound_play(sound_get("jetpack"), true, noone);
 		}
 	}
-	else if (pjetpack_sound != noone) {
-		sound_stop(pjetpack_sound);
-		pjetpack_sound = noone;
+	else if (jetpack_sound != noone) {
+		sound_stop(jetpack_sound);
+		jetpack_sound = noone;
 	}
 	
 	if (free) {
-		pjetpack_hud_alpha = clamp(pjetpack_hud_alpha+0.1, pjetpack_hud_alpha, 1);
+		jetpack_hud_alpha = clamp(jetpack_hud_alpha+0.1, jetpack_hud_alpha, 1);
 		pjetpack_vis_fuel = pjetpack_fuel
 	} else {
-		pjetpack_hud_alpha = clamp(pjetpack_hud_alpha-0.1, 0, pjetpack_hud_alpha);
+		jetpack_hud_alpha = clamp(jetpack_hud_alpha-0.1, 0, jetpack_hud_alpha);
 	}
-} else pjetpack_available = false;
+	
+	rjetpack_vis_fuel = rjetpack_fuel;
+}
+if (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0) { 
+	if (!free) {
+		rjetpack_fuel = rjetpack_fuel_max;
+	}
+	
+	var jump_down_fixed = jump_down || (up_down && can_tap_jump());
+	var inactionable = hitpause || (state_cat == SC_HITSTUN) || (state == PS_PRATFALL) || (state == PS_ATTACK_AIR && get_attack_value(attack, AG_DISABLES_JETPACK));
+	if (!inactionable && jump_down_fixed && rjetpack_fuel > 0 && pjetpack_fuel <= 0) {
+		if (vsp > RJETPACK_FALL_TARGET) {
+			vsp = max(RJETPACK_FALL_TARGET, vsp-gravity_speed-RJETPACK_ACCEL);
+			rjetpack_fuel--;
+			if (get_gameplay_time() % 6 == 0) {
+				var hfx = spawn_hit_fx(x, y-10, fx_jetpack_steam);
+				hfx.image_alpha = 0.5;
+				hfx.vsp = 2;
+			}
+			if (jetpack_sound == noone) {
+				jetpack_sound = sound_play(sound_get("jetpack"), true, noone, 1, 0.8);
+			}
+		}
+	}
+	else if (jetpack_sound != noone) {
+		sound_stop(jetpack_sound);
+		jetpack_sound = noone;
+	}
+	
+	rjetpack_vis_fuel = rjetpack_fuel;
+}
 
 // H3AD-5T V2
 if (item_grid[38][IG_NUM_HELD] > 0) { 
