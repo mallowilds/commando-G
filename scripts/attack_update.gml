@@ -387,7 +387,7 @@ switch(attack) {
             		nspec_starting = nspec_charge_level >= 1;
             		do_turbine_recolor = (turbine_stored_charge >= TURBINE_THRESHOLD);
             		if (nspec_charge_level == 3) turbine_stored_charge = 0;
-            		num_loops = (item_grid[ITEM_SCEPTER][IG_NUM_HELD] >= 1) ? attack_speed-1 : 0;
+            		num_loops = (item_grid[ITEM_SCEPTER][IG_NUM_HELD] >= 1) ? 3 : 0;
             		for (var i = 1; i <= 12; i++) set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW, 10);
             	}
                 hsp *= 0.95;
@@ -460,7 +460,6 @@ switch(attack) {
 		    			window_timer = 999; // jump to window 4
 		    			sound_play(sound_get("plasma"))
 		    			sound_play(s_gunh);
-		    	
 	            	}
 		    		else sound_play(s_gunf);
             	}
