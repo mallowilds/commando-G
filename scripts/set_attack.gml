@@ -154,3 +154,10 @@ set_hitbox_value(atk, ignition, HG_KNOCKBACK_SCALING, ignition_kbs);
 
 if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0) set_hitbox_value(atk, normal, HG_HIT_LOCKOUT, 0);
 else reset_hitbox_value(atk, normal, HG_HIT_LOCKOUT);
+
+// This function is blacklisted in Rivals, so define it manually
+#define array_contains(arr, value)
+for (var idx = 0; idx < array_length(arr); idx++) {
+	if (arr[idx] == value) return true;
+}
+return false;
