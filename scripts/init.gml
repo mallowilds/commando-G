@@ -164,7 +164,7 @@ item_grid = [
     ["Predatory Instincts",     RTY_UNCOMMON,   ITP_CRITICAL,     ITP_ATTACK_SPEED, 0, noone, "Critical Strikes increase attack speed.", noone], // 26 | update.gml, hit_player.gml, user_event0.gml
     ["Stun Grenade",            RTY_UNCOMMON,   ITP_EXPLOSIVE,    noone,            0, noone, "Blast attacks stun enemies briefly.", noone], // 27 | hit_player.gml, update.gml
     ["AtG Missile Mk. 1",       RTY_UNCOMMON,   ITP_DAMAGE,       noone,            0, noone, "Strongs fire a missile.", noone], // 28 | user_event0.gml, hit_player.gml, article3, AT_EXTRA1
-    ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Increase jump height and reduce gravity.", noone], // 29 | user_event0.gml
+    ["Rusty Jetpack",           RTY_UNCOMMON,   ITP_SPEED,        noone,            0, noone, "Hold Jump to briefly break your fall.", noone], // 29 | user_event0.gml
     ["Legendary Spark",         RTY_UNCOMMON,   ITP_LEGENDARY,    noone,            0, noone, "Smite them. Smite them all.", noone], // 30 | Unimplemented
     
     ["Ancient Scepter",         RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Upgrade your Neutral Special with Attack Speed.", noone], // 31 | attack_update.gml, pre_draw.gml
