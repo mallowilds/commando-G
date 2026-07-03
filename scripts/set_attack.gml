@@ -63,7 +63,7 @@ else if (attack == AT_USTRONG_2) {
     else enable_basic_crit(attack, 7, 8, 9);
     
 }
-snakeeyes_active = false;
+if (!array_contains(SNAKEEYES_EXEMPT, attack)) snakeeyes_active = false;
 
 // Handle attack speed
 if (attack_speed != get_attack_value(attack, AG_PREV_ATTACK_SPEED)) {

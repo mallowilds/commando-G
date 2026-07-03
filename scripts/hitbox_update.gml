@@ -7,7 +7,6 @@ if (attack == AT_USPECIAL) {
 	}
 	if player_id.state_cat == SC_HITSTUN {
 		hitbox_timer = 999
-		print('gone')
 	}
     if (hbox_num == 1 && hitbox_timer == length && !was_parried) {
         spawn_hit_fx(x, y - 30, player_id.vfx_explodey_big);

@@ -488,5 +488,6 @@ TRICORN_UNCOMMON_ODDS = 0.65;
 // Snake Eyes
 SNAKEEYES_KBS_ADD = 0.05; // Added once for each Snake Eyes over the baseline
 SNAKEEYES_DAMAGE_ADD = 3; // Ditto
+SNAKEEYES_EXEMPT = [AT_DSPECIAL, AT_DSPECIAL_2, AT_TAUNT, AT_TAUNT_2, AT_EXTRA_2, AT_EXTRA_3]; // These won't break the streak
 
 //#endregion

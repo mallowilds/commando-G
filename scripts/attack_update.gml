@@ -383,7 +383,6 @@ switch(attack) {
             	if (window_timer == 1) {
             		sound_play(asset_get("sfx_forsburn_cape_swipe"), 0, noone, 1, 1);
             		nspec_charge_threshold = NSPEC_THRESHOLD_TIME * power(NSPEC_ASPEED_FACTOR, attack_speed-1);
-            		print_debug(nspec_charge_threshold);
             		nspec_charge_frames = 0;
             		nspec_charge_level = (turbine_stored_charge >= TURBINE_THRESHOLD) ? 3 : 0;
             		nspec_vis_timer = nspec_charge_threshold + 1;
