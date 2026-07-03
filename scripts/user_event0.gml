@@ -291,12 +291,8 @@ switch new_item_id {
     set_window_value(AT_FSPECIAL_AIR, 2, AG_WINDOW_VSPEED, FSPEC_AIR_VSP_BASE + (FSPEC_AIR_VSP_SCALE * move_speed));
 
 #define update_vertical_movement
-    
     jump_speed = jump_speed_base + clamp((HEADSET_JUMP_SCALE * item_grid[ITEM_HEADSET][IG_NUM_HELD]), 0, MAX_JUMP_MOD);
-    
-    max_fall = max_fall_base + (RJETPACK_MAX_FALL_SCALE * item_grid[ITEM_RJETPACK][IG_NUM_HELD]);
     fast_fall = fast_fall_base + (item_grid[ITEM_HEADSET][IG_NUM_HELD] > 0 ? HEADSET_FAST_FALL_ADD : 0);
-    gravity_speed = gravity_speed_base - (RJETPACK_GRAV_SPEED_BASE * (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0));
 
 #define update_knockback_adj
     // Tough Times ignores Growth Nectar, given the sheer power of kb adj scaling

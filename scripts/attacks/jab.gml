@@ -5,11 +5,19 @@ var window_length   = 0;
 //                        --attack windows--                                  //
 set_attack_value(atk, AG_SPRITE                         , sprite_get("jab"));
 set_attack_value(atk, AG_HURTBOX_SPRITE                 , sprite_get("jab_hurt"));
-set_attack_value(atk, AG_NUM_WINDOWS                    , 9);
+set_attack_value(atk, AG_NUM_WINDOWS                    , 10);
 set_attack_value(atk, AG_CATEGORY                       , 0);
 
-set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //STARTUP
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 5);
+set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //pre-startup
+set_window_value(atk, window_num                        , AG_WINDOW_USES_ATTACK_SPEED, 1);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
+    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
+window_num++;
+
+set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //startup 1
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
@@ -35,7 +43,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_CANCEL_FRAME
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //startup 2
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 5);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
@@ -61,7 +69,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_CANCEL_FRAME
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //startup final
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 3);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 3);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
@@ -90,7 +98,7 @@ var hbox_num = 1;
 
 // hit 1 -----------------------------------------------------------------------
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 3);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 18);
@@ -113,7 +121,7 @@ set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 0);
 hbox_num++;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 2);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 3);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 54);
@@ -139,7 +147,7 @@ hbox_num++;
 // hit 1 (loop) ---------------------------------------------------------------
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_PARENT_HITBOX            , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 5);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 6);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 18);
@@ -149,7 +157,7 @@ hbox_num++;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_PARENT_HITBOX            , 2);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 5);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 6);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 70);
@@ -159,7 +167,7 @@ hbox_num++;
 
 // hit 2 -----------------------------------------------------------------------
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 8);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 9);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 18);
@@ -181,7 +189,7 @@ set_hitbox_value(atk, hbox_num, HG_IS_GUNSHOT               , 1);
 hbox_num++;
 
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
-set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 8);
+set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 9);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 0);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , get_window_value(atk, get_hitbox_value(atk,hbox_num,HG_WINDOW), AG_WINDOW_LENGTH));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 54);

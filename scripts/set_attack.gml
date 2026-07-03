@@ -4,7 +4,8 @@ do_turbine_recolor = false; // it's easiest to just set it here...
 if (debug_display_opened && attack_pressed && taunt_pressed) attack = AT_TAUNT;
 
 if (attack == AT_JAB) {
-    num_loops = attack_speed;
+    //num_loops = attack_speed;
+    num_loops = 1;
     set_hitbox_value(AT_JAB, 1, HG_HITSTUN_MULTIPLIER, 1);
     set_hitbox_value(AT_JAB, 2, HG_HITSTUN_MULTIPLIER, 1);
     set_hitbox_value(AT_JAB, 3, HG_HITSTUN_MULTIPLIER, 1);
@@ -63,6 +64,35 @@ else if (attack == AT_USTRONG_2) {
     
 }
 snakeeyes_active = false;
+
+// Handle attack speed
+if (attack_speed != get_attack_value(attack, AG_PREV_ATTACK_SPEED)) {
+	var num_windows = get_attack_value(attack, AG_NUM_WINDOWS);
+	set_attack_value(attack, AG_PREV_ATTACK_SPEED, attack_speed);
+	
+	// Init real window lengths if needed
+	for (var i = 1; i <= num_windows; i++) {
+		if (get_window_value(attack, i, AG_WINDOW_REAL_LENGTH) == 0) {
+			set_window_value(attack, i, AG_WINDOW_REAL_LENGTH, get_window_value(attack, i, AG_WINDOW_LENGTH));
+		} else {
+			break;
+		}
+	}
+	
+	var real_as = attack_speed - 1;
+	if (real_as >= 15) real_as *= 2; // extra dstrong breakpoint at 15 stacks for funsies
+	
+	// Set modified window lengths
+	for (var i = 1; i <= num_windows; i++) {
+		if (get_window_value(attack, i, AG_WINDOW_USES_ATTACK_SPEED)) {
+			var real_length = get_window_value(attack, i, AG_WINDOW_REAL_LENGTH);
+			var mod_length = ceil(real_length * (1-(real_as / (real_as + 3))));
+			set_window_value(attack, i, AG_WINDOW_LENGTH, mod_length);
+			set_window_value(attack, i, AG_WINDOW_SFX_FRAME, max(mod_length-1, 0));
+			print_debug(mod_length);
+		}
+	}
+}
 
 
 

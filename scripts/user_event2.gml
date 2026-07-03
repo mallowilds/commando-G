@@ -46,6 +46,10 @@ IG_RANDOMIZER_INDEX = 7;
 
 // AG -> Attack Grid
 AG_DISABLES_JETPACK = 40;
+AG_PREV_ATTACK_SPEED = 41; // Fully automated. Do not set manually!
+
+AG_WINDOW_USES_ATTACK_SPEED = 40;
+AG_WINDOW_REAL_LENGTH = 41; // Fully automated. Do not set manually!
 
 // HG -> Hitbox Grid
 HG_IS_CRITICAL = 80;

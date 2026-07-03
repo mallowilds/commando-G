@@ -11,7 +11,7 @@ set_attack_value(atk, AG_HAS_LANDING_LAG                , 1);
 set_attack_value(atk, AG_LANDING_LAG                    , 6);
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); //startup
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 6);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
@@ -21,6 +21,7 @@ set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, w
 window_num++;
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0); // formerly active gunwhip, now extra startup
+set_window_value(atk, window_num                        , AG_WINDOW_USES_ATTACK_SPEED, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 2);
