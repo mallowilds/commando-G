@@ -211,8 +211,10 @@ DSPEC_LCHEST_RADIUS = 54;
 DSPEC_INIT_CD_HITS = 0;
 DSPEC_SCHEST_CD_HITS = 4;
 DSPEC_LCHEST_CD_HITS = 8;
-DSPEC_BOMB_CD_HITS = 2;
+DSPEC_BOMB_CD_HITS = 2; // CAC
 DSPEC_CLOVER_HITS = 7;
+
+DSPEC_BOMB_DEPLOY_DELAY = 30; // CAC
 
 // Move Speed stacking properties
 MSPEED_WALK_ANIM_SCALE = 0.04;
@@ -472,7 +474,7 @@ FILIAL_HEAL_AMOUNT = 4; // deprecated
 
 // Energy Cell
 CELL_THRESHOLD_BASE = 36;
-CELL_THRESHOLD_DIV_SCALE = 0.3;
+CELL_THRESHOLD_DIV_SCALE = 0.3; // scales benefits from additional ecells by this amount
 
 // Fire Shield
 FSHIELD_DAMAGE_BASE = 4;

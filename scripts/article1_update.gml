@@ -368,10 +368,10 @@ switch(state) { // use this one for doing actual article behavior
         target_y = y;
         y = get_stage_data(SD_TOP_BLASTZONE_Y)+80;
         vsp = 0;
-        if (state_timer % 8 == 1) {
+        if (state_timer % 8 == 1 && state_timer < player_id.DSPEC_BOMB_DEPLOY_DELAY - 8) {
         	sound_play(asset_get("sfx_mol_huge_countdown"), false, noone, 1, 0.7);
         }
-        if (state_timer == 24) {
+        if (state_timer >= player_id.DSPEC_BOMB_DEPLOY_DELAY) {
         	set_state(51);
 	        hbox = create_hitbox(AT_DSPECIAL, 5, x, y-50);
 	        hbox.vsp = vsp;
@@ -379,7 +379,6 @@ switch(state) { // use this one for doing actual article behavior
 	        sound_play(player_id.s_cfall);
 	        ai_state = noone;
         }
-        
         break;
     case 51: // Fall
     	vsp = 24;

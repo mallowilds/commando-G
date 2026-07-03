@@ -13,6 +13,9 @@ if (my_hitboxID.attack == AT_EXTRA_1 && (4 <= my_hitboxID.hbox_num || my_hitboxI
 // Ignition Tank
 do_ignite_hbox = 0;
 
+// Guardian Heart
+heart_barrier_endangered = 1;
+
 // Fireman's Boots
 if (fireboots_lockout < FIREBOOTS_PARRY_LOCKOUT && item_grid[ITEM_FIREBOOTS][IG_NUM_HELD] > 0) {
     fireboots_lockout = FIREBOOTS_PARRY_LOCKOUT;

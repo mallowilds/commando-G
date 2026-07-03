@@ -592,12 +592,16 @@ if (item_grid[32][IG_NUM_HELD] > 0) {
 	else if (state != PS_HITSTUN && state != PS_HITSTUN_LAND && !was_parried) fireboots_lockout--;
 }
 
-// Photon Jetpack
-if (item_grid[ITEM_RJETPACK][IG_NUM_HELD] <= 0 && item_grid[ITEM_PJETPACK][IG_NUM_HELD] <= 0) {
-	pjetpack_available = false;
-} else {
+// Jetpacks
+if (item_grid[ITEM_PJETPACK][IG_NUM_HELD] + item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0) {
 	if (free) jetpack_hud_alpha = clamp(jetpack_hud_alpha+0.1, jetpack_hud_alpha, 1);
 	else jetpack_hud_alpha = clamp(jetpack_hud_alpha-0.1, 0, jetpack_hud_alpha);
+}
+
+// Photon Jetpack
+if (item_grid[ITEM_PJETPACK][IG_NUM_HELD] <= 0) {
+	pjetpack_available = false;
+	pjetpack_vis_fuel = 0;
 }
 if (item_grid[ITEM_PJETPACK][IG_NUM_HELD] > 0) { 
 	if (!free) {
@@ -617,24 +621,25 @@ if (item_grid[ITEM_PJETPACK][IG_NUM_HELD] > 0) {
 		pjetpack_fuel--;
 		vsp = clamp(vsp-gravity_speed-PJETPACK_ACCEL, PJETPACK_MAX_RISE, PJETPACK_MAX_FALL);
 		if (get_gameplay_time() % 6 == 0) spawn_hit_fx(x, y-10, fx_jetpack_steam);
-		if (jetpack_sound == noone) {
-			jetpack_sound = sound_play(sound_get("jetpack"), true, noone);
+		if (pjetpack_sound == noone) {
+			pjetpack_sound = sound_play(sound_get("jetpack"), true, noone);
 		}
 	}
-	else if (jetpack_sound != noone) {
-		sound_stop(jetpack_sound);
-		jetpack_sound = noone;
+	else if (pjetpack_sound != noone) {
+		sound_stop(pjetpack_sound);
+		pjetpack_sound = noone;
 	}
 	
 	if (free) {
 		jetpack_hud_alpha = clamp(jetpack_hud_alpha+0.1, jetpack_hud_alpha, 1);
-		pjetpack_vis_fuel = pjetpack_fuel
+		pjetpack_vis_fuel = pjetpack_fuel;
+		rjetpack_vis_fuel = rjetpack_fuel;
 	} else {
 		jetpack_hud_alpha = clamp(jetpack_hud_alpha-0.1, 0, jetpack_hud_alpha);
 	}
 	
-	rjetpack_vis_fuel = rjetpack_fuel;
 }
+// Rusty Jetpack
 if (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0) { 
 	if (!free) {
 		rjetpack_fuel = rjetpack_fuel_max;
@@ -642,7 +647,7 @@ if (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0) {
 	
 	var jump_down_fixed = jump_down || (up_down && can_tap_jump());
 	var inactionable = hitpause || (state_cat == SC_HITSTUN) || (state == PS_PRATFALL) || (state == PS_ATTACK_AIR && get_attack_value(attack, AG_DISABLES_JETPACK));
-	if (!inactionable && jump_down_fixed && rjetpack_fuel > 0 && pjetpack_fuel <= 0) {
+	if (free && !inactionable && jump_down_fixed && rjetpack_fuel > 0 && (!pjetpack_available || pjetpack_fuel <= 0)) {
 		if (vsp > RJETPACK_FALL_TARGET) {
 			vsp = max(RJETPACK_FALL_TARGET, vsp-gravity_speed-RJETPACK_ACCEL);
 			rjetpack_fuel--;
@@ -651,17 +656,27 @@ if (item_grid[ITEM_RJETPACK][IG_NUM_HELD] > 0) {
 				hfx.image_alpha = 0.5;
 				hfx.vsp = 2;
 			}
-			if (jetpack_sound == noone) {
-				jetpack_sound = sound_play(sound_get("jetpack"), true, noone, 1, 0.8);
+			if (rjetpack_sound == noone) {
+				rjetpack_sound = sound_play(sound_get("jetpack"), true, noone, 1, 0.8);
+			}
+		}
+		if (vsp > 0) {
+			if (vsp > max_fall) vsp = max_fall;
+			fast_falling = false;
+			do_a_fast_fall = false;
+			can_fast_fall = false;
+			if (item_grid[38][IG_NUM_HELD] > 0) { 
+				h3ad_was_fast_falling = false;
+				h3ad_lockout_timer = HEADSET_LOCKOUT_TIME - 2;
 			}
 		}
 	}
-	else if (jetpack_sound != noone) {
-		sound_stop(jetpack_sound);
-		jetpack_sound = noone;
+	else if (rjetpack_sound != noone) {
+		sound_stop(rjetpack_sound);
+		rjetpack_sound = noone;
 	}
 	
-	rjetpack_vis_fuel = rjetpack_fuel;
+	if (free) rjetpack_vis_fuel = rjetpack_fuel;
 }
 
 // H3AD-5T V2

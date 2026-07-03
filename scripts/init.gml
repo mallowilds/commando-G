@@ -519,14 +519,15 @@ behemoth_odds_applied = 0; // Flag for buffing explosive item odds
 rjetpack_fuel = 0;
 rjetpack_fuel_max = 1;
 rjetpack_vis_fuel = 0;
+rjetpack_sound = noone;
 
 pjetpack_fuel = 0;
 pjetpack_fuel_max = 75;
 pjetpack_vis_fuel = 0;
-
 pjetpack_available = 0;
+pjetpack_sound = noone;
+
 jetpack_hud_alpha = 0;
-jetpack_sound = noone;
 
 turbine_stored_charge = 0;
 do_turbine_recolor = false;
