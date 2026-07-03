@@ -89,7 +89,7 @@ if (attack_speed != get_attack_value(attack, AG_PREV_ATTACK_SPEED)) {
 			var mod_length = ceil(real_length * (1-(real_as / (real_as + 3))));
 			set_window_value(attack, i, AG_WINDOW_LENGTH, mod_length);
 			set_window_value(attack, i, AG_WINDOW_SFX_FRAME, max(mod_length-1, 0));
-			print_debug(mod_length);
+			//print_debug(mod_length);
 		}
 	}
 }
