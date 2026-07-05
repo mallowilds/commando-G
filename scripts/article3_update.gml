@@ -914,6 +914,7 @@ switch state {
     		hbox.hitpause = floor(bhp/2);
     		hbox.hitpause_growth = hsp/2;
     		hbox.is_fake_hit = true;
+    		hbox.force_kill = force_kill;
     		
     		if (num_missiles <= 3 && player_id.item_grid[player_id.ITEM_ATG2][player_id.IG_NUM_HELD] >= 1) {
     			hbox.sprite_index = sprite_get("proj_missile2");

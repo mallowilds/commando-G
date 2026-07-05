@@ -154,7 +154,7 @@ with oPlayer {
 			var do_weak_sticky = (state_cat == SC_HITSTUN || state == PS_TUMBLE) && point_distance(0, 0, hsp, vsp) > other.STICKY_MAX_SPD;
 			
 			var sticky_count = 0;
-			if (commando_sticky_blessed % 2 == 0) sticky_count += item_grid[ITEM_STICKYBOMB][IG_NUM_HELD];
+			if (commando_sticky_blessed % 2 == 0) sticky_count += other.item_grid[other.ITEM_STICKYBOMB][other.IG_NUM_HELD];
 			if (commando_sticky_blessed > 0) sticky_count += 1;
 			
 			with (other) {
