@@ -172,7 +172,7 @@ item_grid = [
     ["AtG Missile Mk. 2",       RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hooah.", noone], // 33 | user_event0.gml, hit_player.gml, article3, AT_EXTRA1
     ["The Ol' Lopper",          RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 35,    "Enemies above 120% take massive knockback.", noone], // 34 | update.gml, hit_player.gml, other_post_draw.gml
     ["Shattering Justice",      RTY_RARE,       ITP_KNOCKBACK,    noone,            0, 34,    "Enemies above 90% have their armor Shattered.", noone], // 35 | update.gml, hit_player.gml, other_post_draw.gml
-    ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       noone,            0, noone, "Hold Down Special for repositioning, then press ATTACK for extreme reinforcements.", noone], // 36 | article1_update.gml, attack_update.gml, set_attack.gml
+    ["Classified Access Codes", RTY_RARE,       ITP_DAMAGE,       noone,            0, 69,    "Hold Down Special for repositioning, then press ATTACK for extreme reinforcements.", noone], // 36 | article1_update.gml, attack_update.gml, set_attack.gml
     ["Photon Jetpack",          RTY_RARE,       ITP_SPEED,        noone,            0, 38,    "No hands!", noone], // 37 | user_event0.gml, update.gml, post_draw.gml
     ["H3AD-5T V2",              RTY_RARE,       ITP_SPEED,        noone,            0, 37,    "Jump much higher, and fall much faster.", noone], // 38 | user_event0.gml, update.gml
     ["Hardlight Afterburner",   RTY_RARE,       ITP_SPEED,        noone,            0, noone, "Upgrades your side special.", noone], // 39 | user_event0.gml
@@ -209,6 +209,10 @@ item_grid = [
     ["Dio's Best Friend",       RTY_ALT,        ITP_HEALING,      noone,            0, noone, "Cheat death.", noone], // 65 | update.gml, death.gml
     ["Withered Best Friend",    RTY_ALT,        ITP_HEALING,      noone,            0, noone, "A spent item with no remaining power.", noone], // 66 | N/A
 
+    ["Elusive Antlers",         RTY_COMMON,     ITP_SPEED,        noone,            0, noone, "Spawn orbs of energy nearby, which grant movement speed.", noone], // 67 | TODO
+    ["Deus Ex Machina",         RTY_UNCOMMON,   ITP_META,         noone,            0, noone, "Parrying hits blesses your next attack with a random effect.", noone], // 68 | init.gml, parry.gml, hit_player.gml, user_event0.gml, update.gml hitbox initializer, pre_draw_gml
+    ["Charged Perforator",      RTY_RARE,       ITP_DAMAGE,       noone,            0, 36,    "Chests drop instantly in a lightning strike, leaving a lasting field of electricity."], // 69 | TODO
+
 ]
 //#RCFENDDEFORMAT
 
@@ -241,45 +245,48 @@ item_id_ordering = [
     ITEM_GASOLINE,
     ITEM_FSHIELD,
     ITEM_FIREWORKS,
-    ITEM_TTIMES,        // 20
+    ITEM_ANTLERS,       // 20
+    ITEM_TTIMES,
     noone, // category delimiter
-    ITEM_FIREBAND,      // 22
+    ITEM_FIREBAND,      // 23
     ITEM_ICEBAND,       
-    ITEM_UKELELE,
-    ITEM_RJETPACK,      // 25
+    ITEM_UKELELE,       // 25
+    ITEM_RJETPACK,
     ITEM_QUAIL,
     ITEM_FEATHER,
     ITEM_HEART,
-    ITEM_JEWEL,
-    ITEM_FILIAL,        // 30
+    ITEM_JEWEL,         // 30
+    ITEM_FILIAL,
     ITEM_SNAKEEYES,
     ITEM_SCYTHE,
     ITEM_IGNITION,
-    ITEM_INSTINCTS,
-    ITEM_SHIPPING,      // 35
+    ITEM_INSTINCTS,     // 35
+    ITEM_SHIPPING,
     ITEM_CELL,
     ITEM_STUNGRENADE,
     ITEM_ATG1,
+    ITEM_DEUS,          // 40
     ITEM_SPARK,
-    noone,              // 40
-    ITEM_SCEPTER,       // 41
+    noone,
+    ITEM_SCEPTER,       // 43
     ITEM_TRICORN,
-    ITEM_FIREBOOTS,
+    ITEM_FIREBOOTS,     // 45
     ITEM_ATG2,
-    ITEM_LOPPER,        // 45
+    ITEM_LOPPER,
     ITEM_SHATTERING,
     ITEM_CODES,
-    ITEM_PJETPACK,
+    ITEM_PJETPACK,      // 50
     ITEM_HEADSET,
-    ITEM_AFTERBURNER,   // 50
+    ITEM_AFTERBURNER,
     ITEM_CRITDAGGER,
     ITEM_SCOPE,
-    ITEM_TURBINE,
+    ITEM_TURBINE,       // 55
     ITEM_BEHEMOTH,
-    ITEM_NECTAR,        // 55
+    ITEM_NECTAR,
     (tag_alt_active ? ITEM_DIOS_TAG : ITEM_DIOS),
-    ITEM_CAPTAINS,      // 57
+    ITEM_CAPTAINS,      // 59
 ];
+ordering_start_indices = [0, 23, 43];
 
 // TAG alt easter egg
 if (tag_alt_active) {
@@ -300,8 +307,6 @@ if (RUNE_SOLITUDE) {
     item_grid[@ ITEM_SHIPPING][@ IG_RARITY] = RTY_VOID;
     item_grid[@ ITEM_CODES][@ IG_RARITY] = RTY_VOID;
 }
-
-ordering_start_indices = [0, 22, 41];
 
 // If items need to be manually removed from the pool for any reason (e.g. during an emergency patch), do so here.
 // Format: item_grid[@ ITEM_NAME_HERE][@ IG_RARITY] = RTY_VOID;
@@ -570,6 +575,9 @@ self_prev_outline = [0, 0, 0];
 
 shaped_glass_active = 0;
 icbm_active = 0;
+
+deus_active_arr = array_create(DEUS_NUM_EFFECTS);
+deus_active = false;
 
 // Training mode utility
 tmu_state = TMU_INACTIVE;

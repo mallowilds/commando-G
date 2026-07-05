@@ -8,6 +8,7 @@ commando_status_counter = array_create(7);
 commando_status_owner = array_create(7, noone); // for the sake of the ditto
 commando_use_draw_x = false; // for signal passing
 commando_draw_x = 0; // for signal passing
+commando_sticky_blessed = 0; // for deus compat. 1 = deus only, 2 = deus on a regular app
 
 burnt_pause = 0; // seems to improve stability (?)
 should_make_shockwave = false;

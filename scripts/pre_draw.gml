@@ -162,3 +162,16 @@ if (cell_active_stacks > 0) {
 }
 //#endregion
 
+//#region Deus Ex Machina effect indicator
+if (deus_active > 0) {
+    var deus_icons = DEUS_ICONS;
+    var j = 0;
+    for (i = 0; i < deus_active; i++) {
+        var x_off = 24*i - 12*deus_active + 12;
+        while (!deus_active_arr[j]) j++;
+        draw_sprite(sprite_get("item"), deus_icons[j], x+x_off, y+14);
+        j++;
+    }
+}
+//#endregion
+

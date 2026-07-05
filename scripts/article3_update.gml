@@ -425,7 +425,6 @@ switch state {
     	spr_dir = player_id.spr_dir;
     	radius_y_offset = -54;
     	
-    	warbanner_strength = player_id.item_grid[player_id.ITEM_WARBANNER][player_id.IG_NUM_HELD]*player_id.nectar_mult;
     	warbanner_max_radius = player_id.WARBANNER_RADIUS_BASE + warbanner_strength * player_id.WARBANNER_RADIUS_SCALE;
     	warbanner_radius = 0;
     	warbanner_radius_speed = warbanner_max_radius / 20;
@@ -838,48 +837,48 @@ switch state {
     // Activate
     case 60:
 		
-		var taser_delay = player_id.TASER_STUN_SCALE * player_id.item_grid[player_id.ITEM_TASER][player_id.IG_NUM_HELD];
+		// Taser delay is now checked dynamically by the hitboxes
 
     	var up = create_hitbox(AT_EXTRA_1, 7, x, y);
     	up.proj_angle = 90;
     	up.target_obj = target_obj;
-    	up.delay = 15 + taser_delay;
+    	up.delay = 15;
     	up.spr_dir = 1;
     	up.is_fake_hit = true;
 
     	var left = create_hitbox(AT_EXTRA_1, 7, x, y);
     	left.proj_angle = 210;
     	left.target_obj = target_obj;
-    	left.delay = 18 + taser_delay;
+    	left.delay = 18;
     	left.spr_dir = 1;
     	left.is_fake_hit = true;
 
     	var right = create_hitbox(AT_EXTRA_1, 7, x, y);
     	right.proj_angle = 330;
     	right.target_obj = target_obj;
-    	right.delay = 21 + taser_delay;
+    	right.delay = 21;
     	right.spr_dir = 1;
     	right.is_fake_hit = true;
     	
-    	if (player_id.icbm_active) {
+    	if (player_id.icbm_active || daggers_doubled) {
     		var down = create_hitbox(AT_EXTRA_1, 7, x, y);
 	    	down.proj_angle = 270;
 	    	down.target_obj = target_obj;
-	    	down.delay = 24 + taser_delay;
+	    	down.delay = 24;
 	    	down.spr_dir = 1;
 	    	down.is_fake_hit = true;
 	
 	    	var left = create_hitbox(AT_EXTRA_1, 7, x, y);
 	    	left.proj_angle = 150;
 	    	left.target_obj = target_obj;
-	    	left.delay = 27 + taser_delay;
+	    	left.delay = 27;
 	    	left.spr_dir = 1;
 	    	left.is_fake_hit = true;
 	
 	    	var right = create_hitbox(AT_EXTRA_1, 7, x, y);
 	    	right.proj_angle = 30;
 	    	right.target_obj = target_obj;
-	    	right.delay = 30 + taser_delay;
+	    	right.delay = 30;
 	    	right.spr_dir = 1;
 	    	right.is_fake_hit = true;
     	}
@@ -895,7 +894,6 @@ switch state {
     
     // Init
     case 63:
-    	num_missiles = player_id.atg_freq;
     	if (player_id.icbm_active) num_missiles *= 2;
     	if (!target_obj.hitpause) {
     		state = 64;
@@ -938,7 +936,6 @@ switch state {
     // Init
     case 66:
     	if (state_timer == 0) {
-	    	num_fireworks = player_id.fireworks_freq;
 	    	if (player_id.icbm_active) num_fireworks *= 2;
 	    	num_fireworks *= player_id.nectar_mult;
 	    	was_parried = false;

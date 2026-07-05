@@ -108,7 +108,7 @@ set_hitbox_value(atk, hbox_num, HG_HAS_LERP                 , 1);
 set_hitbox_value(atk, hbox_num, HG_LERP_PERCENT             , 0.1);
 set_hitbox_value(atk, hbox_num, HG_LERP_POS_X               , -25);
 set_hitbox_value(atk, hbox_num, HG_LERP_POS_Y               , 0);
-
+set_hitbox_value(atk, hbox_num, HG_IS_MULTIHIT              , 1);
 
 var hbox_num = 2; //gunshot multihit launcher hitbox
 

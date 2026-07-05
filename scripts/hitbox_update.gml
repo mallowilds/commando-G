@@ -42,10 +42,13 @@ if (attack == AT_EXTRA_1) {
     
     // Ceremonial daggers (delayed homing, manual hitpause)
     if (hbox_num == 7) {
+    	if (hitbox_timer == 1) check_status = "commando_status_state" in target_obj;
         if (bashed || target_obj.state == PS_DEAD || target_obj.state == PS_RESPAWN) homing = false;
         if (hitbox_timer < delay) {
+        	if (check_status && target_obj.commando_status_state[player_id.ST_STUN_ELECTRIC] == 1) delay++;
             hit_priority = 0;
             homing = true;
+            sp_corrected = false; // for once homing ends
             depth = player_id.depth+1;
             draw_xscale = 1;
             var sp = max(9-hitbox_timer, 2);
@@ -65,6 +68,11 @@ if (attack == AT_EXTRA_1) {
             vsp = lengthdir_y(sp, proj_angle);
             if (dist <= 30) homing = false;
         } else {
+        	if (!sp_corrected) {
+        		hsp = lengthdir_x(28, proj_angle);
+        		vsp = lengthdir_y(28, proj_angle);
+        		sp_corrected = true;
+        	}
             if (place_meeting(x, y, asset_get("par_block"))) {
                 destroyed_next = true;
                 spawn_hit_fx(x, y, hit_effect);
@@ -78,15 +86,22 @@ if (attack == AT_EXTRA_1) {
     if (hbox_num == 8 || hbox_num == 12) {
         draw_xscale = 1;
         if (bashed || target_obj.state == PS_DEAD || target_obj.state == PS_RESPAWN) homing = false;
+        if (hitbox_timer == 1) sp_corrected = !homing
         if (homing) {
             var target_y = target_obj.y - floor(target_obj.char_height/2);
             var dist = point_distance(x, y, target_obj.x, target_y);
             var sp = min(36, dist);
+            sp_corrected = false; // for once homing ends
             proj_angle = point_direction(x, y, target_obj.x, target_y);
             hsp = lengthdir_x(sp, proj_angle);
             vsp = lengthdir_y(sp, proj_angle);
             if (dist <= 36) homing = false;
         } else {
+        	if (!sp_corrected) {
+        		hsp = lengthdir_x(36, proj_angle);
+        		vsp = lengthdir_y(36, proj_angle);
+        		sp_corrected = true;
+        	}
             if (place_meeting(x, y, asset_get("par_block"))) {
                 destroyed_next = true;
                 spawn_hit_fx(x, y, hit_effect);
@@ -102,6 +117,7 @@ if (attack == AT_EXTRA_1) {
         if (hitbox_timer == 1) {
             vsp = -16;
             delay = 6 + random_func(3, 10, true);
+            sp_corrected = !homing;
         }
         if (bashed || target_obj == noone || target_obj.state == PS_DEAD || target_obj.state == PS_RESPAWN) homing = false;
         if (homing && hitbox_timer >= delay) {
@@ -120,6 +136,11 @@ if (attack == AT_EXTRA_1) {
                 if (85 <= incidence_angle && incidence_angle <= 95) homing = false;
             }
         } else if (!homing) {
+        	if (!sp_corrected) {
+        		hsp = lengthdir_x(16, proj_angle);
+        		vsp = lengthdir_y(16, proj_angle);
+        		sp_corrected = true;
+        	}
             if (place_meeting(x, y, asset_get("par_block"))) {
                 destroyed_next = true;
                 spawn_hit_fx(x, y, hit_effect);

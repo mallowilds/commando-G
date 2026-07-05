@@ -87,6 +87,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 4);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
 set_hitbox_value(atk, hbox_num, HG_HAS_LERP                 , 1);
 set_hitbox_value(atk, hbox_num, HG_LERP_PERCENT             , 0.2);
+set_hitbox_value(atk, hbox_num, HG_IS_MULTIHIT              , 1);
 
 hbox_num++; //GunshotL
 //print(hbox_num)
@@ -111,6 +112,7 @@ set_hitbox_value(atk, hbox_num, HG_EXTRA_HITPAUSE           , 3);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
 set_hitbox_value(atk, hbox_num, HG_HAS_LERP                 , 1);
 set_hitbox_value(atk, hbox_num, HG_LERP_PERCENT             , 0.05);
+set_hitbox_value(atk, hbox_num, HG_IS_MULTIHIT              , 1);
 
 
 hbox_num++; //GunshotR
@@ -136,6 +138,7 @@ set_hitbox_value(atk, hbox_num, HG_EXTRA_HITPAUSE           , 3);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
 set_hitbox_value(atk, hbox_num, HG_HAS_LERP                 , 1);
 set_hitbox_value(atk, hbox_num, HG_LERP_PERCENT             , 0.05);
+set_hitbox_value(atk, hbox_num, HG_IS_MULTIHIT              , 1);
 
 
 hbox_num++; //GunshotFinalL

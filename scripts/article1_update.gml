@@ -590,4 +590,5 @@ for (var i = 0; i < array_len; i++) {
 if (player_id.fireworks_freq > 0) {
 	var factory = instance_create(x, y-16, "obj_article3");
 	factory.state = 66;
+	factory.num_fireworks = player_id.fireworks_freq;
 }

@@ -59,6 +59,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 3);
 set_hitbox_value(atk, hbox_num, HG_TECHABLE                 , 1);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
+set_hitbox_value(atk, hbox_num, HG_IS_MULTIHIT              , 1);
 
 hbox_num++;
 
@@ -82,6 +83,7 @@ set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 3);
 set_hitbox_value(atk, hbox_num, HG_TECHABLE                 , 1);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
+set_hitbox_value(atk, hbox_num, HG_IS_MULTIHIT              , 1);
 
 hbox_num++;
 
@@ -107,6 +109,7 @@ set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
 set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 3);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak2"));
+set_hitbox_value(atk, hbox_num, HG_IS_MULTIHIT              , 1);
 
 hbox_num++;
 

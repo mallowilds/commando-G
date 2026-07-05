@@ -807,6 +807,7 @@ switch(attack) {
 		if (window == 2 && window_timer == window_length-1 && item_grid[ITEM_WARBANNER][IG_NUM_HELD] > 0) {
 			warbanner_obj = instance_create(x+(38*spr_dir), y, "obj_article3");
 			warbanner_obj.state = 30;
+			warbanner_obj.warbanner_strength = item_grid[ITEM_WARBANNER][IG_NUM_HELD]*nectar_mult;
 		}
     	break;
     

@@ -15,3 +15,28 @@ if (fshield_damage != 0) {
         }
     }
 }
+
+var deus_count = item_grid[ITEM_DEUS][IG_NUM_HELD];
+var deus_weights = DEUS_WEIGHTS; // for RCF's sake
+for (var i = 0; i < deus_count; i++) {
+    // Get sum of weights
+    var total_weights = 0;
+    for (var j = 0; j < DEUS_NUM_EFFECTS; j++) {
+        if (!deus_active_arr[j]) total_weights += deus_weights[j];
+    }
+    
+    if (total_weights == 0) break;
+    var value = random_func(i, total_weights, true);
+
+    var weight_sum = 0;
+    for (var j = 0; j < DEUS_NUM_EFFECTS; j++) {
+        if (!deus_active_arr[j]) {
+            weight_sum += deus_weights[j];
+            if (weight_sum > value) {
+                deus_active_arr[j] = 1;
+                deus_active++;
+                break;
+            }
+        }
+    }
+}

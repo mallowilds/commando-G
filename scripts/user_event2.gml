@@ -53,10 +53,12 @@ AG_WINDOW_REAL_LENGTH = 41; // Fully automated. Do not set manually!
 
 // HG -> Hitbox Grid
 HG_IS_CRITICAL = 80;
-HG_PROJECTILE_FAKE_HIT = 81; // disables certain on-hit behavior, such as dspecial cooldown updates
+HG_PROJECTILE_FAKE_HIT = 81; // disables certain on-hit behavior, such as dspecial cooldown updates and deus
 HG_STRONG_FINISHER = 82;
 HG_IS_BLAST = 83;
 HG_IS_GUNSHOT = 84; // applies followup explosion while Brilliant Behemoth is active. should only be used on finishers
+HG_IS_MULTIHIT = 85; // prevents deus from proccing
+// implementation detail: if another of these procs naturally, deus will assume it's valid and add itself on. don't mix these indices!
 
 // ITEM -> Item indices
 ITEM_CROWBAR        = 0;
@@ -132,6 +134,10 @@ ITEM_CAPTAINS       = 64;
 
 ITEM_DIOS_TAG       = 65;
 ITEM_DIOS_TAG_SPENT = 66;
+
+ITEM_ANTLERS        = 67;
+ITEM_DEUS           = 68;
+ITEM_PERFORATOR     = 69;
 
 // ST -> Statuses
 ST_STICKY = 0;
@@ -489,5 +495,23 @@ TRICORN_UNCOMMON_ODDS = 0.65;
 SNAKEEYES_KBS_ADD = 0.05; // Added once for each Snake Eyes over the baseline
 SNAKEEYES_DAMAGE_ADD = 3; // Ditto
 SNAKEEYES_EXEMPT = [AT_DSPECIAL, AT_DSPECIAL_2, AT_TAUNT, AT_TAUNT_2, AT_EXTRA_2, AT_EXTRA_3]; // These won't break the streak
+
+// Deus Ex Machina
+DEUS_NUM_EFFECTS = 13;
+DEUS_IDX_BLEED = 0;
+DEUS_IDX_FIRE = 1;
+DEUS_IDX_ICE = 2;
+DEUS_IDX_STUN = 3;
+DEUS_IDX_STICKY = 4;
+DEUS_IDX_CRITDAGGER = 5;
+DEUS_IDX_WARBANNER = 6;
+DEUS_IDX_FIREWORKS = 7;
+DEUS_IDX_MTOOTH = 8;
+DEUS_IDX_SHATTER = 9;
+DEUS_IDX_LOPPER = 10;
+DEUS_IDX_ATG3 = 11;
+DEUS_IDX_ITEMGRANT = 12;
+DEUS_WEIGHTS = [6, 6, 6, 6, 6, 6, 3, 3, 3, 1, 1, 1, 1];
+DEUS_ICONS = [11, 18, 19, 12, 15, 57, 1, 55, 47, 35, 34, 33, 64];
 
 //#endregion

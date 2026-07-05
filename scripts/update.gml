@@ -145,16 +145,21 @@ with oPlayer {
 		}
 	}
 	
-	// Sticky Bomb (state 1 indicates active, >1 indicates cooldown)
+	// Sticky Bomb (state 1 indicates active for x, >1 indicates cooldown)
 	if (commando_status_owner[other.ST_STICKY] == other.player && commando_status_state[other.ST_STICKY] > 0) {
 		if (!hitpause) commando_status_counter[other.ST_STICKY]++;
 		if (commando_status_state[other.ST_STICKY] == 1 && commando_status_counter[other.ST_STICKY] >= other.STICKY_DELAY) {
 			var _x = floor(x);
 			var _y = floor(y - (char_height*0.7));
 			var do_weak_sticky = (state_cat == SC_HITSTUN || state == PS_TUMBLE) && point_distance(0, 0, hsp, vsp) > other.STICKY_MAX_SPD;
+			
+			var sticky_count = 0;
+			if (commando_sticky_blessed % 2 == 0) sticky_count += item_grid[ITEM_STICKYBOMB][IG_NUM_HELD];
+			if (commando_sticky_blessed > 0) sticky_count += 1;
+			
 			with (other) {
 				var hbox = create_hitbox(AT_EXTRA_1, do_weak_sticky ? 5 : 3, _x, _y);
-				hbox.damage += (STICKY_DAMAGE_SCALE) * (item_grid[ITEM_STICKYBOMB][IG_NUM_HELD]*nectar_mult - 1);
+				hbox.damage += (STICKY_DAMAGE_SCALE) * (sticky_count*nectar_mult - 1);
 				var fx = spawn_hit_fx(_x, _y, fx_explode_small);
 				fx.depth = other.depth-1;
 				sound_play(asset_get("sfx_mol_flare_shoot"));
@@ -414,7 +419,7 @@ if (num_recently_hit > 0) for (var i = 0; i < 20; i++) {
 			// Monster Tooth
 			if (tooth_awaiting_spawn[i] != -1) {
 				var temp_angle = tooth_awaiting_spawn[i];
-				for (var j = 0; j < item_grid[47][IG_NUM_HELD]*nectar_mult; j++) {
+				for (var j = 0; j < max(item_grid[47][IG_NUM_HELD]*nectar_mult, nectar_mult); j++) {
 					spawn_hit_fx(recently_hit[i].x, recently_hit[i].y-4, fx_tooth_despawn);
 					var orb = instance_create(recently_hit[i].x, recently_hit[i].y-4, "obj_article3");
 					orb.state = 10;
@@ -1049,6 +1054,7 @@ with pHitBox if (player_id == other) {
 			other.cmd_is_explosive = get_hitbox_value(other.attack, other.hbox_num, HG_IS_BLAST);
 			other.cmd_is_gunshot = get_hitbox_value(other.attack, other.hbox_num, HG_IS_GUNSHOT);
 			other.cmd_behemoth_applied = (item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 0) && other.cmd_is_gunshot;
+			other.cmd_ignore_deus = get_hitbox_value(other.attack, other.hbox_num, HG_IS_MULTIHIT) || get_hitbox_value(other.attack, other.hbox_num, HG_PROJECTILE_FAKE_HIT);
 			if (shaped_glass_active) other.damage *= 2;
 		}
 		if (cmd_is_critical) {
@@ -1067,6 +1073,11 @@ with pHitBox if (player_id == other) {
 				hitpause += player_id.ICEBAND_HITPAUSE;
 				extra_hitpause += player_id.ICEBAND_EXTRA_HITPAUSE;
 			}
+		}
+		if (!cmd_ignore_deus && player_id.deus_active_arr[player_id.DEUS_IDX_ICE]) {
+			kb_scale += player_id.ICEBAND_KBS_SCALE;
+			hitpause += player_id.ICEBAND_HITPAUSE;
+			extra_hitpause += player_id.ICEBAND_EXTRA_HITPAUSE;
 		}
 		if (cmd_strong_finisher || cmd_behemoth_applied) {
 			orig_lockout = no_other_hit;

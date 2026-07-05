@@ -18,6 +18,10 @@ if (my_hitboxID.cmd_strong_finisher) {
 	// Kjaro's Band (duplicated later for the sake of Gasoline compat)
 	if (item_grid[ITEM_FIREBAND][IG_NUM_HELD] > 0) {
 		var band_damage = FIREBAND_DAMAGE_BASE + item_grid[ITEM_FIREBAND][IG_NUM_HELD] * FIREBAND_DAMAGE_SCALE;
+		if (!my_hitboxID.cmd_ignore_deus && deus_active_arr[DEUS_IDX_FIRE]) {
+			band_damage += FIREBAND_DAMAGE_SCALE;
+			deus_active_arr[DEUS_IDX_FIRE] = 0;
+		}
 		apply_burn(hit_player_obj, band_damage);
         var kjaro_vfx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), HFX_SHO_FLAME_BIG);
 		kjaro_vfx.depth = hit_player_obj.depth-1;
@@ -26,7 +30,11 @@ if (my_hitboxID.cmd_strong_finisher) {
 	// Runald's Band
 	if (item_grid[ITEM_ICEBAND][IG_NUM_HELD] > 0) {
 		sound_play(asset_get("sfx_ice_back_air"));
-		take_damage(hit_player, player, ICEBAND_DAMAGE_SCALE*item_grid[ITEM_ICEBAND][IG_NUM_HELD]);
+		take_damage(hit_player_obj.player, player, ICEBAND_DAMAGE_SCALE*item_grid[ITEM_ICEBAND][IG_NUM_HELD]);
+		if (!my_hitboxID.cmd_ignore_deus && deus_active_arr[DEUS_IDX_ICE]) {
+			take_damage(hit_player_obj.player, player, ICEBAND_DAMAGE_SCALE);
+			deus_active_arr[DEUS_IDX_ICE] = 0;
+		}
 		var runald_vfx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), HFX_ETA_ICE_BIG);
 		runald_vfx.depth = hit_player_obj.depth-1;
 	}
@@ -90,10 +98,11 @@ if (/*critical_active &&*/ my_hitboxID.cmd_is_critical == 1) {
 		hit_player_obj.hitpause_shock = true;
 		var stun_type = (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] == 0 && hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] == 0) ? 1 : 2;
 		hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] = stun_type;
-		hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = TASER_STUN_BASE + item_grid[ITEM_TASER][IG_NUM_HELD] * TASER_STUN_SCALE * nectar_mult;
+		hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = TASER_STUN_BASE + (item_grid[ITEM_TASER][IG_NUM_HELD] + deus_active_arr[DEUS_IDX_STUN]) * TASER_STUN_SCALE * nectar_mult;
 		hit_player_obj.commando_status_owner[ST_STUN_ELECTRIC] = player;
 		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), (stun_type == 1) ? fx_crit_shock_long : fx_crit_shock);
-		sound_play(asset_get("sfx_absa_cloud_pop"))
+		sound_play(asset_get("sfx_absa_cloud_pop"));
+		deus_active_arr[DEUS_IDX_STUN] = 0;
 	}
 	
 	if (item_grid[ITEM_IGNITION][IG_NUM_HELD] > 0 && hit_player_obj.burned) {
@@ -111,6 +120,8 @@ if (/*critical_active &&*/ my_hitboxID.cmd_is_critical == 1) {
 		var factory = instance_create(x, y-30, "obj_article3");
 		factory.state = 60;
 		factory.target_obj = hit_player_obj;
+		factory.daggers_doubled = deus_active_arr[DEUS_IDX_CRITDAGGER];
+		deus_active_arr[DEUS_IDX_CRITDAGGER] = 0;
 	}
 	
 }
@@ -137,7 +148,6 @@ if (my_hitboxID.cmd_is_explosive == 1) {
 		hit_player_obj.commando_status_owner[ST_STUN_EXPLOSIVE] = player;
 		hit_player_obj.commando_stored_x = hit_player_obj.x;
 		sound_play(asset_get("sfx_mol_flash_explode"));
-		// hfx
 	}
 	
 	// Sticky Bomb
@@ -146,7 +156,8 @@ if (my_hitboxID.cmd_is_explosive == 1) {
 		hit_player_obj.commando_status_counter[ST_STICKY] = 0;
 		hit_player_obj.commando_status_owner[ST_STICKY] = player;
 		sound_play(asset_get("sfx_absa_cloud_placepop"));
-		// hfx
+		hit_player_obj.commando_sticky_blessed = deus_active_arr[DEUS_IDX_STICKY] * 2;
+		deus_active_arr[DEUS_IDX_STICKY] = 0;
 	}
 	
 	// Gasoline (also accounts for Kjaro's Band)
@@ -310,7 +321,10 @@ if (my_hitboxID.cmd_behemoth_applied && item_grid[ITEM_BEHEMOTH][IG_NUM_HELD] > 
 	do_behemoth_hbox = 1;
 }
 
-if (my_hitboxID.cmd_strong_finisher && atg_freq > 0) {
+var do_atg = my_hitboxID.cmd_strong_finisher || (deus_active_arr[DEUS_IDX_ATG3] && !my_hitboxID.cmd_ignore_deus);
+var atg_count = atg_freq + 3 * deus_active_arr[DEUS_IDX_ATG3];
+deus_active_arr[DEUS_IDX_ATG3] = 0;
+if (do_atg && atg_count > 0) {
 	var kb = get_kb_formula(get_player_damage(hit_player), hit_player_obj.knockback_adj, get_match_setting(SET_SCALING)*2, my_hitboxID.damage, my_hitboxID.kb_value, my_hitboxID.kb_scale);
 	var hs = get_hitstun_formula(get_player_damage(hit_player), hit_player_obj.knockback_adj, get_match_setting(SET_SCALING)*2, my_hitboxID.damage, my_hitboxID.kb_value, my_hitboxID.kb_scale)
 	var is_whiteline = will_die_from_kb(hit_player_obj, kb, my_hitboxID.kb_angle, hs);
@@ -325,6 +339,7 @@ if (my_hitboxID.cmd_strong_finisher && atg_freq > 0) {
 	factory.bhp = hbox_stored_bhp;
 	factory.hps = hbox_stored_hps;
 	factory.force_kill = is_whiteline ? hit_player : noone;
+	factory.num_missiles = atg_count;
 	// Obviously, this is an imperfect check,
 	// but it seems reasonable to assume that if the original hit whitelined,
 	// then ATG should pretty much always kill.
@@ -376,6 +391,90 @@ if (my_hitboxID.attack == AT_EXTRA_1 && hbox_num == 7) {
 
 //#endregion
 
+//#region Deus Ex Machina
+// Note that many of these have inline alternate handling with their standard case!
+// Behavioral rule: treat the blessing as one stack of the item, Growth Nectar can apply
+if (deus_active && !my_hitboxID.cmd_ignore_deus) {
+	if (deus_active_arr[DEUS_IDX_BLEED]) {
+		var bleed_damage = max(5, BLEEDDAGGER_DAMAGE_BASE + item_grid[ITEM_BLEEDDAGGER][IG_NUM_HELD] * BLEEDDAGGER_DAMAGE_SCALE * nectar_mult);
+		hit_player_obj.commando_status_owner[ST_BLEED] = player;
+		if (hit_player_obj.commando_status_state[ST_BLEED] < bleed_damage) hit_player_obj.commando_status_state[ST_BLEED] = bleed_damage;
+		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), fx_crit_blood);
+	}
+	if (deus_active_arr[DEUS_IDX_FIRE]) {
+		var band_damage = FIREBAND_DAMAGE_BASE + FIREBAND_DAMAGE_SCALE;
+		apply_burn(hit_player_obj, band_damage);
+        var kjaro_vfx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), HFX_SHO_FLAME_BIG);
+		kjaro_vfx.depth = hit_player_obj.depth-1;
+	}
+	if (deus_active_arr[DEUS_IDX_ICE]) {
+		sound_play(asset_get("sfx_ice_back_air"));
+		take_damage(hit_player_obj.player, player, ICEBAND_DAMAGE_SCALE);
+		var runald_vfx = spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), HFX_ETA_ICE_BIG);
+		runald_vfx.depth = hit_player_obj.depth-1;
+	}
+	if (deus_active_arr[DEUS_IDX_STUN]) {
+		hit_player_obj.hitpause_shock = true;
+		var stun_type = (hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] == 0 && hit_player_obj.commando_status_state[ST_STUN_EXPLOSIVE] == 0) ? 1 : 2;
+		hit_player_obj.commando_status_state[ST_STUN_ELECTRIC] = stun_type;
+		hit_player_obj.commando_status_counter[ST_STUN_ELECTRIC] = TASER_STUN_BASE + TASER_STUN_SCALE;
+		hit_player_obj.commando_status_owner[ST_STUN_ELECTRIC] = player;
+		spawn_hit_fx(get_effect_offset_x(), get_effect_offset_y(), (stun_type == 1) ? fx_crit_shock_long : fx_crit_shock);
+		sound_play(asset_get("sfx_absa_cloud_pop"));
+	}
+	if (deus_active_arr[DEUS_IDX_STICKY]) {
+		hit_player_obj.commando_status_state[ST_STICKY] = 1;
+		hit_player_obj.commando_status_counter[ST_STICKY] = 0;
+		hit_player_obj.commando_status_owner[ST_STICKY] = player;
+		sound_play(asset_get("sfx_absa_cloud_placepop"));
+		hit_player_obj.commando_sticky_blessed = 1;
+	}
+	if (deus_active_arr[DEUS_IDX_CRITDAGGER]) {
+		var factory = instance_create(x, y-30, "obj_article3");
+		factory.state = 60;
+		factory.target_obj = hit_player_obj;
+		factory.daggers_doubled = 0;
+	}
+	if (deus_active_arr[DEUS_IDX_WARBANNER]) {
+		warbanner_obj = instance_create(x, y, "obj_article3");
+		warbanner_obj.state = 30;
+		warbanner_obj.warbanner_strength = (1+item_grid[ITEM_WARBANNER][IG_NUM_HELD])*nectar_mult;
+	}
+	if (deus_active_arr[DEUS_IDX_FIREWORKS]) {
+		var factory = instance_create(x, y-16, "obj_article3");
+		factory.state = 66;
+		factory.num_fireworks = 3;
+	}
+	if (deus_active_arr[DEUS_IDX_MTOOTH]) {
+		tooth_awaiting_spawn[hit_player_obj.player-1] = point_direction(0, 0, hit_player_obj.hsp*-1, abs(hit_player_obj.vsp)*-1);
+	}
+	if (deus_active_arr[DEUS_IDX_SHATTER]) {
+		if (hit_player_obj.commando_status_owner[ST_SHATTERED] == noone) {
+			hit_player_obj.knockback_adj += SHATTERING_KB_SHRED;
+			hit_player_obj.commando_status_state[ST_SHATTERED] = hit_player_obj.knockback_adj;
+			hit_player_obj.commando_status_owner[ST_SHATTERED] = player;
+		}
+		hit_player_obj.commando_status_counter[ST_SHATTERED] = SHATTERING_DURATION * max(1, item_grid[ITEM_SHATTERING][IG_NUM_HELD]);
+	}
+	if (deus_active_arr[DEUS_IDX_LOPPER]) {
+		if (hit_player_obj.commando_status_owner[ST_LOPPER] == noone) {
+			hit_player_obj.commando_status_state[ST_LOPPER] = 1;
+			hit_player_obj.commando_status_owner[ST_LOPPER] = player;
+			hit_player_obj.commando_status_counter[ST_LOPPER] = 0;
+		}
+	}
+	// ATG missiles are handled inline with their standard case
+	if (deus_active_arr[DEUS_IDX_ITEMGRANT]) {
+		var item = instance_create(x+16, y+16, "obj_article3");
+		item.state = 20;
+		if (uncommon_pool_size < 1) item.rarity = 0;
+		else item.rarity = (random_func(12, 1, false) <= TRICORN_UNCOMMON_ODDS) ? 1 : 0;
+		sound_play(asset_get("mfx_star"));
+	}
+	deus_active_arr = array_create(DEUS_NUM_EFFECTS);
+	deus_active = 0;
+}
+//#endregion
 
 // hitbox lerp code
 if (get_hitbox_value(my_hitboxID.attack, hbox_num, HG_HAS_LERP) == true) {

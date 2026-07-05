@@ -60,6 +60,7 @@ set_hitbox_value(AT_UTILT, 1, HG_EXTRA_HITPAUSE, -4);
 set_hitbox_value(AT_UTILT, 1, HG_HITPAUSE_SCALING, 0.2);
 set_hitbox_value(AT_UTILT, 1, HG_VISUAL_EFFECT, 303);
 set_hitbox_value(AT_UTILT, 1, HG_HIT_SFX, asset_get("sfx_blow_medium1"));
+set_hitbox_value(AT_UTILT, 1, HG_IS_MULTIHIT, 1);
 
 //upper
 set_hitbox_value(AT_UTILT, 2, HG_HITBOX_TYPE, 1);
@@ -78,6 +79,7 @@ set_hitbox_value(AT_UTILT, 2, HG_BASE_HITPAUSE, 12);
 set_hitbox_value(AT_UTILT, 2, HG_VISUAL_EFFECT, HFX_GEN_SWEET);
 set_hitbox_value(AT_UTILT, 2, HG_HIT_SFX, asset_get("sfx_blow_heavy2"));
 set_hitbox_value(AT_UTILT, 2, HG_HITBOX_GROUP, 2);
+set_hitbox_value(AT_UTILT, 2, HG_IS_MULTIHIT, 1);
 
 //explosion (spawned manually)
 set_hitbox_value(AT_UTILT, 3, HG_HITBOX_TYPE, 1);
