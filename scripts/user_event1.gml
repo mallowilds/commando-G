@@ -157,7 +157,7 @@ else if (!is_valid_index) print_debug("user_event1 error: attempted to grant ite
 else if (is_incompatible) print_debug("user_event1 error: attempted to grant incompatible item " + item_grid[item_id][IG_NAME]);
 else if (is_excess_uncommon) print_debug("user_event1 error: attempted to grant excess uncommon item " + item_grid[item_id][IG_NAME]);
 else if (is_excess_rare) print_debug("user_event1 error: attempted to grant excess rare item " + item_grid[item_id][IG_NAME]);
-else if (is_voided) print_debug("user_event1 error: attempted to disabled item " + item_grid[item_id][IG_NAME]);
+else if (is_voided) print_debug("user_event1 error: attempted to grant disabled item " + item_grid[item_id][IG_NAME]);
 else print_debug("user_event1 error: unknown item conflict");
 
 return false;

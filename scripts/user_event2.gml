@@ -11,6 +11,7 @@ UE1_REVOKE = 2;
 UE1_GEN_THREE = 3;
 
 // RTY -> Rarity
+RTY_VISUAL = -6; // for visual-only items; mostly spent husks
 RTY_ALT = -5; // for alt-based item variants
 RTY_ABYSSAL = -3; // for abyss items
 RTY_VOID = -2; // for items that cannot drop under normal circumstances

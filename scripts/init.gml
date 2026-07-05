@@ -181,7 +181,7 @@ item_grid = [
     ["Aegis",                   RTY_VOID,       ITP_BARRIER,      ITP_HEALING,      0, noone, "All healing also gives you half of its value as barrier.", noone], // 42 | user_event0, integrated into the healing-applying function (and general barrier utils)
     ["Brilliant Behemoth",      RTY_RARE,       ITP_EXPLOSIVE,    noone,            0, noone, "Your gunshots explode!", noone], // 43 | melee hitbox update, AT_EXTRA_1, attack_update.gml, got_hit.gml, death.gml, update.gml, user_event0
     ["Dio's Best Friend",       RTY_RARE,       ITP_HEALING,      noone,            0, noone, "Cheat death.", noone], // 44 | update.gml, death.gml
-    ["Withered Best Friend",    RTY_VOID,       ITP_HEALING,      noone,            0, noone, "A spent item with no remaining power.", noone], // 45 | N/A
+    ["Withered Best Friend",    RTY_VISUAL,     ITP_HEALING,      noone,            0, noone, "A spent item with no remaining power.", noone], // 45 | N/A
     ["57 Leaf Clover",          RTY_RARE,       ITP_LEGENDARY,    noone,            0, noone, "Luck is on your side.", noone], // 46 | article1_update.gml, got_hit.gml, update.gml, death.gml, user_event0
     
     ["Monster Tooth",           RTY_COMMON,     ITP_HEALING,      noone,            0, noone, "Enemies that get launched hard enough spawn healing orbs.", noone], // 47 | hit_player.gml, update.gml, article3
@@ -191,7 +191,7 @@ item_grid = [
     ["Shipping Request Form",   RTY_UNCOMMON,   ITP_META,         noone,            0, noone, "Increases the odds of calling down a Tri-Shop.", noone], // 51 | user_event0.gml
     ["Fire Shield",             RTY_COMMON,     ITP_DAMAGE,       ITP_BURNING,      0, noone, "Set opponents on fire when dodging or parrying attacks.", noone], // 52 | user_event0.gml, parry.gml, update.gml
     ["Trophy Hunter's Tricorn", RTY_RARE,       ITP_META,         ITP_DAMAGE,       0, noone, "Claim a trophy from the opponent with FStrong. Only has one shot.", noone], // 53 | user_event0.gml, fstrong_2.gml, attack_update.gml, update.gml, hit_player.gml, article3
-    ["Trophy Hunter's Relic",   RTY_VOID,       ITP_META,         ITP_DAMAGE,       0, noone, "Looks kinda cool, but that's about it. ", noone], // 54 | N/A
+    ["Trophy Hunter's Relic",   RTY_VISUAL,     ITP_META,         ITP_DAMAGE,       0, noone, "Looks kinda cool, but that's about it. ", noone], // 54 | N/A
     ["Fireworks",               RTY_COMMON,     ITP_DAMAGE,       noone,            0, noone, "Launch fireworks when opening chests.", noone], // 55 | user_event0, article1_update.gml, article3, AT_EXTRA1, hitbox_update.gml, got_parried.gml
     ["Snake Eyes",              RTY_UNCOMMON,   ITP_CRITICAL,     noone,            0, noone, "Consecutive critical hits become stronger.", noone], // 56 | set_attack.gml, hit_player.gml, user_event0.gml
     ["Ceremonial Dagger",       RTY_RARE,       ITP_CRITICAL,     noone,            0, noone, "Critical hits summon daggers to chase down opponents.", noone], // 57 | hit_player.gml, article3, AT_EXTRA1, hitbox_update.gml
