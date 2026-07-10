@@ -488,6 +488,7 @@ stompers_active = 0;
 stompers_timer = 999; // for anims
 stompers_hbox_air = noone;
 stompers_hbox_ground = noone;
+stompers_can_hit = array_create(20, 1);
 
 bungus_active = 0;
 bungus_timer = 0;

@@ -226,35 +226,11 @@ if (commando_warbanner_strength > 0) warbanner_mult_add = WARBANNER_MULT_BASE + 
 
 // Headstompers handling
 var stompers_extra_damage = 0;
-if (my_hitboxID.type == 1 && my_hitboxID.attack == AT_EXTRA_1 && 4 <= hbox_num && hbox_num <= 6) {
+if (my_hitboxID.type == 1 && my_hitboxID.attack == AT_EXTRA_1 && hbox_num == 4) {
 	stompers_extra_damage = STOMPERS_DAMAGE_SCALE * (item_grid[ITEM_STOMPERS][IG_NUM_HELD]);
-	// while we're here...
-	if (hbox_num == 4) {
-		sound_play(my_hitboxID.sound_effect);
-		
-		if (!my_hitboxID.has_hit) {
-			if (!hitpause) {
-				old_hsp = hsp;
-				old_vsp = vsp;
-			}
-			hitpause = true;
-			if (hitstop < my_hitboxID.hitpause) {
-				hitstop = my_hitboxID.hitpause;
-				hitstop_full = hitstop;
-			}
-		}
-		
-		if (!hit_player_obj.hitpause) {
-			hit_player_obj.old_hsp = hit_player_obj.hsp;
-			hit_player_obj.old_vsp = hit_player_obj.vsp;
-		}
-		hit_player_obj.hitpause = true;
-		if (hit_player_obj.hitstop < my_hitboxID.hitpause) {
-			hit_player_obj.hitstop = my_hitboxID.hitpause;
-			hit_player_obj.hitstop_full = hit_player_obj.hitstop;
-		}
-	}
+	stompers_can_hit[hit_player_obj.player] = 0;
 }
+if (my_hitboxID.type == 1) stompers_can_hit[hit_player_obj.player] = 0;
 
 // Apply damage amps
 var base_damage = my_hitboxID.damage + stompers_extra_damage;

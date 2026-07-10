@@ -456,13 +456,16 @@ if (commando_warbanner_updated) {
 // Headstompers
 if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 	if (stompers_active) {
+		if (instance_exists(stompers_hbox_air)) stompers_hbox_air.can_hit = stompers_can_hit;
 		if (!free) {
 			// Entering the land state automatically destroys melee hitboxes
 			stompers_active = false;
 			stompers_timer = 0;
 			stompers_hbox_air = noone;
 			stompers_hbox_ground = noone;
-			create_hitbox(AT_EXTRA_1, 6, x, y);
+			//create_hitbox(AT_EXTRA_1, 6, x, y);
+			sound_stop(stompers_sfx_instance);
+			stompers_can_hit = array_create(20, 1);
 		}
 		else if (state_cat == SC_HITSTUN || (vsp < fast_fall && !hitpause)) {
 			stompers_active = false;
@@ -470,6 +473,8 @@ if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 			stompers_hbox_air = noone;
 			//if (instance_exists(stompers_hbox_ground)) stompers_hbox_ground.hitbox_timer = 999; // destroy
 			//stompers_hbox_ground = noone;
+			sound_stop(stompers_sfx_instance);
+			stompers_can_hit = array_create(20, 1);
 		}
 	}
 	else if (fast_falling && !hitstop && state_cat != SC_HITSTUN) {
@@ -477,7 +482,11 @@ if (item_grid[ITEM_STOMPERS][IG_NUM_HELD] != 0) {
 		stompers_active = true;
 		stompers_timer = 0;
 		stompers_hbox_air = create_hitbox(AT_EXTRA_1, 4, x, y);
+		stompers_hbox_air.can_hit = stompers_can_hit;
 		//stompers_hbox_ground = create_hitbox(AT_EXTRA_1, 5, x, y);
+		stompers_sfx_instance = sound_play(asset_get("sfx_ori_bash_projectile"), 0, noone, 1, 0.8);
+	} else if (state != PS_ATTACK_AIR && state != PS_ATTACK_GROUND && state_timer == 0) {
+		stompers_can_hit = array_create(20, 1);
 	}
 	land_sound = (stompers_active) ? land_sound_stompers : land_sound_base;
 	stompers_timer++;
@@ -1083,7 +1092,7 @@ with pHitBox if (player_id == other) {
 			orig_lockout = no_other_hit;
 			if (cmd_behemoth_applied) no_other_hit = 0; // ATG should also trigger this eventually
 		}
-		if (attack == AT_EXTRA_1 && 4 <= hbox_num && hbox_num <= 6) { // headstompers
+		if (attack == AT_EXTRA_1 && 4 == hbox_num) { // headstompers
 			// since damage scaling is non-integer, it has to be handled on-hit ~ see hit_player.gml
 			hitpause += player_id.STOMPERS_BHP_SCALE * player_id.item_grid[player_id.ITEM_STOMPERS][player_id.IG_NUM_HELD] * nectar_mult
 		}

@@ -127,23 +127,24 @@ set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW_CREATION_FRAME    , 1);
 set_hitbox_value(atk, hbox_num, HG_LIFETIME                 , 120);
 set_hitbox_value(atk, hbox_num, HG_HITBOX_X                 , 0);
-set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -16);
-set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 0);
+set_hitbox_value(atk, hbox_num, HG_HITBOX_Y                 , -3);
+set_hitbox_value(atk, hbox_num, HG_SHAPE                    , 1);
 set_hitbox_value(atk, hbox_num, HG_WIDTH                    , 48);
-set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 40);
+set_hitbox_value(atk, hbox_num, HG_HEIGHT                   , 6);
 set_hitbox_value(atk, hbox_num, HG_PRIORITY                 , 1);
 set_hitbox_value(atk, hbox_num, HG_DAMAGE                   , 0);
-set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 270);
-set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 0);
-set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , 0);
-set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 2);
+set_hitbox_value(atk, hbox_num, HG_ANGLE                    , 90);
+set_hitbox_value(atk, hbox_num, HG_BASE_KNOCKBACK           , 7);
+set_hitbox_value(atk, hbox_num, HG_KNOCKBACK_SCALING        , .2);
+set_hitbox_value(atk, hbox_num, HG_BASE_HITPAUSE            , 6);
 set_hitbox_value(atk, hbox_num, HG_HITPAUSE_SCALING         , 0);
+set_hitbox_value(atk, hbox_num, HG_HITSTUN_MULTIPLIER       , 0.8);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT            , HFX_GEN_OMNI);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_X_OFFSET   , 0);
 set_hitbox_value(atk, hbox_num, HG_VISUAL_EFFECT_Y_OFFSET   , 10);
 set_hitbox_value(atk, hbox_num, HG_HIT_SFX                  , asset_get("sfx_blow_weak1"));
 set_hitbox_value(atk, hbox_num, HG_HITBOX_GROUP             , 1);
-set_hitbox_value(atk, hbox_num, HG_GROUNDEDNESS             , 1);
+//set_hitbox_value(atk, hbox_num, HG_GROUNDEDNESS             , 1);
 
 // Sticky bomb explosion, no kb
 var hbox_num = 5;
@@ -179,7 +180,7 @@ set_hitbox_value(atk, hbox_num, HG_PROJECTILE_DOES_NOT_REFLECT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_IS_TRANSCENDENT, true);
 set_hitbox_value(atk, hbox_num, HG_PROJECTILE_PLASMA_SAFE   , true);
 
-// Headstompers: landing, ground-only
+// Headstompers: landing, ground-only (currently out of use)
 var hbox_num = 6;
 set_hitbox_value(atk, hbox_num, HG_HITBOX_TYPE              , 1);
 set_hitbox_value(atk, hbox_num, HG_WINDOW                   , 1);
