@@ -109,7 +109,7 @@ switch new_item_id {
         rjetpack_fuel = rjetpack_fuel_max;
         break;
     
-    case 30: // Filial Imprinting
+    case 30: // Legendary Spark
         update_attack_speed();
         update_horizontal_movement();
         break;
@@ -236,13 +236,20 @@ switch new_item_id {
         dspec_cooldown_hits = 0;
         break;
         
+    case 67: // Elusive Antlers
+        antlers_active = item_grid[67][IG_NUM_HELD] > 0;
+        antlers_period = round(ANTLERS_SPAWN_PERIOD * power(ANTLERS_SPAWN_SCALE, item_grid[67][IG_NUM_HELD] - 1));
+        antlers_period_offset = floor((player-1) * antlers_period / 4);
+        antlers_canbuff_amount = ANTLERS_SPEED_BASE + ANTLERS_SPEED_SCALE*item_grid[67][IG_NUM_HELD]
+        // Note: this item actually piggybacks off case 30, i.e. Legendary Spark, for its stat updates
+        break;
+        
     case 68: // Deus Ex Machina
         if (item_grid[68][IG_NUM_HELD] <= 0) {
             deus_active_arr = array_create(DEUS_NUM_EFFECTS);
             deus_active = 0;
         }
         break;
-    
 }
 
 
@@ -280,6 +287,7 @@ switch new_item_id {
                + ((jewel_barrier_timer > 0) ? JEWEL_SPEED_SCALE * item_grid[ITEM_JEWEL][IG_NUM_HELD] : 0) // Locked Jewel
                + ((filial_speed_timer > 0) ? FILIAL_SPEED_STACKS : 0) // Filial Imprinting
                + ((spark_buff_timer > 0) ? SPARK_SPEED_SCALE * item_grid[ITEM_SPARK][IG_NUM_HELD] : 0) // Legendary Spark
+               + ((antlers_buff_timer > 0) ? antlers_buff_amount : 0) // Elusive Antlers
     
     walk_anim_speed = walk_anim_speed_base + (MSPEED_WALK_ANIM_SCALE * move_speed);
     dash_anim_speed = dash_anim_speed_base + (MSPEED_DASH_ANIM_SCALE * move_speed) + (EDRINK_DASH_ANIM_SCALE * item_grid[ITEM_EDRINK][IG_NUM_HELD] * nectar_mult);

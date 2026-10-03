@@ -893,9 +893,19 @@ if (item_grid[ITEM_QUAIL][IG_NUM_HELD] > 0) {
 	}
 }
 
-// Filial Imprinting / Legendary Spark
+// Filial Imprinting / Legendary Spark / Antlers
 var filial_outline_type = 0;
 var filial_fx = noone;
+
+if (antlers_buff_timer > 0) {
+	antlers_buff_timer--;
+	if (antlers_buff_timer == 0) {
+		if (filial_outline_type == 0) filial_outline_type = -1;
+		antlers_do_update = true;
+	} else {
+		filial_outline_type = 1;
+	}
+}
 
 if (filial_speed_timer > 0) {
 	filial_outline_type = 1;
@@ -904,8 +914,6 @@ if (filial_speed_timer > 0) {
 		filial_outline_type = -1;
 		filial_do_update = true;
 	}
-	if (get_gameplay_time() % 24 == 0) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
-	if (get_gameplay_time() % 24 == 12) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
 }
 
 if (filial_aspeed_timer > 0) {
@@ -916,15 +924,9 @@ if (filial_aspeed_timer > 0) {
 		filial_outline_type = (filial_outline_type == 3) ? 1 : -1;
 		filial_do_update = true;
 	}
-	if (get_gameplay_time() % 24 == 6) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
-	if (get_gameplay_time() % 24 == 18) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
 }
 
 if (spark_buff_timer > 0) {
-	if (get_gameplay_time() % 24 == 0) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
-	if (get_gameplay_time() % 24 == 12) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
-	if (get_gameplay_time() % 24 == 6) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
-	if (get_gameplay_time() % 24 == 18) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
 	spark_buff_timer--;
 	if (spark_buff_timer == 0) {
 		if (filial_outline_type == 0) filial_outline_type = -1;
@@ -934,16 +936,23 @@ if (spark_buff_timer > 0) {
 	}
 }
 
-if (filial_do_update) {
-	new_item_id = ITEM_FILIAL;
+
+if (filial_do_update || spark_do_update || antlers_do_update) {
+	new_item_id = filial_do_update ? ITEM_FILIAL : ITEM_SPARK;
 	user_event(0);
 	filial_do_update = false;
-	spark_do_update = false; // filial covers the same bases
+	spark_do_update = false;
+	antlers_do_update = false;
 }
 
-if (spark_do_update) {
-	new_item_id = ITEM_SPARK;
-	user_event(0);
+if (filial_outline_type % 2 == 1 && filial_outline_type > 0) {
+	if (get_gameplay_time() % 24 == 0) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
+	if (get_gameplay_time() % 24 == 12) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_blue);
+}
+
+if (filial_outline_type >= 2) {
+	if (get_gameplay_time() % 24 == 6) filial_fx = spawn_hit_fx(x+30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
+	if (get_gameplay_time() % 24 == 18) filial_fx = spawn_hit_fx(x-30, y-random_func_2(player+5, char_height, true), fx_sucker_buff_red);
 }
 
 if (filial_fx != noone) filial_fx.depth = depth-1;
@@ -1009,6 +1018,44 @@ if (state != PS_ATTACK_GROUND && do_tricorn_remove) {
 	user_event(1);
 }
 
+// Elusive Antlers (buff is handled with Filial/Spark)
+if (antlers_active && get_gameplay_time() % antlers_period == antlers_period_offset) {
+	antlers_spawn_timer = ANTLERS_SPAWN_DELAY;
+	var seed = round(x*y) % 199
+	
+	// Failsafe values for target X and Y
+	var rand_dir = 1 - 2*random_func_2(seed+1, 2, true);
+	antlers_target_x = x + rand_dir*(60+round(random_func_2(seed, 100, false)));
+	antlers_target_y = y - 30;
+	
+	// Otherwise, spawn based on farthest player's position
+	var max_dist = 50; // If players are grouped too closely, resort to failsafe
+	var target_player = noone;
+	with oPlayer if (self != other) {
+		var dist = point_distance(x, y, other.x, other.y)
+		if (dist > max_dist) {
+			max_dist = point_distance(x, y, other.x, other.y);
+			target_player = self;
+		}
+	}
+	if (target_player != noone) {
+		var lerp_amt = 0.4 + 0.2*random_func(seed, 1, false);
+		antlers_target_x = round(lerp(x, target_player.x, lerp_amt));
+		antlers_target_y = round(lerp(y, target_player.y, lerp_amt)) - 30;
+	}
+}
+if (antlers_spawn_timer > 0) {
+	antlers_spawn_timer--;
+	if (antlers_spawn_timer == 0) {
+		var hfx = spawn_hit_fx(antlers_target_x, antlers_target_y, HFX_ELL_STEAM_HIT);
+		hfx.spr_dir = 1;
+		hfx.x -= 2;
+		hfx.y -= 12;
+		var orb = instance_create(antlers_target_x, antlers_target_y, "obj_article3");
+		orb.state = 52;
+		sound_play(asset_get("sfx_clairen_poke_weak"), 0, noone, 0.5, 0.45+0.15*random_func(10, 1, false));
+	}
+}
 
 //#endregion
 

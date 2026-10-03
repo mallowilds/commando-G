@@ -497,6 +497,14 @@ SNAKEEYES_KBS_ADD = 0.05; // Added once for each Snake Eyes over the baseline
 SNAKEEYES_DAMAGE_ADD = 3; // Ditto
 SNAKEEYES_EXEMPT = [AT_DSPECIAL, AT_DSPECIAL_2, AT_TAUNT, AT_TAUNT_2, AT_EXTRA_2, AT_EXTRA_3]; // These won't break the streak
 
+// Elusive Antlers
+ANTLERS_SPAWN_PERIOD = 599; // Must not contain a factor of 600!
+ANTLERS_SPAWN_SCALE = 0.9; // Exponential scaling
+ANTLERS_SPEED_BASE = 1;
+ANTLERS_SPEED_SCALE = 1;
+ANTLERS_BUFF_DURATION = 300; // Can go infinite at 10 stacks (with good play)
+ANTLERS_SPAWN_DELAY = 30; // Makes spawn positioning a little more subtle
+
 // Deus Ex Machina
 DEUS_NUM_EFFECTS = 13;
 DEUS_IDX_BLEED = 0;

@@ -577,6 +577,17 @@ self_prev_outline = [0, 0, 0];
 shaped_glass_active = 0;
 icbm_active = 0;
 
+antlers_active = false;
+antlers_period = 0;
+antlers_period_offset = 0;
+antlers_spawn_timer = 0;
+antlers_target_x = 0;
+antlers_target_y = 0;
+antlers_buff_timer = 0;
+antlers_buff_amount = 0;
+antlers_canbuff_amount = 0;
+antlers_do_update = false;
+
 deus_active_arr = array_create(DEUS_NUM_EFFECTS);
 deus_active = false;
 
@@ -778,6 +789,7 @@ fx_bolt_ground              = hit_fx_create(sprite_get("vfx_bolt_ground"), 9);
 fx_bolt_large               = hit_fx_create(sprite_get("vfx_bolt_large"), 12);
 fx_bolt_large_ground        = hit_fx_create(sprite_get("vfx_bolt_large_ground"), 12);
 fx_djump                    = hit_fx_create(sprite_get("hopoo"), 18)
+fx_antlers_despawn          = hit_fx_create(sprite_get("vfx_item_antlers_despawn"), 8);
 
 vfx_zap_1 = hit_fx_create(sprite_get("vfx_zap_small"), 18);
 vfx_zap_2 = hit_fx_create(sprite_get("vfx_zap_large"), 28);

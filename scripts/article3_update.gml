@@ -192,7 +192,7 @@ switch state {
         
         var min_distance = -1;
         if (state_timer > 8) with (oPlayer) {
-            var distance = point_distance(x, y, other.x, other.y);
+            var distance = point_distance(x, y-10, other.x, other.y);
             if (state_cat != SC_HITSTUN && distance < 20 && (min_distance == -1 || distance < min_distance)) {
                 min_distance = distance;
                 other.orb_target = self;
@@ -800,47 +800,91 @@ switch state {
     // Temporarily piggybacking off Filial implementation
     
     // Init
-    case 50:
-    	buff_type = 0; 
-    	sprite_index = buff_type ? sprite_get("item_suckerdrop_red") : sprite_get("item_suckerdrop_blue");
+    case 52:
+    	sprite_index = sprite_get("item_antlers_orb");
     	mask_index = sprite_get("item_suckerdrop_mask");
+    	orb_target = noone;
     	image_index = 0;
     	
     	ignores_walls = false;
     	can_be_grounded = true;
-    	vsp = -9;
+    	vsp = 0;
     	
-    	state = 51;
+    	state = 53;
     	state_timer = 0;
     	should_destroy = false;
-    	buff_duration = player_id.FILIAL_BUFF_DURATION;
+    	buff_amount = player_id.antlers_canbuff_amount;
+    	buff_duration = player_id.ANTLERS_BUFF_DURATION;
+    	orb_target = noone;
+    	orb_consumed = false;
     	
     	break;
     
     // Idle
-    case 51:
-    	if (free) vsp += 0.5;
+    case 53:
+    	if (hsp > 0) hsp = clamp(hsp - 0.6, 0, hsp);
+        else if (hsp < 0) hsp = clamp(hsp + 0.6, hsp, 0);
+        vsp = 0.8*sin(state_timer*pi/-60);
+        
+        if (state_timer == 1) {
+        	ignores_walls = true;
+    		can_be_grounded = false;
+        }
     	
-    	with oPlayer {
-    		if (point_distance(x, y, other.x, other.y) < 18) {
-    			other.should_destroy = true;
-    			if (is_ror_commando) {
-	    			if (other.buff_type) filial_aspeed_timer = other.buff_duration;
-	    			else filial_speed_timer = other.buff_duration;
-	    			filial_do_update = true;
-	    			sound_play(asset_get("sfx_abyss_spawn"));
-    			} else {
-    				sound_play(asset_get("sfx_syl_dspecial_plantaway"), 0, noone, 0.7, 1.3);
-    			}
-    		}
-    	}
+    	var min_distance = -1;
+        if (state_timer > 8) with (oPlayer) {
+            var distance = point_distance(x, y-30, other.x, other.y);
+            if (state_cat != SC_HITSTUN && distance < 30 && (min_distance == -1 || distance < min_distance)) {
+                min_distance = distance;
+                other.orb_target = self;
+                other.state = 54;
+                other.state_timer = 0;
+            }
+        }
     	
     	if (should_destroy || state_timer > 600) {
-    		spawn_hit_fx(x, y-8, HFX_FOR_HIT_SMALL);
+    		spawn_hit_fx(x, y-8, player_id.fx_antlers_despawn);
+    		sound_play(asset_get("sfx_syl_dspecial_plantaway"), 0, noone, 0.4, 1.3);
     		instance_destroy();
     		exit;
     	}
     	break;
+    
+    case 54:
+        if (!instance_exists(orb_target)) {
+            orb_target = noone;
+            state = 11;
+            state_timer = 0;
+        }
+        
+        can_be_grounded = false;
+        ignores_walls = true;
+        dir = point_direction(x, y, orb_target.x, orb_target.y-orb_target.char_height/2);
+        hsp = lengthdir_x(10, dir);
+        vsp = lengthdir_y(10, dir);
+        
+        var buff_applied = false;
+        with oPlayer {
+            if (place_meeting(x, y, other)) {
+                if (is_ror_commando) {
+                	antlers_buff_amount = other.buff_amount;
+					antlers_buff_timer = other.buff_duration;
+					antlers_do_update = true;
+					buff_applied = true;
+                }
+                other.orb_consumed = true;
+            }
+        }
+        
+        if (orb_consumed) {
+            if (buff_applied) sound_play(asset_get("sfx_abyss_spawn"));
+            else sound_play(asset_get("sfx_syl_dspecial_plantaway"), 0, noone, 0.4, 1.3);
+            spawn_hit_fx(x, y, player_id.fx_antlers_despawn);
+            instance_destroy();
+            exit;
+        }
+        
+        break;
     
     //#endregion
     
