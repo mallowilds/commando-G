@@ -50,6 +50,10 @@ precondition: buff_type = (0 or 1)
 - 50: Initialization
 - 51: Idle
 
+ELUSIVE ANTLERS ~ buff drop
+- 52: Initialization
+- 53: Idle
+
 TRICORN ~ trophy
 precondition: icon variables should be set externally
 - 55: Initialization
@@ -82,6 +86,11 @@ LEGENDARY SPARK ~ thunderbolt
 
 LONGSTANDING SOLITUDE ~ manager
 ~ 90: active
+
+DEUS EX ~ effect warning
+precondition: item_id, wait_time should be set externally
+~ 92: init
+~ 93: fade out
 
 */
 
@@ -786,6 +795,55 @@ switch state {
     
     //#endregion
     
+    //#region Elusive Antlers ~ buff drop
+    
+    // Temporarily piggybacking off Filial implementation
+    
+    // Init
+    case 50:
+    	buff_type = 0; 
+    	sprite_index = buff_type ? sprite_get("item_suckerdrop_red") : sprite_get("item_suckerdrop_blue");
+    	mask_index = sprite_get("item_suckerdrop_mask");
+    	image_index = 0;
+    	
+    	ignores_walls = false;
+    	can_be_grounded = true;
+    	vsp = -9;
+    	
+    	state = 51;
+    	state_timer = 0;
+    	should_destroy = false;
+    	buff_duration = player_id.FILIAL_BUFF_DURATION;
+    	
+    	break;
+    
+    // Idle
+    case 51:
+    	if (free) vsp += 0.5;
+    	
+    	with oPlayer {
+    		if (point_distance(x, y, other.x, other.y) < 18) {
+    			other.should_destroy = true;
+    			if (is_ror_commando) {
+	    			if (other.buff_type) filial_aspeed_timer = other.buff_duration;
+	    			else filial_speed_timer = other.buff_duration;
+	    			filial_do_update = true;
+	    			sound_play(asset_get("sfx_abyss_spawn"));
+    			} else {
+    				sound_play(asset_get("sfx_syl_dspecial_plantaway"), 0, noone, 0.7, 1.3);
+    			}
+    		}
+    	}
+    	
+    	if (should_destroy || state_timer > 600) {
+    		spawn_hit_fx(x, y-8, HFX_FOR_HIT_SMALL);
+    		instance_destroy();
+    		exit;
+    	}
+    	break;
+    
+    //#endregion
+    
     //#region Tricorn ~ trophy
     
     // Init
@@ -1141,6 +1199,42 @@ switch state {
             item.rarity = rty;
     	}
     	break;
+    //#endregion
+    
+    //#region Deus ex Machina ~ effect warning
+    
+    //Init
+    case 92:
+    	// Precondition: item_id, wait_time should be set externally
+    	if (state_timer == 0) {
+	    	sprite_index = sprite_get("item");
+	    	image_index = item_id;
+	    	image_alpha = 0;
+	    	image_xscale = 2;
+	    	image_yscale = 2;
+	    	spr_dir = 1;
+	    	ignores_walls = true;
+	    	can_be_grounded = false;
+	    	// Handle sprite offset implicitly
+    	}
+    	
+    	if (state_timer >= wait_time) {
+    		state = 93;
+    		state_timer = 0;
+    		image_alpha = 0.9;
+    		vsp = -1;
+    	}
+    	break;
+    	
+    // Fade out
+    case 93:
+    	image_alpha -= 0.01;
+    	if (image_alpha <= 0) {
+    		instance_destroy();
+    		exit;
+    	}
+    	break;
+    
     //#endregion
     
     //#region Failed initialization

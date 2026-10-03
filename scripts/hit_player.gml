@@ -281,7 +281,7 @@ if (item_grid[ITEM_MTOOTH][IG_NUM_HELD] > 0 && hit_player_obj.orig_knock >= 12) 
 var plimp_active = item_grid[ITEM_SHRIMP][IG_NUM_HELD] > 0;
 
 // If this could spawn missiles...
-if (my_hitboxID.cmd_strong_finisher || my_hitboxID.cmd_behemoth_applied || plimp_active) {
+if (my_hitboxID.cmd_strong_finisher || (deus_active_arr[DEUS_IDX_ATG3] && !my_hitboxID.cmd_ignore_deus) || my_hitboxID.cmd_behemoth_applied || plimp_active) {
 	// Store knockback
 	hbox_stored_damage = my_hitboxID.damage; // probably won't see use in practice
 	hbox_stored_bkb = my_hitboxID.kb_value;

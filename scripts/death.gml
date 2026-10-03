@@ -14,6 +14,10 @@ heart_barrier_timer = 0;
 // Ignition Tank
 do_ignite_hbox = 0;
 
+// Deus ex Machina
+deus_active_arr = array_create(DEUS_NUM_EFFECTS);
+deus_active = false;
+
 // Brilliant Behemoth
 do_behemoth_hbox = 0;
 

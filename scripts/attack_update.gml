@@ -533,8 +533,12 @@ switch(attack) {
 	        fspec_clamp_hsp = free;
         }
         
-        move_cooldown[AT_FSPECIAL] = 80;
-        if (!item_grid[ITEM_AFTERBURNER][IG_NUM_HELD]) move_cooldown[AT_FSPECIAL_AIR] = 80;
+        if (!item_grid[ITEM_AFTERBURNER][IG_NUM_HELD]) {
+        	move_cooldown[AT_FSPECIAL] = 80;
+        	move_cooldown[AT_FSPECIAL_AIR] = 80;
+        } else {
+        	move_cooldown[AT_FSPECIAL] = 20;
+        }
         if (was_parried) set_attack_value(AT_FSPECIAL, AG_OFF_LEDGE, false);
         break;
     case AT_FSPECIAL_AIR:

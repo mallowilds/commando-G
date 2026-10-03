@@ -168,7 +168,7 @@ if (deus_active > 0) {
     var j = 0;
     for (i = 0; i < deus_active; i++) {
         var x_off = 24*i - 12*deus_active + 12;
-        while (!deus_active_arr[j]) j++;
+        while (j < DEUS_NUM_EFFECTS && !deus_active_arr[j]) j++;
         draw_sprite(sprite_get("item"), deus_icons[j], x+x_off, y+14);
         j++;
     }
