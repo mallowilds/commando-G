@@ -1057,6 +1057,12 @@ if (antlers_spawn_timer > 0) {
 	}
 }
 
+// Deus ex Machina
+if (state == PS_PARRY && state_timer == 1 && item_grid[ITEM_DEUS][IG_NUM_HELD] > 0) {
+	var hfx = spawn_hit_fx(x+16*spr_dir, y-48, fx_deusparry_whiff);
+	hfx.depth = depth-1;
+}
+
 //#endregion
 
 //#region Damage management (Barriers/state changes)

@@ -51,9 +51,11 @@ for (var i = 0; i < deus_count; i++) {
 var l = array_length(new_effects)
 if (l > 0) {
     spawn_hit_fx(x, y, HFX_SHO_COIN_CAPTURE);
-    spawn_hit_fx(x+6*spr_dir, y-26, HFX_SHO_HORN_HIT);
-    sound_play(asset_get("sfx_frog_gong_hit"), 0, noone, 1, 1.3);
-    sound_play(asset_get("sfx_dream_star"), 0, noone, 1.5);
+    //spawn_hit_fx(x, y-26, HFX_SHO_HORN_HIT);
+    var fx = spawn_hit_fx(x, y-10, fx_deusparry_hit);
+    fx.depth = depth-1;
+    sound_play(asset_get("sfx_frog_gong_hit"));
+    sound_play(sound_get("cm_sex_machina"));
 }
 if (l == 1) {
     var deus_warn = instance_create(x, y-50, "obj_article3");

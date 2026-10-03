@@ -142,5 +142,5 @@ if (clover_active && get_local_setting(SET_HUD_SIZE) != 0) {
     draw_sprite(sprite_get("bloom"), 3, _x, _y);
 }
 
-
 //#endregion
+

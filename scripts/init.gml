@@ -772,7 +772,7 @@ fx_crit_shock_long          = hit_fx_create(sprite_get("vfx_crit_shock"), 30);
 
 fx_blast                    = hit_fx_create(sprite_get("vfx_blast"), 17);
 fx_explode_small            = hit_fx_create(sprite_get("vfx_explode_small"), 12);
-vfx_explodey_big             = hit_fx_create(sprite_get("vfx_explosion_large"), 26);
+vfx_explodey_big            = hit_fx_create(sprite_get("vfx_explosion_large"), 26);
 vfx_explosion_med           = hit_fx_create(sprite_get("vfx_explosion_medium"), 18);
 //
 
@@ -790,6 +790,8 @@ fx_bolt_large               = hit_fx_create(sprite_get("vfx_bolt_large"), 12);
 fx_bolt_large_ground        = hit_fx_create(sprite_get("vfx_bolt_large_ground"), 12);
 fx_djump                    = hit_fx_create(sprite_get("hopoo"), 18)
 fx_antlers_despawn          = hit_fx_create(sprite_get("vfx_item_antlers_despawn"), 8);
+fx_deusparry_whiff          = hit_fx_create(sprite_get("item_parrywhiff"), 12);
+fx_deusparry_hit            = hit_fx_create(sprite_get("item_parryhit"), 28);
 
 vfx_zap_1 = hit_fx_create(sprite_get("vfx_zap_small"), 18);
 vfx_zap_2 = hit_fx_create(sprite_get("vfx_zap_large"), 28);

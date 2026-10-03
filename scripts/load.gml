@@ -102,6 +102,9 @@ sprite_change_offset("trishop_bg_centerfill"    , 61, 50);
 
 sprite_change_offset("item"                     , 11, 11);
 
+sprite_change_offset("item_parryhit"            , 150, 200);
+sprite_change_offset("item_parrywhiff"          , 22, 10);
+
 sprite_change_offset("item_temp_warbanner_spawn", 88, 180);
 sprite_change_offset("item_temp_warbanner_idle" , 60, 114);
 sprite_change_offset("item_temp_warbanner_despawn", 60, 114);
