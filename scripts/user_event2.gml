@@ -503,7 +503,7 @@ ANTLERS_SPAWN_SCALE = 0.9; // Exponential scaling
 ANTLERS_SPEED_BASE = 1;
 ANTLERS_SPEED_SCALE = 1;
 ANTLERS_BUFF_DURATION = 300; // Can go infinite at 10 stacks (with good play)
-ANTLERS_SPAWN_DELAY = 30; // Makes spawn positioning a little more subtle
+ANTLERS_SPAWN_DELAY = 10; // Makes spawn positioning a little more subtle
 
 // Deus Ex Machina
 DEUS_NUM_EFFECTS = 13;

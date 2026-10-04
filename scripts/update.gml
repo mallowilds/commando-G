@@ -562,7 +562,7 @@ if (instincts_timer > 0) {
 
 // Legendary Spark
 var target = floor((player-1)/4 * SPARK_PERIOD);
-if (item_grid[ITEM_SPARK][IG_NUM_HELD] > 0 && get_gameplay_time() % SPARK_PERIOD == target) {
+if (item_grid[ITEM_SPARK][IG_NUM_HELD] > 0 && get_gameplay_time() % SPARK_PERIOD == target && state != PS_DEAD) {
 	// Determine y-position
 	var spark_y = y;
 	if (free || ground_type == 2) {
@@ -1019,7 +1019,7 @@ if (state != PS_ATTACK_GROUND && do_tricorn_remove) {
 }
 
 // Elusive Antlers (buff is handled with Filial/Spark)
-if (antlers_active && get_gameplay_time() % antlers_period == antlers_period_offset) {
+if (antlers_active && get_gameplay_time() % antlers_period == antlers_period_offset && state != PS_DEAD) {
 	antlers_spawn_timer = ANTLERS_SPAWN_DELAY;
 	var seed = round(x*y) % 199
 	
