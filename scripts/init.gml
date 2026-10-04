@@ -286,7 +286,8 @@ item_id_ordering = [
     ITEM_BEHEMOTH,
     ITEM_NECTAR,
     (tag_alt_active ? ITEM_DIOS_TAG : ITEM_DIOS),
-    ITEM_CAPTAINS,      // 59
+    ITEM_CAPTAINS,
+    ITEM_PERFORATOR,    // 60
 ];
 ordering_start_indices = [0, 23, 43];
 

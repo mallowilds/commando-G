@@ -3,24 +3,6 @@
 if ("inventory_list" not in self) exit;
 if (!init_complete) exit;
 
-var x_spacing = clamp(72 - 6 * array_length(inventory_list), 26, 44);
-var y_spacing = 22;
-
-var hud_x = temp_x - 10;
-var hud_y = temp_y - 48 - (y_spacing * floor((array_length(inventory_list)-1)/8));
-
-for (var i = 0; i < array_length(inventory_list); i++) {
-	var iid = inventory_list[i]
-	draw_sprite_ext(sprite_get("item"), iid, hud_x+22, hud_y+26, 2, 2, 0, c_white, 1);
-	if (item_grid[iid][IG_NUM_HELD] > 1) draw_debug_text(hud_x, hud_y, string(item_grid[iid][IG_NUM_HELD]));
-	hud_x += x_spacing;
-	if (i % 8 == 7) {
-		hud_x = temp_x - 10;
-		hud_y += y_spacing;
-	}
-}
-
-
 //#region Barrier indicator
 
 var barrier = floor(brooch_barrier + heart_barrier + jewel_barrier + aegis_barrier);
@@ -72,6 +54,27 @@ if (dspec_cooldown_hits > 0) {
 //#endregion
 
 
+//#region Item drawing
+
+// Running this after the cd indicator fixes a text-offset bug that seems hard to diagnose
+var x_spacing = clamp(72 - 6 * array_length(inventory_list), 26, 44);
+var y_spacing = 22;
+
+var hud_x = temp_x - 10;
+var hud_y = temp_y - 48 - (y_spacing * floor((array_length(inventory_list)-1)/8));
+
+for (var i = 0; i < array_length(inventory_list); i++) {
+	var iid = inventory_list[i]
+	draw_sprite_ext(sprite_get("item"), iid, hud_x+22, hud_y+26, 2, 2, 0, c_white, 1);
+	if (item_grid[iid][IG_NUM_HELD] > 1) draw_debug_text(hud_x, hud_y, string(item_grid[iid][IG_NUM_HELD]));
+	hud_x += x_spacing;
+	if (i % 8 == 7) {
+		hud_x = temp_x - 10;
+		hud_y += y_spacing;
+	}
+}
+
+//#endregion
 
 //#region Utility menu subroutines
 
