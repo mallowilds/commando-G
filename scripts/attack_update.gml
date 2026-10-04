@@ -65,17 +65,17 @@ switch(attack) {
     	if (window == 1 && window_timer == 1) {
         	hsp += spr_dir * (move_speed * DATTACK_SPEED_SCALE + item_grid[ITEM_EDRINK][IG_NUM_HELD] * DATTACK_EDRINK_SCALE);
         }
-        else if (window == 1 && window_timer == window_length-3) {
+        else if (window == 2 && window_timer == window_length-3) {
             sound_play(s_roll)
         }
-        else if (window == 3) {
+        else if (window == 4) {
         	can_jump = (window_timer > 4 && window_timer < 10 && has_hit);
         	if (window_timer == (has_hit ? 10 : 15)) {
 	            sound_play(asset_get("sfx_land"))
 	            spawn_base_dust(x, y, "land", spr_dir)
         	}
         }
-        else if (window == 4 && !was_parried) {
+        else if (window == 5 && !was_parried) {
         	iasa_script();
         }
         break;
