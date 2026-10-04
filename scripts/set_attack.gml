@@ -38,9 +38,18 @@ if (attack == AT_DSPECIAL) {
         if (point_distance(x, y, chest_obj.x, chest_obj.y) >= radius) move_cooldown[AT_DSPECIAL_2] = 2;
         halt_for_trishop = false;
     }
-    else if (chest_obj.state != clamp(chest_obj.state, 1, 2) && move_cooldown[AT_DSPECIAL] == 0 && item_grid[ITEM_CODES][IG_NUM_HELD] <= 0) {
+    else if (chest_obj.state != clamp(chest_obj.state, 1, 2) && item_grid[ITEM_CODES][IG_NUM_HELD] <= 0) {
+    	if (get_gameplay_time()-prev_buzzer > 60) {
+    		sound_play(asset_get("mfx_tut_fail"), false, false, 1, 0.5);
+    		prev_buzzer = get_gameplay_time();
+    	}
+        move_cooldown[AT_DSPECIAL] = 2;
+    }
+    if (dspec_cooldown_hits > 0 && get_gameplay_time()-prev_buzzer > 60) {
     	sound_play(asset_get("mfx_tut_fail"), false, false, 1, 0.5);
-        move_cooldown[AT_DSPECIAL] = 45; // Hacky anti-spam measure, gets reset by article1 when it's ready
+    	hud_cooldown_flash = 0.9;
+    	prev_buzzer = get_gameplay_time();
+    	clear_button_buffer(PC_SPECIAL_PRESSED);
     }
 }
 

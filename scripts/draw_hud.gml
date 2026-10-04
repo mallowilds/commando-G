@@ -54,6 +54,7 @@ var on_screen_edge = (temp_x == 20) * 4;
 var chest_available = move_cooldown[AT_DSPECIAL] <= 0 && !instance_exists(chest_obj)
 draw_sprite_ext(sprite_get("dspec_hudcooldown_handle"), chest_available, temp_x-20+on_screen_edge, temp_y+6, 1, 1, 0, get_player_hud_color(player), 1);
 draw_sprite_ext(sprite_get("dspec_hudcooldown"), chest_available, temp_x-30+on_screen_edge, temp_y+12, 1, 1, 0, c_white, 1);
+draw_sprite_ext(sprite_get("dspec_hudcooldown_flash"), chest_available, temp_x-28+on_screen_edge, temp_y+8, 1, 1, 0, c_white, hud_cooldown_flash);
 
 if (dspec_cooldown_hits > 0) {
 	draw_set_font(asset_get("fName"));

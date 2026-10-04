@@ -10,12 +10,20 @@ set_attack_value(atk, AG_CATEGORY                       , 0);
 
 
 set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
-set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 8);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
+set_window_value(atk, window_num                        , AG_WINDOW_USES_ATTACK_SPEED, 1);
     var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
 set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_HSPEED_TYPE, 2);
 set_window_value(atk, window_num                        , AG_WINDOW_HSPEED, 12);
+window_num++;
+
+set_window_value(atk, window_num                        , AG_WINDOW_TYPE, 0);
+set_window_value(atk, window_num                        , AG_WINDOW_LENGTH, 4);
+    var window_length = get_window_value(atk,window_num , AG_WINDOW_LENGTH);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAME_START, 0);
+set_window_value(atk, window_num                        , AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(atk, window_num                        , AG_WINDOW_HAS_SFX, true);
 set_window_value(atk, window_num                        , AG_WINDOW_SFX, asset_get("sfx_swipe_weak1"));
 set_window_value(atk, window_num                        , AG_WINDOW_SFX_FRAME, window_length-1);

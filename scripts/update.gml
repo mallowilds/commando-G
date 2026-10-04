@@ -93,6 +93,7 @@ if (fspec_clamp_hsp && (state != PS_ATTACK_AIR || attack != AT_FSPECIAL_AIR)) {
 // DSpec cooldown
 if (dspec_cooldown_hits	> 0) move_cooldown[AT_DSPECIAL] = 2;
 first_hit = has_hit;
+if (hud_cooldown_flash > 0) hud_cooldown_flash = max(0, hud_cooldown_flash-0.05)
 
 //#endregion
 

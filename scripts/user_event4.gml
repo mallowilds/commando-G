@@ -74,6 +74,8 @@ switch tmu_state {
         
         if (item_grid[tmu_item_id][IG_NUM_HELD] > 0) {
             draw_sprite_ext(sprite_get("_tmu_prompt_remove"), 0, 100+tmu_x, 238+tmu_y, 2, 2, 0, c_white, 1);
+        } else {
+        	draw_sprite_ext(sprite_get("_tmu_prompt_info"), 0, 120+tmu_x, 238+tmu_y, 2, 2, 0, c_white, 1);
         }
         
         break;
